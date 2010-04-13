@@ -468,7 +468,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     function hasBg($fn) // used on front page to check if logos exist..
     {
-        return file_exists(dirname(__FILE).'/Pman/'.$this->appNameShort.'/templates/images/'.  $fn);
+        return file_exists($this->rootDir.'/Pman/'.$this->appNameShort.'/templates/images/'.  $fn);
     }
     
     function outputJavascriptIncludes() // includes on devel version..
@@ -504,7 +504,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         foreach($mods as $mod) {
             // add the css file..
-            $css = dirname(__FILE__).'/Pman/'.$mod.'/'.strtolower($mod).'.css';
+            $css = $this->rootDir.'/Pman/'.$mod.'/'.strtolower($mod).'.css';
             if (file_exists( $css)){
                 $css = $this->rootURL .'/Pman/'.$mod.'/'.strtolower($mod).'.css';
                 echo '<link rel="stylesheet" type="text/css" href="'.$css.'" />'."\n";
@@ -520,7 +520,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     function moduleJavascriptList($mod)
     {
-        $dir =   dirname(__FILE__).'/Pman/'. $mod;
+        $dir =   $this->rootDir.'/Pman/'. $mod;
             
         $path =    $this->rootURL."/Pman/$mod/";
         $base = dirname($_SERVER['SCRIPT_FILENAME']);

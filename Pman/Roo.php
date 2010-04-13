@@ -405,12 +405,12 @@ class Pman_Roo extends Pman
         
         //var_dump($mods);
         
-        foreach(in_array('Builder', $mods) ? scandir(dirname(__FILE__)) : $mods as $m) {
+        foreach(in_array('Builder', $mods) ? scandir($this->rootDir.'/Pman') : $mods as $m) {
             
             if (!strlen($m) || $m[0] == '.' || !is_dir(dirname(__FILE__)."/$m")) {
                 continue;
             }
-            $ini = dirname(__FILE__)."/$m/DataObjects/pman.links.ini";
+            $ini = $this->rootDir."/Pman/$m/DataObjects/pman.links.ini";
             if (!file_exists($ini)) {
                 continue;
             }

@@ -28,9 +28,9 @@ class Pman_Images extends Pman
         parent::getAuth(); // load company!
         //return true;
         $au = $this->getAuthUser();
-        if (!$au) {
-            die("Access denied");
-        }
+        //if (!$au) {
+        //    die("Access denied");
+       // }
         $this->authUser = $au;
         
         return true;

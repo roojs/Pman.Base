@@ -44,7 +44,9 @@ class Pman_Login extends Pman
             exit;
            
         }
-        
+        if (!empty($_REQUEST['username'])) {
+            $this->post()
+        }
         $this->jerr("INVALID REQUEST");
         exit;
     }

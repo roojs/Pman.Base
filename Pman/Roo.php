@@ -180,7 +180,6 @@ class Pman_Roo extends Pman
         }
         if ($sorted === false) {
             
-            
             $cols = $x->table();
            // echo '<PRE>';print_r(array($sort, $this->cols));
             // other sorts??? 

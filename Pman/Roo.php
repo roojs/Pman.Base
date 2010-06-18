@@ -178,7 +178,7 @@ class Pman_Roo extends Pman
         if (method_exists($x, 'applySort')) {
             $sorted = $x->applySort($this->authUser, $sort, $dir, $this->cols);
         }
-        if (!$sorted) {
+        if ($sorted === false) {
             
             
             $cols = $x->table();

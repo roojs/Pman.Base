@@ -174,10 +174,12 @@ class Pman_Roo extends Pman
         $sort = empty($_REQUEST['sort']) ? '' : $_REQUEST['sort'];
         $dir = (empty($_REQUEST['dir']) || strtoupper($_REQUEST['dir']) == 'ASC' ? 'ASC' : 'DESC');
         
-        
+        $sorted = false;
         if (method_exists($x, 'applySort')) {
-            $x->applySort($this->authUser, $sort, $dir, $this->cols);
-        } else {
+            $sorted = $x->applySort($this->authUser, $sort, $dir, $this->cols);
+        }
+        if (!$sorted) {
+            
             
             $cols = $x->table();
            // echo '<PRE>';print_r(array($sort, $this->cols));

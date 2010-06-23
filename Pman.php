@@ -541,6 +541,7 @@ class Pman extends HTML_FlexyFramework_Page
         $dh = opendir($dir);
         $maxtime = 0;
         $ctime = 0;
+        $files = array();
         if (file_exists($cfile)) {
            // $ctime = max(filemtime($cfile), filectime($cfile));
             // otherwise use compile dfile..

@@ -556,7 +556,7 @@ class Pman extends HTML_FlexyFramework_Page
         // technically the non-dev version should output compiled only?!!?
         
         while (false !== ($f = readdir($dh))) {
-            var_dump($f);
+           // var_dump($f);
             if (!preg_match('/\.js$/', $f)) {
                 continue;
             }

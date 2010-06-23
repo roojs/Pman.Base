@@ -563,7 +563,7 @@ class Pman extends HTML_FlexyFramework_Page
             $files[] = $path . $f;
         }
         if (empty($files)) {
-            return;
+            return $files;
         }
        // var_dump(array($maxtime , $ctime)); 
         //if ($maxtime > $ctime) {

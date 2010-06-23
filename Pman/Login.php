@@ -11,8 +11,8 @@ require_once 'Pman.php';
 * logout()
 * isAuth() 
 * getAuthUser();
-* authUserArray()
-* active()
+* authUserArray() 
+* active()  -- is user active. // or set prior to checking..
 * authUserName(n) - sets the value prior to a find(true)
       
 */

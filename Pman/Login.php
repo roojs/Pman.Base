@@ -72,7 +72,7 @@ class Pman_Login extends Pman
     
     function sendAuthUserDetails()
     {
-        
+        DB_DataObject::debugLevel(1);
         $ff = HTML_FlexyFramework::get();
         $tbl = empty($ff->Pman['authTable']) ? 'Person' : $ff->Pman['authTable'];
         

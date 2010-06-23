@@ -16,6 +16,7 @@ require_once 'Pman.php';
 * authUserName(n) - sets the value prior to a find(true)
 * checkPassword($_REQUEST['password'])) {
 * login();
+* lang(val) - to set the language..
 */
 
 
@@ -160,6 +161,8 @@ class Pman_Login extends Pman
         if ($u->checkPassword($_REQUEST['password'])) {
             $u->login();
             $this->addEvent("LOGIN");
+            $u->lang($_REQUEST['lang']);
+            
             if (!empty($_REQUEST['lang']) && $_REQUEST['lang'] != $u->lang) {
                 $uu = clone($u);
                 $uu->lang = $_REQUEST['lang'];

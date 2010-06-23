@@ -133,7 +133,9 @@ class Pman_Login extends Pman
             return $this->changePassword($_REQUEST);
         }
         
-         $ff = HTML_FlexyFramework::get();
+        // login attempt..
+        
+        $ff = HTML_FlexyFramework::get();
         $tbl = empty($ff->Pman['authTable']) ? 'Person' : $ff->Pman['authTable'];
         
        

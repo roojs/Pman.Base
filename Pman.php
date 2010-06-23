@@ -142,7 +142,10 @@ class Pman extends HTML_FlexyFramework_Page
     }
     function staticGetAuthUser()
     {
-        $u = DB_DataObject::factory('Person');
+        $ff = HTML_FlexyFramework::get();
+        $tbl = empty($ff->Pman['authTable']) ? 'Person' : $ff->Pman['authTable'];
+        
+        $u = DB_DataObject::factory($tbl);
         if (!$u->isAuth()) {
             return false;
         }

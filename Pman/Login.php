@@ -151,7 +151,7 @@ class Pman_Login extends Pman
             exit;
         }
         
-        if (!$u->active) {
+        if (!$u->active()) {
             $this->jerr('Account disabled');
         }
         

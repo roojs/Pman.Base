@@ -120,15 +120,16 @@ class Pman_Login extends Pman
        
         $u = DB_DataObject::factory($tbl);
         //$u->active = 1;
-        $u->whereAdd('LENGTH(passwd) > 1');
-        //$u->company_id = $this->company->id;
+        
         
         if (empty($_REQUEST['username'])) { //|| (strpos($_REQUEST['username'], '@') < 1)) {
             $this->jerr('You typed the wrong Username or Password (0)');
             exit;
         }
-         
+        
+        $u->whereAdd('LENGTH(passwd) > 1'); 
         $u->email = $_REQUEST['username'];
+        
         if ($u->count() > 1 || !$u->find(true)) {
             $this->jerr('You typed the wrong Username or Password  (1)');
             exit;

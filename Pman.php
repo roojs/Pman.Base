@@ -529,13 +529,14 @@ class Pman extends HTML_FlexyFramework_Page
     function moduleJavascriptList($mod)
     {
         $dir =   $this->rootDir.'/Pman/'. $mod;
-        var_dump($dir);    
+            
         $path =    $this->rootURL."/Pman/$mod/";
         $base = dirname($_SERVER['SCRIPT_FILENAME']);
         $cfile = realpath($base .'/_compiled_/' . $mod . '.js');
         $lfile = realpath($base .'/_translations_/' . $mod . '.js');
         //    var_dump($cfile);
         if (!file_exists($dir)) {
+            var_dump($dir);
             return array();
         }
         $dh = opendir($dir);

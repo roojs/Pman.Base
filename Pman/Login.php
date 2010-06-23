@@ -114,8 +114,11 @@ class Pman_Login extends Pman
             return $this->changePassword($_REQUEST);
         }
         
+         $ff = HTML_FlexyFramework::get();
+        $tbl = empty($ff->Pman['authTable']) ? 'Person' : $ff->Pman['authTable'];
         
-        $u = DB_DataObject::factory('Person');
+       
+        $u = DB_DataObject::factory($tbl);
         //$u->active = 1;
         $u->whereAdd('LENGTH(passwd) > 1');
         //$u->company_id = $this->company->id;

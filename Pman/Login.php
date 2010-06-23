@@ -98,6 +98,12 @@ class Pman_Login extends Pman
     function post()
     {
         
+        if (!empty($_REQUEST['getAuthUser'])) {
+            $this->sendAuthUserDetails();
+            exit;
+        }
+        
+        
         if (!empty($_REQUEST['passwordRequest'])) { //|| (strpos($_REQUEST['username'], '@') < 1)) {
             
             return $this->passwordRequest($_REQUEST['passwordRequest']);

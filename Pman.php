@@ -594,9 +594,9 @@ class Pman extends HTML_FlexyFramework_Page
     function addEvent($act, $obj = false, $remarks = '') {
         $au = $this->getAuthUser();
         $e = DB_DataObject::factory('Events');
-        if (!$e) {
+        if (is_a($e, 'PEAR_Error')) {
             return; // no event table!
-           }
+        }
         $e->person_name = $au ? $au->name : '';
         $e->person_id = $au ? $au->id : '';
         $e->event_when = date('Y-m-d H:i:s');

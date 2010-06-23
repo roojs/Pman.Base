@@ -159,7 +159,7 @@ class Pman_Login extends Pman
         
         if ($u->checkPassword($_REQUEST['password'])) {
             $u->login();
-            $this->AddEvent("LOGIN");
+            $this->addEvent("LOGIN");
             if (!empty($_REQUEST['lang']) && $_REQUEST['lang'] != $u->lang) {
                 $uu = clone($u);
                 $uu->lang = $_REQUEST['lang'];

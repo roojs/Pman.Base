@@ -2,6 +2,22 @@
 
 require_once 'Pman.php';
 
+/***
+* 
+* Auth wrapper..
+* 
+* User class must provide the following features.
+* 
+* logout()
+* isAuth() 
+* getAuthUser();
+* authUserArray()
+* active()
+* 
+*/
+
+
+
 class Pman_Login extends Pman
 { 
     

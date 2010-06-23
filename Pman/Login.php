@@ -13,7 +13,8 @@ require_once 'Pman.php';
 * getAuthUser();
 * authUserArray()
 * active()
-* 
+* authUserName(n) - sets the value prior to a find(true)
+      
 */
 
 
@@ -142,6 +143,8 @@ class Pman_Login extends Pman
             $this->jerr('You typed the wrong Username or Password (0)');
             exit;
         }
+        
+        $u->authUserName($_REQUEST['username']);
         
         $u->whereAdd('LENGTH(passwd) > 1'); 
         $u->email = $_REQUEST['username'];

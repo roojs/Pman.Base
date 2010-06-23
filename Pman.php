@@ -561,7 +561,7 @@ class Pman extends HTML_FlexyFramework_Page
             $maxtime = max(filemtime($dir . '/'. $f), $maxtime);
             $files[] = $path . $f;
         }
-        if (empty($files) {
+        if (empty($files)) {
             return;
         }
        // var_dump(array($maxtime , $ctime)); 

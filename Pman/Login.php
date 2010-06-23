@@ -14,7 +14,8 @@ require_once 'Pman.php';
 * authUserArray() 
 * active()  -- is user active. // or set prior to checking..
 * authUserName(n) - sets the value prior to a find(true)
-      
+* checkPassword($_REQUEST['password'])) {
+* login();
 */
 
 

@@ -536,7 +536,7 @@ class Pman extends HTML_FlexyFramework_Page
         $lfile = realpath($base .'/_translations_/' . $mod . '.js');
         //    var_dump($cfile);
         if (!file_exists($dir)) {
-            var_dump($dir);
+        
             return array();
         }
         $dh = opendir($dir);
@@ -554,7 +554,9 @@ class Pman extends HTML_FlexyFramework_Page
         }
         // works out if stuff has been updated..
         // technically the non-dev version should output compiled only?!!?
+        
         while (false !== ($f = readdir($dh))) {
+            var_dump($f);
             if (!preg_match('/\.js$/', $f)) {
                 continue;
             }

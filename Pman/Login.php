@@ -65,27 +65,6 @@ class Pman_Login extends Pman
         $au = $u->getAuthUser();
         
         $aur = $au->authUserArray();
-         
-        // i18n language and coutry lists.
-        
-        
-        $lang = empty($au->lang) ? 'en' : $au->lang;
-        if (empty($_SESSION['Pman_I18N'][$lang])) {
-            require_once 'Pman/I18N.php';
-            $x = new Pman_I18N();
-            $x->setSession($au);
-            
-        }
-        
-        $aur['i18n'] =$_SESSION['Pman_I18N'][$lang];
-        
-        // perms + groups.
-        $aur['perms']  = $au->getPerms();
-        $g = DB_DataObject::Factory('Group_Members');
-        $aur['groups']  = $g->listGroupMembership($au, 'name');
-        
-        $aur['passwd'] = '';
-        $aur['dailykey'] = '';
         
         /** -- these need modulizing somehow! **/
         

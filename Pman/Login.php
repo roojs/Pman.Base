@@ -53,42 +53,19 @@ class Pman_Login extends Pman
     
     function sendAuthUserDetails()
     {
-        $u = DB_DataObject::factory('Person');
+        
+        $ff = HTML_FlexyFramework::get();
+        $tbl = empty($ff->Pman['authTable']) ? 'Person' : $ff->Pman['authTable'];
+        
+        $u = DB_DataObject::factory($tbl);
         if (!$u->isAuth()) {
             $this->jok(array('id' => 0)); // not logged in..
             exit;
         }
         $au = $u->getAuthUser();
-        $aur = $au->toArray();
-        //DB_DataObject::debugLevel(1);
-        $c = DB_Dataobject::factory('Companies');
-        $im = DB_Dataobject::factory('Images');
-        $c->joinAdd($im, 'LEFT');
-        $c->selectAdd();
-        $c->selectAs($c, 'company_id_%s');
-        $c->selectAs($im, 'company_id_logo_id_%s');
-        $c->id = $au->company_id;
-        $c->limit(1);
-        $c->find(true);
         
-        $aur = array_merge( $c->toArray(),$aur);
-        
-        if (empty($c->company_id_logo_id_id))  {
-                 
-            $im = DB_Dataobject::factory('Images');
-            $im->ontable = 'Companies';
-            $im->onid = $c->id;
-            $im->imgtype = 'LOGO';
-            $im->limit(1);
-            $im->selectAs($im,  'company_id_logo_id_%s');
-            if ($im->find(true)) {
-                    
-                foreach($im->toArray() as $k=>$v) {
-                    $aur[$k] = $v;
-                }
-            }
-        }
-        
+        $aur = $au->authUserArray();
+         
         // i18n language and coutry lists.
         
         

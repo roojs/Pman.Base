@@ -575,6 +575,7 @@ class Pman extends HTML_FlexyFramework_Page
            // if (file_exists($lfile)) {
            //     array_unshift($files, $this->rootURL."/_translations_/$mod.js");
             //}
+            var_dump($files);
             return $files;
        // }
         

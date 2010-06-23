@@ -146,8 +146,6 @@ class Pman_Login extends Pman
         
         $u->authUserName($_REQUEST['username']);
         
-        $u->whereAdd('LENGTH(passwd) > 1'); 
-        $u->email = $_REQUEST['username'];
         
         if ($u->count() > 1 || !$u->find(true)) {
             $this->jerr('You typed the wrong Username or Password  (1)');

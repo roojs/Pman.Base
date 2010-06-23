@@ -84,7 +84,7 @@ class Pman_Login extends Pman
         $au = $u->getAuthUser();
         
         $aur = $au->authUserArray();
-        var_dump($aur);
+         
         /** -- these need modulizing somehow! **/
         
         if ($this->hasModule('Fax')) {

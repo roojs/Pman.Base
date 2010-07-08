@@ -72,7 +72,7 @@ class Pman_I18N extends Pman
         
         return true;
     }
-    
+    // returns a list of all countries..
     function getDefaultCfg($t) {
         $ret = array();
         switch ($t) {

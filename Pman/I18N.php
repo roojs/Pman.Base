@@ -89,7 +89,7 @@ class Pman_I18N extends Pman
                 $this->cfg[$k] = $this->getDefaultCfg($k);
                 continue;
             }
-            $this->cfg[$k] = explode(',', $v);
+            $this->cfg[$k] = is_array($v) ? $v  : explode(',', $v);
         }
         
         

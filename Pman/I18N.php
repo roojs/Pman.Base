@@ -58,6 +58,8 @@ class Pman_I18N extends Pman
         
         $opts = PEAR::getStaticProperty('Pman_I18N', 'options');
         $opts = empty($opts)  ?  array() : $opts;
+        
+        
         foreach($opts as $k=>$v) {
             
             if ($v == '*') {

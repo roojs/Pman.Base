@@ -337,7 +337,9 @@ class Pman_I18N extends Pman
             
             die("OOPS NO LTYPE");
         }
-        
+        if ($inlang == '**') {
+            return; // dont bother building generic..
+        }
         if ($inlang === false) {
             foreach( $this->cfg['l'] as $l) {
                 $this->buildDB($ltype, $l);

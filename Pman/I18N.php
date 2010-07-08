@@ -17,6 +17,12 @@
  * If we do a standard 'store' version..
  * { total:  x, data [ { code: 'en', title: 'English' }] }
  * 
+ * 
+ * usage:
+ * 
+ * index.php/Pman/I18N/BuildDB -- buildes the database..
+ * 
+ * 
  */
 
 require_once 'Pman.php';

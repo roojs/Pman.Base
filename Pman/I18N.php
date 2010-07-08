@@ -83,19 +83,19 @@ class Pman_I18N extends Pman
                 
                 $c = new I18Nv2_Country('en');
                 $ret =  array_keys($c->codes);
-                $ret[] = '**',
+                $ret[] = '**';
                 break;
             case 'l':
                 require_once 'I18Nv2/Language.php';
                 $c = new I18Nv2_Language('en');
                 $ret =  array_keys($c->codes);
-                $ret[] = '**',
+                $ret[] = '**';
                 break;
             case 'm':
                 require_once 'I18Nv2/Currency.php';
                 $c = new I18Nv2_Currency('en');
                 $ret =  array_keys($c->codes);
-                $ret[] = '**',
+                $ret[] = '**';
                 break;
         }
         foreach ($ret as $k=>$v) {

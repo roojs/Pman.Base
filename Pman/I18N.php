@@ -366,7 +366,7 @@ class Pman_I18N extends Pman
         
         $list = $this->cfg[$ltype];
         
-        DB_DataObject::debugLevel(1);
+        //DB_DataObject::debugLevel(1);
         
         foreach($list as $lkey) {
             $x = DB_DataObject::factory('i18n');

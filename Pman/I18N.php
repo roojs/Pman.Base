@@ -23,6 +23,23 @@
  * index.php/Pman/I18N/BuildDB -- buildes the database..
  * 
  * 
+ * Config in index.php..
+ * 
+ *  'Pman_I18N' => array(
+      'l' => array(
+            'en', 'zh_CN',   'zh_HK',  'zh_TW', 'th', 'ko', 'ja', 'ms', 
+            'id', // indonesian
+            'tl', // tagalog
+            'vi', //vietnamise
+            'hi', // hindi
+            'ta', // tamil
+            '**', // other
+        ), 
+       'c' => '*',
+       'm' => array( 'USD', 'HKD', 'GBP', 'CNY', 'SGD', 'JPY' )
+    ), 
+
+ * 
  */
 
 require_once 'Pman.php';

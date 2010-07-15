@@ -46,14 +46,19 @@ class Pman_Roo extends Pman
      * -- defaults to listing data. with args.
      * 
      * other opts:
-     * _post = simulate a post with debuggin on.
-     * lookup => array( k=>v) single fetch based on a key/value pair
-     * _id => single fetch based on id.
-     * _delete -> delete a list of ids element. (seperated by ,);
-     * csvCols / csvTitles = return data as csv
-
-     * sort / dir  == sort details
-     * start/limit = amount to return..
+     * _post      = simulate a post with debuggin on.
+     * lookup     =  array( k=>v) single fetch based on a key/value pair
+     * _id        =  single fetch based on id.
+     * _delete    = delete a list of ids element. (seperated by ,);
+     * csvCols    = return data as csv
+     * csvTitles  = return data as csv
+     * _tree      = return data without success / total properties.
+     *
+     * sort        = sort column
+     * dir         = sort direction
+     * start       = limit start
+     * limit       = limit number 
+     * 
      * _toggleActive !:!:!:! - thsi hsould not really be here..
      * query[add_blank] - add a line in with an empty option...  - not really needed???
      * 

@@ -456,7 +456,6 @@ class Pman extends HTML_FlexyFramework_Page
      * @ar {Array} ar Array of data
      * @total {Number|false} total number of records (or false to return count(ar)
      * @extra {Array} extra key value list of data to pass as extra data.
-     * _REQUEST[_tree] = forces return to exclude total/success data.
      * 
      */
     function jdata($ar,$total=false, $extra=array())
@@ -468,13 +467,9 @@ class Pman extends HTML_FlexyFramework_Page
         $extra=  $extra ? $extra : array();
         require_once 'Services/JSON.php';
         $json = new Services_JSON();
-        if (!empty($_REQUEST['_tree'])) {
-            echo $json->encode(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra);    
-            exit;
-        }
-        echo $json->encode($ar);    
-        
+        echo $json->encode(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra);    
         exit;
+        
         
     }
     

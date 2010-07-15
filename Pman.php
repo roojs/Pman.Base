@@ -451,7 +451,14 @@ class Pman extends HTML_FlexyFramework_Page
         exit;
         
     }
-    
+    /**
+     * output data for grids or tree
+     * @ar {Array} ar Array of data
+     * @total {Number|false} total number of records (or false to return count(ar)
+     * @extra {Array} extra key value list of data to pass as extra data.
+     * _REQUEST[_tree] = forces return to exclude total/success data.
+     * 
+     */
     function jdata($ar,$total=false, $extra=array())
     {
         // should do mobile checking???

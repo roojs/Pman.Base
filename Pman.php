@@ -461,7 +461,7 @@ class Pman extends HTML_FlexyFramework_Page
         $extra=  $extra ? $extra : array();
         require_once 'Services/JSON.php';
         $json = new Services_JSON();
-        if (!empty($_REQUEST['_tree']) {
+        if (!empty($_REQUEST['_tree'])) {
             echo $json->encode(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra);    
             exit;
         }

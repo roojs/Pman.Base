@@ -52,7 +52,6 @@ class Pman_Roo extends Pman
      * _delete    = delete a list of ids element. (seperated by ,);
      * csvCols    = return data as csv
      * csvTitles  = return data as csv
-     * _tree      = return data without success / total properties. (code is in jdata)
      *
      * sort        = sort column
      * dir         = sort direction

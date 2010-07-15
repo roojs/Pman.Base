@@ -451,6 +451,7 @@ class Pman extends HTML_FlexyFramework_Page
         exit;
         
     }
+    
     function jdata($ar,$total=false, $extra=array())
     {
         // should do mobile checking???
@@ -460,7 +461,12 @@ class Pman extends HTML_FlexyFramework_Page
         $extra=  $extra ? $extra : array();
         require_once 'Services/JSON.php';
         $json = new Services_JSON();
-        echo $json->encode(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra);
+        if (!empty($_REQUEST['_tree']) {
+            echo $json->encode(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra);    
+            exit;
+        }
+        echo $json->encode($ar);    
+        
         exit;
         
     }

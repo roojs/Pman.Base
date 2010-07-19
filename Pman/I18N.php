@@ -364,7 +364,7 @@ class Pman_I18N extends Pman
             return;
         }
         
-        $list = $ltype == 'c' ? $this->getDefaultCfg($ltype) : $this->cfg[$ltype];
+        $list =  $this->getDefaultCfg($ltype);
         
         DB_DataObject::debugLevel(1);
         

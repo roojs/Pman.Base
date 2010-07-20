@@ -187,7 +187,8 @@ class Pman_I18N extends Pman_Core_I18N
              case 'Currency':
                 $ret = $this->getList('m', $lbits[0],empty($_REQUEST['filter']) ? false : $_REQUEST['filter']);
                 break;
-              
+            // part of parent!!!!
+            /*
             case 'BuildDB':
             // by admin only?!?
                 //DB_DataObject::debugLevel(1);
@@ -196,7 +197,7 @@ class Pman_I18N extends Pman_Core_I18N
                 $this->buildDb('m');
                 die("DONE!");
                 break;
-                  
+            */      
             default: 
                 $this->jerr("ERROR");
         }
@@ -311,47 +312,6 @@ class Pman_I18N extends Pman_Core_I18N
         
     }
     
-    
-    
-    function buildDB($ltype= false, $inlang= false )
-    {
-        if ($ltype === false) {
-            
-            die("OOPS NO LTYPE");
-        }
-        if ($inlang == '**') {
-            return; // dont bother building generic..
-        }
-        if ($inlang === false) {
-            foreach( $this->cfg['l'] as $l) {
-                $this->buildDB($ltype, $l);
-            }
-            return;
-        }
-        
-        $list =  $this->getDefaultCfg($ltype);
-        
-        DB_DataObject::debugLevel(1);
-        
-        foreach($list as $lkey) {
-            $x = DB_DataObject::factory('i18n');
-            $x->ltype = $ltype;
-            $x->lkey = $lkey;
-            $x->inlang= $inlang;
-            if ($x->find(true)) {
-                $xx= clone($x);
-                $x->lval = $this->translate($inlang, $ltype, $lkey);
-                $x->update($xx);
-                continue;
-            }
-            $x->lval = $this->translate($inlang, $ltype, $lkey);
-            $x->insert();
-            
-        }
-        
-        
-        
-        
-    }
+     
     
 }

@@ -7,8 +7,8 @@
  * 
  */
 
-require_once 'Pman/Core/I18N.php';
-class Pman_I18N extends Pman_Core_I18N
+require_once 'Pman/Core/I18n.php';
+class Pman_I18N extends Pman_Core_I18n
 {
     
     // these are the languages we support.

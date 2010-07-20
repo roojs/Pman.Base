@@ -1,49 +1,14 @@
 <?php
 
 /// provide language data!!!
-// THIS IS PUBLICALLY ACCESSABLE..
+// DEPRECIATED - moved to Pman_I18N
 /**
  * 
- * Either we load this as a standard array at start??
- * eg. after login...
- * 
- * or we treat it like a regular pulldown... - on demand...
- * 
- * big snag is that we can not include these until the user has specified their interface language.
- * 
- * If we do a global jS array?
- * Pman.Lang.en = [ 'en' , 'English']
- * 
- * If we do a standard 'store' version..
- * { total:  x, data [ { code: 'en', title: 'English' }] }
- * 
- * 
- * usage:
- * 
- * index.php/Pman/I18N/BuildDB -- buildes the database..
- * 
- * 
- * Config in index.php..
- * 
- *  'Pman_I18N' => array(
-      'l' => array(
-            'en', 'zh_CN',   'zh_HK',  'zh_TW', 'th', 'ko', 'ja', 'ms', 
-            'id', // indonesian
-            'tl', // tagalog
-            'vi', //vietnamise
-            'hi', // hindi
-            'ta', // tamil
-            '**', // other
-        ), 
-       'c' => '*',
-       'm' => array( 'USD', 'HKD', 'GBP', 'CNY', 'SGD', 'JPY' )
-    ), 
-
  * 
  */
 
-require_once 'Pman.php';
-class Pman_I18N extends Pman
+require_once 'Pman/Core/I18N.php';
+class Pman_I18N extends Pman_Core_I18N
 {
     
     // these are the languages we support.

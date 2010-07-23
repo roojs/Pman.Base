@@ -79,13 +79,13 @@ class Pman_Roo extends Pman
         if (!is_a($x, 'DB_DataObject')) {
             $this->jerr('invalid url');
         }
-         
+        $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
         
         if (isset( $_REQUEST['lookup'] )) { // single fetch based on key/value pairs
             if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
                 $this->jerr("PERMISSION DENIED");
             }
-            $this->loadMap($x);
+            $this->loadMap($x, $_columns);
             $x->setFrom($_REQUEST['lookup'] );
             $x->limit(1);
             if (!$x->find(true)) {
@@ -102,7 +102,7 @@ class Pman_Roo extends Pman
                 $this->jok($x->toArray());  // return an empty array!
             }
            
-            $this->loadMap($x, !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false );
+            $this->loadMap($x, $_columns);
             
             if (!$x->get($_REQUEST['_id'])) {
                 $this->jerr("no such record");
@@ -164,7 +164,7 @@ class Pman_Roo extends Pman
         if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
             $this->jerr("PERMISSION DENIED");
         }
-        $map = $this->loadMap($x, !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false );
+        $map = $this->loadMap($x, $_columns);
         
         $this->setFilters($x,$_GET);
         
@@ -387,7 +387,7 @@ class Pman_Roo extends Pman
         
         $r = DB_DataObject::factory($x->tableName());
         $r->id = $x->id;
-        $this->loadMap($r, !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false );
+        $this->loadMap($r, $_columns);
         $r->limit(1);
         $r->find(true);
         

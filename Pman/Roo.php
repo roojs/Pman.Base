@@ -285,6 +285,7 @@ class Pman_Roo extends Pman
      * 
      * other opts:
      * _debug - forces debugging on.
+     * _get - forces a get request
      * {colid} - forces fetching
      * 
      */
@@ -293,6 +294,10 @@ class Pman_Roo extends Pman
        // DB_DataObject::debugLevel(1);
         if (!empty($_REQUEST['_debug'])) {
             DB_DataObject::debugLevel(1);
+        }
+        
+        if (!empty($_REQUEST['_get'])) {
+            return $this->get($tab);
         }
         
         $tab = str_replace('/', '',$tab); // basic protection??

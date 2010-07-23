@@ -255,7 +255,9 @@ class Pman_Roo extends Pman
         
         $rooar = method_exists($x, 'toRooArray');
         while ($x->fetch()) {
-            $ret[] =  $rooar  ? $x->toRooArray() : $x->toArray();
+            $add = $rooar  ? $x->toRooArray() : $x->toArray();
+            
+            $ret[] =  !$_columns ? $add : array_intersect_key($add, array_flip($_columns));
         }
         //if ($x->tableName() == 'Documents_Tracking') {
         //    $ret = $this->replaceSubject(&$ret, 'doc_id_subject');

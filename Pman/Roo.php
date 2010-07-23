@@ -470,6 +470,7 @@ class Pman_Roo extends Pman
             // this is borked ... for multiple jions..
             $do->joinAdd($xx, 'LEFT', 'join_'.$ocl.'_'. $col, $ocl);
             $tabdef = $xx->table();
+            $table = $xx->tableName();
             if (isset($tabdef['passwd'])) {
              
                 unset($tabdef['passwd']);

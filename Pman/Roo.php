@@ -480,8 +480,7 @@ class Pman_Roo extends Pman
             
             if ($filter) {
                 $cols = array();
-                $tc = array_keys($xx->table());
-                foreach($tc as $c) {
+                foreach($xx as $c) {
                     $tn = sprintf($ocl.'_%s', $table, $c, $c);
                     if (in_array($tn, $filter)) {
                         $cols[] = $c;

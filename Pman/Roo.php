@@ -482,7 +482,7 @@ class Pman_Roo extends Pman
             if ($filter) {
                 $cols = array();
                 foreach($xx as $c) {
-                    echo $ocl.'_%s', 'join_'.$ocl.'_'. $col, $c, $c
+                    
                     $tn = sprintf($ocl.'_%s', $c);
                     if (in_array($tn, $filter)) {
                         $cols[] = $c;

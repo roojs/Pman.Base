@@ -166,7 +166,7 @@ class Pman_Roo extends Pman
         }
         $map = $this->loadMap($x, $_columns);
         
-        $this->setFilters($x,$_GET);
+        $this->setFilters($x,$_REQUEST);
         
          
         

@@ -50,6 +50,7 @@ class Pman_Roo extends Pman
      * lookup     =  array( k=>v) single fetch based on a key/value pair
      * _id        =  single fetch based on id.
      * _delete    = delete a list of ids element. (seperated by ,);
+     * _columns   = comma seperated list of columns.
      * csvCols    = return data as csv
      * csvTitles  = return data as csv
      *
@@ -67,7 +68,7 @@ class Pman_Roo extends Pman
          //  $this->jerr("Not authenticated", array('authFailure' => true));
          //DB_DataObject::debuglevel(1);
         
-        
+        // debugging...
         if (!empty($_GET['_post'])) {
             $_POST  = $_GET;
             DB_DAtaObject::debuglevel(1);
@@ -101,7 +102,7 @@ class Pman_Roo extends Pman
                 $this->jok($x->toArray());  // return an empty array!
             }
            
-            $this->loadMap($x);
+            $this->loadMap($x, !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false );
             
             if (!$x->get($_REQUEST['_id'])) {
                 $this->jerr("no such record");
@@ -163,7 +164,7 @@ class Pman_Roo extends Pman
         if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
             $this->jerr("PERMISSION DENIED");
         }
-        $map = $this->loadMap($x);
+        $map = $this->loadMap($x, !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false );
         
         $this->setFilters($x,$_GET);
         
@@ -217,6 +218,7 @@ class Pman_Roo extends Pman
             $ret[] = array( 'id' => 0, 'name' => '----');
             $total+=1;
         }
+        // MOVE ME...
         
         //if (($tab == 'Groups') && ($_REQUEST['type'] != 0))  { // then it's a list of teams..
         if ($tab == 'Groups') {
@@ -326,7 +328,7 @@ class Pman_Roo extends Pman
         } else {
             $x->setFrom($_REQUEST);
         }
-         
+        
         
         /*
         check perm accepts the changes  - so no need to review twice!!!
@@ -382,12 +384,10 @@ class Pman_Roo extends Pman
         if (!empty($_FILES) && method_exists($x, 'onUpload')) {
             $x->onUpload($this);
         }
-         
-    
-       
+        
         $r = DB_DataObject::factory($x->tableName());
         $r->id = $x->id;
-        $this->loadMap($r);
+        $this->loadMap($r, !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false );
         $r->limit(1);
         $r->find(true);
         
@@ -399,7 +399,7 @@ class Pman_Roo extends Pman
     }
     
     var $cols = array();
-    function loadMap($do) 
+    function loadMap($do, $filter) 
     {
         //DB_DataObject::debugLevel(1);
         $conf = array();
@@ -433,7 +433,23 @@ class Pman_Roo extends Pman
         $xx = clone($do);
         $xx = array_keys($tabdef);
         $do->selectAdd(); // we need thsi as normally it's only cleared by an empty selectAs call.
-        $do->selectAs($xx);
+        
+        if ($filter) {
+            $cols = array();
+            $tc = array_keys($xx->table());
+            foreach($tc as $c) {
+                if (in_array($c, $filter)) {
+                    $cols[] = $c;
+                }
+            }
+            $do->selectAs($cols);
+        } else {
+            $do->selectAs($xx);
+        }
+        
+        
+        
+        
         $this->cols = $xx;
         
         
@@ -462,7 +478,24 @@ class Pman_Roo extends Pman
             $xx = array_keys($tabdef);
             
             
-            $do->selectAs($xx, $ocl.'_%s','join_'.$ocl.'_'. $col);
+            if ($filter) {
+                $cols = array();
+                $tc = array_keys($xx->table());
+                foreach($tc as $c) {
+                    $tn = sprintf($ocl.'_%s', $table, $c, $c);
+                    if (in_array($tn, $filter)) {
+                        $cols[] = $c;
+                    }
+                }
+                $do->selectAs($cols, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
+            } else {
+                $do->selectAs($xx,  $ocl.'_%s', 'join_'.$ocl.'_'. $col);
+            }
+            
+             
+            
+            
+            
             foreach($xx as $k) {
                 $this->cols[] = sprintf($ocl.'_%s', $k);
             }

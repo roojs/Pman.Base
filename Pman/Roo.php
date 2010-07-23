@@ -436,7 +436,7 @@ class Pman_Roo extends Pman
         
         if ($filter) {
             $cols = array();
-            $tc = array_keys($xx->table());
+            $tc = array_keys($do->table());
             foreach($tc as $c) {
                 if (in_array($c, $filter)) {
                     $cols[] = $c;

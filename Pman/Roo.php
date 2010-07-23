@@ -265,11 +265,11 @@ class Pman_Roo extends Pman
         
         $extra = false;
         if (method_exists($queryObj ,'postListExtra')) {
-            $extra = $queryObj->postListExtra($_GET);
+            $extra = $queryObj->postListExtra($_REQUEST);
         }
         // filter results, and add any data that is needed...
         if (method_exists($x,'postListFilter')) {
-            $ret = $x->postListFilter($ret, $this->authUser);
+            $ret = $x->postListFilter($ret, $this->authUser, $_REQUEST);
         }
         
         

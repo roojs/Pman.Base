@@ -420,7 +420,7 @@ class Pman_Roo extends Pman
         //$db->databaseName();
         
         //$ff->DB_DataObject['ini_'. $db->database()];
-        echo '<PRE>';print_r($do->databaseStructure($do->links()));exit;
+        echo '<PRE>';print_r($do->links());exit;
         //var_dump($mods);
         
         foreach(in_array('Builder', $mods) ? scandir($this->rootDir.'/Pman') : $mods as $m) {

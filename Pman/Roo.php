@@ -417,7 +417,9 @@ class Pman_Roo extends Pman
         $mods = explode(',',$this->appModules);
         
         $ff = HTML_FlexyFramework::geT();
-       // echo '<PRE>';print_r($ff);exit;
+        //$db->databaseName();
+        //$ff->DB_DataObject['ini_'. $db->databaseName()];
+       echo '<PRE>';print_r($db->databaseName(););exit;
         //var_dump($mods);
         
         foreach(in_array('Builder', $mods) ? scandir($this->rootDir.'/Pman') : $mods as $m) {

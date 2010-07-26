@@ -416,6 +416,8 @@ class Pman_Roo extends Pman
         $this->init();
         $mods = explode(',',$this->appModules);
         
+        $ff = HTML_FlexyFramework::geT();
+        echo '<PRE>';print_r($ff);exit;
         //var_dump($mods);
         
         foreach(in_array('Builder', $mods) ? scandir($this->rootDir.'/Pman') : $mods as $m) {

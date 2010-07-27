@@ -557,6 +557,7 @@ class Pman extends HTML_FlexyFramework_Page
         if (file_exists($cfile)) {
            // $ctime = max(filemtime($cfile), filectime($cfile));
             // otherwise use compile dfile..
+            $targetdir = realpath(readlink($cfile));
             echo $cfile;exit;
             $files = array( $this->rootURL."/_compiled_/". basename($cfile));
             if (file_exists($lfile)) {

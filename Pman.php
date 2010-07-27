@@ -557,7 +557,7 @@ class Pman extends HTML_FlexyFramework_Page
         if (file_exists($cfile)) {
            // $ctime = max(filemtime($cfile), filectime($cfile));
             // otherwise use compile dfile..
-            $cfile = array_pop(glob($cfile / '/' . $mod + '*.js'));
+            $cfile = array_pop(glob($cfile . '/' . $mod + '*.js'));
             echo $cfile;exit;
             
             $files = array( $this->rootURL."/_compiled_/". basename($cfile));

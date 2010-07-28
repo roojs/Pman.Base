@@ -254,8 +254,9 @@ class Pman_Roo extends Pman
         //die("DONE?");
         
         $rooar = method_exists($x, 'toRooArray');
+        
         while ($x->fetch()) {
-            $add = $rooar  ? $x->toRooArray() : $x->toArray();
+            $add = $rooar  ? $x->toRooArray($req) : $x->toArray();
             
             $ret[] =  !$_columns ? $add : array_intersect_key($add, array_flip($_columns));
         }

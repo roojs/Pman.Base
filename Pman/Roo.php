@@ -17,7 +17,7 @@ require_once 'Pman.php';
  * -postListFilter($data, $authUser, $request) return $data - add extra data to an object
  * 
  * - toRooSingleArray() // single fetch, add data..
- * - toRooArray() /// toArray if you need to return different data.. for a list fetch.
+ * - toRooArray($request) /// toArray if you need to return different data.. for a list fetch.
  * 
  * 
  * - beforeDelete() -- return false for fail and set DO->err;
@@ -256,7 +256,7 @@ class Pman_Roo extends Pman
         $rooar = method_exists($x, 'toRooArray');
         
         while ($x->fetch()) {
-            $add = $rooar  ? $x->toRooArray($req) : $x->toArray();
+            $add = $rooar  ? $x->toRooArray($_REQUEST) : $x->toArray();
             
             $ret[] =  !$_columns ? $add : array_intersect_key($add, array_flip($_columns));
         }

@@ -408,7 +408,7 @@ class Pman_Roo extends Pman
     }
     
     var $cols = array();
-    function loadMap($do, $filter) 
+    function loadMap($do, $filter=false) 
     {
         //DB_DataObject::debugLevel(1);
         $conf = array();

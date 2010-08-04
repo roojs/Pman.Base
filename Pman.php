@@ -52,35 +52,18 @@ class Pman extends HTML_FlexyFramework_Page
     {
         if (isset($this->_hasInit)) {
             return;
-            
         }
         $this->_hasInit = true;
-        /*
-        if (method_exists('HTML_FlexyFramework', 'get')) {
-        */    
-            $boot = HTML_FlexyFramework::get();
-           // echo'<PRE>';print_R($boot);exit;
-            $this->appName= $boot->appName;
-            $this->appNameShort= $boot->appNameShort;
-            $this->appModules= $boot->enable;
-            $this->isDev = true; //empty($opts['isDev']) ? '' : $opts['isDev'];
-            $this->appDisable = $boot->disable;
-            $this->version = $boot->version;
-        /*    
-        } else {
-            // BC!!!
-           
-            $opts = PEAR::getStaticProperty('Pman', 'options');  
-            
-            $this->isDev = true; //empty($opts['isDev']) ? '' : $opts['isDev'];
-            
-            $this->appName= empty($opts['appName']) ? '' : $opts['appName'];
-            $this->appNameShort= empty($opts['appNameShort']) ? '' : $opts['appNameShort'];
-            $this->appModules= $opts['enable'];
-            $this->appDisable = $opts['disable'];
-            $this->version = isset($opts['version']) ? $this->version : $opts['version'];
-        }
-        */
+          
+        $boot = HTML_FlexyFramework::get();
+        // echo'<PRE>';print_R($boot);exit;
+        $this->appName= $boot->appName;
+        $this->appNameShort= $boot->appNameShort;
+        $this->appModules= $boot->enable;
+        $this->isDev = empty($opts['isDev']) ? false : $opts['isDev'];
+        $this->appDisable = $boot->disable;
+        $this->version = $boot->version;
+
     }
     
     function get($base) 

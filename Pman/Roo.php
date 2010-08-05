@@ -458,8 +458,8 @@ class Pman_Roo extends Pman
     
         if (method_exists($x, 'checkPerm') && !$x->checkPerm('A', $this->authUser, $req))  {
                 $this->jerr("PERMISSION DENIED");
-            }
         }
+        
           
         if (method_exists($x, 'setFromRoo')) {
             $res = $x->setFromRoo($req, $this);

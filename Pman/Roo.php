@@ -332,7 +332,7 @@ class Pman_Roo extends Pman
         
         if (!empty($_REQUEST[$keys[0]])) {
             // it's a create..
-            if (!$x->get($_REQUEST[$keys[0]]))  {
+            if (!$x->get($keys[0], $_REQUEST[$keys[0]]))  {
                 $this->jerr("Invalid request");
             }
             $this->jok($this->update($x, $_REQUEST));

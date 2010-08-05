@@ -363,28 +363,6 @@ class Pman_Roo extends Pman
          
         $cols = $x->table();
      
-     
-        if (isset($cols['modified'])) {
-            $x->modified = date('Y-m-d H:i:s');
-        }
-        if (isset($cols['modified_dt'])) {
-            $x->modified_dt = date('Y-m-d H:i:s');
-        }
-        if (isset($cols['modified_by'])) {
-            $x->modified_by = $this->authUser->id;
-        }
-        
-        if (isset($cols['updated'])) {
-            $x->modified = date('Y-m-d H:i:s');
-        }
-        if (isset($cols['updated_dt'])) {
-            $x->modified_dt = date('Y-m-d H:i:s');
-        }
-        if (isset($cols['updated_by'])) {
-            $x->modified_by = $this->authUser->id;
-        }
-        
-     
         if (isset($cols['created'])) {
             $x->created = date('Y-m-d H:i:s');
         }
@@ -395,6 +373,28 @@ class Pman_Roo extends Pman
             $x->created_by = $this->authUser->id;
         }
         
+     
+         if (isset($cols['modified'])) {
+            $x->modified = date('Y-m-d H:i:s');
+        }
+        if (isset($cols['modified_dt'])) {
+            $x->modified_dt = date('Y-m-d H:i:s');
+        }
+        if (isset($cols['modified_by'])) {
+            $x->modified_by = $this->authUser->id;
+        }
+        
+        if (isset($cols['updated'])) {
+            $x->updated = date('Y-m-d H:i:s');
+        }
+        if (isset($cols['updated_dt'])) {
+            $x->updated_dt = date('Y-m-d H:i:s');
+        }
+        if (isset($cols['updated_by'])) {
+            $x->updated_by = $this->authUser->id;
+        }
+        
+     
         
         
         
@@ -458,13 +458,13 @@ class Pman_Roo extends Pman
         }
         
         if (isset($cols['updated'])) {
-            $x->modified = date('Y-m-d H:i:s');
+            $x->updated = date('Y-m-d H:i:s');
         }
         if (isset($cols['updated_dt'])) {
-            $x->modified_dt = date('Y-m-d H:i:s');
+            $x->updated_dt = date('Y-m-d H:i:s');
         }
         if (isset($cols['updated_by'])) {
-            $x->modified_by = $this->authUser->id;
+            $x->updated_by = $this->authUser->id;
         }
         
         

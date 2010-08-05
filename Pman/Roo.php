@@ -513,7 +513,7 @@ class Pman_Roo extends Pman
             $x->onInsert($_REQUEST, $this);
         }
         $this->addEvent("ADD", $x, $x->toEventString());
-        }
+        
         // note setFrom might handle this before hand...!??!
         if (!empty($_FILES) && method_exists($x, 'onUpload')) {
             $x->onUpload($this);

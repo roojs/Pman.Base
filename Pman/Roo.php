@@ -457,7 +457,7 @@ class Pman_Roo extends Pman
         
     
         if (method_exists($x, 'checkPerm') && !$x->checkPerm('A', $this->authUser, $req))  {
-                $this->jerr("PERMISSION DENIED");
+            $this->jerr("PERMISSION DENIED");
         }
         
           
@@ -470,19 +470,7 @@ class Pman_Roo extends Pman
             $x->setFrom($req);
         }
         
-        
-        /*
-        check perm accepts the changes  - so no need to review twice!!!
-        if (!empty($_POST[$keys[0]])) {
-            if (method_exists($x, 'checkPerm') && !$x->checkPerm('E', $this->authUser))  {
-                $this->jerr("PERMISSION DENIED");
-            }
-        }  else {
-            if (method_exists($x, 'checkPerm') && !$x->checkPerm('A', $this->authUser))  {
-                $this->jerr("PERMISSION DENIED");
-            }
-        }
-        */
+         
         $cols = $x->table();
      
      
@@ -575,6 +563,15 @@ class Pman_Roo extends Pman
             $x->modified_by = $this->authUser->id;
         }
         
+        if (isset($cols['updated'])) {
+            $x->modified = date('Y-m-d H:i:s');
+        }
+        if (isset($cols['updated_dt'])) {
+            $x->modified_dt = date('Y-m-d H:i:s');
+        }
+        if (isset($cols['updated_by'])) {
+            $x->modified_by = $this->authUser->id;
+        }
         
         
         $x->update($old);

@@ -320,41 +320,13 @@ class Pman_Roo extends Pman
             $x->whereAddIn($keys[0], $ids, 'int');
             $ar = $x->fetchAll();
             foreach($ar as $x) {
-                if (method_exists($x, 'checkPerm') && !$x->checkPerm('E', $this->authUser, $_REQUEST))  {
-                    $this->jerr("PERMISSION DENIED");
-                }
-                $old = clone($x);
-                // this lot is generic.. needs moving 
-                if (method_exists($x, 'setFromRoo')) {
-                    $res = $x->setFromRoo($_REQUEST, $this);
-                    if (is_string($res)) {
-                        $this->jerr($res);
-                    }
-                } else {
-                    $x->setFrom($_REQUEST);
-                }
-                $this->addEvent("EDIT", $x, $x->toEventString());
-                //print_r($x);
-                //print_r($old);
-                if (isset($cols['modified'])) {
-                    $x->modified = date('Y-m-d H:i:s');
-                }
-                if (isset($cols['modified_dt'])) {
-                    $x->modified_dt = date('Y-m-d H:i:s');
-                }
-                if (isset($cols['modified_by'])) {
-                    $x->modified_by = $this->authUser->id;
-                }
+                $this->update($x, $_REQUEST);
                 
-                
-                
-                $x->update($old);
-                if (method_exists($x, 'onUpdate')) {
-                    $x->onUpdate($old, $_REQUEST, $this);
-                }
+                 
                 
             }
-            
+            // all done..
+            $this->jok("UPDATED");
             
             
         }
@@ -362,97 +334,16 @@ class Pman_Roo extends Pman
         
         if (!empty($_REQUEST[$keys[0]])) {
             // it's a create..
-            $x->get($keys[0], $_REQUEST[$keys[0]]);
-            if (method_exists($x, 'checkPerm') && !$x->checkPerm('E', $this->authUser, $_REQUEST))  {
-                $this->jerr("PERMISSION DENIED");
-            }
-            
-            $old = clone($x);
+            $this->jok($this->update($x, $_REQUEST));
         } else {
-            if (method_exists($x, 'checkPerm') && !$x->checkPerm('A', $this->authUser, $_REQUEST))  {
-                $this->jerr("PERMISSION DENIED");
-            }
-        }
-        $this->old = $old;
-         
-        if (method_exists($x, 'setFromRoo')) {
-            $res = $x->setFromRoo($_REQUEST, $this);
-            if (is_string($res)) {
-                $this->jerr($res);
-            }
-        } else {
-            $x->setFrom($_REQUEST);
-        }
-        
-        
-        /*
-        check perm accepts the changes  - so no need to review twice!!!
-        if (!empty($_POST[$keys[0]])) {
-            if (method_exists($x, 'checkPerm') && !$x->checkPerm('E', $this->authUser))  {
-                $this->jerr("PERMISSION DENIED");
-            }
-        }  else {
-            if (method_exists($x, 'checkPerm') && !$x->checkPerm('A', $this->authUser))  {
-                $this->jerr("PERMISSION DENIED");
-            }
-        }
-        */
-        $cols = $x->table();
-         
-        if ($old) {
-            $this->addEvent("EDIT", $x, $x->toEventString());
-            //print_r($x);
-            //print_r($old);
-            if (isset($cols['modified'])) {
-                $x->modified = date('Y-m-d H:i:s');
-            }
-            if (isset($cols['modified_dt'])) {
-                $x->modified_dt = date('Y-m-d H:i:s');
-            }
-            if (isset($cols['modified_by'])) {
-                $x->modified_by = $this->authUser->id;
-            }
+            $this->jok($this->insert($x, $_REQUEST));
             
-            
-            
-            $x->update($old);
-            if (method_exists($x, 'onUpdate')) {
-                $x->onUpdate($old, $_REQUEST, $this);
-            }
-        } else {
-            if (isset($cols['created'])) {
-                $x->created = date('Y-m-d H:i:s');
-            }
-            if (isset($cols['created_dt'])) {
-                $x->created_dt = date('Y-m-d H:i:s');
-            }
-            if (isset($cols['created_by'])) {
-                $x->created_by = $this->authUser->id;
-            }
-            $x->insert();
-            if (method_exists($x, 'onInsert')) {
-                $x->onInsert($_REQUEST, $this);
-            }
-            $this->addEvent("ADD", $x, $x->toEventString());
-        }
-        // note setFrom might handle this before hand...!??!
-        if (!empty($_FILES) && method_exists($x, 'onUpload')) {
-            $x->onUpload($this);
         }
         
-        $r = DB_DataObject::factory($x->tableName());
-        $r->id = $x->id;
-        $this->loadMap($r, $_columns);
-        $r->limit(1);
-        $r->find(true);
-        
-        $rooar = method_exists($r, 'toRooArray');
-        //print_r(var_dump($rooar)); exit;
-        $this->jok($rooar  ? $r->toRooArray() : $r->toArray() );
         
         
     }
-    function insert($x, $req, $cols)
+    function insert($x, $req)
     {
         
     
@@ -460,7 +351,8 @@ class Pman_Roo extends Pman
             $this->jerr("PERMISSION DENIED");
         }
         
-          
+        $_columns = !empty($req['_columns']) ? explode(',', $req['_columns']) : false;
+   
         if (method_exists($x, 'setFromRoo')) {
             $res = $x->setFromRoo($req, $this);
             if (is_string($res)) {
@@ -527,11 +419,11 @@ class Pman_Roo extends Pman
         
         $rooar = method_exists($r, 'toRooArray');
         //print_r(var_dump($rooar)); exit;
-        $this->jok($rooar  ? $r->toRooArray() : $r->toArray() );
+        return $rooar  ? $r->toRooArray() : $r->toArray();
     }
     
     
-    function update($x, $req, $cols)
+    function update($x, $req)
     {
         if (method_exists($x, 'checkPerm') && !$x->checkPerm('E', $this->authUser, $_REQUEST))  {
             $this->jerr("PERMISSION DENIED");
@@ -541,6 +433,7 @@ class Pman_Roo extends Pman
 
        
         $old = clone($x);
+        $this->old = $x;
         // this lot is generic.. needs moving 
         if (method_exists($x, 'setFromRoo')) {
             $res = $x->setFromRoo($req, $this);
@@ -553,6 +446,8 @@ class Pman_Roo extends Pman
         $this->addEvent("EDIT", $x, $x->toEventString());
         //print_r($x);
         //print_r($old);
+        
+        $cols = $x->table();
         
         if (isset($cols['modified'])) {
             $x->modified = date('Y-m-d H:i:s');

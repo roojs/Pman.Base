@@ -322,8 +322,6 @@ class Pman_Roo extends Pman
             foreach($ar as $x) {
                 $this->update($x, $_REQUEST);
                 
-                 
-                
             }
             // all done..
             $this->jok("UPDATED");

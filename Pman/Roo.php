@@ -553,6 +553,7 @@ class Pman_Roo extends Pman
         $this->addEvent("EDIT", $x, $x->toEventString());
         //print_r($x);
         //print_r($old);
+        
         if (isset($cols['modified'])) {
             $x->modified = date('Y-m-d H:i:s');
         }

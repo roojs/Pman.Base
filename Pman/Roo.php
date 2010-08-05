@@ -287,6 +287,7 @@ class Pman_Roo extends Pman
      * other opts:
      * _debug - forces debugging on.
      * _get - forces a get request
+     * _ids - multiple update of records.
      * {colid} - forces fetching
      * 
      */
@@ -313,6 +314,51 @@ class Pman_Roo extends Pman
             $this->jerr('no key');
         }
         $old = false;
+        
+        if (!empty($_REQUEST['_ids'])) {
+            $ids = explode(',',$_REQUEST['_ids']);
+            $x->whereAddIn($keys[0], $ids, 'int');
+            $ar = $x->fetchAll();
+            foreach($ar as $x) {
+                if (method_exists($x, 'checkPerm') && !$x->checkPerm('E', $this->authUser, $_REQUEST))  {
+                    $this->jerr("PERMISSION DENIED");
+                }
+                $old = clone($x);
+                // this lot is generic.. needs moving 
+                if (method_exists($x, 'setFromRoo')) {
+                    $res = $x->setFromRoo($_REQUEST, $this);
+                    if (is_string($res)) {
+                        $this->jerr($res);
+                    }
+                } else {
+                    $x->setFrom($_REQUEST);
+                }
+                $this->addEvent("EDIT", $x, $x->toEventString());
+                //print_r($x);
+                //print_r($old);
+                if (isset($cols['modified'])) {
+                    $x->modified = date('Y-m-d H:i:s');
+                }
+                if (isset($cols['modified_dt'])) {
+                    $x->modified_dt = date('Y-m-d H:i:s');
+                }
+                if (isset($cols['modified_by'])) {
+                    $x->modified_by = $this->authUser->id;
+                }
+                
+                
+                
+                $x->update($old);
+                if (method_exists($x, 'onUpdate')) {
+                    $x->onUpdate($old, $_REQUEST, $this);
+                }
+                
+            }
+            
+            
+            
+        }
+        
         
         if (!empty($_REQUEST[$keys[0]])) {
             // it's a create..
@@ -406,6 +452,55 @@ class Pman_Roo extends Pman
         
         
     }
+    
+    
+    function update($x, $req, $cols)
+    {
+        if (method_exists($x, 'checkPerm') && !$x->checkPerm('E', $this->authUser, $_REQUEST))  {
+            $this->jerr("PERMISSION DENIED");
+        }
+       
+        $old = clone($x);
+        // this lot is generic.. needs moving 
+        if (method_exists($x, 'setFromRoo')) {
+            $res = $x->setFromRoo($req, $this);
+            if (is_string($res)) {
+                $this->jerr($res);
+            }
+        } else {
+            $x->setFrom($req);
+        }
+        $this->addEvent("EDIT", $x, $x->toEventString());
+        //print_r($x);
+        //print_r($old);
+        if (isset($cols['modified'])) {
+            $x->modified = date('Y-m-d H:i:s');
+        }
+        if (isset($cols['modified_dt'])) {
+            $x->modified_dt = date('Y-m-d H:i:s');
+        }
+        if (isset($cols['modified_by'])) {
+            $x->modified_by = $this->authUser->id;
+        }
+        
+        
+        
+        $x->update($old);
+        if (method_exists($x, 'onUpdate')) {
+            $x->onUpdate($old, $req, $this);
+        }
+        
+        $r = DB_DataObject::factory($x->tableName());
+        $r->id = $x->id;
+        $this->loadMap($r, $_columns);
+        $r->limit(1);
+        $r->find(true);
+        $rooar = method_exists($r, 'toRooArray');
+        //print_r(var_dump($rooar)); exit;
+        return $rooar  ? $r->toRooArray() : $r->toArray();
+    }
+    
+    
     
     var $cols = array();
     function loadMap($do, $filter=false) 

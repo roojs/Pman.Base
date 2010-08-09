@@ -59,7 +59,7 @@ class Pman_Roo extends Pman
      * start       = limit start
      * limit       = limit number 
      * 
-     * _toggleActive !:!:!:! - thsi hsould not really be here..
+     * _toggleActive !:!:!:! - this hsould not really be here..
      * query[add_blank] - add a line in with an empty option...  - not really needed???
      * 
      */

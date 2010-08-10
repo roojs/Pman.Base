@@ -59,6 +59,7 @@ class Pman_Login extends Pman
         
         // general query...
         if (!empty($_REQUEST['getAuthUser'])) {
+            DB_DataObject::debugLevel(1);
             $this->sendAuthUserDetails();
             exit;
            

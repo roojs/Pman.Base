@@ -604,7 +604,7 @@ class Pman extends HTML_FlexyFramework_Page
         $e->person_name = $au ? $au->name : '';
         $e->person_id = $au ? $au->id : '';
         $e->event_when = date('Y-m-d H:i:s');
-        $e->ipaddr = $_SERVER["REMOTE_ADDR"];
+        $e->ipaddr = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : 'cli';
         $e->action = $act;
         $e->on_table = $obj ? $obj->tableName() : '';
         $e->on_id  = $obj ? $obj->id : 0;

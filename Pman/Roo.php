@@ -181,8 +181,8 @@ class Pman_Roo extends Pman
           
             if (isset($cols[$_REQUEST['_distinct']])) {
                 $countWhat = 'distinct ' . $_REQUEST['_distinct'];
-                $this->selectAdd();
-                $this->selectAdd('distinct('.$_REQUEST['_distinct'].')');
+                $x->selectAdd();
+                $x->selectAdd('distinct('.$_REQUEST['_distinct'].')');
                 $_columns = array( $_REQUEST['_distinct'] );
             } else {
                 $this->jerr('invalid distinct');

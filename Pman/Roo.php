@@ -51,7 +51,9 @@ class Pman_Roo extends Pman
      * _id        =  single fetch based on id.
      * _delete    = delete a list of ids element. (seperated by ,);
      * _columns   = comma seperated list of columns.
+     * _distinct   = a distinct column lookup.
      * csvCols    = return data as csv
+     * 
      * csvTitles  = return data as csv
      *
      * sort        = sort column
@@ -178,6 +180,11 @@ class Pman_Roo extends Pman
           
             if (isset($cols[$_REQUEST['_distinct']])) {
                 $countWhat = 'distinct ' . $_REQUEST['_distinct'];
+                $this->selectAdd();
+                $this->selectAdd('distinct('.$_REQUEST['_distinct'].')');
+                $_columns = array( $_REQUEST['_distinct'] );
+            } else {
+                $this->jerr('invalid distinct');
             }
              
         }

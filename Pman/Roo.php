@@ -174,9 +174,10 @@ class Pman_Roo extends Pman
         $countWhat = false;
         if (!empty($_REQUEST['_distinct'])) {
             $cols = $x->table();
-            print_r($cols);
-            if (in_array( $cols, $_REQUEST['_distinct'])) {
-                $countWhat = $_REQUEST['_distinct'];
+           // print_r($cols);
+          
+            if (isset($cols[$_REQUEST['_distinct']])) {
+                $countWhat = 'distinct ' . $_REQUEST['_distinct'];
             }
              
         }

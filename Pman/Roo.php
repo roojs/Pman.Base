@@ -171,8 +171,15 @@ class Pman_Roo extends Pman
          
         
         // build join if req.
-        
-        $total = $x->count();
+        $countWhat = false;
+        if (!empty($_REQUEST['_distinct'])) {
+            $cols = $x->table();
+            if (in_array( $cols, $_REQUEST['_distinct'])) {
+                $countWhat = $_REQUEST['_distinct'];
+            }
+             
+        }
+        $total = $x->count($countWhat);
         // sorting..
       //   DB_DataObject::debugLevel(1);
         

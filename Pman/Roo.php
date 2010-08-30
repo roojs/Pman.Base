@@ -487,8 +487,8 @@ class Pman_Roo extends Pman
        
        
         // build a list of tables to queriy for dependant data..
-        $map = $do->links();
-        print_r($map);exit;
+        $map = $x->links();
+        echo '<PRE>';print_r($map);exit;
         
        
         

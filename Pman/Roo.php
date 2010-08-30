@@ -511,6 +511,9 @@ class Pman_Roo extends Pman
         $clean = create_function('$v', 'return (int)$v;');
         
         $bits = array_map($clean, explode(',', $req['_delete']));
+        
+        print_r($x);exit;
+        
         $x->whereAdd('id IN ('. implode(',', $bits) .')');
         $x->find();
         $errs = array();

@@ -485,6 +485,12 @@ class Pman_Roo extends Pman
     {
         // do we really delete stuff!?!?!?
        
+       
+        // build a list of tables to queriy for dependant data..
+        $map = $do->links();
+        print_r($map);exit;
+        
+       
         
         $clean = create_function('$v', 'return (int)$v;');
         

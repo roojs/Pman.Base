@@ -489,8 +489,22 @@ class Pman_Roo extends Pman
         // build a list of tables to queriy for dependant data..
         $map = $x->links();
         
+        $affects  = array();
         
-        echo '<PRE>';print_r($GLOBALS['_DB_DATAOBJECT']['LINKS'][$x->_database]);exit;
+        $all_links = $GLOBALS['_DB_DATAOBJECT']['LINKS'][$x->_database];
+        foreach($all_links as $tbl => $links) {
+            foreach($links as $col => $totbl_col) {
+                $to = explode(':', $totbl_col);
+                if ($to[0] != $x->tableName()) {
+                    continue;
+                }
+                
+                $affects[$totbl_col] = true;
+            }
+        }
+        // collect tables
+        
+        echo '<PRE>';print_r($affects);exit;
         
        
         

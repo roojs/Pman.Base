@@ -504,7 +504,7 @@ class Pman_Roo extends Pman
         }
         // collect tables
         
-        echo '<PRE>';print_r($affects);exit;
+       // echo '<PRE>';print_r($affects);exit;
         
        
         
@@ -516,6 +516,18 @@ class Pman_Roo extends Pman
         $errs = array();
         while ($x->fetch()) {
             $xx = clone($x);
+            
+            
+            foreach($affects as $k=> $true) {
+                $ka = explode('.', $k);
+                $chk = DB_DataObject::factory($ka[0]);
+                $chk->{$ka[1]} =  $xx->id;
+                if ($chk->count()) {
+                    $this->jerr('Delete Dependant records first');
+                }
+            }
+            
+            
             
             if (method_exists($x, 'checkPerm') && !$x->checkPerm('D', $this->authUser))  {
                 $this->jerr("PERMISSION DENIED");

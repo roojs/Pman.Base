@@ -489,9 +489,8 @@ class Pman_Roo extends Pman
         // build a list of tables to queriy for dependant data..
         $map = $x->links();
         
-        $GLOBALS['_DB_DATAOBJECT']['INI'][$x->databaseName()];
         
-        echo '<PRE>';print_r($GLOBALS['_DB_DATAOBJECT']['INI'][$x->databaseName()];);exit;
+        echo '<PRE>';print_r($GLOBALS['_DB_DATAOBJECT']['INI'][$x->databaseName()]);exit;
         
        
         

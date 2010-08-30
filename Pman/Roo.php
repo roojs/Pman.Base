@@ -491,7 +491,7 @@ class Pman_Roo extends Pman
         
         
         
-        echo '<PRE>';print_r($globals['_DB_DATAOBJECT']);exit;
+        echo '<PRE>';print_r($GLOBALS['_DB_DATAOBJECT']);exit;
         
        
         

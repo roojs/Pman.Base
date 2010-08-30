@@ -490,7 +490,7 @@ class Pman_Roo extends Pman
         $map = $x->links();
         
         
-        echo '<PRE>';print_r($GLOBALS['_DB_DATAOBJECT']['INI'][$x->databaseName()]);exit;
+        echo '<PRE>';print_r($GLOBALS['_DB_DATAOBJECT']['LINKS'][$x->_database]);exit;
         
        
         

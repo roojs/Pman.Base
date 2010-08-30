@@ -120,34 +120,12 @@ class Pman_Roo extends Pman
         }
         if (isset($_REQUEST['_delete'])) {
             // do we really delete stuff!?!?!?
-           
-            
-            $clean = create_function('$v', 'return (int)$v;');
-            
-            $bits = array_map($clean, explode(',', $_REQUEST['_delete']));
-            $x->whereAdd('id IN ('. implode(',', $bits) .')');
-            $x->find();
-            $errs = array();
-            while ($x->fetch()) {
-                $xx = clone($x);
-                
-                if (method_exists($x, 'checkPerm') && !$x->checkPerm('D', $this->authUser))  {
-                    $this->jerr("PERMISSION DENIED");
-                }
-                
-                $this->addEvent("DELETE", $x, $x->toEventString());
-                if ( method_exists($xx, 'beforeDelete') && ($xx->beforeDelete() === false)) {
-                    $errs[] = "Delete failed ({$xx->id})\n". (isset($xx->err) ? $xx->err : '');
-                    continue;
-                }
-                $xx->delete();
-            }
-            if ($errs) {
-                $this->jerr(implode("\n<BR>", $errs));
-            }
-            $this->jok("Deleted");
-            
-        }
+            return $this->delete($x, $_REQUEST['_delete']);
+        } 
+        
+        
+        
+        
         if (isset($_REQUEST['_toggleActive'])) {
             // do we really delete stuff!?!?!?
             if (!$this->hasPerm("Core.Staff", 'E'))  {

@@ -120,7 +120,7 @@ class Pman_Roo extends Pman
         }
         if (isset($_REQUEST['_delete'])) {
             // do we really delete stuff!?!?!?
-            return $this->delete($x, $_REQUEST['_delete']);
+            return $this->delete($x,$_REQUEST);
         } 
         
         

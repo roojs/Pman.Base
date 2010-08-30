@@ -499,7 +499,7 @@ class Pman_Roo extends Pman
                     continue;
                 }
                 
-                $affects[$totbl_col] = true;
+                $affects[$tbl .'.' . $col] = true;
             }
         }
         // collect tables

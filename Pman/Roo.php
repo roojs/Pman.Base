@@ -268,7 +268,9 @@ class Pman_Roo extends Pman
             $ret = $x->postListFilter($ret, $this->authUser, $_REQUEST);
         }
         
-        
+        if (!empty($_REQUEST['_requestMeta']) &&  count($ret)) {
+            $meta = $this->meta($x, $ret);
+        }
         
        // echo "<PRE>"; print_r($ret);
         $this->jdata($ret,$total, $extra );

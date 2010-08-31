@@ -100,6 +100,9 @@ class Pman extends HTML_FlexyFramework_Page
         // getting this to work with xhtml is a nightmare
         // = nbsp / <img> issues screw everyting up.
         
+        // 
+        HTML_FlexyFramework::get()->generateDataobjectsCache();
+        
         //header('Content-type: application/xhtml+xml; charset=utf-8');
         header('Content-type: text/html; charset=utf-8');
          

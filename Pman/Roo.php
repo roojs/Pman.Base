@@ -661,10 +661,7 @@ class Pman_Roo extends Pman
             } else {
                 $do->selectAs($xx,  $ocl.'_%s', 'join_'.$ocl.'_'. $col);
             }
-            
              
-            
-            
             
             foreach($xx as $k) {
                 $this->cols[$tab.'.'.$k] = sprintf($ocl.'_%s', $k);

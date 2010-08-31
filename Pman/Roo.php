@@ -620,7 +620,7 @@ class Pman_Roo extends Pman
         
         $this->cols = array();
         foreach($xx as $k) {
-            $this->cols[$do->tableName(). '.' . $k] = $k
+            $this->cols[$do->tableName(). '.' . $k] = $k;
         }
         
         

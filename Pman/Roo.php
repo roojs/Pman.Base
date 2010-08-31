@@ -667,7 +667,7 @@ class Pman_Roo extends Pman
             
             
             foreach($xx as $k) {
-                $this->cols[$table.'.'.$k] = sprintf($ocl.'_%s', $k);
+                $this->cols[$tab.'.'.$k] = sprintf($ocl.'_%s', $k);
             }
             
             

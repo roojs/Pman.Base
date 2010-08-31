@@ -177,7 +177,7 @@ class Pman_Roo extends Pman
         
         $sorted = false;
         if (method_exists($x, 'applySort')) {
-            $sorted = $x->applySort($this->authUser, $sort, $dir, array_values($this->cols));
+            $sorted = $x->applySort($this->authUser, $sort, $dir, array_keys($this->cols));
         }
         if ($sorted === false) {
             
@@ -189,7 +189,7 @@ class Pman_Roo extends Pman
             if (strlen($sort) && isset($cols[$sort]) ) {
                 $sort = $x->tableName() .'.'.$sort . ' ' . $dir ;
                 $x->orderBy($sort );
-            } else if (in_array($sort, array_values($this->cols))) {
+            } else if (in_array($sort, array_keys($this->cols))) {
                 $sort = $sort . ' ' . $dir ;
                 $x->orderBy($sort );
             }// else other formatas?
@@ -626,7 +626,7 @@ class Pman_Roo extends Pman
         
         $this->cols = array();
         foreach($xx as $k) {
-            $this->cols[$do->tableName(). '.' . $k] = $k;
+            $this->cols[$k] = $do->tableName(). '.' . $k;
         }
         
         
@@ -670,7 +670,7 @@ class Pman_Roo extends Pman
              
             
             foreach($xx as $k) {
-                $this->cols[$tab.'.'.$k] = sprintf($ocl.'_%s', $k);
+                $this->cols[sprintf($ocl.'_%s', $k)] = $tab.'.'.$k;
             }
             
             
@@ -710,7 +710,7 @@ class Pman_Roo extends Pman
             if (is_array($val)) {
                 continue;
             }
-            if ($key[0] == '!' && in_array(substr($key, 1), array_values($this->cols))) {
+            if ($key[0] == '!' && in_array(substr($key, 1), array_keys($this->cols))) {
                     
                 $x->whereAdd( $x->tableName() .'.' .substr($key, 1) . ' != ' .
                     (is_numeric($val) ? $val : "'".  $x->escape($val) . "'")

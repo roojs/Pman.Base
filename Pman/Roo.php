@@ -690,7 +690,7 @@ class Pman_Roo extends Pman
         //echo '<PRE>';print_r($this->cols); exit;
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
          
-        echo '<PRE>';print_r(($options["ini_{$x->_database}"] );exit;
+        echo '<PRE>';print_r($options["ini_{$x->_database}"] );exit;
         
         file_put_contents($options["ini_{$x->_database}"] . '.reader', serialize($out));
          

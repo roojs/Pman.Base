@@ -689,9 +689,7 @@ class Pman_Roo extends Pman
         
         echo '<PRE>';print_r($this->cols); exit;
         
-        
-        
-        
+         
         
     }
     

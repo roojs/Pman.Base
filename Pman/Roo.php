@@ -684,8 +684,11 @@ class Pman_Roo extends Pman
      * generate the meta data neede by queries.
      * 
      */
-    function meta($x)
+    function meta($x, $data)
     {
+        
+        
+        
         
         
         

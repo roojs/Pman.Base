@@ -176,7 +176,7 @@ class Pman_Roo extends Pman
         
         $sorted = false;
         if (method_exists($x, 'applySort')) {
-            $sorted = $x->applySort($this->authUser, $sort, $dir, $this->cols);
+            $sorted = $x->applySort($this->authUser, $sort, $dir, array_values($this->cols));
         }
         if ($sorted === false) {
             
@@ -188,7 +188,7 @@ class Pman_Roo extends Pman
             if (strlen($sort) && isset($cols[$sort]) ) {
                 $sort = $x->tableName() .'.'.$sort . ' ' . $dir ;
                 $x->orderBy($sort );
-            } else if (in_array($sort, $this->cols)) {
+            } else if (in_array($sort, array_values($this->cols))) {
                 $sort = $sort . ' ' . $dir ;
                 $x->orderBy($sort );
             }// else other formatas?
@@ -675,6 +675,18 @@ class Pman_Roo extends Pman
         
         
     }
+    /**
+     * generate the meta data neede by queries.
+     * 
+     */
+    function meta($x)
+    {
+        
+        
+        
+        
+    }
+    
     function setFilters($x, $q)
     {
         // if a column is type int, and we get ',' -> the it should be come an inc clause..
@@ -690,7 +702,7 @@ class Pman_Roo extends Pman
             if (is_array($val)) {
                 continue;
             }
-            if ($key[0] == '!' && in_array(substr($key, 1), $this->cols)) {
+            if ($key[0] == '!' && in_array(substr($key, 1), array_values($this->cols))) {
                     
                 $x->whereAdd( $x->tableName() .'.' .substr($key, 1) . ' != ' .
                     (is_numeric($val) ? $val : "'".  $x->escape($val) . "'")

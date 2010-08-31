@@ -687,7 +687,7 @@ class Pman_Roo extends Pman
     function meta($x, $data)
     {
         
-        
+        echo '<PRE>';print_r($this->cols); exit;
         
         
         

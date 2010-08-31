@@ -18,6 +18,7 @@
  * 
  * (valid thumbs 200, 400)...?
  * Images/Thumb/200/{ID}/fullname.xxxx
+ * Images/Download/{ID}/fullname.xxxx
  * 
  */
 require_once  'Pman.php';

@@ -52,7 +52,7 @@ class Pman_Roo extends Pman
      * _delete    = delete a list of ids element. (seperated by ,);
      * _columns   = comma seperated list of columns.
      * _distinct   = a distinct column lookup.
-     * _requestMeta = default behaviour of Roo stores..
+     * _requestMeta = default behaviour of Roo stores.. on first query..
      * 
      * csvCols    = return data as csv
      * 

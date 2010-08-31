@@ -686,6 +686,13 @@ class Pman_Roo extends Pman
      */
     function meta($x, $data)
     {
+        // this is not going to work on queries where the data does not match the database def..
+        // for unknown columns we send them as stirngs..
+        $lost = 0;
+        $cols  = array_keys($data[0]);
+     
+        
+        
         
         //echo '<PRE>';print_r($this->cols); exit;
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
@@ -698,8 +705,17 @@ class Pman_Roo extends Pman
         
         echo '<PRE>';print_r($rdata);exit;
         
-        file_put_contents($options["ini_{$x->_database}"] . '.reader', serialize($out));
-         
+        $meta = array();
+        foreach($cols as $c ) {
+            if (!isset($this->cols[$c]) || !isset($rdata[$this->cols[$c]]) || !is_array($rdata[$this->cols[$c]])) {
+                $meta[] = $c;
+                continue;    
+            }
+            $add = $rdata[$this->cols[$c]];
+            $add['name'] = $c;
+            $meta[] = $add;
+        }
+         return $meta;
          
         
     }

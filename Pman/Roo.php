@@ -52,6 +52,7 @@ class Pman_Roo extends Pman
      * _delete    = delete a list of ids element. (seperated by ,);
      * _columns   = comma seperated list of columns.
      * _distinct   = a distinct column lookup.
+     * _requestMeta = default behaviour of Roo stores..
      * 
      * csvCols    = return data as csv
      * 
@@ -270,6 +271,9 @@ class Pman_Roo extends Pman
         
         if (!empty($_REQUEST['_requestMeta']) &&  count($ret)) {
             $meta = $this->meta($x, $ret);
+            if ($meta) {
+                $extra['metaData'] = $meta;
+            }
         }
         
        // echo "<PRE>"; print_r($ret);

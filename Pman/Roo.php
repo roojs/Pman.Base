@@ -715,7 +715,13 @@ class Pman_Roo extends Pman
             $add['name'] = $c;
             $meta[] = $add;
         }
-         return $meta;
+        return array(
+            'totalProperty' =>  'total',
+            'successProperty' => 'success',
+            'root' => 'data',
+            'id' => 'id',
+            'fields' => $meta
+        );
          
         
     }

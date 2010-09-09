@@ -144,6 +144,7 @@ class Pman_Images extends Pman
     {
         if (!in_array($this->size, array(
                 '100', 
+                '100x100', 
                 '150', 
                 '150x150', 
                 '200', 
@@ -151,7 +152,7 @@ class Pman_Images extends Pman
                 '200x200',  
                 '400x0'
             ))) {
-            die("invalid scale");
+            die("invalid scale - $this->size");
         }
     }
 }

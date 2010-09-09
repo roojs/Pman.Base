@@ -152,7 +152,7 @@ class Pman_Images extends Pman
                 '200x200',  
                 '400x0'
             ))) {
-            die("invalid scale - $this->size");
+            die("invalid scale - ".$this->size);
         }
     }
 }

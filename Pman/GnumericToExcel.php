@@ -79,7 +79,7 @@ class Pman_GnumericToExcel extends Pman
         $fh = fopen($targetTmp, 'r');
         header('Content-type: application/vnd.ms-excel');
          header('Content-Disposition: attachment; filename="' .addslashes($fname). '"');
-        // will not work on IE...
+        // will not work on IE... - needs while/fget..
         fpassthru($fh);
         unlink($targetTmp);
         exit;

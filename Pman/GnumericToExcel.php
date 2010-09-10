@@ -30,6 +30,7 @@ class Pman_GnumericToExcel extends Pman
 
     function post($fname) {
         if (empty($_POST['xml'])) {
+            header("HTTP/1.0 400 Internal Server Error");
             die("Missing XML attribute");
         }
         $xml = $_POST['xml'];
@@ -49,7 +50,8 @@ class Pman_GnumericToExcel extends Pman
             } else {
                 header('Content-type: text/xml');
             }
-            echo $xml; exit;
+            echo $xml; 
+            exit;
         }
         $srcTmp = ini_get('session.save_path') . '/' .uniqid('gnumeric_').'.gnumeric';
         $targetTmp = ini_get('session.save_path') . '/' .uniqid('gnumeric_').'.xls';
@@ -72,6 +74,7 @@ class Pman_GnumericToExcel extends Pman
         clearstatcache(); 
         
         if (!file_exists($targetTmp) || !filesize($targetTmp)) {
+            header("HTTP/1.0 400 Internal Server Error");
             die("ERROR CONVERTING?:" . $cmd ."\n<BR><BR> OUTPUT:". htmlspecialchars($out));
         }
         unlink($srcTmp);

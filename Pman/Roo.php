@@ -45,6 +45,8 @@ class Pman_Roo extends Pman
      * GET method   Roo/TABLENAME.php 
      * -- defaults to listing data. with args.
      * 
+     * !colname => colname != ....
+     * 
      * other opts:
      * _post      = simulate a post with debuggin on.
      * lookup     =  array( k=>v) single fetch based on a key/value pair
@@ -738,9 +740,35 @@ class Pman_Roo extends Pman
         
         foreach($q as $key=>$val) {
             
-            if (is_array($val)) {
+            if (is_array($val) ) {
+                
+                if (!in_array( $key,  array_keys($this->cols))) {
+                    continue;
+                }
+                
+                // support a[0] a[1] ..... => whereAddIn(
+                $ar = array();
+                $quote = false;
+                foreach($val as $k=>$v) {
+                    if (!is_numeric($k)) {
+                        $ar = array();
+                        break;
+                    }
+                    if (!is_numeric($v) || !is_long($v)) {
+                        $quote = true;
+                    }
+                    $ar[] = $v;
+                    
+                }
+                if (count($ar)) {
+                    $x->whereAddIn($key,$ar, $quote ? 'string' : 'int');
+                }
+                
                 continue;
             }
+            
+            
+            
             if ($key[0] == '!' && in_array(substr($key, 1), array_keys($this->cols))) {
                     
                 $x->whereAdd( $x->tableName() .'.' .substr($key, 1) . ' != ' .

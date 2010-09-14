@@ -33,7 +33,7 @@ class Pman_GnumericToExcel extends Pman
           $ml = (int) ini_get('suhosin.post.max_value_length');
         if (empty($_POST['xml'])) {
             header("HTTP/1.0 400 Internal Server Error");
-            die(  $ml ? "Suhosin Patch enabled - try and disable it!!!" : 'no XML sent')));
+            die(  $ml ? "Suhosin Patch enabled - try and disable it!!!" : 'no XML sent');
         }
         
         if (empty($_POST['xml'])) {

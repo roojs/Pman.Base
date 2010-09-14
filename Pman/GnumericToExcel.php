@@ -29,6 +29,14 @@ class Pman_GnumericToExcel extends Pman
     }
 
     function post($fname) {
+        
+          $ml = (int) ini_get('suhosin.post.max_value_length');
+        if (empty($_POST['xml'])) {
+            header("HTTP/1.0 400 Internal Server Error");
+            die(json_encode(array('success' => false, 'errorMsg' => 
+                $ml ? "Suhosin Patch enabled- try and disabled!!!" : 'no XML sent')));
+           }
+        
         if (empty($_POST['xml'])) {
             header("HTTP/1.0 400 Internal Server Error");
             die("Missing XML attribute");

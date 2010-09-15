@@ -2,15 +2,7 @@
 
 /**
  * 
- * MOVE To Core ---
- * 
- * Usage:
- * 
- * POST Values: 
- *  xml = data
- *  format = [empty=xls] , 'gnumeric'  (download format)
- *  debug = true => download xml.
- * 
+ * MOVED To Core ---
  * 
  * 
  */

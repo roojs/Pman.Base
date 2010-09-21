@@ -272,7 +272,7 @@ class Pman_Roo extends Pman
     function applySort($x)
     {
         
-    Db_DataObject::debugLevel(1);
+        Db_DataObject::debugLevel(1);
         $sort = empty($_REQUEST['sort']) ? '' : $_REQUEST['sort'];
         $dir = (empty($_REQUEST['dir']) || strtoupper($_REQUEST['dir']) == 'ASC' ? 'ASC' : 'DESC');
         
@@ -296,6 +296,7 @@ class Pman_Roo extends Pman
                     $sort_str[] = $sort . ' ' . $dir ;
                 }
             }
+            print_R($sort_str);
             if ($sort_str) {
                 $x->orderBy(implode(', ', $sort_str ));
             }

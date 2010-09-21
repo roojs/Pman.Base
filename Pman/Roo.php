@@ -287,8 +287,7 @@ class Pman_Roo extends Pman
             $cols = $x->table();
             $sort_ar = explode(',', $sort);
             $sort_str = array();
-            print_R($sort_ar);
-            print_R($cols);
+          
             foreach($sort_ar as $sort) {
                 
                 if (strlen($sort) && isset($cols[$sort]) ) {
@@ -298,7 +297,7 @@ class Pman_Roo extends Pman
                     $sort_str[] = $sort . ' ' . $dir ;
                 }
             }
-            print_R($sort_str);
+             
             if ($sort_str) {
                 $x->orderBy(implode(', ', $sort_str ));
             }

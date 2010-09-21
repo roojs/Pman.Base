@@ -61,7 +61,7 @@ class Pman_Roo extends Pman
      * 
      * csvTitles  = return data as csv
      *
-     * sort        = sort column
+     * sort        = sort column (',' comma delimited)
      * dir         = sort direction
      * start       = limit start
      * limit       = limit number 

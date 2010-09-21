@@ -287,6 +287,8 @@ class Pman_Roo extends Pman
             $cols = $x->table();
             $sort_ar = explode(',', $sort);
             $sort_str = array();
+            print_R($sort_ar);
+            print_R($cols);
             foreach($sort_ar as $sort) {
                 
                 if (strlen($sort) && isset($cols[$sort]) ) {

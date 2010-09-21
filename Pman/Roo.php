@@ -290,7 +290,7 @@ class Pman_Roo extends Pman
             foreach($sort_ar as $sort) {
                 
                 if (strlen($sort) && isset($cols[$sort]) ) {
-                    $sort_str[] == $x->tableName() .'.'.$sort . ' ' . $dir ;
+                    $sort_str[] =  $x->tableName() .'.'.$sort . ' ' . $dir ;
                     
                 } else if (in_array($sort, array_keys($this->cols))) {
                     $sort_str[] = $sort . ' ' . $dir ;

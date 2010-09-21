@@ -285,21 +285,20 @@ class Pman_Roo extends Pman
         if ($sorted === false) {
             
             $cols = $x->table();
-            $sort = explode(',', $sort);
-           // echo '<PRE>';print_r(array($sort, $this->cols));
-            // other sorts??? 
-           // $otherSorts = array('person_id_name');
-            
-            if (strlen($sort) && isset($cols[$sort]) ) {
-                $sort = $x->tableName() .'.'.$sort . ' ' . $dir ;
-                $x->orderBy($sort );
-            } else if (in_array($sort, array_keys($this->cols))) {
-                $sort = $sort . ' ' . $dir ;
-                $x->orderBy($sort );
-            }// else other formatas?
-            //if ( in_array($sort, $otherSorts)) {
-            //    $x->orderBy($sort . ' ' . $dir);
-            ////}
+            $sort_ar = explode(',', $sort);
+            $sort_str = array();
+            foreach($sort_ar as $sort) {
+                
+                if (strlen($sort) && isset($cols[$sort]) ) {
+                    $sort_str[] == $x->tableName() .'.'.$sort . ' ' . $dir ;
+                    
+                } else if (in_array($sort, array_keys($this->cols))) {
+                    $sort_str[] = $sort . ' ' . $dir ;
+                }
+            }
+            if ($sort_str) {
+                $x->orderBy(implode(', ', $sort_str );
+            }
         }
     }
      /**

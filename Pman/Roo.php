@@ -297,7 +297,7 @@ class Pman_Roo extends Pman
                 }
             }
             if ($sort_str) {
-                $x->orderBy(implode(', ', $sort_str );
+                $x->orderBy(implode(', ', $sort_str ));
             }
         }
     }

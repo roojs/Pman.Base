@@ -424,7 +424,7 @@ class Pman_Roo extends Pman
         
         $rooar = method_exists($r, 'toRooArray');
         //print_r(var_dump($rooar)); exit;
-        return $rooar  ? $r->toRooArray() : $r->toArray();
+        return $rooar  ? $r->toRooArray($_REQUEST) : $r->toArray();
     }
     
     
@@ -487,7 +487,7 @@ class Pman_Roo extends Pman
         $r->find(true);
         $rooar = method_exists($r, 'toRooArray');
         //print_r(var_dump($rooar)); exit;
-        return $rooar  ? $r->toRooArray() : $r->toArray();
+        return $rooar  ? $r->toRooArray($_REQUEST) : $r->toArray();
     }
     
     function delete($x, $req)

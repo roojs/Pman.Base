@@ -61,8 +61,8 @@ class Pman_Roo extends Pman
      * 
      * csvTitles  = return data as csv
      *
-     * sort        = sort column
-     * dir         = sort direction
+     * sort        = sort column (',' comma delimited)
+     * dir         = sort direction ?? in future comma delimited...
      * start       = limit start
      * limit       = limit number 
      * 
@@ -175,31 +175,7 @@ class Pman_Roo extends Pman
         // sorting..
       //   DB_DataObject::debugLevel(1);
         
-        $sort = empty($_REQUEST['sort']) ? '' : $_REQUEST['sort'];
-        $dir = (empty($_REQUEST['dir']) || strtoupper($_REQUEST['dir']) == 'ASC' ? 'ASC' : 'DESC');
-        
-        $sorted = false;
-        if (method_exists($x, 'applySort')) {
-            $sorted = $x->applySort($this->authUser, $sort, $dir, array_keys($this->cols));
-        }
-        if ($sorted === false) {
-            
-            $cols = $x->table();
-           // echo '<PRE>';print_r(array($sort, $this->cols));
-            // other sorts??? 
-           // $otherSorts = array('person_id_name');
-            
-            if (strlen($sort) && isset($cols[$sort]) ) {
-                $sort = $x->tableName() .'.'.$sort . ' ' . $dir ;
-                $x->orderBy($sort );
-            } else if (in_array($sort, array_keys($this->cols))) {
-                $sort = $sort . ' ' . $dir ;
-                $x->orderBy($sort );
-            }// else other formatas?
-            //if ( in_array($sort, $otherSorts)) {
-            //    $x->orderBy($sort . ' ' . $dir);
-            ////}
-        }
+        $this->applySort($x);
         
         
  
@@ -283,6 +259,49 @@ class Pman_Roo extends Pman
         $this->jdata($ret,$total, $extra );
 
     
+    }
+    /**
+     * applySort
+     * 
+     * apply REQUEST[sort] and [dir]
+     * sort may be an array of columsn..
+     * 
+     * @arg   DB_DataObject $x
+     * 
+     */
+    function applySort($x)
+    {
+        
+       // Db_DataObject::debugLevel(1);
+        $sort = empty($_REQUEST['sort']) ? '' : $_REQUEST['sort'];
+        $dir = (empty($_REQUEST['dir']) || strtoupper($_REQUEST['dir']) == 'ASC' ? 'ASC' : 'DESC');
+        
+        
+        
+        $sorted = false;
+        if (method_exists($x, 'applySort')) {
+            $sorted = $x->applySort($this->authUser, $sort, $dir, array_keys($this->cols));
+        }
+        if ($sorted === false) {
+            
+            $cols = $x->table();
+            $sort_ar = explode(',', $sort);
+            $sort_str = array();
+          
+            foreach($sort_ar as $sort) {
+                
+                if (strlen($sort) && isset($cols[$sort]) ) {
+                    $sort_str[] =  $x->tableName() .'.'.$sort . ' ' . $dir ;
+                    
+                } else if (in_array($sort, array_keys($this->cols))) {
+                    $sort_str[] = $sort . ' ' . $dir ;
+                }
+            }
+             
+            if ($sort_str) {
+                $x->orderBy(implode(', ', $sort_str ));
+            }
+        }
     }
      /**
      * POST method   Roo/TABLENAME.php 

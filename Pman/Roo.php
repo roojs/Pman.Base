@@ -494,7 +494,6 @@ class Pman_Roo extends Pman
     {
         // do we really delete stuff!?!?!?
        
-       
         // build a list of tables to queriy for dependant data..
         $map = $x->links();
         

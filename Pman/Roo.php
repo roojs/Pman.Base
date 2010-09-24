@@ -324,12 +324,7 @@ class Pman_Roo extends Pman
         if (!empty($_REQUEST['_get'])) {
             return $this->get($tab);
         }
-        // delete should be here...
-        if (!empty($_REQUEST['_delete'])) {
-            // do we really delete stuff!?!?!?
-            return $this->delete($x,$_REQUEST);
-        } 
-        
+      
         $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
         
         $tab = str_replace('/', '',$tab); // basic protection??
@@ -342,6 +337,15 @@ class Pman_Roo extends Pman
         if (empty($keys) ) {
             $this->jerr('no key');
         }
+        
+          // delete should be here...
+        if (!empty($_REQUEST['_delete'])) {
+            // do we really delete stuff!?!?!?
+            return $this->delete($x,$_REQUEST);
+        } 
+        
+        
+        
         $old = false;
         
         if (!empty($_REQUEST['_ids'])) {

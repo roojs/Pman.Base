@@ -325,7 +325,7 @@ class Pman_Roo extends Pman
             return $this->get($tab);
         }
         // delete should be here...
-        if (isset($_REQUEST['_delete'])) {
+        if (!empty($_REQUEST['_delete'])) {
             // do we really delete stuff!?!?!?
             return $this->delete($x,$_REQUEST);
         } 

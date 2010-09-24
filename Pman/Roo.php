@@ -21,7 +21,7 @@ require_once 'Pman.php';
  * 
  * 
  * - beforeDelete() -- return false for fail and set DO->err;
- * - onUpdate($old, $request,$roo) - after update
+ * - onUpdate($old, $request,$roo) - after update // return value ignored
  * - onInsert($request,$roo) - after insert
  * - onUpload($roo)
  * - setFromRoo($ar) - values from post (deal with dates etc.) - return true|error string.

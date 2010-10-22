@@ -567,7 +567,7 @@ class Pman_Roo extends Pman
         // let's assume it has a key!!!
         $pk = $pk[0];
         
-        $x->whereAdd('$pk  IN ('. implode(',', $bits) .')');
+        $x->whereAdd($pk .'  IN ('. implode(',', $bits) .')');
         $x->find();
         $errs = array();
         while ($x->fetch()) {

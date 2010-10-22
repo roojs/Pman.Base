@@ -568,7 +568,9 @@ class Pman_Roo extends Pman
         $pk = $pk[0];
         
         $x->whereAdd($pk .'  IN ('. implode(',', $bits) .')');
-        $x->find();
+        if (!$x->find()) {
+            $this->jerr("Nothing found to delete");
+        }
         $errs = array();
         while ($x->fetch()) {
             $xx = clone($x);

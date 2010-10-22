@@ -555,7 +555,7 @@ class Pman_Roo extends Pman
         // collect tables
         
        // echo '<PRE>';print_r($affects);exit;
-        //DB_Dataobject::debugLevel(1);
+       DB_Dataobject::debugLevel(1);
        
         
         $clean = create_function('$v', 'return (int)$v;');

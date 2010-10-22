@@ -339,7 +339,7 @@ class Pman_Roo extends Pman
         }
         
           // delete should be here...
-        if (!empty($_REQUEST['_delete'])) {
+        if (isset($_REQUEST['_delete'])) {
             // do we really delete stuff!?!?!?
             return $this->delete($x,$_REQUEST);
         } 

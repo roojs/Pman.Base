@@ -611,7 +611,7 @@ class Pman extends HTML_FlexyFramework_Page
         $e->action = $act;
         $e->on_table = $obj ? $obj->tableName() : '';
         
-        $pk = $obj->keys();
+        $pk = $obj ? $obj->keys()  : false;
     
         $e->on_id  = $obj && $pk ? $obj->{$pk[0]}: 0;
         $e->remarks = $remarks;

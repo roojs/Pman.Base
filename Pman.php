@@ -610,7 +610,13 @@ class Pman extends HTML_FlexyFramework_Page
         $e->ipaddr = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : 'cli';
         $e->action = $act;
         $e->on_table = $obj ? $obj->tableName() : '';
-        $e->on_id  = $obj ? $obj->id : 0;
+        
+        $pk = $obj->keys();
+        if ($pk) {
+            $pk = $pk[0];
+            
+        }
+        $e->on_id  = $obj && $pk ? $obj->{$pk[0]}: 0;
         $e->remarks = $remarks;
         $e->insert();
         

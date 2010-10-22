@@ -446,7 +446,10 @@ class Pman_Roo extends Pman
         }
         
         $r = DB_DataObject::factory($x->tableName());
-        $r->id = $x->id;
+          $pk = $x->keys();
+        // let's assume it has a key!!!
+        $pk = $pk[0];
+        $r->$pk = $x->$pk;
         $this->loadMap($r, $_columns);
         $r->limit(1);
         $r->find(true);

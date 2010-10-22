@@ -579,7 +579,7 @@ class Pman_Roo extends Pman
             foreach($affects as $k=> $true) {
                 $ka = explode('.', $k);
                 $chk = DB_DataObject::factory($ka[0]);
-                $chk->{$ka[1]} =  $xx->id;
+                $chk->{$ka[1]} =  $xx->$pk;
                 if ($chk->count()) {
                     $this->jerr('Delete Dependant records first');
                 }

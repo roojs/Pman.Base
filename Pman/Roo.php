@@ -531,7 +531,7 @@ class Pman_Roo extends Pman
         if (empty($req['_delete'])) {
             $this->jerr("Delete Requested with no value");
             
-           }
+        }
         // build a list of tables to queriy for dependant data..
         $map = $x->links();
         

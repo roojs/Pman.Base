@@ -343,8 +343,7 @@ class Pman_Roo extends Pman
             // do we really delete stuff!?!?!?
             return $this->delete($x,$_REQUEST);
         } 
-        print_r($_REQUEST);exit;
-        
+         
         
         $old = false;
         

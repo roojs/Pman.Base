@@ -581,7 +581,7 @@ class Pman_Roo extends Pman
                 $chk = DB_DataObject::factory($ka[0]);
                 $chk->{$ka[1]} =  $xx->$pk;
                 if ($chk->count()) {
-                    $this->jerr('Delete Dependant records first ('. $ka[0]. ':' . $ka[0] .'='.$xx->$pk.')');
+                    $this->jerr('Delete Dependant records first ('. $ka[0]. ':' . $ka[1] .'='.$xx->$pk.')');
                 }
             }
             

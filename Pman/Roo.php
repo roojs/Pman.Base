@@ -370,6 +370,11 @@ class Pman_Roo extends Pman
             }
             $this->jok($this->update($x, $_REQUEST));
         } else {
+            
+            if (empty($_POST)) {
+                $this->jerr("No data recieved for inserting");
+            }
+            
             $this->jok($this->insert($x, $_REQUEST));
             
         }

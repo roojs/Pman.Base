@@ -73,6 +73,10 @@ class Pman_Images extends Pman
             $img = DB_DataObjecT::factory('Images');
             $img->ontable = $onbits[0];
             $img->onid = $onbits[1];
+            if (empty($_REQUEST['anytype'])) {
+                $img->whereAdd("mimetype like 'image/%'");
+            }
+            
             if (isset($onbits[2])) {
                 $img->imgtype = $onbits[2];
             }

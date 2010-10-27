@@ -78,7 +78,7 @@ class Pman_Images extends Pman
             }
             $img->limit(1);
             if (!$img->find(true)) {
-                die("no image");
+                die("no images for that item: " . htmlspecialchars($id));
             }
             
             $id = $img->id;

@@ -580,7 +580,7 @@ class Pman_Roo extends Pman
                 $ka = explode('.', $k);
                 $chk = DB_DataObject::factory($ka[0]);
                 if (!is_a($chk,'DB_DataObject')) {
-                    $this->jerr('Unable to load referenced table check the links confi: ' .$ka[0]);
+                    $this->jerr('Unable to load referenced table check the links config: ' .$ka[0]);
                 }
                 $chk->{$ka[1]} =  $xx->$pk;
                 if ($chk->count()) {

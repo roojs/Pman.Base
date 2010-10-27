@@ -69,7 +69,7 @@ class Pman_Images extends Pman
             if ((count($onbits) < 2)   || empty($onbits[1]) || !is_numeric($onbits[1]) || !strlen($onbits[0])) {
                 die("Bad url");
             }
-            DB_DataObject::debugLevel(1);
+            //DB_DataObject::debugLevel(1);
             $img = DB_DataObjecT::factory('Images');
             $img->ontable = $onbits[0];
             $img->onid = $onbits[1];

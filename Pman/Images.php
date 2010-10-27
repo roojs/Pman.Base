@@ -126,6 +126,11 @@ class Pman_Images extends Pman
     function serve($img)
     {
         require_once 'File/Convert.php';
+        if (!file_exists($img->getStoreName())) {
+            die("Original file was missing : " . $img->getStoreName());
+    
+        }
+        
         $x = new File_Convert($img->getStoreName(), $img->mimetype);
         if (empty($this->as_mimetype)) {
             $this->as_mimetype  = $img->mimetype;

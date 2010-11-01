@@ -811,7 +811,7 @@ class Pman_Roo extends Pman
                     
                 }
                 if (count($ar)) {
-                    $x->whereAddIn($key,$ar, $quote ? 'string' : 'int');
+                    $x->whereAddIn($x->tableName(). '.'.$key,$ar, $quote ? 'string' : 'int');
                 }
                 
                 continue;

@@ -46,7 +46,7 @@ class Pman_Roo extends Pman
      * -- defaults to listing data. with args.
      * 
      * !colname=....                 => colname != ....
-     * colname[0]=... colname[1]=... => colname IN (.....)
+     * colname[0]=... colname[1]=... => colname IN (.....) ** only supports main table at present..
      * 
      * other opts:
      * _post      = simulate a post with debuggin on.
@@ -73,7 +73,7 @@ class Pman_Roo extends Pman
     function get($tab)
     {
          //  $this->jerr("Not authenticated", array('authFailure' => true));
-          DB_DataObject::debuglevel(1);
+          //DB_DataObject::debuglevel(1);
         
         // debugging...
         if (!empty($_GET['_post'])) {

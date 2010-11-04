@@ -130,6 +130,7 @@ class Pman_Images extends Pman
     {
         require_once 'File/Convert.php';
         if (!file_exists($img->getStoreName())) {
+             header('Location: ' . $this->rootURL . '/Pman/templates/images/file-broken.png');
             die("Original file was missing : " . $img->getStoreName());
     
         }

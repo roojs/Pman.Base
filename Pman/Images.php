@@ -82,6 +82,7 @@ class Pman_Images extends Pman
             }
             $img->limit(1);
             if (!$img->find(true)) {
+                header('Location: ' . $this->rootURL . '/Pman/templates/images/file-broken.png');
                 die("no images for that item: " . htmlspecialchars($id));
             }
             

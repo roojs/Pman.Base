@@ -117,8 +117,8 @@ class Pman_Images extends Pman
        
         $img = DB_DataObjecT::factory('Images');
         if (!$id || !$img->get($id)) {
-            header('Location: ' . $this->rootURL . '/Pman/templates/images/file-broken.png');
-            die("image has been removed or deleted.");
+            header('Location: ' . $this->rootURL . '/Pman/templates/images/file-broken.png?reason=' .
+            urlencode("image has been removed or deleted."));
         }
         $this->serve($img);
         exit;
@@ -130,8 +130,8 @@ class Pman_Images extends Pman
     {
         require_once 'File/Convert.php';
         if (!file_exists($img->getStoreName())) {
-             header('Location: ' . $this->rootURL . '/Pman/templates/images/file-broken.png');
-            die("Original file was missing : " . $img->getStoreName());
+            header('Location: ' . $this->rootURL . '/Pman/templates/images/file-broken.png?reason=' .
+                urlencode("Original file was missing : " . $img->getStoreName()));
     
         }
         

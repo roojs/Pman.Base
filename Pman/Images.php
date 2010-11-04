@@ -106,6 +106,7 @@ class Pman_Images extends Pman
             
             $img->limit(1);
             if (!$img->find(true)) {
+                header('Location: ' . $this->rootURL . '/Pman/templates/images/file-broken.png');
                 die("No file exists");
             } 
             $id = $img->id;
@@ -116,6 +117,7 @@ class Pman_Images extends Pman
        
         $img = DB_DataObjecT::factory('Images');
         if (!$id || !$img->get($id)) {
+            header('Location: ' . $this->rootURL . '/Pman/templates/images/file-broken.png');
             die("image has been removed or deleted.");
         }
         $this->serve($img);

@@ -75,6 +75,9 @@ class Pman_Roo extends Pman
          //  $this->jerr("Not authenticated", array('authFailure' => true));
         // DB_DataObject::debuglevel(1);
         
+        $this->init(); // from pnan.
+        
+        HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev);
         // debugging...
         if (!empty($_GET['_post'])) {
             $_POST  = $_GET;

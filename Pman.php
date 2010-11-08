@@ -107,7 +107,7 @@ class Pman extends HTML_FlexyFramework_Page
         }
         // getting this to work with xhtml is a nightmare
         // = nbsp / <img> issues screw everyting up.
-         
+         var_dump($this->isDev);
         // force regeneration on load for development enviroments..
         HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev);
         

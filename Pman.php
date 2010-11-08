@@ -63,6 +63,14 @@ class Pman extends HTML_FlexyFramework_Page
         $this->isDev = empty($boot->Pman['isDev']) ? false : $boot->Pman['isDev'];
         $this->appDisable = $boot->disable;
         $this->version = $boot->version;
+        
+        if (!empty($ff->Pman['local_autoauth']) && 
+            ($_SERVER['SERVER_ADDR'] == '127.0.0.1') &&
+            ($_SERVER['REMOTE_ADDR'] == '127.0.0.1') 
+        ) {
+            $this->isDev = true;
+        }
+        
 
     }
     
@@ -99,6 +107,7 @@ class Pman extends HTML_FlexyFramework_Page
         }
         // getting this to work with xhtml is a nightmare
         // = nbsp / <img> issues screw everyting up.
+        $dev = $this->isDev;
         
         // force regeneration on load for development enviroments..
         HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev);

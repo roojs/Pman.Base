@@ -624,7 +624,7 @@ class Pman extends HTML_FlexyFramework_Page
         $e->on_id  = $obj && $pk ? $obj->{$pk[0]}: 0;
         $e->remarks = $remarks;
         $eid = $e->insert();
-        $ff  = FlexyFramework::get();
+        $ff  = HTML_FlexyFramework::get();
         if (empty($ff->Pman['event_log_dir'])) {
             return;
         }

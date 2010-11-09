@@ -625,10 +625,10 @@ class Pman extends HTML_FlexyFramework_Page
         $e->remarks = $remarks;
         $eid = $e->insert();
         $ff  = FlexyFramework::get();
-        if (empty($ff->event_log_dir)) {
+        if (empty($ff->Pman['event_log_dir'])) {
             return;
         }
-        $file = $ff->event_log_dir . date('/Y/m/d/'). $eid . ".php";
+        $file = $ff->Pman['event_log_dir']. date('/Y/m/d/'). $eid . ".php";
         if (!file_exists(dirname($file))) {
             mkdir(dirname($file),0666,true);
         }

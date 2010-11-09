@@ -630,7 +630,7 @@ class Pman extends HTML_FlexyFramework_Page
         }
         $file = $ff->Pman['event_log_dir']. date('/Y/m/d/'). $eid . ".php";
         if (!file_exists(dirname($file))) {
-            mkdir(dirname($file),0666,true);
+            mkdir(dirname($file),0700,true);
         }
         file_put_contents($file, var_export(array(
             'REQUEST_URI' => $SERVER['REQUEST_URI'],

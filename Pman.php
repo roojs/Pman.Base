@@ -570,9 +570,7 @@ class Pman extends HTML_FlexyFramework_Page
                 
             }
             
-            
-            //$cfile = basename(array_pop(glob($cfile . '/' . $mod . '*.js')));
-            
+             
             $files = array( $this->rootURL. "/_compiled_/".$mod . "/" . $cfile);
             if (file_exists($lfile)) {
                 array_push($files, $this->rootURL."/_translations_/$mod.js");

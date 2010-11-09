@@ -623,7 +623,22 @@ class Pman extends HTML_FlexyFramework_Page
     
         $e->on_id  = $obj && $pk ? $obj->{$pk[0]}: 0;
         $e->remarks = $remarks;
-        $e->insert();
+        $eid = $e->insert();
+        $ff  = FlexyFramework::get();
+        if (empty($ff->event_log_dir)) {
+            return;
+        }
+        $file = $ff->event_log_dir . date('/Y/m/d/'). $eid . ".php";
+        if (!file_exists(dirname($file))) {
+            mkdir(dirname($file),0666,true);
+        }
+        file_put_contents($file, var_export(array(
+            'REQUEST_URI' => $SERVER['REQUEST_URI'],
+            'GET' => empty($_GET) ? array() : $_GET,
+            'POST' => empty($_POST) ? array() : $_POST,
+        ), true));
+        
+        
         
     }
 

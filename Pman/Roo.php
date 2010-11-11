@@ -858,10 +858,10 @@ class Pman_Roo extends Pman
                     
                     if (isset($this->cols[$key]) && strpos( $this->cols[$key], '.') !== false) {
                         $quote = false;
-                        if (!is_numeric($v) || !is_long($v)) {
+                        if (!is_numeric($val) || !is_long($val)) {
                             $quote = true;
                         }
-                        $x->whereAdd( "$key  = " . ($quote ? "'". $x->escape($v) ."'" : $v));
+                        $x->whereAdd( "$key  = " . ($quote ? "'". $x->escape($val) ."'" : $val));
                         
                     }
                     

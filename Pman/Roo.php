@@ -667,13 +667,15 @@ class Pman_Roo extends Pman
         $do->selectAdd(); // we need thsi as normally it's only cleared by an empty selectAs call.
         
         $selectAs = array(array(  $xx , '%s'));
+        $this->countWhat = false;
         $has_distinct = false;
         if ($filter) {
             $cols = array();
            
             foreach($xx as $c) {
                 if ($distinct && $distinct == $c) {
-                    $has_distinct = 'DISTINCT( ' . $do->tableName() .'.'. $has_distinct .') as ' . $has_distinct ;
+                    $has_distinct = 'DISTINCT( ' . $do->tableName() .'.'. $c .') as ' . $c;
+                    $this->countWhat =  'DISTINCT  ' . $do->tableName() .'.'. $c .'';
                     continue;
                 }
                 if (in_array($c, $filter)) {
@@ -744,6 +746,10 @@ class Pman_Roo extends Pman
             }
             
             
+        }
+        
+        if ($has_distinct) {
+            $this->selectAdd($has_distinct);
         }
         //DB_DataObject::debugLevel(1);
         // we do select as after everything else as we need to plop distinct at the beginning??

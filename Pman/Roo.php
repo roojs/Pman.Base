@@ -751,7 +751,7 @@ class Pman_Roo extends Pman
         /// well I assume..
        // echo '<PRE>';print_r($selectAs );exit;
         foreach($selectAs as $ar) {
-            $do->selectAs($ar[0], $ar[1]);
+            $do->selectAs($ar[0], $ar[1], $ar[2]);
         }
         
         

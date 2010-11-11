@@ -667,13 +667,13 @@ class Pman_Roo extends Pman
         $do->selectAdd(); // we need thsi as normally it's only cleared by an empty selectAs call.
         
         $selectAs = array(array(  $xx , '%s'));
-         $has_distinct = false;
+        $has_distinct = false;
         if ($filter) {
             $cols = array();
            
             foreach($xx as $c) {
                 if ($distinct && $distinct == $c) {
-                    $has_distinct = 'DISTINCT( ' . $do->tableName() .'.'. $has_distinct .' as ' . $has_distinct ;
+                    $has_distinct = 'DISTINCT( ' . $do->tableName() .'.'. $has_distinct .') as ' . $has_distinct ;
                     continue;
                 }
                 if (in_array($c, $filter)) {
@@ -716,12 +716,17 @@ class Pman_Roo extends Pman
             $xx = array_keys($tabdef);
             
             
-            if ($filter) {
+            if ($filter || $distinct) {
                 $cols = array();
                 foreach($xx as $c) {
-                    
                     $tn = sprintf($ocl.'_%s', $c);
-                    if (in_array($tn, $filter)) {
+                    if ($tn == $distinct) {
+                        $has_distinct = 'DISTINCT( ' . 'join_'.$ocl.'_'.$col.'.'.$k; .')  as ' . $tc ;
+                        continue;
+                    }
+                    
+                    
+                    if (!$filter || in_array($tn, $filter)) {
                         $cols[] = $c;
                     }
                 }

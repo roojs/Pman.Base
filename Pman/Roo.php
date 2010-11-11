@@ -861,7 +861,7 @@ class Pman_Roo extends Pman
                         if (!is_numeric($val) || !is_long($val)) {
                             $quote = true;
                         }
-                        $x->whereAdd( "$key  = " . ($quote ? "'". $x->escape($val) ."'" : $val));
+                        $x->whereAdd( "{$this->cols[$key]} = " . ($quote ? "'". $x->escape($val) ."'" : $val));
                         
                     }
                     

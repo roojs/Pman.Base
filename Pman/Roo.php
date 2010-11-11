@@ -856,10 +856,24 @@ class Pman_Roo extends Pman
                         $q_filtered[$key] = $val;
                     }
                     
+                    if (isset($this->cols[$key]) && strpos( $this->cols[$key], '.') !== false) {
+                        $quote = false;
+                        if (!is_numeric($v) || !is_long($v)) {
+                            $quote = true;
+                        }
+                        $x->whereAdd( "$key  = " . ($quote ? "'". $x->escape($v) ."'" : $v));
+                        
+                    }
+                    
+                    
                     continue;
             }
         }
+        
         $x->setFrom($q_filtered);
+        
+        
+        
        
         // nice generic -- let's get rid of it.. where is it used!!!!
         // used by: 

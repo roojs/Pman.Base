@@ -810,6 +810,8 @@ class Pman_Roo extends Pman
                         $ar = array();
                         break;
                     }
+                    // FIXME: note this is not typesafe for anything other than mysql..
+                    
                     if (!is_numeric($v) || !is_long($v)) {
                         $quote = true;
                     }
@@ -826,7 +828,8 @@ class Pman_Roo extends Pman
             
             
             if ($key[0] == '!' && in_array(substr($key, 1), array_keys($this->cols))) {
-                    
+                
+                
                 $x->whereAdd( $x->tableName() .'.' .substr($key, 1) . ' != ' .
                     (is_numeric($val) ? $val : "'".  $x->escape($val) . "'")
                 );

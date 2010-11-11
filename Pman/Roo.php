@@ -667,22 +667,20 @@ class Pman_Roo extends Pman
         $do->selectAdd(); // we need thsi as normally it's only cleared by an empty selectAs call.
         
         $selectAs = array(array(  $xx , '%s'));
-        
+         $has_distinct = false;
         if ($filter) {
             $cols = array();
-            $has_distinct = false;
+           
             foreach($xx as $c) {
                 if ($distinct && $distinct == $c) {
-                    $has_distinct=$c;
+                    $has_distinct = 'DISTINCT( ' . $do->tableName() .'.'. $has_distinct .' as ' . $has_distinct ;
                     continue;
                 }
                 if (in_array($c, $filter)) {
                     $cols[] = $c;
                 }
             }
-            if ($has_distinct) {
-                $do->selectAdd( 'DISTINCT( ' . $do->tableName() .'.'. $has_distinct .' as ' . $has_distinct );
-            }
+            
             $selectAs = array(array(  $cols , '%s'));
             
         } 

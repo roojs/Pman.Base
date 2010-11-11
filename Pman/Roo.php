@@ -724,7 +724,10 @@ class Pman_Roo extends Pman
                         $cols[] = $c;
                     }
                 }
-                $selectAs[] = array($cols, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
+                if (!empty($cols)) {
+                     $selectAs[] = array($cols, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
+                }
+               
                 
             } else {
                 $selectAs[] = array($xx, $ocl.'_%s', 'join_'.$ocl.'_'. $col);

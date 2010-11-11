@@ -658,7 +658,7 @@ class Pman_Roo extends Pman
         $has_distinct = false;
         if ($filter || $distinct) {
             $cols = array();
-           echo '<PRE>' ;print_r($filter);exit;
+            //echo '<PRE>' ;print_r($filter);exit;
             foreach($xx as $c) {
                 if ($distinct && $distinct == $c) {
                     $has_distinct = 'DISTINCT( ' . $do->tableName() .'.'. $c .') as ' . $c;
@@ -669,8 +669,11 @@ class Pman_Roo extends Pman
                     $cols[] = $c;
                 }
             }
-             echo '<PRE>' ;print_r($cols);exit;
-            $selectAs = array(array(  $cols , '%s'));
+            
+            
+            $selectAs = empty($cols) ? : array() : array(array(  $cols , '%s')) ;
+            
+            
             
         } 
         

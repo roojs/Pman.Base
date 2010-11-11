@@ -721,7 +721,7 @@ class Pman_Roo extends Pman
                 foreach($xx as $c) {
                     $tn = sprintf($ocl.'_%s', $c);
                     if ($tn == $distinct) {
-                        $has_distinct = 'DISTINCT( ' . 'join_'.$ocl.'_'.$col.'.'.$k; .')  as ' . $tc ;
+                        $has_distinct = 'DISTINCT( ' . 'join_'.$ocl.'_'.$col.'.'.$k .')  as ' . $tc ;
                         continue;
                     }
                     

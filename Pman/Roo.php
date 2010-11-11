@@ -863,7 +863,7 @@ class Pman_Roo extends Pman
        
         // nice generic -- let's get rid of it.. where is it used!!!!
         // used by: 
-        // Person / Group
+        // Person / Group / most of my queries noww...
         if (!empty($q['query']['name'])) {
             $x->whereAdd($x->tableName().".name LIKE '". $x->escape($q['query']['name']) . "%'");
         }

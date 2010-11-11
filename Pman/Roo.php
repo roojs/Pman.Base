@@ -152,7 +152,8 @@ class Pman_Roo extends Pman
         if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
             $this->jerr("PERMISSION DENIED");
         }
-        $map = $this->loadMap($x, $_columns);
+        
+        $map = $this->loadMap($x, $_columns, empty($_REQUEST['_distinct']) ? false:  $_REQUEST['_distinct']);
         
         $this->setFilters($x,$_REQUEST);
         
@@ -615,16 +616,16 @@ class Pman_Roo extends Pman
     
     
     var $cols = array();
-    function loadMap($do, $filter=false) 
+    function loadMap($do, $filter=false, $distinct = false) 
     {
         //DB_DataObject::debugLevel(1);
         $conf = array();
         
-        
         $this->init();
+        
         $mods = explode(',',$this->appModules);
         
-        $ff = HTML_FlexyFramework::geT();
+        $ff = HTML_FlexyFramework::get();
         //$db->databaseName();
         
         //$ff->DB_DataObject['ini_'. $db->database()];
@@ -665,19 +666,26 @@ class Pman_Roo extends Pman
         $xx = array_keys($tabdef);
         $do->selectAdd(); // we need thsi as normally it's only cleared by an empty selectAs call.
         
+        $selectAs = array(array(  $xx , '%s'));
+        
         if ($filter) {
             $cols = array();
-         
+            $has_distinct = false;
             foreach($xx as $c) {
+                if ($distinct && $distinct == $c) {
+                    $has_distinct=$c;
+                    continue;
+                }
                 if (in_array($c, $filter)) {
                     $cols[] = $c;
                 }
             }
-            $do->selectAs($cols);
-        } else {
-            $do->selectAs($xx);
-        }
-        
+            if ($has_distinct) {
+                $do->selectAdd( 'DISTINCT( ' . $do->tableName() .'.'. $has_distinct .' as ' . $has_distinct );
+            }
+            $selectAs = array(array(  $cols , '%s'));
+            
+        } 
         
         $this->cols = array();
         $this->colsJoinName =array();
@@ -719,9 +727,11 @@ class Pman_Roo extends Pman
                         $cols[] = $c;
                     }
                 }
-                $do->selectAs($cols, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
+                $selectAs[] = array($cols, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
+                
             } else {
-                $do->selectAs($xx,  $ocl.'_%s', 'join_'.$ocl.'_'. $col);
+                $selectAs[] = array($xx, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
+                
             }
              
             
@@ -733,7 +743,11 @@ class Pman_Roo extends Pman
             
         }
         //DB_DataObject::debugLevel(1);
-        
+        // we do select as after everything else as we need to plop distinct at the beginning??
+        /// well I assume..
+        foreach($selectAs as $ar) {
+            $do->selectAs($ar[0], $ar[1])
+        }
         
         
     }

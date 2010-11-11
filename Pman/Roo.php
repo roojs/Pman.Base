@@ -148,7 +148,7 @@ class Pman_Roo extends Pman
             $this->jok("Updated");
             
         }
-       //DB_DataObject::debugLevel(1);
+       DB_DataObject::debugLevel(1);
         if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
             $this->jerr("PERMISSION DENIED");
         }

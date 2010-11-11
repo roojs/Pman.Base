@@ -153,29 +153,16 @@ class Pman_Roo extends Pman
             $this->jerr("PERMISSION DENIED");
         }
         
-        $map = $this->loadMap($x, $_columns, empty($_REQUEST['_distinct']) ? false:  $_REQUEST['_distinct']);
+        // sets map and countWhat
+        $this->loadMap($x, $_columns, empty($_REQUEST['_distinct']) ? false:  $_REQUEST['_distinct']);
         
         $this->setFilters($x,$_REQUEST);
         
          
         
         // build join if req.
-        $countWhat = false;
-        if (!empty($_REQUEST['_distinct'])) {
-            $cols = $x->table();
-           // print_r($cols);
-          
-            if (isset($cols[$_REQUEST['_distinct']])) {
-                $countWhat = 'distinct ' . $_REQUEST['_distinct'];
-                $x->selectAdd();
-                $x->selectAdd('distinct('.$_REQUEST['_distinct'].')');
-                $_columns = array( $_REQUEST['_distinct'] );
-            } else {
-                $this->jerr('invalid distinct');
-            }
-             
-        }
-        $total = $x->count($countWhat);
+         
+        $total = $x->count($this->countWhat);
         // sorting..
       //   DB_DataObject::debugLevel(1);
         

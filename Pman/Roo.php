@@ -793,6 +793,7 @@ class Pman_Roo extends Pman
         
         foreach($q as $key=>$val) {
             
+            // value is an array..
             if (is_array($val) ) {
                 
                 if (!in_array( $key,  array_keys($this->cols))) {

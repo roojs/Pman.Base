@@ -858,6 +858,9 @@ class Pman_Roo extends Pman
                         $q_filtered[$key] = $val;
                     }
                     
+                    // subjoined columns = check the values.
+                    // note this is not typesafe for anything other than mysql..
+                    
                     if (isset($this->colsJname[$key])) {
                         $quote = false;
                         if (!is_numeric($val) || !is_long($val)) {

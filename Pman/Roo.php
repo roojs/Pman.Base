@@ -724,6 +724,7 @@ class Pman_Roo extends Pman
                     $tn = sprintf($ocl.'_%s', $c);
                     if ($tn == $distinct) {
                         $has_distinct = 'DISTINCT( ' . 'join_'.$ocl.'_'.$col.'.'.$k .')  as ' . $tc ;
+                        $this->countWhat =  'DISTINCT  join_'.$ocl.'_'.$col.'.'.$k;
                         continue;
                     }
                     

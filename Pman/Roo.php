@@ -656,7 +656,7 @@ class Pman_Roo extends Pman
         $selectAs = array(array(  $xx , '%s'));
         $this->countWhat = false;
         $has_distinct = false;
-        if ($filter) {
+        if ($filter || $distinct) {
             $cols = array();
            
             foreach($xx as $c) {

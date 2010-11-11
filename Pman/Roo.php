@@ -671,7 +671,7 @@ class Pman_Roo extends Pman
             }
             
             
-            $selectAs = empty($cols) ? : array() : array(array(  $cols , '%s')) ;
+            $selectAs = empty($cols) ?  array() : array(array(  $cols , '%s')) ;
             
             
             

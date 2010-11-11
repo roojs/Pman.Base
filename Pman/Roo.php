@@ -680,6 +680,7 @@ class Pman_Roo extends Pman
         
         
         $this->cols = array();
+        $this->colsJoinName =array();
         foreach($xx as $k) {
             $this->cols[$k] = $do->tableName(). '.' . $k;
         }
@@ -726,6 +727,7 @@ class Pman_Roo extends Pman
             
             foreach($xx as $k) {
                 $this->cols[sprintf($ocl.'_%s', $k)] = $tab.'.'.$k;
+                $this->colsJname[sprintf($ocl.'_%s', $k)] = 'join_'.$ocl.'_'.$col.'.'.$k;
             }
             
             

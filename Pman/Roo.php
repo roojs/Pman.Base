@@ -746,7 +746,7 @@ class Pman_Roo extends Pman
         // we do select as after everything else as we need to plop distinct at the beginning??
         /// well I assume..
         foreach($selectAs as $ar) {
-            $do->selectAs($ar[0], $ar[1])
+            $do->selectAs($ar[0], $ar[1]);
         }
         
         

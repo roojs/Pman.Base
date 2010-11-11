@@ -665,7 +665,7 @@ class Pman_Roo extends Pman
                     $this->countWhat =  'DISTINCT  ' . $do->tableName() .'.'. $c .'';
                     continue;
                 }
-                if (in_array($c, $filter)) {
+                if (!$filter || in_array($c, $filter)) {
                     $cols[] = $c;
                 }
             }

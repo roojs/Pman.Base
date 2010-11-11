@@ -835,8 +835,12 @@ class Pman_Roo extends Pman
             
             if ($key[0] == '!' && in_array(substr($key, 1), array_keys($this->cols))) {
                 
+                $key  = substr($key, 1) ;
                 
-                $x->whereAdd( $x->tableName() .'.' .substr($key, 1) . ' != ' .
+                $x->whereAdd(   (
+                        isset($this->colsJoinName[$key]) ? 
+                            $this->colsJoinName[$key] :
+                            $x->tableName(). '.'.$key ) . ' != ' .
                     (is_numeric($val) ? $val : "'".  $x->escape($val) . "'")
                 );
                 continue;
@@ -847,7 +851,7 @@ class Pman_Roo extends Pman
             
             switch($key) {
                     
-                // Events and remarks
+                // Events and remarks -- fixme - move to events/remarsk...
                 case 'on_id':  // where TF is this used...
                     if (!empty($q['query']['original'])) {
                       //  DB_DataObject::debugLevel(1);

@@ -669,7 +669,7 @@ class Pman_Roo extends Pman
                     $cols[] = $c;
                 }
             }
-            
+             echo '<PRE>' ;print_r($cols);exit;
             $selectAs = array(array(  $cols , '%s'));
             
         } 

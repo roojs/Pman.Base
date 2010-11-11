@@ -713,7 +713,7 @@ class Pman_Roo extends Pman
                 foreach($xx as $c) {
                     $tn = sprintf($ocl.'_%s', $c);
                     if ($distinct && $tn == $distinct) {
-                        $has_distinct = 'DISTINCT( ' . 'join_'.$ocl.'_'.$col.'.'.$k .')  as ' . $tc ;
+                        $has_distinct = 'DISTINCT( ' . 'join_'.$ocl.'_'.$col.'.'.$k .')  as ' . $tn ;
                         $this->countWhat =  'DISTINCT  join_'.$ocl.'_'.$col.'.'.$k;
                         continue;
                     }

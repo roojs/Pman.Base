@@ -158,7 +158,7 @@ class Pman_Roo extends Pman
         
         $this->setFilters($x,$_REQUEST);
         
-         var_dump($this->countWhat);
+         print_r($x);
         // build join if req.
          
         $total = $x->count($this->countWhat);

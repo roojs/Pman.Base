@@ -857,8 +857,8 @@ class Pman_Roo extends Pman
                 $key  = substr($key, 1) ;
                 
                 $x->whereAdd(   (
-                        isset($this->colsJoinName[$key]) ? 
-                            $this->colsJoinName[$key] :
+                        isset($this->colsJname[$key]) ? 
+                            $this->colsJname[$key] :
                             $x->tableName(). '.'.$key ) . ' != ' .
                     (is_numeric($val) ? $val : "'".  $x->escape($val) . "'")
                 );

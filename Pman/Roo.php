@@ -838,7 +838,7 @@ class Pman_Roo extends Pman
                 }
                 if (count($ar)) {
                     
-                    print_r($key);
+                    var_dump($key);
                     var_dump($this->colsJoinName[$key]);
                     $x->whereAddIn(
                         isset($this->colsJoinName[$key]) ? 

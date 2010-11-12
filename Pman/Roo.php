@@ -748,7 +748,7 @@ class Pman_Roo extends Pman
         //DB_DataObject::debugLevel(1);
         // we do select as after everything else as we need to plop distinct at the beginning??
         /// well I assume..
-        echo '<PRE>';print_r($this->colsJname);exit;
+       // echo '<PRE>';print_r($this->colsJname);exit;
         foreach($selectAs as $ar) {
             $do->selectAs($ar[0], $ar[1], $ar[2]);
         }

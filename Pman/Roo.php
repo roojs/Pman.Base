@@ -157,7 +157,7 @@ class Pman_Roo extends Pman
         $this->loadMap($x, $_columns, empty($_REQUEST['_distinct']) ? false:  $_REQUEST['_distinct']);
         
         $this->setFilters($x,$_REQUEST);
-        
+         print_r($x->sequenceKeys());
          print_r($x);
         // build join if req.
          

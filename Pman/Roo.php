@@ -158,13 +158,13 @@ class Pman_Roo extends Pman
         
         $this->setFilters($x,$_REQUEST);
       
-         print_r($x);
+         //print_r($x);
         // build join if req.
-         DB_DataObject::debugLevel(1);
+         //DB_DataObject::debugLevel(1);
         $total = $x->count($this->countWhat);
         // sorting..
       //   
-        var_dump($total);exit;
+        //var_dump($total);exit;
         $this->applySort($x);
         
         
@@ -748,7 +748,7 @@ class Pman_Roo extends Pman
         //DB_DataObject::debugLevel(1);
         // we do select as after everything else as we need to plop distinct at the beginning??
         /// well I assume..
-       // echo '<PRE>';print_r($selectAs );exit;
+        echo '<PRE>';print_r($selectAs );exit;
         foreach($selectAs as $ar) {
             $do->selectAs($ar[0], $ar[1], $ar[2]);
         }

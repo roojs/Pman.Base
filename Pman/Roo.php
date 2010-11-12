@@ -73,7 +73,8 @@ class Pman_Roo extends Pman
     function get($tab)
     {
          //  $this->jerr("Not authenticated", array('authFailure' => true));
-        DB_DataObject::debuglevel(1);
+     
+     DB_DataObject::debuglevel(1);
         
         $this->init(); // from pnan.
         

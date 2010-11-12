@@ -164,7 +164,7 @@ class Pman_Roo extends Pman
         $total = $x->count($this->countWhat);
         // sorting..
       //   DB_DataObject::debugLevel(1);
-        
+        var_dump($total);exit;
         $this->applySort($x);
         
         

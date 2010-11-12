@@ -160,10 +160,10 @@ class Pman_Roo extends Pman
       
          print_r($x);
         // build join if req.
-         
+         DB_DataObject::debugLevel(1);
         $total = $x->count($this->countWhat);
         // sorting..
-      //   DB_DataObject::debugLevel(1);
+      //   
         var_dump($total);exit;
         $this->applySort($x);
         

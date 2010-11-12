@@ -264,7 +264,7 @@ class Pman_Roo extends Pman
         
        // Db_DataObject::debugLevel(1);
         $sort = empty($_REQUEST['sort']) ? $sort : $_REQUEST['sort'];
-        $dir = empty($_REQUEST['dir']) ? $sort : $_REQUEST['dir'];
+        $dir = empty($_REQUEST['dir']) ? $dir : $_REQUEST['dir'];
         $dir = $dir == 'ASC' ? 'ASC' : 'DESC';
         
         

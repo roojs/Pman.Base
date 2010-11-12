@@ -842,7 +842,7 @@ class Pman_Roo extends Pman
                     $x->whereAddIn(
                         isset($this->colsJoinName[$key]) ? 
                             $this->colsJoinName[$key] :
-                            $x->tableName(). '.'.$key,
+                            ($x->tableName(). '.'.$key),
                         $ar, $quote ? 'string' : 'int');
                 }
                 

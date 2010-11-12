@@ -158,7 +158,7 @@ class Pman_Roo extends Pman
         
         $this->setFilters($x,$_REQUEST);
         
-         echo "GOT THIS FAR?";
+        ;
         
         // build join if req.
          

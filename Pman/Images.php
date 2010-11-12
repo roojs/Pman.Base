@@ -159,7 +159,7 @@ class Pman_Images extends Pman
     function validateSize()
     {
         if (!in_array($this->size, array(
-                '50x50',
+               
                 '100', 
                 '100x100', 
                 '150', 

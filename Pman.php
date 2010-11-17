@@ -16,7 +16,8 @@
  *  - authentication reset password ?? MOVEME?
  *  ?? arrayClean.. what's it doing here?!? ;)
  * 
- * 
+ * Usefull implemetors
+ * DB_DataObject::toEventString (for logging - this is generically prefixed to all database operations.)
  */
 
 class Pman extends HTML_FlexyFramework_Page 

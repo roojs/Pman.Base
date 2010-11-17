@@ -17,7 +17,8 @@
  *  ?? arrayClean.. what's it doing here?!? ;)
  * 
  * Usefull implemetors
- * DB_DataObject::toEventString (for logging - this is generically prefixed to all database operations.)
+ * DB_DataObject*:*toEventString (for logging - this is generically prefixed to all database operations.)
+ *   - any data object where this method exists, the result will get prefixed to the log remarks
  */
 
 class Pman extends HTML_FlexyFramework_Page 

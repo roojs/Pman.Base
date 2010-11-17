@@ -625,18 +625,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
         $au = $this->getAuthUser();
         $e = DB_DataObject::factory('Events');
-        
-        if (is_a($e, 'PEAR_Error')) {
-            return; // no event table!
-        }
-        $e->person_name = $au ? $au->name : '';
-        $e->person_id = $au ? $au->id : '';
-        $e->ipaddr = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : 'cli';
-        $e->action = $act;
-        $e->on_table = $obj ? $obj->tableName() : '';
-        $pk = $obj ? $obj->keys()  : false;
-        $e->on_id  = $obj && $pk ? $obj->{$pk[0]}: 0;
-        $e->remarks = $remarks;
+        $e->init($act,$obj,$remarks); 
         if ($e->find(true)) {
             return;
         }
@@ -655,21 +644,10 @@ class Pman extends HTML_FlexyFramework_Page
     {
         $au = $this->getAuthUser();
         $e = DB_DataObject::factory('Events');
-        
-        if (is_a($e, 'PEAR_Error')) {
-            return; // no event table!
-        }
-        $e->person_name = $au ? $au->name : '';
-        $e->person_id = $au ? $au->id : '';
+        $e->init($act,$obj,$remarks); 
+         
         $e->event_when = date('Y-m-d H:i:s');
-        $e->ipaddr = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : 'cli';
-        $e->action = $act;
-        $e->on_table = $obj ? $obj->tableName() : '';
         
-        $pk = $obj ? $obj->keys()  : false;
-    
-        $e->on_id  = $obj && $pk ? $obj->{$pk[0]}: 0;
-        $e->remarks = $remarks;
         $eid = $e->insert();
         $ff  = HTML_FlexyFramework::get();
         if (empty($ff->Pman['event_log_dir'])) {

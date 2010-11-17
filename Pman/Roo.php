@@ -592,6 +592,7 @@ class Pman_Roo extends Pman
                     $this->jerr('Delete Dependant records first ('. $ka[0]. ':' . $ka[1] .'='.$xx->$pk.')');
                 }
             }
+            // finally log it.. 
             
             $this->addEvent("DELETE", $x, $x->toEventString());
             

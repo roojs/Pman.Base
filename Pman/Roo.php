@@ -26,7 +26,7 @@ require_once 'Pman.php';
  * - onUpload($roo)
  * - setFromRoo($ar) - values from post (deal with dates etc.) - return true|error string.
  * 
- * - toEventString (for logging)
+ * - toEventString (for logging - this is generically prefixed to all database operations.)
  */
 
 class Pman_Roo extends Pman
@@ -433,7 +433,7 @@ class Pman_Roo extends Pman
         if (method_exists($x, 'onInsert')) {
             $x->onInsert($_REQUEST, $this);
         }
-        $this->addEvent("ADD", $x, $x->toEventString());
+        $this->addEvent("ADD", $x);
         
         // note setFrom might handle this before hand...!??!
         if (!empty($_FILES) && method_exists($x, 'onUpload')) {
@@ -475,7 +475,7 @@ class Pman_Roo extends Pman
         } else {
             $x->setFrom($req);
         }
-        $this->addEvent("EDIT", $x, $x->toEventString());
+        $this->addEvent("EDIT", $x);
         //print_r($x);
         //print_r($old);
         
@@ -594,7 +594,7 @@ class Pman_Roo extends Pman
             }
             // finally log it.. 
             
-            $this->addEvent("DELETE", $x, $x->toEventString());
+            $this->addEvent("DELETE", $x);
             
             $xx->delete();
         }

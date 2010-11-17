@@ -612,11 +612,47 @@ class Pman extends HTML_FlexyFramework_Page
      * ---------------- Logging ---------------   
      */
     
+    /**
+     * addEventOnce:
+     * Log an action (only if it has not been logged already.
+     * 
+     * @param {String} action  - group/name of event
+     * @param {DataObject|false} obj - dataobject action occured on.
+     * @param {String} any remarks 
+     */
     
+    function addEventOnce($act, $obj = false, $remarks = '') 
+    {
+        $au = $this->getAuthUser();
+        $e = DB_DataObject::factory('Events');
+        
+        if (is_a($e, 'PEAR_Error')) {
+            return; // no event table!
+        }
+        $e->person_name = $au ? $au->name : '';
+        $e->person_id = $au ? $au->id : '';
+        $e->ipaddr = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : 'cli';
+        $e->action = $act;
+        $e->on_table = $obj ? $obj->tableName() : '';
+        $pk = $obj ? $obj->keys()  : false;
+        $e->on_id  = $obj && $pk ? $obj->{$pk[0]}: 0;
+        $e->remarks = $remarks;
+        if ($e->find(true)) {
+            return;
+        }
+        $this->addEvent($act, $obj, $remarks);
+    }
+    /**
+     * addEvent:
+     * Log an action.
+     * 
+     * @param {String} action  - group/name of event
+     * @param {DataObject|false} obj - dataobject action occured on.
+     * @param {String} any remarks 
+     */
     
-    
-    
-    function addEvent($act, $obj = false, $remarks = '') {
+    function addEvent($act, $obj = false, $remarks = '') 
+    {
         $au = $this->getAuthUser();
         $e = DB_DataObject::factory('Events');
         

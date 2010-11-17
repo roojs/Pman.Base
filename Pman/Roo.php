@@ -566,7 +566,20 @@ class Pman_Roo extends Pman
         while ($x->fetch()) {
             $xx = clone($x);
             
+           
             
+            
+            if (method_exists($x, 'checkPerm') && !$x->checkPerm('D', $this->authUser))  {
+                $this->jerr("PERMISSION DENIED");
+            }
+            
+            
+            if ( method_exists($xx, 'beforeDelete') && ($xx->beforeDelete() === false)) {
+                $errs[] = "Delete failed ({$xx->id})\n". (isset($xx->err) ? $xx->err : '');
+                continue;
+            }
+            
+             
             foreach($affects as $k=> $true) {
                 $ka = explode('.', $k);
                 $chk = DB_DataObject::factory($ka[0]);
@@ -579,17 +592,8 @@ class Pman_Roo extends Pman
                 }
             }
             
-            
-            
-            if (method_exists($x, 'checkPerm') && !$x->checkPerm('D', $this->authUser))  {
-                $this->jerr("PERMISSION DENIED");
-            }
-            
             $this->addEvent("DELETE", $x, $x->toEventString());
-            if ( method_exists($xx, 'beforeDelete') && ($xx->beforeDelete() === false)) {
-                $errs[] = "Delete failed ({$xx->id})\n". (isset($xx->err) ? $xx->err : '');
-                continue;
-            }
+            
             $xx->delete();
         }
         if ($errs) {

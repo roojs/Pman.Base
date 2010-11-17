@@ -567,18 +567,19 @@ class Pman_Roo extends Pman
             $xx = clone($x);
             
            
-            
+            // perms first.
             
             if (method_exists($x, 'checkPerm') && !$x->checkPerm('D', $this->authUser))  {
                 $this->jerr("PERMISSION DENIED");
             }
             
-            
+            // before delte = allows us to trash dependancies if needed..
             if ( method_exists($xx, 'beforeDelete') && ($xx->beforeDelete() === false)) {
                 $errs[] = "Delete failed ({$xx->id})\n". (isset($xx->err) ? $xx->err : '');
                 continue;
             }
             
+            // now check deps.
              
             foreach($affects as $k=> $true) {
                 $ka = explode('.', $k);

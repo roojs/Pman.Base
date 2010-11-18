@@ -49,6 +49,7 @@ class Pman_Login extends Pman
             //print_r($u);
             if ($u) {
                 $this->addEvent('LOGOUT', false, session_id());
+                session_regenerate_id(true);
                 $u->logout();
             }
             // log it..

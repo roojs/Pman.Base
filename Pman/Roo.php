@@ -485,15 +485,7 @@ class Pman_Roo extends Pman
             
         }
         
-        
-        if ($lock->find(true)) {
-            if (empty($_REQUEST['_lock_id']) || $lock->id != $_REQUEST['_lock_id']) {
-                
-                $this->jerr("
-                
-            }
-            
-        }
+         
         
         
         

@@ -461,6 +461,42 @@ class Pman_Roo extends Pman
             $this->jerr("PERMISSION DENIED");
         }
        
+        // check any locks..
+        // only done if we recieve a lock_id.
+        // we are very trusing here.. that someone has not messed around with locks..
+        // the object might want to check in their checkPerm - if locking is essential..
+        
+        $lock = DB_DataObjecT::factory('Core_locking');
+        if (is_a($lock,'DB_DataObject'))  {
+                 
+            $lock->on_id = $x->id;
+            $lock->on_table= $x->tableName();
+            if (!empty($_REQUEST['_lock_id'])) {
+                $lock->whereAdd('id != ' . ((int)$_REQUEST['_lock_id']));
+            }
+            $lock->limit(1);
+            if ($lock->find(true)) {
+                // it's locked by someone else..
+                $p = $lock->person();
+                $this->jerr("Your lock is invalid, This record is locked by " . $p->name . " at " $lock->created);
+            }
+            // check the users lock..
+            
+        }
+        
+        
+        if ($lock->find(true)) {
+            if (empty($_REQUEST['_lock_id']) || $lock->id != $_REQUEST['_lock_id']) {
+                
+                $this->jerr("
+                
+            }
+            
+        }
+        
+        
+        
+       
         $_columns = !empty($req['_columns']) ? explode(',', $req['_columns']) : false;
 
        

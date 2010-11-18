@@ -48,7 +48,7 @@ class Pman_Login extends Pman
             $u = $this->getAuthUser();
             //print_r($u);
             if ($u) {
-                $this->addEvent('LOGOUT');
+                $this->addEvent('LOGOUT', false, session_id());
                 $u->logout();
             }
             // log it..
@@ -163,7 +163,7 @@ class Pman_Login extends Pman
         
         if ($u->checkPassword($_REQUEST['password'])) {
             $u->login();
-            $this->addEvent("LOGIN");
+            $this->addEvent("LOGIN", false, session_id());
             if (!empty($_REQUEST['lang'])) {
                 $u->lang($_REQUEST['lang']);
             }

@@ -478,7 +478,7 @@ class Pman_Roo extends Pman
             if ($lock->find(true)) {
                 // it's locked by someone else..
                 $p = $lock->person();
-                $this->jerr("Your lock is invalid, This record is locked by " . $p->name . " at " $lock->created);
+                $this->jerr("Your lock is invalid, This record is locked by " . $p->name . " at " .$lock->created);
             }
             // check the users lock..
             

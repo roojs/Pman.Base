@@ -48,7 +48,15 @@ class Pman_Login extends Pman
             $u = $this->getAuthUser();
             //print_r($u);
             if ($u) {
-                $this->addEvent('LOGOUT', false, session_id());
+                
+                $this->addEvent('LOGOUT');
+                $e = DB_DataObject::factory('Events');
+                $e->query("UPDATE Events SET remarks = '' WHERE 
+                    person_id = {$u->id} AND
+                    action = 'LOGIN' AND
+                    remarks = '". $e->escape(session_id()) . "'");
+                    
+                
                 session_regenerate_id(true);
                 $u->logout();
             }

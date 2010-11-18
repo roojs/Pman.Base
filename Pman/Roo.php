@@ -480,7 +480,8 @@ class Pman_Roo extends Pman
                 $p = $lock->person();
                 $this->jerr("Your lock is invalid, This record is locked by " . $p->name . " at " .$lock->created);
             }
-            // check the users lock..
+            // check the users lock.. - no point.. ??? - if there are no other locks and it's not the users, then they can 
+            // edit it anyways...
             
         }
         

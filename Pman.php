@@ -660,7 +660,7 @@ class Pman extends HTML_FlexyFramework_Page
             mkdir(dirname($file),0700,true);
         }
         file_put_contents($file, var_export(array(
-            'REQUEST_URI' => empty($_SERVER['REQUEST_URI']) ? 'cli' : $_SERVER['REQUEST_URI',
+            'REQUEST_URI' => empty($_SERVER['REQUEST_URI']) ? 'cli' : $_SERVER['REQUEST_URI'],
             'GET' => empty($_GET) ? array() : $_GET,
             'POST' => empty($_POST) ? array() : $_POST,
         ), true));

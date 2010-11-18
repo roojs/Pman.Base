@@ -56,7 +56,6 @@ class Pman_Login extends Pman
                     action = 'LOGIN' AND
                     remarks = '". $e->escape(session_id()) . "'");
                     
-                
                 session_regenerate_id(true);
                 $u->logout();
             }

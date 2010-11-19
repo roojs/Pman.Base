@@ -51,11 +51,7 @@ class Pman_Login extends Pman
                 
                 $this->addEvent('LOGOUT');
                 $e = DB_DataObject::factory('Events');
-                $e->query("UPDATE Events SET remarks = '' WHERE 
-                    person_id = {$u->id} AND
-                    action = 'LOGIN' AND
-                    remarks = '". $e->escape(session_id()) . "'");
-                    
+              
                 session_regenerate_id(true);
                 $u->logout();
             }
@@ -171,6 +167,7 @@ class Pman_Login extends Pman
         
         if ($u->checkPassword($_REQUEST['password'])) {
             $u->login();
+            // we might need this later..
             $this->addEvent("LOGIN", false, session_id());
             if (!empty($_REQUEST['lang'])) {
                 $u->lang($_REQUEST['lang']);

@@ -397,6 +397,8 @@ class Pman extends HTML_FlexyFramework_Page
         require_once 'Services/JSON.php';
         $json = new Services_JSON();
         
+        $this->addEvent("ERROR", false, $str);
+        
         if (!empty($_REQUEST['returnHTML']) || 
             (isset($_SERVER['CONTENT_TYPE']) && preg_match('#multipart/form-data#i', $_SERVER['CONTENT_TYPE']))
         ) {
@@ -413,7 +415,7 @@ class Pman extends HTML_FlexyFramework_Page
             echo "</BODY></HTML>";
             exit;
         }
-       
+        
         echo $json->encode(array(
             'success'=> false, 
             'data'=> array(), 

@@ -397,6 +397,7 @@ class Pman extends HTML_FlexyFramework_Page
         require_once 'Services/JSON.php';
         $json = new Services_JSON();
         
+        // log all errors!!!
         $this->addEvent("ERROR", false, $str);
         
         if (!empty($_REQUEST['returnHTML']) || 

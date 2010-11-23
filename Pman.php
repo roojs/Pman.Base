@@ -407,7 +407,7 @@ class Pman extends HTML_FlexyFramework_Page
             echo  $json->encodeUnsafe(array(
                     'success'=> false, 
                     'errorMsg' => $str,
-                     'message' => $str, // compate with exeption / loadexception.
+                    'message' => $str, // compate with exeption / loadexception.
 
                     'errors' => $errors ? $errors : true, // used by forms to flag errors.
                     'authFailure' => !empty($errors['authFailure']),

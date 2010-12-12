@@ -641,6 +641,9 @@ class Pman_Roo extends Pman
     function loadMap($do, $filter=false, $distinct = false) 
     {
         //DB_DataObject::debugLevel(1);
+        
+         $this->countWhat = false;
+        
         $conf = array();
         
         $this->init();
@@ -689,7 +692,7 @@ class Pman_Roo extends Pman
         $do->selectAdd(); // we need thsi as normally it's only cleared by an empty selectAs call.
         
         $selectAs = array(array(  $xx , '%s', false));
-        $this->countWhat = false;
+       
         $has_distinct = false;
         if ($filter || $distinct) {
             $cols = array();

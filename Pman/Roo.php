@@ -656,7 +656,7 @@ class Pman_Roo extends Pman
         //$ff->DB_DataObject['ini_'. $db->database()];
         //echo '<PRE>';print_r($do->links());exit;
         //var_dump($mods);
-        
+        /*
         if (in_array('Builder', $mods) ) {
             
             foreach(in_array('Builder', $mods) ? scandir($this->rootDir.'/Pman') : $mods as $m) {
@@ -675,8 +675,9 @@ class Pman_Roo extends Pman
                 $map = $conf[$do->tableName()];
             } 
         } else {
+            */
             $map = $do->links();
-        }
+        //}
          
         
         

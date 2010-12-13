@@ -617,8 +617,17 @@ class Pman_Roo extends Pman
                     $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);
                 }
                 $chk->{$ka[1]} =  $xx->$pk;
-                if ($chk->count()) {
-                    $this->jerr('Delete Dependant records first ('. $ka[0]. ':' . $ka[1] .'='.$xx->$pk.')');
+                $matches = $chk->count();
+                if ($matches) {
+                    $chk->limit(1);
+                    $o = $chk->fetchAll();
+                    $desc =  $ka[0]. ':' . $ka[1] .'='.$xx->$pk
+                    if (method_exists($chk, 'toEventString')) {
+                        $desc = $ka[0] . ' : ' $o[0]->toEventString();
+                    }
+                    
+                    
+                    $this->jerr('Delete Dependant records first ('. $desc.')');
                 }
             }
             // finally log it.. 

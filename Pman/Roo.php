@@ -623,7 +623,7 @@ class Pman_Roo extends Pman
                     $o = $chk->fetchAll();
                     $desc =  $ka[0]. ':' . $ka[1] .'='.$xx->$pk;
                     if (method_exists($chk, 'toEventString')) {
-                        $desc = $ka[0] . ' : ' $o[0]->toEventString();
+                        $desc = $ka[0] . ' : ' . $o[0]->toEventString();
                     }
                     
                     $this->jerr('Delete Dependant records first ('. $desc.')');

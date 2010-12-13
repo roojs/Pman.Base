@@ -16,7 +16,7 @@ require_once 'Pman.php';
  * - postListExtra - add extra column data on the results (like new messages etc.)
  * -postListFilter($data, $authUser, $request) return $data - add extra data to an object
  * 
- * - toRooSingleArray($authUser) // single fetch, add data..
+ * - toRooSingleArray($authUser, $request) // single fetch, add data..
  * - toRooArray($request) /// toArray if you need to return different data.. for a list fetch.
  * 
  * 

@@ -626,7 +626,7 @@ class Pman_Roo extends Pman
                         $desc = $ka[0] . ' : ' . $o[0]->toEventString();
                     }
                     
-                    $this->jerr("Delete Dependant records first ($matches found) first is ('. $desc.')');
+                    $this->jerr("Delete Dependant records first ($matches found) first is ( $desc )");
                 }
             }
             // finally log it.. 

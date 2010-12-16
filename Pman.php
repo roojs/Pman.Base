@@ -490,7 +490,10 @@ class Pman extends HTML_FlexyFramework_Page
     {
         
         $mods = explode(',', $this->appModules);
-        array_unshift($mods,   'Core');
+        if (!in_array('Core',$this->appModules)) {
+            array_unshift($mods,   'Core');
+        }
+        
         $mods = array_unique($mods);
         
         

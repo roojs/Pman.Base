@@ -130,6 +130,15 @@ class Pman_Login extends Pman
             $this->jerr("User switching not permitted");
         }
         
+        $tbl = empty($ff->Pman['authTable']) ? 'Person' : $ff->Pman['authTable'];
+        $u = DB_DataObject::factory($tbl);
+        $u->get($id);
+        if (!$u->active()) {
+            $this->jerr('Account disabled');
+        }
+        
+        
+        
     }
     
     

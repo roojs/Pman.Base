@@ -495,7 +495,7 @@ class Pman extends HTML_FlexyFramework_Page
         }
         
         $mods = array_unique($mods);
-        
+        print_r($mods);exit;
         
         $disabled =  explode(',', $this->appDisable ? $this->appDisable: '');
         

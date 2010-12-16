@@ -138,7 +138,7 @@ class Pman_Login extends Pman
         if (!$au|| ($au->company_id_comptype != 'OWNER') || !$this->hasPerm('Core.Person', 'E')) {
             $this->jerr("User switching not permitted");
         }
-        $old = clone($au);
+        
         
         $u = DB_DataObject::factory($tbl);
         $u->get($id);
@@ -147,7 +147,7 @@ class Pman_Login extends Pman
         }
         $u->login();
             // we might need this later..
-        $this->addEvent("SWITCH USER", false, $old->name . ' TO ' . $u->name);
+        $this->addEvent("SWITCH USER", false, $au->name . ' TO ' . $u->name);
         $this->jok("SWITCH");
         
     }

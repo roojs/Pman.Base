@@ -490,7 +490,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
         
         $mods = explode(',', $this->appModules);
-        if (!in_array('Core',$this->appModules)) {
+        if (in_array('Core',$mods)) { // core has to be the first  modules loaded as it contains Pman.js
             array_unshift($mods,   'Core');
         }
         

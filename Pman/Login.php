@@ -135,7 +135,7 @@ class Pman_Login extends Pman
         
         
         // first check they have perms to do this..
-        if (!$au|| ($au->company_id_comptype != 'OWNER') || !$this->hasPerm('Core.Person', 'E')) {
+        if (!$au|| ($au->company()->comptype != 'OWNER') || !$this->hasPerm('Core.Person', 'E')) {
             $this->jerr("User switching not permitted");
         }
         

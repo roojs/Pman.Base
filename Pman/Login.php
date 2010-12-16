@@ -71,6 +71,11 @@ class Pman_Login extends Pman
         if (!empty($_REQUEST['username'])) {
             $this->post();
         }
+        if (!empty($_REQUEST['switch'])) {
+            $this->switchUser($_REQUEST['switch']);
+        }
+        
+        
         $this->jerr("INVALID REQUEST");
         exit;
     }

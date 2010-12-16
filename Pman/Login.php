@@ -139,7 +139,7 @@ class Pman_Login extends Pman
         $u->login();
             // we might need this later..
         $this->addEvent("SWITCH USER", false, $old->name . ' TO ' . $u->name);
-        
+        $this->jok("SWITCH");
         
     }
     

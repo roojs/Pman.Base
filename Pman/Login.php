@@ -129,14 +129,16 @@ class Pman_Login extends Pman
         if (!$this->authUser || ($this->authUser->company_id_comptype != 'OWNER') || !$this->hasPerm('Core.Person', 'E')) {
             $this->jerr("User switching not permitted");
         }
-        
+        $old = clone($this->authUser);
         $tbl = empty($ff->Pman['authTable']) ? 'Person' : $ff->Pman['authTable'];
         $u = DB_DataObject::factory($tbl);
         $u->get($id);
         if (!$u->active()) {
             $this->jerr('Account disabled');
         }
-        
+        $u->login();
+            // we might need this later..
+        $this->addEvent("SWITCH USER", false, session_id());
         
         
     }

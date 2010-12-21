@@ -203,7 +203,7 @@ class Pman_Login extends Pman
         // check if config allows non-owner passwords.
         // auth_company = "OWNER"
         $ff= HTML_FlexyFramework::get();
-        if (!empty($ff->Pman['auth_company']) && $ff->Pman['auth_company'] != $u->company()->comptype) {
+        if (!empty($ff->Pman['auth_comptype']) && $ff->Pman['auth_comptype'] != $u->company()->comptype) {
             $this->jerr("Login not permited to outside companies");
         }
         

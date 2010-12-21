@@ -200,6 +200,15 @@ class Pman_Login extends Pman
             $this->jerr('Account disabled');
         }
         
+        // check if config allows non-owner passwords.
+        // auth_company = "OWNER"
+        $ff= HTML_FlexyFramework::get();
+        if (!empty($ff->Pman['auth_company']) && $ff->Pman['auth_company'] != $u->company()->comptype) {
+            $this->jerr("Login not permited to outside companies");
+        }
+        
+        
+        
         if ($u->checkPassword($_REQUEST['password'])) {
             $u->login();
             // we might need this later..

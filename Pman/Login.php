@@ -91,7 +91,7 @@ class Pman_Login extends Pman
             $this->jok(array('id' => 0)); // not logged in..
             exit;
         }
-        
+        // might occur on shared systems.
         $ff= HTML_FlexyFramework::get();
         if (!empty($ff->Pman['auth_comptype']) && $ff->Pman['auth_comptype'] != $u->company()->comptype) {
             $this->jerr("Login not permited to outside companies");

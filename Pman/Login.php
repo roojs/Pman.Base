@@ -92,7 +92,7 @@ class Pman_Login extends Pman
             exit;
         }
         
-         $ff= HTML_FlexyFramework::get();
+        $ff= HTML_FlexyFramework::get();
         if (!empty($ff->Pman['auth_comptype']) && $ff->Pman['auth_comptype'] != $u->company()->comptype) {
             $this->jerr("Login not permited to outside companies");
         }

@@ -59,7 +59,7 @@ class Pman_Roo extends Pman
      * 
      * csvCols[0] csvCols[1]....    = .... column titles for CSV output
      * 
-     * csvTitle[0], csvTitle[1] ....  = columns to use for CSV output
+     * csvTitles[0], csvTitles[1] ....  = columns to use for CSV output
      *
      * sort        = sort column (',' comma delimited)
      * dir         = sort direction ?? in future comma delimited...

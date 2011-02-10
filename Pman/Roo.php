@@ -154,7 +154,7 @@ class Pman_Roo extends Pman
             $this->jerr("PERMISSION DENIED");
         }
         
-        DB_DataObject::debuglevel(1);
+      //  DB_DataObject::debuglevel(1);
         // sets map and countWhat
         $this->loadMap($x, $_columns, empty($_REQUEST['_distinct']) ? false:  $_REQUEST['_distinct']);
         

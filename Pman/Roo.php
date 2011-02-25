@@ -74,7 +74,7 @@ class Pman_Roo extends Pman
     {
          //  $this->jerr("Not authenticated", array('authFailure' => true));
        //echo '<PRE>';print_R($_GET);
-     //  DB_DataObject::debuglevel(1);
+       //DB_DataObject::debuglevel(1);
         
         $this->init(); // from pnan.
         
@@ -82,7 +82,7 @@ class Pman_Roo extends Pman
         // debugging...
         if (!empty($_GET['_post'])) {
             $_POST  = $_GET;
-            DB_DAtaObject::debuglevel(1);
+            //DB_DAtaObject::debuglevel(1);
             return $this->post($tab);
         }
         $tab = str_replace('/', '',$tab); // basic protection??
@@ -154,7 +154,6 @@ class Pman_Roo extends Pman
             $this->jerr("PERMISSION DENIED");
         }
         
-      //  DB_DataObject::debuglevel(1);
         // sets map and countWhat
         $this->loadMap($x, $_columns, empty($_REQUEST['_distinct']) ? false:  $_REQUEST['_distinct']);
         

@@ -94,6 +94,7 @@ class Pman_Login extends Pman
         $au = $u->getAuthUser();
         // might occur on shared systems.
         $ff= HTML_FlexyFramework::get();
+        
         if (!empty($ff->Pman['auth_comptype']) && $ff->Pman['auth_comptype'] != $au->company()->comptype) {
             $au->logout();
             $this->jerr("Login not permited to outside companies - please reload");

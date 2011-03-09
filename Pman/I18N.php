@@ -276,7 +276,7 @@ class Pman_I18N extends Pman_Core_I18n
         if (empty($k)) {
             return '??';
         }
-        $lang = !$au || empty($au->lang ) ? 'en' : is_string($au) ? $au : $au->lang;
+        $lang = !$au || empty($au->lang ) ? 'en' : (is_string($au) ? $au : $au->lang);
         $lbits = explode('_', strtoupper($lang));
         $lang = $lbits[0];
         

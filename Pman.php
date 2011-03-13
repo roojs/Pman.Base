@@ -34,6 +34,8 @@ class Pman extends HTML_FlexyFramework_Page
     var $appModules = '';
     
     
+    var $authUser; // always contains the authenticated user..
+    
    
     
     /**

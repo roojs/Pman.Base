@@ -185,7 +185,6 @@ class Pman extends HTML_FlexyFramework_Page
             $enabled[$k] = true;
         }
         
-        var_Dump($enabled);
         
         $disabled =  !empty($this->appDisable) ?  explode(',', $this->appDisable) : array();
         foreach($disabled as $k) {
@@ -196,6 +195,8 @@ class Pman extends HTML_FlexyFramework_Page
                 unset($enabled[$k]);
             }   
         }
+                var_Dump($enabled);
+
         return array_keys($enabled); 
     }
     

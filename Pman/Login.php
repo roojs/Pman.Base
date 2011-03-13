@@ -115,6 +115,9 @@ class Pman_Login extends Pman
                 continue;
             }
             $cls = 'Pman_'.$m.'_Login';
+            require_once 'Pman/'.$m.'/Login.php';
+            $x = new $cls;
+            $aur = $x->sendAuthUserDetails($aur);
         }
         
                 

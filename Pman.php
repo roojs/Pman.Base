@@ -186,7 +186,7 @@ class Pman extends HTML_FlexyFramework_Page
         }
         $disabled =  explode(',', $this->appDisable ? $this->appDisable: '');
         foreach($disabled as $k) {
-            if (!$with_component && strpos( $k ,'.') ) {
+            if ( strpos( $k ,'.') ) {
                 continue;
             }
             if (isset($enabled[$k])) {

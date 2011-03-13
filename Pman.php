@@ -184,15 +184,14 @@ class Pman extends HTML_FlexyFramework_Page
             }
             $enabled[$k] = true;
         }
-        $disabled =  explode(',', $this->appDisable ? $this->appDisable: '');
+        $disabled =  !empty($this->appDisable) ?  explode(',', $this->appDisable) : array();
         foreach($disabled as $k) {
             if ( strpos( $k ,'.') ) {
                 continue;
             }
             if (isset($enabled[$k])) {
                 unset($enabled[$k]);
-            }
-            
+            }   
         }
         return array_keys($enabled); 
     }

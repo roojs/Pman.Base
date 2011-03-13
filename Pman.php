@@ -176,13 +176,20 @@ class Pman extends HTML_FlexyFramework_Page
         // both modules and components that can be enabled/disabled..
         
         // the modules call just lists the modules
-        $enabled =  array('Core');
+        $enabled =  array('Core' => true);
         $am = !empty($this->appModules) ? explode(',',  $this->appModules) : array();
         foreach($am as $k) {
             if (!$with_component && strpos( $k ,'.') ) {
                 continue;
             }
-                
+            $enabled[$k] = true;  
+        }
+        $disabled =  explode(',', $this->appDisable ? $this->appDisable: '');
+        foreach($disabled as $k) {
+            if (!$with_component && strpos( $k ,'.') ) {
+                continue;
+            }
+            $enabled[$k];  
         }
         $enabled = !empty($this->appModules) ? 
             array_merge($enabled, explode(',',  $this->appModules)) : 

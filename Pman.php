@@ -174,10 +174,11 @@ class Pman extends HTML_FlexyFramework_Page
     {
         // appModules/appDisable contain a comma limited list of
         // both modules and components that can be enabled/disabled..
-        
+         $boot = HTML_FlexyFramework::get();
+
         // the modules call just lists the modules
         $enabled =  array('Core' => true);
-         $am = !empty($this->appModules) ? explode(',',  $this->appModules) : array();
+         $am = !empty($boot->enable) ? explode(',',  $boot->enable) : array();
         foreach($am as $k) {
             if (strpos( $k ,'.') ) {
                 continue;
@@ -186,7 +187,7 @@ class Pman extends HTML_FlexyFramework_Page
         }
         
         
-        $disabled =  !empty($this->appDisable) ?  explode(',', $this->appDisable) : array();
+        $disabled =  !empty($boot->disable) ?  explode(',', $boot->disable) : array();
         foreach($disabled as $k) {
             if ( strpos( $k ,'.') ) {
                 continue;

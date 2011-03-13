@@ -169,6 +169,31 @@ class Pman extends HTML_FlexyFramework_Page
         return $au->hasPerm($name,$lvl);
         
     }
+    
+    function modules($with_component=false)
+    {
+        // appModules/appDisable contain a comma limited list of
+        // both modules and components that can be enabled/disabled..
+        
+        // the modules call just lists the modules
+        $enabled =  array('Core');
+        $am = !empty($this->appModules) ? explode(',',  $this->appModules) : array();
+        foreach($am as $k) {
+            if (!$with_component && strpos( $k ,'.') ) {
+                continue;
+            }
+                
+        }
+        $enabled = !empty($this->appModules) ? 
+            array_merge($enabled, explode(',',  $this->appModules)) : 
+            $enabled;
+        $disabled =  explode(',', $this->appDisable ? $this->appDisable: '');
+        
+        //print_R($opts);
+        
+        return in_array($name, $enabled) && !in_array($name, $disabled);
+    }
+    
     function hasModule($name) 
     {
         $this->init();

@@ -170,7 +170,7 @@ class Pman extends HTML_FlexyFramework_Page
         
     }
     
-    function modules($with_component=false)
+    function modules()
     {
         // appModules/appDisable contain a comma limited list of
         // both modules and components that can be enabled/disabled..
@@ -179,23 +179,23 @@ class Pman extends HTML_FlexyFramework_Page
         $enabled =  array('Core' => true);
         $am = !empty($this->appModules) ? explode(',',  $this->appModules) : array();
         foreach($am as $k) {
-            if (!$with_component && strpos( $k ,'.') ) {
+            if (strpos( $k ,'.') ) {
                 continue;
             }
-            $enabled[$k] = true;  
+            $enabled[$k] = true;
         }
         $disabled =  explode(',', $this->appDisable ? $this->appDisable: '');
         foreach($disabled as $k) {
             if (!$with_component && strpos( $k ,'.') ) {
                 continue;
             }
-            $enabled[$k];  
+            if (isset($enabled[$k])) {
+                unset($enabled[$k]);
+            }
+            
         }
-        $enabled = !empty($this->appModules) ? 
-            array_merge($enabled, explode(',',  $this->appModules)) : 
-            $enabled;
-        $disabled =  explode(',', $this->appDisable ? $this->appDisable: '');
-        
+        return array_keys($enabled);
+     
         //print_R($opts);
         
         return in_array($name, $enabled) && !in_array($name, $disabled);

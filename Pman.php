@@ -177,14 +177,16 @@ class Pman extends HTML_FlexyFramework_Page
         
         // the modules call just lists the modules
         $enabled =  array('Core' => true);
-        var_dump($this->appModules);
-        $am = !empty($this->appModules) ? explode(',',  $this->appModules) : array();
+         $am = !empty($this->appModules) ? explode(',',  $this->appModules) : array();
         foreach($am as $k) {
             if (strpos( $k ,'.') ) {
                 continue;
             }
             $enabled[$k] = true;
         }
+        
+        var_Dump($enabled);
+        
         $disabled =  !empty($this->appDisable) ?  explode(',', $this->appDisable) : array();
         foreach($disabled as $k) {
             if ( strpos( $k ,'.') ) {

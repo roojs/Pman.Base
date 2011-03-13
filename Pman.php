@@ -194,11 +194,7 @@ class Pman extends HTML_FlexyFramework_Page
             }
             
         }
-        return array_keys($enabled);
-     
-        //print_R($opts);
-        
-        return in_array($name, $enabled) && !in_array($name, $disabled);
+        return array_keys($enabled); 
     }
     
     function hasModule($name) 
@@ -206,17 +202,7 @@ class Pman extends HTML_FlexyFramework_Page
         $this->init();
         if (!strpos( $name,'.') ) {
             // use enable / disable..
-            
-            
-            $enabled =  array('Core') ;
-            $enabled = !empty($this->appModules) ? 
-                array_merge($enabled, explode(',',  $this->appModules)) : 
-                $enabled;
-            $disabled =  explode(',', $this->appDisable ? $this->appDisable: '');
-            
-            //print_R($opts);
-            
-            return in_array($name, $enabled) && !in_array($name, $disabled);
+            return in_array($name, $this->modules()); 
         }
         
         $x = DB_DataObject::factory('Group_Rights');

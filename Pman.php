@@ -195,7 +195,7 @@ class Pman extends HTML_FlexyFramework_Page
                 unset($enabled[$k]);
             }   
         }
-         echo '<PRE>';       var_Dump($enabled);
+         //echo '<PRE>';       var_Dump($enabled);
 
         return array_keys($enabled); 
     }

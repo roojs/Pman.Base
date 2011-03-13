@@ -106,6 +106,10 @@ class Pman_Login extends Pman
          
         /** -- these need modulizing somehow! **/
         
+        
+        
+        // basically calls Pman_MODULE_Login::sendAuthUserDetails($aur) on all the modules
+            
         if ($this->hasModule('Fax')) {
             // should check fax module???
             $f = DB_DataObject::factory('Fax_Queue');

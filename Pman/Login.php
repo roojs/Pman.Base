@@ -109,6 +109,7 @@ class Pman_Login extends Pman
         
         
         // basically calls Pman_MODULE_Login::sendAuthUserDetails($aur) on all the modules
+        var_dump($this->modules());
         foreach($this->modules() as $m) {
             var_dump($this->rootDir.'/Pman/'.$m.'/Login.php');
             if (!file_exists($this->rootDir.'/Pman/'.$m.'/Login.php')) {

@@ -34,6 +34,8 @@ class Pman extends HTML_FlexyFramework_Page
     var $appModules = '';
     
     
+    var $authUser; // always contains the authenticated user..
+    
    
     
     /**
@@ -169,22 +171,44 @@ class Pman extends HTML_FlexyFramework_Page
         return $au->hasPerm($name,$lvl);
         
     }
+    
+    function modules()
+    {
+        // appModules/appDisable contain a comma limited list of
+        // both modules and components that can be enabled/disabled..
+         $boot = HTML_FlexyFramework::get();
+
+        // the modules call just lists the modules
+        $enabled =  array('Core' => true);
+         $am = !empty($boot->enable) ? explode(',',  $boot->enable) : array();
+        foreach($am as $k) {
+            if (strpos( $k ,'.') ) {
+                continue;
+            }
+            $enabled[$k] = true;
+        }
+        
+        
+        $disabled =  !empty($boot->disable) ?  explode(',', $boot->disable) : array();
+        foreach($disabled as $k) {
+            if ( strpos( $k ,'.') ) {
+                continue;
+            }
+            if (isset($enabled[$k])) {
+                unset($enabled[$k]);
+            }   
+        }
+         //echo '<PRE>';       var_Dump($enabled);
+
+        return array_keys($enabled); 
+    }
+    
     function hasModule($name) 
     {
         $this->init();
         if (!strpos( $name,'.') ) {
             // use enable / disable..
-            
-            
-            $enabled =  array('Core') ;
-            $enabled = !empty($this->appModules) ? 
-                array_merge($enabled, explode(',',  $this->appModules)) : 
-                $enabled;
-            $disabled =  explode(',', $this->appDisable ? $this->appDisable: '');
-            
-            //print_R($opts);
-            
-            return in_array($name, $enabled) && !in_array($name, $disabled);
+            return in_array($name, $this->modules()); 
         }
         
         $x = DB_DataObject::factory('Group_Rights');

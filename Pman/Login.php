@@ -107,22 +107,24 @@ class Pman_Login extends Pman
          
         /** -- these need modulizing somehow! **/
         
-        if ($this->hasModule('Fax')) {
-            // should check fax module???
-            $f = DB_DataObject::factory('Fax_Queue');
-            $aur['faxMax'] = $f->getMaxId();
-            $aur['faxNumPending'] = $f->getNumPending();
+        
+        
+        // basically calls Pman_MODULE_Login::sendAuthUserDetails($aur) on all the modules
+        //echo '<PRE>'; print_r($this->modules());
+        // technically each module should only add properties to an array named after that module..
+        
+        foreach($this->modules() as $m) {
+            if (!file_exists($this->rootDir.'/Pman/'.$m.'/Login.php')) {
+                continue;
+            }
+            $cls = 'Pman_'.$m.'_Login';
+            require_once 'Pman/'.$m.'/Login.php';
+            $x = new $cls;
+            $x->authUser = $au;
+            $aur = $x->sendAuthUserDetails($aur);
         }
         
-        if ($this->hasModule('Documents')) {
-        // inbox...
-            $d = DB_DataObject::factory('Documents_Tracking');
-            $d->person_id = $au->id;
-            //$d->status = 0; // unread
-            $d->whereAdd('date_read IS NULL');
-            $d->applyFilters(array('query'=> array('unread' => 1)), $au);
-            $aur['inbox_unread'] = $d->count();
-        }
+                 
         
         //echo '<PRE>';print_r($aur);
         

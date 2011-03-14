@@ -13,8 +13,8 @@ require_once 'Pman.php';
  * 
  * - applySort($au, $sortcol, $direction)
  * - applyFilters($_REQUEST, $authUser) -- apply any query filters on data. and hide stuff not to be seen.
- * - postListExtra - add extra column data on the results (like new messages etc.)
- * -postListFilter($data, $authUser, $request) return $data - add extra data to an object
+ * - postListExtra($_REQUEST) : array(extra_data) - add extra column data on the results (like new messages etc.)
+ * - postListFilter($data, $authUser, $request) return $data - add extra data to an object
  * 
  * - toRooSingleArray($authUser, $request) // single fetch, add data..
  * - toRooArray($request) /// toArray if you need to return different data.. for a list fetch.

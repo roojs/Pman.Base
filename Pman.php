@@ -464,6 +464,8 @@ class Pman extends HTML_FlexyFramework_Page
         ) {
             header('Content-type: text/html');
             echo "<HTML><HEAD></HEAD><BODY>";
+            // encode html characters so they can be read..
+            $str = str_replace(array('<','>'), array('\u003c','\u003e'), $str);
             echo  $json->encodeUnsafe(array('success'=> true, 'data' => $str));
             echo "</BODY></HTML>";
             exit;

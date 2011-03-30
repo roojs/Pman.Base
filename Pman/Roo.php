@@ -46,6 +46,7 @@ class Pman_Roo extends Pman
      * -- defaults to listing data. with args.
      * 
      * !colname=....                 => colname != ....
+     * !colname[0]=... !colname[1]=... => colname NOT IN (.....) ** only supports main table at present..
      * colname[0]=... colname[1]=... => colname IN (.....) ** only supports main table at present..
      * 
      * other opts:

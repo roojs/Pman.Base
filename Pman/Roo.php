@@ -865,6 +865,13 @@ class Pman_Roo extends Pman
             // value is an array..
             if (is_array($val) ) {
                 
+                $pref = '';
+                
+                if ($key[0] == '!') {
+                    $pref = '!';
+                    $key = substr($key,1);
+                }
+                
                 if (!in_array( $key,  array_keys($this->cols))) {
                     continue;
                 }
@@ -888,10 +895,10 @@ class Pman_Roo extends Pman
                 if (count($ar)) {
                     
                     
-                    $x->whereAddIn(
+                    $x->whereAddIn($pref . (
                         isset($this->colsJname[$key]) ? 
                             $this->colsJname[$key] :
-                            ($x->tableName(). '.'.$key),
+                            ($x->tableName(). '.'.$key)),
                         $ar, $quote ? 'string' : 'int');
                 }
                 

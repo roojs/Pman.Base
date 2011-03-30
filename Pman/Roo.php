@@ -44,6 +44,7 @@ class Pman_Roo extends Pman
     /**
      * GET method   Roo/TABLENAME.php 
      * -- defaults to listing data. with args.
+     *
      * 
      * !colname=....                 => colname != ....
      * !colname[0]=... !colname[1]=... => colname NOT IN (.....) ** only supports main table at present..

@@ -670,7 +670,8 @@ class Pman extends HTML_FlexyFramework_Page
      * 
      * @param {String} action  - group/name of event
      * @param {DataObject|false} obj - dataobject action occured on.
-     * @param {String} any remarks 
+     * @param {String} any remarks
+     * @return {Number} id of event created.
      */
     
     function addEvent($act, $obj = false, $remarks = '') 

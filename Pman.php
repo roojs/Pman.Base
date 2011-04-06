@@ -697,7 +697,7 @@ class Pman extends HTML_FlexyFramework_Page
             'POST' => empty($_POST) ? array() : $_POST,
         ), true));
         
-        
+        return $eid;
         
     }
 

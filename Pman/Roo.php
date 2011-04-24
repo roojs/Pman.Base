@@ -627,12 +627,36 @@ class Pman_Roo extends Pman
                 }          
             }
             
-            
+            $has_beforeDelete = method_exists($xx, 'beforeDelete');
             // before delte = allows us to trash dependancies if needed..
-            if ( method_exists($xx, 'beforeDelete') && ($xx->beforeDelete($match_ar) === false)) {
-                $errs[] = "Delete failed ({$xx->id})\n". (isset($xx->err) ? $xx->err : '');
-                continue;
+            if ( method_exists($xx, 'beforeDelete') ) {
+                if ($xx->beforeDelete($match_ar) === false)) {
+                    $errs[] = "Delete failed ({$xx->id})\n".
+                        (isset($xx->err) ? $xx->err : '');
+                    continue;
+                }
+                // refetch affects..
+                
+                $match_ar = array();
+                foreach($affects as $k=> $true) {
+                    $ka = explode('.', $k);
+                    $chk = DB_DataObject::factory($ka[0]);
+                    if (!is_a($chk,'DB_DataObject')) {
+                        $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);
+                    }
+                    $chk->{$ka[1]} =  $xx->$pk;
+                    $matches = $chk->count();
+                    
+                    if ($matches) {
+                        $match_ar[] = clone($chk);
+                        continue;
+                    }          
+                }
+                
             }
+            
+            //
+            
             
             if ($match_ar) {
                 $chk = $match_ar[0];

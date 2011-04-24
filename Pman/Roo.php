@@ -20,7 +20,8 @@ require_once 'Pman.php';
  * - toRooArray($request) /// toArray if you need to return different data.. for a list fetch.
  * 
  * 
- * - beforeDelete() -- return false for fail and set DO->err;
+ * - beforeDelete($ar) -- return false for fail and set DO->err;
+ *                        Argument is an array of un-find/fetched dependant items.
  * - onUpdate($old, $request,$roo) - after update // return value ignored
  * - onInsert($request,$roo) - after insert
  * - onUpload($roo)
@@ -551,6 +552,11 @@ class Pman_Roo extends Pman
         //print_r(var_dump($rooar)); exit;
         return $rooar  ? $r->toRooArray($_REQUEST) : $r->toArray();
     }
+    /**
+     * Delete a number of records.
+     * calls $delete_obj->beforeDelete($array_of_dependant_dataobjects)
+     *
+     */
     
     function delete($x, $req)
     {

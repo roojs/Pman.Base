@@ -658,7 +658,7 @@ class Pman_Roo extends Pman
             //
             
             
-            if ($match_ar) {
+            if (!empty($match_ar)) {
                 $chk = $match_ar[0];
                 $chk->limit(1);
                 $o = $chk->fetchAll();

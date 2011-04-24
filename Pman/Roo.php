@@ -618,7 +618,7 @@ class Pman_Roo extends Pman
                 if ($matches) {
                     $match_ar[] = clone($chk);
                     continue;
-                }         }
+                }          
             }
             
             

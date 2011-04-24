@@ -605,14 +605,7 @@ class Pman_Roo extends Pman
                 $this->jerr("PERMISSION DENIED");
             }
             
-            // before delte = allows us to trash dependancies if needed..
-            if ( method_exists($xx, 'beforeDelete') && ($xx->beforeDelete() === false)) {
-                $errs[] = "Delete failed ({$xx->id})\n". (isset($xx->err) ? $xx->err : '');
-                continue;
-            }
-            
-            // now check deps.
-             
+            $match_ar = array();
             foreach($affects as $k=> $true) {
                 $ka = explode('.', $k);
                 $chk = DB_DataObject::factory($ka[0]);
@@ -621,17 +614,35 @@ class Pman_Roo extends Pman
                 }
                 $chk->{$ka[1]} =  $xx->$pk;
                 $matches = $chk->count();
+                
                 if ($matches) {
-                    $chk->limit(1);
-                    $o = $chk->fetchAll();
-                    $desc =  $ka[0]. ':' . $ka[1] .'='.$xx->$pk;
-                    if (method_exists($chk, 'toEventString')) {
-                        $desc = $ka[0] . ' : ' . $o[0]->toEventString();
-                    }
-                    
-                    $this->jerr("Delete Dependant records ($matches found),  first is ( $desc )");
-                }
+                    $match_ar[] = clone($chk);
+                    continue;
+                }         }
             }
+            
+            
+            // before delte = allows us to trash dependancies if needed..
+            if ( method_exists($xx, 'beforeDelete') && ($xx->beforeDelete() === false)) {
+                $errs[] = "Delete failed ({$xx->id})\n". (isset($xx->err) ? $xx->err : '');
+                continue;
+            }
+            
+            if ($match_ar) {
+                $chk = $match_ar[0];
+                $chk->limit(1);
+                $o = $chk->fetchAll();
+                $desc =  $ka[0]. ':' . $ka[1] .'='.$xx->$pk;
+                if (method_exists($chk, 'toEventString')) {
+                    $desc = $ka[0] . ' : ' . $o[0]->toEventString();
+                }
+                    
+                $this->jerr("Delete Dependant records ($matches found),  " .
+                             "first is ( $desc )");
+          
+            }
+            
+            // now che 
             // finally log it.. 
             
             $this->addEvent("DELETE", $x);

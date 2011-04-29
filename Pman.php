@@ -32,7 +32,7 @@ class Pman extends HTML_FlexyFramework_Page
     var $showNewPass = 0;
     var $logoPrefix = '';
     var $appModules = '';
-    var $appDisable = array();
+    var $appDisabled = array(); // array of disabled modules.. (based on disable)
     
     var $authUser; // always contains the authenticated user..
     

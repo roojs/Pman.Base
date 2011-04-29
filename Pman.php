@@ -75,7 +75,6 @@ class Pman extends HTML_FlexyFramework_Page
             $this->isDev = true;
         }
         
-
     }
     
     function get($base) 

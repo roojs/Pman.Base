@@ -66,6 +66,7 @@ class Pman extends HTML_FlexyFramework_Page
         $this->appModules= $boot->enable;
         $this->isDev = empty($boot->Pman['isDev']) ? false : $boot->Pman['isDev'];
         $this->appDisable = $boot->disable;
+        $this->appDisabled = explode(',', $boot->disable);
         $this->version = $boot->version;
         
         if (!empty($ff->Pman['local_autoauth']) && 

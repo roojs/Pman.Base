@@ -563,7 +563,6 @@ class Pman_Roo extends Pman
         // do we really delete stuff!?!?!?
         if (empty($req['_delete'])) {
             $this->jerr("Delete Requested with no value");
-            
         }
         // build a list of tables to queriy for dependant data..
         $map = $x->links();
@@ -629,6 +628,8 @@ class Pman_Roo extends Pman
             
             $has_beforeDelete = method_exists($xx, 'beforeDelete');
             // before delte = allows us to trash dependancies if needed..
+            $match_total = 0;
+            
             if ( method_exists($xx, 'beforeDelete') ) {
                 if ($xx->beforeDelete($match_ar) === false) {
                     $errs[] = "Delete failed ({$xx->id})\n".
@@ -646,7 +647,7 @@ class Pman_Roo extends Pman
                     }
                     $chk->{$ka[1]} =  $xx->$pk;
                     $matches = $chk->count();
-                    
+                    $match_total += $matches;
                     if ($matches) {
                         $match_ar[] = clone($chk);
                         continue;
@@ -667,7 +668,7 @@ class Pman_Roo extends Pman
                     $desc = $ka[0] . ' : ' . $o[0]->toEventString();
                 }
                     
-                $this->jerr("Delete Dependant records ($matches found),  " .
+                $this->jerr("Delete Dependant records ($match_total  found),  " .
                              "first is ( $desc )");
           
             }

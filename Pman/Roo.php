@@ -663,9 +663,9 @@ class Pman_Roo extends Pman
                 $chk = $match_ar[0];
                 $chk->limit(1);
                 $o = $chk->fetchAll();
-                $desc =  $ka[0]. ':' . $ka[1] .'='.$xx->$pk;
+                $desc =  $ka[0]. '(' . $ka[1] .'='.$xx->$pk .')';
                 if (method_exists($chk, 'toEventString')) {
-                    $desc = $ka[0] . ' : ' . $o[0]->toEventString();
+                    $desc .=  ' : ' . $o[0]->toEventString();
                 }
                     
                 $this->jerr("Delete Dependant records ($match_total  found),  " .

@@ -663,7 +663,8 @@ class Pman_Roo extends Pman
                 $chk = $match_ar[0];
                 $chk->limit(1);
                 $o = $chk->fetchAll();
-                $desc =  $ka[0]. '.' . $ka[1] .'='.$xx->$pk ;
+                $key = array_shift($chk->keys());
+                $desc =  $ka[0]. '.' . $key .'='.$xx->$key ;
                 if (method_exists($chk, 'toEventString')) {
                     $desc .=  ' : ' . $o[0]->toEventString();
                 }

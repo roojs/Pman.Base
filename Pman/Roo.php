@@ -664,7 +664,7 @@ class Pman_Roo extends Pman
                 $chk->limit(1);
                 $o = $chk->fetchAll();
                 $key = array_shift($chk->keys());
-                $desc =  $o->tableName(). '.' . $key .'='.$xx->$key ;
+                $desc =  $chk->tableName(). '.' . $key .'='.$xx->$key ;
                 if (method_exists($chk, 'toEventString')) {
                     $desc .=  ' : ' . $o[0]->toEventString();
                 }

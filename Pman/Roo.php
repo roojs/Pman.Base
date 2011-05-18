@@ -839,7 +839,7 @@ class Pman_Roo extends Pman
         if ($has_distinct) {
             $do->selectAdd($has_distinct);
         }
-        //DB_DataObject::debugLevel(1);
+        DB_DataObject::debugLevel(1);
         // we do select as after everything else as we need to plop distinct at the beginning??
         /// well I assume..
        // echo '<PRE>';print_r($this->colsJname);exit;

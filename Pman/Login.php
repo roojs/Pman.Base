@@ -43,7 +43,7 @@ class Pman_Login extends Pman
         
         
         
-        
+        //DB_DataObject::DebugLevel(1);
         if (!empty($_REQUEST['logout'])) {
             $u = $this->getAuthUser();
             //print_r($u);
@@ -91,20 +91,22 @@ class Pman_Login extends Pman
             $this->jok(array('id' => 0)); // not logged in..
             exit;
         }
+        
         $au = $u->getAuthUser();
-        // might occur on shared systems.
+ 
+         // might occur on shared systems.
         $ff= HTML_FlexyFramework::get();
         
-        if (!empty($ff->Pman['auth_comptype']) && $ff->Pman['auth_comptype'] != $au->company()->comptype) {
+        if (!empty($ff->Pman['auth_comptype']) && $au->id > 0 &&
+                ($ff->Pman['auth_comptype'] != $au->company()->comptype)) {
             $au->logout();
             $this->jerr("Login not permited to outside companies - please reload");
         }
         
-        
-        $au = $u->getAuthUser();
+        //$au = $u->getAuthUser();
         
         $aur = $au->authUserArray();
-         
+        
         /** -- these need modulizing somehow! **/
         
         
@@ -217,7 +219,7 @@ class Pman_Login extends Pman
         // perhaps it should support arrays..
         $ff= HTML_FlexyFramework::get();
         if (!empty($ff->Pman['auth_comptype']) && $ff->Pman['auth_comptype'] != $u->company()->comptype) {
-            $this->jerr("Login not permited to outside companies");
+            die("Login not permited to outside companies");
         }
         
         

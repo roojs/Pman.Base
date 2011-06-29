@@ -272,10 +272,16 @@ class Pman_Roo extends Pman
         $dir = empty($_REQUEST['dir']) ? $dir : $_REQUEST['dir'];
         $dir = $dir == 'ASC' ? 'ASC' : 'DESC';
          
-        
+        $ms = empty($_REQUEST['_multisort']) ? false : $_REQUEST['_multisort']
         $sorted = false;
         if (method_exists($x, 'applySort')) {
-            $sorted = $x->applySort($this->authUser, $sort, $dir, array_keys($this->cols));
+            $sorted = $x->applySort(
+                    $this->authUser,
+                    $sort,
+                    $dir,
+                    array_keys($this->cols),
+                    $ms ? json_decode($ms), false
+            );
         }
         
         if ($sorted === false) {

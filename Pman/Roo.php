@@ -316,18 +316,15 @@ class Pman_Roo extends Pman
             if (strlen($col) && isset($cols[$col]) ) {
                 $sort_str[] =  $x->tableName() .'.'.$sort . ' ' .  $ms->sort[$col] ;
                 
-            } else if (in_array($sort, array_keys($this->cols))) {
-                $sort_str[] = $sort . ' ' . $dir ;
+            } else if (in_array($col, array_keys($this->cols))) {
+                $sort_str[] = $col. ' ' . $ms->sort[$col];
             }
         }
          
         if ($sort_str) {
             $x->orderBy(implode(', ', $sort_str ));
         }
-        
-        foreach(as $c) { 
-            
-        }
+         
         
         
     }

@@ -280,7 +280,7 @@ class Pman_Roo extends Pman
                     $sort,
                     $dir,
                     array_keys($this->cols),
-                    $ms ? json_decode($ms), false
+                    $ms ? json_decode($ms) : false
             );
         }
         

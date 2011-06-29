@@ -311,7 +311,7 @@ class Pman_Roo extends Pman
     
     function multiSort($x)
     {
-        $ms = json_decode($_REQUEST['multisort']);
+        $ms = json_decode($_REQUEST['_multisort']);
         
         $sort_str = array();
         

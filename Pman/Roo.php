@@ -66,6 +66,7 @@ class Pman_Roo extends Pman
      *
      * sort        = sort column (',' comma delimited)
      * dir         = sort direction ?? in future comma delimited...
+     * _multisort  = JSON encoded { sort : { row : direction }, order : [ row, row, row ] }
      * start       = limit start
      * limit       = limit number 
      * 
@@ -266,17 +267,17 @@ class Pman_Roo extends Pman
     function applySort($x, $sort = '', $dir ='')
     {
         
-       // Db_DataObject::debugLevel(1);
+        // Db_DataObject::debugLevel(1);
         $sort = empty($_REQUEST['sort']) ? $sort : $_REQUEST['sort'];
         $dir = empty($_REQUEST['dir']) ? $dir : $_REQUEST['dir'];
         $dir = $dir == 'ASC' ? 'ASC' : 'DESC';
-        
-        
+         
         
         $sorted = false;
         if (method_exists($x, 'applySort')) {
             $sorted = $x->applySort($this->authUser, $sort, $dir, array_keys($this->cols));
         }
+        
         if ($sorted === false) {
             
             $cols = $x->table();
@@ -298,6 +299,41 @@ class Pman_Roo extends Pman
             }
         }
     }
+    
+    function multiSort($x)
+    {
+        $ms = json_decode($_REQUEST['multisort']);
+        
+        $sort_str = array();
+        
+        $cols = $x->table();
+        foreach($ms->order  as $col) {
+            if (!isset($ms->sort[$col])) {
+                continue; // no direction..
+            }
+            $ms->sort[$col] = $ms->sort[$col]  == 'ASC' ? 'ASC' : 'DESC';
+            
+            if (strlen($col) && isset($cols[$col]) ) {
+                $sort_str[] =  $x->tableName() .'.'.$sort . ' ' . $dir ;
+                
+            } else if (in_array($sort, array_keys($this->cols))) {
+                $sort_str[] = $sort . ' ' . $dir ;
+            }
+        }
+         
+        if ($sort_str) {
+            $x->orderBy(implode(', ', $sort_str ));
+        }
+        
+        foreach(as $c) { 
+            
+        }
+        
+        
+    }
+    
+    
+    
      /**
      * POST method   Roo/TABLENAME.php 
      * -- updates the data..

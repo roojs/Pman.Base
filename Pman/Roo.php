@@ -284,7 +284,7 @@ class Pman_Roo extends Pman
             );
         }
         if ($ms) {
-            return $this->multiSort();
+            return $this->multiSort($x);
         }
         
         if ($sorted === false) {

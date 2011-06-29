@@ -664,7 +664,7 @@ class Pman extends HTML_FlexyFramework_Page
         if ($e->find(true)) {
             return;
         }
-        $this->addEvent($act, $obj, $remarks);
+        return $this->addEvent($act, $obj, $remarks);
     }
     /**
      * addEvent:
@@ -672,7 +672,8 @@ class Pman extends HTML_FlexyFramework_Page
      * 
      * @param {String} action  - group/name of event
      * @param {DataObject|false} obj - dataobject action occured on.
-     * @param {String} any remarks 
+     * @param {String} any remarks
+     * @return Event id.,
      */
     
     function addEvent($act, $obj = false, $remarks = '') 

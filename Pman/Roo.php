@@ -311,7 +311,7 @@ class Pman_Roo extends Pman
     
     function multiSort($x)
     {
-        DB_DataObject::debugLevel(1);
+        //DB_DataObject::debugLevel(1);
         $ms = json_decode($_REQUEST['_multisort']);
         
         $sort_str = array();

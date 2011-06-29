@@ -11,7 +11,7 @@ require_once 'Pman.php';
  * Uses these methods of the dataobjects:
  * - checkPerm('L'/'E'/'A', $authuser) - can we list the stuff
  * 
- * - applySort($au, $sortcol, $direction)
+ * - applySort($au, $sortcol, $direction) -- does not support multisort at present..
  * - applyFilters($_REQUEST, $authUser) -- apply any query filters on data. and hide stuff not to be seen.
  * - postListExtra($_REQUEST) : array(extra_data) - add extra column data on the results (like new messages etc.)
  * - postListFilter($data, $authUser, $request) return $data - add extra data to an object

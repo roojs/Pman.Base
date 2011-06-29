@@ -314,7 +314,7 @@ class Pman_Roo extends Pman
             $ms->sort[$col] = $ms->sort[$col]  == 'ASC' ? 'ASC' : 'DESC';
             
             if (strlen($col) && isset($cols[$col]) ) {
-                $sort_str[] =  $x->tableName() .'.'.$sort . ' ' . $dir ;
+                $sort_str[] =  $x->tableName() .'.'.$sort . ' ' .  $ms->sort[$col] ;
                 
             } else if (in_array($sort, array_keys($this->cols))) {
                 $sort_str[] = $sort . ' ' . $dir ;

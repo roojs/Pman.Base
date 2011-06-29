@@ -283,6 +283,9 @@ class Pman_Roo extends Pman
                     $ms ? json_decode($ms) : false
             );
         }
+        if ($ms) {
+            return $this->multiSort();
+        }
         
         if ($sorted === false) {
             

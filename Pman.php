@@ -687,7 +687,7 @@ class Pman extends HTML_FlexyFramework_Page
         $eid = $e->insert();
         $ff  = HTML_FlexyFramework::get();
         if (empty($ff->Pman['event_log_dir'])) {
-            return;
+            return $eid;
         }
         $file = $ff->Pman['event_log_dir']. date('/Y/m/d/'). $eid . ".php";
         if (!file_exists(dirname($file))) {
@@ -699,7 +699,7 @@ class Pman extends HTML_FlexyFramework_Page
             'POST' => empty($_POST) ? array() : $_POST,
         ), true));
         
-        
+        return $eid;
         
     }
 

@@ -317,7 +317,7 @@ class Pman_Roo extends Pman
         
         $cols = $x->table();
         foreach($ms->order  as $col) {
-            if (!isset($ms->sort[$col])) {
+            if (!isset($ms->sort->{$col})) {
                 continue; // no direction..
             }
             $ms->sort[$col] = $ms->sort[$col]  == 'ASC' ? 'ASC' : 'DESC';

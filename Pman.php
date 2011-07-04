@@ -621,9 +621,9 @@ class Pman extends HTML_FlexyFramework_Page
                 continue;
             }
             // got the 'module file..'
-        
-            $maxtime = max(filemtime($dir . '/'. $f), $maxtime);
-            $files[] = $path . $f;
+            $mtime = filemtime($dir . '/'. $f);
+            $maxtime = max($mtime, $maxtime);
+            $files[] = $path . $f . '?ts='.$mtime;
         }
         if (empty($files)) {
             return $files;

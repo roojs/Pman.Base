@@ -413,6 +413,13 @@ class Pman extends HTML_FlexyFramework_Page
         return false;
     }
     
+    /**
+     * jerrAuth: standard auth failure - with data that let's the UI know..
+     */
+    function jerrAuth()
+    {
+        $this->jerr("Not authenticated", array('authFailure' => true));
+    }
      
     /**
      * ---------------- Standard JSON outputers. - used everywhere

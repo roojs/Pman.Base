@@ -232,7 +232,7 @@ class Pman_Roo extends Pman
                 //echo "<PRE>"; print_r(array($_REQUEST['csvCols'], $x->toArray())); exit;
                 $line = array();
                 foreach($_REQUEST['csvCols'] as $k) {
-                    $line[] = isset($ret[$k]) ? $ret[$k] : '';
+                    $line[] = isset($x[$k]) ? $x[$k] : '';
                 }
                 fputcsv($fh, $line);
             }

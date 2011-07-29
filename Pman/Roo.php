@@ -201,6 +201,24 @@ class Pman_Roo extends Pman
         
         // DOWNLOAD...
         
+          
+        $rooar = method_exists($x, 'toRooArray');
+        
+        while ($x->fetch()) {
+            //print_R($x);exit;
+            $add = $rooar  ? $x->toRooArray($_REQUEST) : $x->toArray();
+            
+            $ret[] =  !$_columns ? $add : array_intersect_key($add, array_flip($_columns));
+        }
+        $extra = false;
+        if (method_exists($queryObj ,'postListExtra')) {
+            $extra = $queryObj->postListExtra($_REQUEST);
+        }
+        // filter results, and add any data that is needed...
+        if (method_exists($x,'postListFilter')) {
+            $ret = $x->postListFilter($ret, $this->authUser, $_REQUEST);
+        }
+        
         if (!empty($_REQUEST['csvCols']) && !empty($_REQUEST['csvTitles']) ) {
             header('Content-type: text/csv');
             
@@ -209,17 +227,12 @@ class Pman_Roo extends Pman
             $fh = fopen('php://output', 'w');
             fputcsv($fh, $_REQUEST['csvTitles']);
             
-            $ar = $x->fetchAll();
             
-            if (method_exists($x,'postListFilter')) {
-                $ret = $x->postListFilter($ar, $this->authUser, $_REQUEST);
-            }
-            
-            foreach($ar as $x) {
+            foreach($ret as $x) {
                 //echo "<PRE>"; print_r(array($_REQUEST['csvCols'], $x->toArray())); exit;
                 $line = array();
                 foreach($_REQUEST['csvCols'] as $k) {
-                    $line[] = isset($x->$k) ? $x->$k : '';
+                    $line[] = isset($ret[$k]) ? $ret[$k] : '';
                 }
                 fputcsv($fh, $line);
             }
@@ -229,27 +242,12 @@ class Pman_Roo extends Pman
         
         }
         //die("DONE?");
-        
-        $rooar = method_exists($x, 'toRooArray');
-        
-        while ($x->fetch()) {
-            //print_R($x);exit;
-            $add = $rooar  ? $x->toRooArray($_REQUEST) : $x->toArray();
-            
-            $ret[] =  !$_columns ? $add : array_intersect_key($add, array_flip($_columns));
-        }
+      
         //if ($x->tableName() == 'Documents_Tracking') {
         //    $ret = $this->replaceSubject(&$ret, 'doc_id_subject');
        // }
         
-        $extra = false;
-        if (method_exists($queryObj ,'postListExtra')) {
-            $extra = $queryObj->postListExtra($_REQUEST);
-        }
-        // filter results, and add any data that is needed...
-        if (method_exists($x,'postListFilter')) {
-            $ret = $x->postListFilter($ret, $this->authUser, $_REQUEST);
-        }
+        
         
         if (!empty($_REQUEST['_requestMeta']) &&  count($ret)) {
             $meta = $this->meta($x, $ret);

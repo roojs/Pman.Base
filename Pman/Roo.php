@@ -208,7 +208,14 @@ class Pman_Roo extends Pman
             //header('Content-type: text/plain');
             $fh = fopen('php://output', 'w');
             fputcsv($fh, $_REQUEST['csvTitles']);
-            while ($x->fetch()) {
+            
+            $ar = $x->fetchAll();
+            
+            if (method_exists($x,'postListFilter')) {
+                $ret = $x->postListFilter($ar, $this->authUser, $_REQUEST);
+            }
+            
+            foreach($ar as $x) {
                 //echo "<PRE>"; print_r(array($_REQUEST['csvCols'], $x->toArray())); exit;
                 $line = array();
                 foreach($_REQUEST['csvCols'] as $k) {

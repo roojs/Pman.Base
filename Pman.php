@@ -427,6 +427,13 @@ class Pman extends HTML_FlexyFramework_Page
     
     function jerr($str, $errors=array()) // standard error reporting..
     {
+        
+        $cli = HTML_FlexyFramework::get()->cli;
+        if ($cli) {
+            echo $str . "\n";
+            exit;
+        }
+        
         require_once 'Services/JSON.php';
         $json = new Services_JSON();
         

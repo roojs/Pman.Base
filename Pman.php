@@ -430,7 +430,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         $cli = HTML_FlexyFramework::get()->cli;
         if ($cli) {
-            echo $str . "\n";
+            echo "ERROR:\n" .$str . "\n";
             exit;
         }
         

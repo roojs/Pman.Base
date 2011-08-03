@@ -506,7 +506,8 @@ class Pman extends HTML_FlexyFramework_Page
             $total = count($ar);
         }
         $extra=  $extra ? $extra : array();
-        
+         require_once 'Services/JSON.php';
+        $json = new Services_JSON();
         if (isset($_SERVER['CONTENT_TYPE']) && preg_match('#multipart/form-data#i', $_SERVER['CONTENT_TYPE'])) {
             
             header('Content-type: text/html');
@@ -523,8 +524,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         
         
-        require_once 'Services/JSON.php';
-        $json = new Services_JSON();
+       
         echo $json->encode(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra);    
         exit;
         

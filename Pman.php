@@ -506,6 +506,23 @@ class Pman extends HTML_FlexyFramework_Page
             $total = count($ar);
         }
         $extra=  $extra ? $extra : array();
+        
+        if (isset($_SERVER['CONTENT_TYPE']) && preg_match('#multipart/form-data#i', $_SERVER['CONTENT_TYPE'])) {
+            
+            header('Content-type: text/html');
+            echo "<HTML><HEAD></HEAD><BODY>";
+            // encode html characters so they can be read..
+            echo  str_replace(array('<','>'), array('\u003c','\u003e'),
+                        $json->encodeUnsafe(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra));
+            echo "</BODY></HTML>";
+            exit;
+        }
+        
+      
+        
+        
+        
+        
         require_once 'Services/JSON.php';
         $json = new Services_JSON();
         echo $json->encode(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra);    

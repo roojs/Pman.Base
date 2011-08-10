@@ -1,7 +1,7 @@
 <?php
 
 /// provide language data!!!
-// DEPRECIATED - moved to Pman_I18N
+// DEPRECIATED - moved to Pman_Core_I18N
 /**
  * 
  * 

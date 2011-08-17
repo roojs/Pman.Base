@@ -702,19 +702,28 @@ class Pman extends HTML_FlexyFramework_Page
         }
         // finally sort the files, so they are in the right order..
         
+        // only compile this stuff if public_cache is set..
         
-        $compile = empty($ff->Pman['nocompress']) ? 1 : 0;
+        $compile = empty($ff->Pman['public_cache']) ? 0 : 1;
+        
+        // suggestions...
+        //  public_cache =   /var/www/myproject_cache
+        //  public_cache_url =   /myproject_cache    (with Alias apache /myproject_cache/ /var/www/myproject_cache/)
+        $basedir = $ff->Pman['public_cache'];
+        $baseurl = $ff->Pman['public_cache_url'];
+        
         
         $output = date('Y-m-d-H-i-s-').$mod.'-'.md5(serialize($arfiles)) .'.js';
         
         // where are we going to write all of this..
-        if ( $compile && !file_exists($basedir.'/_cache_/'.$output)) {
-            $this->pack($arfiles,$basedir.'/_cache_/'.$output);
+        // This has to be done via a 
+        if ( $compile && !file_exists($basedir.'/'.$output)) {
+            $this->pack($arfiles,$basedir.'/'.$output);
         }
         
         if ($compile && file_exists($basedir.'/_cache_/'.$output)) {
             
-            echo '<script type="text/javascript" src="'.$output_url.'/_cache_/'. $output.'"></script>';
+            echo '<script type="text/javascript" src="'.$baseurl.'/'. $output.'"></script>';
             return;
         }
         

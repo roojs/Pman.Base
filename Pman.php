@@ -597,7 +597,14 @@ class Pman extends HTML_FlexyFramework_Page
         }
          
     }
-    
+    /**
+     *  moduleJavascriptList: list the javascript files in a module
+     *
+     *  @param {String} $mod  the module to look at - eg. Pman/{$mod}/*.js
+     *
+     *  @return {Array} list of include paths (either compiled or raw)
+     *
+     */
 
     
     

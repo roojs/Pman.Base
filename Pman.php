@@ -714,7 +714,7 @@ class Pman extends HTML_FlexyFramework_Page
         $baseurl = $ff->Pman['public_cache_url'];
         
         
-        $output = date('Y-m-d-H-i-s-').$mod.'-'.md5(serialize($arfiles)) .'.js';
+        $output = date('Y-m-d-H-i-s-', $maxtime).$mod.'-'.md5(serialize($arfiles)) .'.js';
         
         // where are we going to write all of this..
         // This has to be done via a 

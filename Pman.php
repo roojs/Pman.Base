@@ -724,7 +724,7 @@ class Pman extends HTML_FlexyFramework_Page
             $x->pack($arfiles,$basedir.'/'.$output);
         }
         
-        if ($compile && file_exists($basedir.'/_cache_/'.$output)) {
+        if ($compile && file_exists($basedir.'/'.$output) && filesize($basedir.'/'.$output)) {
             
             return array(
                 $baseurl.'/'. $output,

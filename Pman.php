@@ -707,6 +707,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         $output = date('Y-m-d-H-i-s-').$mod.'-'.md5(serialize($arfiles)) .'.js';
         
+        // where are we going to write all of this..
         if ( $compile && !file_exists($basedir.'/_cache_/'.$output)) {
             $this->pack($arfiles,$basedir.'/_cache_/'.$output);
         }

@@ -709,6 +709,7 @@ class Pman extends HTML_FlexyFramework_Page
         // suggestions...
         //  public_cache =   /var/www/myproject_cache
         //  public_cache_url =   /myproject_cache    (with Alias apache /myproject_cache/ /var/www/myproject_cache/)
+       
         $basedir = $ff->Pman['public_cache'];
         $baseurl = $ff->Pman['public_cache_url'];
         
@@ -723,8 +724,10 @@ class Pman extends HTML_FlexyFramework_Page
         
         if ($compile && file_exists($basedir.'/_cache_/'.$output)) {
             
-            echo '<script type="text/javascript" src="'.$baseurl.'/'. $output.'"></script>';
-            return;
+            return array(
+                $baseurl.'/'. $output,
+                $this->rootURL."/_translations_/$mod.js"
+            );
         }
         
         

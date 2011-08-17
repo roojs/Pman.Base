@@ -687,32 +687,24 @@ class Pman extends HTML_FlexyFramework_Page
         }
         // works out if stuff has been updated..
         // technically the non-dev version should output compiled only?!!?
+        $ar = glob($dir . '/*.js');
         
-        $dh = opendir($dir);
-
-        while (false !== ($f = readdir($dh))) {
-           // var_dump($f);
-            if (!preg_match('/\.js$/', $f)) {
-                continue;
-            }
+        foreach($ar as $fn) {
+            $f = basename($fn);
             // got the 'module file..'
             $mtime = filemtime($dir . '/'. $f);
             $maxtime = max($mtime, $maxtime);
             $files[] = $path . $f . '?ts='.$mtime;
         }
+        
         if (empty($files)) {
             return $files;
         }
-       // var_dump(array($maxtime , $ctime)); 
-        //if ($maxtime > $ctime) {
-            $lsort = create_function('$a,$b','return strlen($a) > strlen($b) ? 1 : -1;');
-            usort($files, $lsort);
-           // if (file_exists($lfile)) {
-           //     array_unshift($files, $this->rootURL."/_translations_/$mod.js");
-            //}
-            //var_dump($files);
-            return $files;
-       // }
+        // finally sort the files, so they are in the right order..
+        $lsort = create_function('$a,$b','return strlen($a) > strlen($b) ? 1 : -1;');
+        usort($files, $lsort);
+        return $files;
+
         
     }
     

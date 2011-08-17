@@ -693,6 +693,7 @@ class Pman extends HTML_FlexyFramework_Page
             // got the 'module file..'
             $mtime = filemtime($dir . '/'. $f);
             $maxtime = max($mtime, $maxtime);
+            $arfiles[$mtime] = $fn;
             $files[] = $path . $f . '?ts='.$mtime;
         }
         
@@ -700,8 +701,28 @@ class Pman extends HTML_FlexyFramework_Page
             return $files;
         }
         // finally sort the files, so they are in the right order..
+        
+        
+        $compile = empty($ff->Pman['nocompress']) ? 1 : 0;
+        
+        $output = date('Y-m-d-H-i-s-').$mod.'-'.md5(serialize($arfiles)) .'.js';
+        
+        if ( $compile && !file_exists($basedir.'/_cache_/'.$output)) {
+            $this->pack($arfiles,$basedir.'/_cache_/'.$output);
+        }
+        
+        if ($compile && file_exists($basedir.'/_cache_/'.$output)) {
+            
+            echo '<script type="text/javascript" src="'.$output_url.'/_cache_/'. $output.'"></script>';
+            return;
+        }
+        
+        
+        
+        // give up and output original files...
         $lsort = create_function('$a,$b','return strlen($a) > strlen($b) ? 1 : -1;');
         usort($files, $lsort);
+         
         return $files;
 
         

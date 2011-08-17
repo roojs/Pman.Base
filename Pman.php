@@ -630,6 +630,8 @@ class Pman extends HTML_FlexyFramework_Page
      *  Translations are in Pman/_translations_/{$mod}.js
      *  
      *  if that stuff does not exist just list files in  Pman/{$mod}/*.js
+     *
+     *  Compiled could be done on the fly..
      * 
      *
      *
@@ -656,10 +658,11 @@ class Pman extends HTML_FlexyFramework_Page
         
             return array();
         }
-        $dh = opendir($dir);
         $maxtime = 0;
         $ctime = 0;
         $files = array();
+        
+        // compiled directory exists...
         if (file_exists($cfile)) {
            // $ctime = max(filemtime($cfile), filectime($cfile));
             // otherwise use compile dfile..
@@ -685,6 +688,8 @@ class Pman extends HTML_FlexyFramework_Page
         // works out if stuff has been updated..
         // technically the non-dev version should output compiled only?!!?
         
+        $dh = opendir($dir);
+
         while (false !== ($f = readdir($dh))) {
            // var_dump($f);
             if (!preg_match('/\.js$/', $f)) {

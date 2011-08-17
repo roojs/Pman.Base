@@ -710,7 +710,7 @@ class Pman extends HTML_FlexyFramework_Page
         //  public_cache =   /var/www/myproject_cache
         //  public_cache_url =   /myproject_cache    (with Alias apache /myproject_cache/ /var/www/myproject_cache/)
        
-        $basedir = $ff->Pman['public_cache'];
+        $basedir = $ff->Pman['public_cache_dir'];
         $baseurl = $ff->Pman['public_cache_url'];
         
         

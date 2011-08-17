@@ -598,10 +598,42 @@ class Pman extends HTML_FlexyFramework_Page
          
     }
     /**
+     * packJS:
+     *
+     * @file path to 
+     *
+     *
+     */
+    
+     function packJS($dir)
+    {
+       
+        // target has to be 'aliased'
+        // target filename can be an md5..
+        
+        require_once 'Pman/Core/JsCompile.php';
+        $x = new Pman_Core_JsCompile();
+        $x->packScript(dirname(__FILE__).'/Hex/templates/images', 
+                       array($dir),
+                        $this->rootURL . '/Hex/templates/images');
+        
+        
+    }
+    
+    
+    /**
      *  moduleJavascriptList: list the javascript files in a module
      *
-     *  @param {String} $mod  the module to look at - eg. Pman/{$mod}/*.js
+     *  The original version of this.. still needs more thought...
      *
+     *  Compiled is in Pman/_compiled_/{$mod}/{LATEST...}.js
+     *  Translations are in Pman/_translations_/{$mod}.js
+     *  
+     *  if that stuff does not exist just list files in  Pman/{$mod}/*.js
+     * 
+     *
+     *
+     *  @param {String} $mod  the module to look at - eg. Pman/{$mod}/*.js
      *  @return {Array} list of include paths (either compiled or raw)
      *
      */

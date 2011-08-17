@@ -704,7 +704,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         // only compile this stuff if public_cache is set..
         
-        $compile = empty($ff->Pman['public_cache_dir']) ? 0 : 1;
+        $compile = false; // empty($ff->Pman['public_cache_dir']) ? 0 : 1;
         
         // suggestions...
         //  public_cache_dir =   /var/www/myproject_cache

@@ -693,7 +693,7 @@ class Pman extends HTML_FlexyFramework_Page
             // got the 'module file..'
             $mtime = filemtime($dir . '/'. $f);
             $maxtime = max($mtime, $maxtime);
-            $arfiles[$mtime] = $fn;
+            $arfiles[$fn] = $mtime;
             $files[] = $path . $f . '?ts='.$mtime;
         }
         

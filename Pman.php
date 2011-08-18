@@ -635,6 +635,10 @@ class Pman extends HTML_FlexyFramework_Page
         
         $ar = glob($dir . '/*.js');
         
+        $files = array();
+        $arfiles = array();
+        $maxtime = 0;
+        $mtime = 0;
         foreach($ar as $fn) {
             $f = basename($fn);
             // got the 'module file..'

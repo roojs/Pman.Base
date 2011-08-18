@@ -623,7 +623,7 @@ class Pman extends HTML_FlexyFramework_Page
      * Gather infor for javascript files..
      *
      * @param {String} $mod the module to get info about.
-     * @return {StdClass}  details about modules.
+     * @return {StdClass}  details about module.
      */
     function moduleJavascriptFilesInfo($mod)
     {

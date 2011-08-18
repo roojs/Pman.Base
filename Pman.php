@@ -661,7 +661,7 @@ class Pman extends HTML_FlexyFramework_Page
         $maxtime = 0;
         $ctime = 0;
         $files = array();
-        
+        /*
         // compiled directory exists...
         if (file_exists($cfile)) {
            // $ctime = max(filemtime($cfile), filectime($cfile));
@@ -684,6 +684,7 @@ class Pman extends HTML_FlexyFramework_Page
             }
             return $files;
         }
+        */
         // works out if stuff has been updated..
         // technically the non-dev version should output compiled only?!!?
         $ar = glob($dir . '/*.js');

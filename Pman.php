@@ -629,6 +629,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
         $ff = HTML_FlexyFramework::get();
         
+        $base = dirname($_SERVER['SCRIPT_FILENAME']);
         $dir =   $this->rootDir.'/Pman/'. $mod;
             
         
@@ -643,13 +644,15 @@ class Pman extends HTML_FlexyFramework_Page
             $files[] = $path . $f . '?ts='.$mtime;
         }
         $compile  = empty($ff->Pman['public_cache_dir']) ? 0 : 1;
-        
+        $basedir = $ff->Pman['public_cache_dir'];
+        $baseurl = $ff->Pman['public_cache_url'];
         return (object) array(
             'files' => $files,
             'filesmtime' => $arfiles,
             'maxtime' => $maxtime,
             'compile' => $compile,
-            
+            'translation_file' =>  realpath($base .'/_translations_/' . str_replace('/','.', $mod) .  '.js'),
+            'compiled' => date('Y-m-d-H-i-s-', $maxtime). str_replace('/','.',$mod).'-'.md5(serialize($arfiles)) .'.js',
         );
     }
     
@@ -686,11 +689,10 @@ class Pman extends HTML_FlexyFramework_Page
             
         $path =    $this->rootURL."/Pman/$mod/";
         $base = dirname($_SERVER['SCRIPT_FILENAME']);
-        $cfile = realpath($base .'/_compiled_/' . $mod);
+         
         $lfile = realpath($base .'/_translations_/' . str_replace('/','.', $mod) .  '.js');
         //    var_dump($cfile);
         if (!file_exists($dir)) {
-        
             return array();
         }
         $maxtime = 0;
@@ -723,8 +725,8 @@ class Pman extends HTML_FlexyFramework_Page
         //  public_cache_dir =   /var/www/myproject_cache
         //  public_cache_url =   /myproject_cache    (with Alias apache /myproject_cache/ /var/www/myproject_cache/)
        
-        $basedir = $ff->Pman['public_cache_dir'];
-        $baseurl = $ff->Pman['public_cache_url'];
+        $basedir = empty($ff->Pman['public_cache_dir']) ? false : $ff->Pman['public_cache_dir'];
+        $baseurl = empty($ff->Pman['public_cache_url']) ? false : $ff->Pman['public_cache_url'];
         
         
         $output = date('Y-m-d-H-i-s-', $maxtime). str_replace('/','.',$mod).'-'.md5(serialize($arfiles)) .'.js';

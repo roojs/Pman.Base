@@ -646,6 +646,7 @@ class Pman extends HTML_FlexyFramework_Page
         $compile  = empty($ff->Pman['public_cache_dir']) ? 0 : 1;
         $basedir = $ff->Pman['public_cache_dir'];
         $baseurl = $ff->Pman['public_cache_url'];
+        
         return (object) array(
             'files' => $files,
             'filesmtime' => $arfiles,
@@ -653,6 +654,8 @@ class Pman extends HTML_FlexyFramework_Page
             'compile' => $compile,
             'translation_file' =>  realpath($base .'/_translations_/' . str_replace('/','.', $mod) .  '.js'),
             'output' => date('Y-m-d-H-i-s-', $maxtime). str_replace('/','.',$mod).'-'.md5(serialize($arfiles)) .'.js',
+            'basedir' => $basedir,
+            'baseurl' => $baseurl
         );
     }
     

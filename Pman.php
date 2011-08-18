@@ -619,11 +619,19 @@ class Pman extends HTML_FlexyFramework_Page
         
         
     }
-    
-    function moduleJavascriptFiles($mod)
+    /**
+     *  Gather infor for javascript files..
+     *
+     *
+     */
+    function moduleJavascriptFilesInfo($mod)
     {
+        $ff = HTML_FlexyFramework::get();
         
-         $ar = glob($dir . '/*.js');
+        $dir =   $this->rootDir.'/Pman/'. $mod;
+            
+        
+        $ar = glob($dir . '/*.js');
         
         foreach($ar as $fn) {
             $f = basename($fn);
@@ -633,7 +641,15 @@ class Pman extends HTML_FlexyFramework_Page
             $arfiles[$fn] = $mtime;
             $files[] = $path . $f . '?ts='.$mtime;
         }
-        return array($files, $arfiles,$maxtime);
+        $compile  = empty($ff->Pman['public_cache_dir']) ? 0 : 1;
+        
+        return (object) array(
+            'files' => $files,
+            'filesmtime' => $arfiles,
+            'maxtime' => $maxtime,
+            'compile' => $compile,
+            
+        );
     }
     
     
@@ -679,30 +695,7 @@ class Pman extends HTML_FlexyFramework_Page
         $maxtime = 0;
         $ctime = 0;
         $files = array();
-        /*
-        // compiled directory exists...
-        if (file_exists($cfile)) {
-           // $ctime = max(filemtime($cfile), filectime($cfile));
-            // otherwise use compile dfile..
-            $maxm = 0;
-            $ar = glob($cfile . '/' . $mod . '*.js');
-            // default to first..
-            $cfile = basename($ar[count($ar) -1]);
-            foreach($ar as $fn) {
-                if (filemtime($fn) > $maxm) {
-                    $cfile = basename($fn);
-                    $maxm = filemtime($fn);
-                }
-            }
-            
-             
-            $files = array( $this->rootURL. "/_compiled_/".$mod . "/" . $cfile);
-            if (file_exists($lfile)) {
-                array_push($files, $this->rootURL."/_translations_/$mod.js");
-            }
-            return $files;
-        }
-        */
+        
         // works out if stuff has been updated..
         // technically the non-dev version should output compiled only?!!?
         $ar = glob($dir . '/*.js');

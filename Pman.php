@@ -686,37 +686,19 @@ class Pman extends HTML_FlexyFramework_Page
     function moduleJavascriptList($mod)
     {
         
-        $ff = HTML_FlexyFramework::get();
         
         $dir =   $this->rootDir.'/Pman/'. $mod;
-            
-        $path =    $this->rootURL."/Pman/$mod/";
-        $base = dirname($_SERVER['SCRIPT_FILENAME']);
-         
-        $lfile = realpath($base .'/_translations_/' . str_replace('/','.', $mod) .  '.js');
-        //    var_dump($cfile);
         if (!file_exists($dir)) {
             return array();
         }
-        $maxtime = 0;
-        $ctime = 0;
-        $files = array();
         
-        // works out if stuff has been updated..
-        // technically the non-dev version should output compiled only?!!?
-        $ar = glob($dir . '/*.js');
+        $info = $this->moduleJavascriptFilesInfo($mod);
         
-        foreach($ar as $fn) {
-            $f = basename($fn);
-            // got the 'module file..'
-            $mtime = filemtime($dir . '/'. $f);
-            $maxtime = max($mtime, $maxtime);
-            $arfiles[$fn] = $mtime;
-            $files[] = $path . $f . '?ts='.$mtime;
-        }
         
-        if (empty($files)) {
-            return $files;
+         
+        
+        if (empty($info->files)) {
+            return array();
         }
         // finally sort the files, so they are in the right order..
         

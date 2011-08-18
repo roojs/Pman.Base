@@ -721,7 +721,8 @@ class Pman extends HTML_FlexyFramework_Page
         if ( $compile && !file_exists($basedir.'/'.$output)) {
             require_once 'Pman/Core/JsCompile.php';
             $x = new Pman_Core_JsCompile();
-            $x->pack($arfiles,$basedir.'/'.$output);
+            
+            $x->pack($arfiles,$basedir.'/'.$output );
         }
         
         if ($compile && file_exists($basedir.'/'.$output) && filesize($basedir.'/'.$output)) {

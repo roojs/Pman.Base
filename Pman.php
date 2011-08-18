@@ -728,7 +728,7 @@ class Pman extends HTML_FlexyFramework_Page
             
             return array(
                 $baseurl.'/'. $output,
-                $this->rootURL."/_translations_/$mod.js"
+                $this->rootURL."/_translations_/". str_replace('/','.', $mod).".js"
             );
         }
         

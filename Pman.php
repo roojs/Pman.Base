@@ -730,7 +730,7 @@ class Pman extends HTML_FlexyFramework_Page
             require_once 'Pman/Core/JsCompile.php';
             $x = new Pman_Core_JsCompile();
             
-            $x->pack($info->filesmtime,$info->basedir.'/'.$info->output );
+            $x->pack($info->filesmtime,$info->basedir.'/'.$info->output, $info->translation_base);
         }
         
         if ($info->compile && file_exists($info->basedir.'/'.$info->output) && filesize($info->basedir.'/'.$info->output)) {

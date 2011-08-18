@@ -666,7 +666,7 @@ class Pman extends HTML_FlexyFramework_Page
             'compile' => $compile,
             'translation_file' =>  realpath($base .'/_translations_/' . str_replace('/','.', $mod) .  '.js'),
             'output' => $output,
-            'translation_data' => preg_replace('/\.js$/', '.__translation__.js', $output)
+            'translation_data' => preg_replace('/\.js$/', '.__translation__.js', $output),
             'basedir' => $basedir,
             'baseurl' => $baseurl,
         );

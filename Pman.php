@@ -649,9 +649,13 @@ class Pman extends HTML_FlexyFramework_Page
         }
         
         ksort($arfiles); // just sort by name so it's consistant for serialize..
+        
         $compile  = empty($ff->Pman['public_cache_dir']) ? 0 : 1;
         $basedir = $ff->Pman['public_cache_dir'];
         $baseurl = $ff->Pman['public_cache_url'];
+        
+        $lsort = create_function('$a,$b','return strlen($a) > strlen($b) ? 1 : -1;');
+        usort($files, $lsort);
         
         return (object) array(
             'files' => $files,
@@ -715,25 +719,20 @@ class Pman extends HTML_FlexyFramework_Page
         //  public_cache_dir =   /var/www/myproject_cache
         //  public_cache_url =   /myproject_cache    (with Alias apache /myproject_cache/ /var/www/myproject_cache/)
        
-        $basedir = empty($ff->Pman['public_cache_dir']) ? false : $ff->Pman['public_cache_dir'];
-        $baseurl = empty($ff->Pman['public_cache_url']) ? false : $ff->Pman['public_cache_url'];
-        
-        
-        $output = date('Y-m-d-H-i-s-', $maxtime). str_replace('/','.',$mod).'-'.md5(serialize($arfiles)) .'.js';
-        
+          
         // where are we going to write all of this..
         // This has to be done via a 
-        if ( $compile && !file_exists($basedir.'/'.$output)) {
+        if ( $info->compile && !file_exists($info->basedir.'/'.$info->output)) {
             require_once 'Pman/Core/JsCompile.php';
             $x = new Pman_Core_JsCompile();
             
-            $x->pack($arfiles,$basedir.'/'.$output );
+            $x->pack($info->filesmtime,$info->basedir.'/'.$info->output );
         }
         
-        if ($compile && file_exists($basedir.'/'.$output) && filesize($basedir.'/'.$output)) {
+        if ($info->compile && file_exists($info->basedir.'/'.$info->output) && filesize($info->basedir.'/'.$info->output)) {
             
             return array(
-                $baseurl.'/'. $output,
+                $info->baseurl.'/'. $info->output,
                 $this->rootURL."/_translations_/". str_replace('/','.', $mod).".js"
             );
         }
@@ -741,8 +740,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         
         // give up and output original files...
-        $lsort = create_function('$a,$b','return strlen($a) > strlen($b) ? 1 : -1;');
-        usort($files, $lsort);
+        
          
         return $files;
 

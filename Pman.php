@@ -647,6 +647,8 @@ class Pman extends HTML_FlexyFramework_Page
             $arfiles[$fn] = $mtime;
             $files[] = $path . $f . '?ts='.$mtime;
         }
+        
+        ksort($arfiles); // just sort by name so it's consistant for serialize..
         $compile  = empty($ff->Pman['public_cache_dir']) ? 0 : 1;
         $basedir = $ff->Pman['public_cache_dir'];
         $baseurl = $ff->Pman['public_cache_url'];
@@ -699,8 +701,7 @@ class Pman extends HTML_FlexyFramework_Page
         $info = $this->moduleJavascriptFilesInfo($mod);
         
         
-         
-        
+          
         if (empty($info->files)) {
             return array();
         }

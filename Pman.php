@@ -620,6 +620,24 @@ class Pman extends HTML_FlexyFramework_Page
         
     }
     
+    function moduleJavascriptFiles($mod)
+    {
+        
+         $ar = glob($dir . '/*.js');
+        
+        foreach($ar as $fn) {
+            $f = basename($fn);
+            // got the 'module file..'
+            $mtime = filemtime($dir . '/'. $f);
+            $maxtime = max($mtime, $maxtime);
+            $arfiles[$fn] = $mtime;
+            $files[] = $path . $f . '?ts='.$mtime;
+        }
+        return array($files, $arfiles,$maxtime);
+    }
+    
+    
+    
     
     /**
      *  moduleJavascriptList: list the javascript files in a module

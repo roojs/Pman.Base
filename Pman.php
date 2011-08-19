@@ -564,7 +564,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
         
         $mods = $this->modulesList();
-        
+        print_R($mods);
         foreach($mods as $mod) {
             // add the css file..
         

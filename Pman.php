@@ -705,7 +705,7 @@ class Pman extends HTML_FlexyFramework_Page
         }
         
         $info = $this->moduleJavascriptFilesInfo($mod);
-        
+        print_R($info);
         
           
         if (empty($info->files)) {

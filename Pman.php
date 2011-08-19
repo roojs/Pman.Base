@@ -561,7 +561,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     
     /**
-     * ---------------- Page output?!?!?
+     * ---------------- OUTPUT
      */
     function hasBg($fn) // used on front page to check if logos exist..
     {

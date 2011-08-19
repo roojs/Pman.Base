@@ -125,14 +125,17 @@ class Pman extends HTML_FlexyFramework_Page
         return $this->get($base);
     }
     
-    /**
-     * ------------- Authentication and permission info about logged in user!!!
-     * 
-     * 
-     */
     
+    // --------------- AUTHENTICATION or  system information
+    /**
+     * loadOwnerCompany:
+     * finds the compay with comptype=='OWNER'
+     *
+     * @return {Pman_Core_DataObjects_Companies} the owner company
+     */
     function loadOwnerCompany()
     {
+         
         $this->company = DB_DataObject::Factory('Companies');
         if ($this->company) { // non-core pman projects
             return; 
@@ -142,13 +145,7 @@ class Pman extends HTML_FlexyFramework_Page
     }
     
     
-    function staticGetAuthUser() // DEPRECIATED..
-    {
-        
-        $x = new Pman();
-        return $x->getAuthUser();
-        
-    }
+    
     /**
      * getAuthUser: - get the authenticated user..
      *
@@ -186,12 +183,7 @@ class Pman extends HTML_FlexyFramework_Page
         return $au && $au->hasPerm($name,$lvl);
         
     }
-    
-    function modules() // DEPRECITAED
-    {
-        return $this->modulesList(); 
-    }
-    
+   
     /**
      * modulesList:  List the modules in the application
      *
@@ -811,8 +803,19 @@ class Pman extends HTML_FlexyFramework_Page
         return $eid;
         
     }
-
-    
+    // ------------------ DEPERCIATED ---
+     
+    function modules() // DEPRECITAED
+    {
+        return $this->modulesList(); 
+    }
+    function staticGetAuthUser() // DEPRECIATED..
+    {
+        
+        $x = new Pman();
+        return $x->getAuthUser();
+        
+    }
      
     
 }

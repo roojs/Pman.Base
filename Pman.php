@@ -166,11 +166,20 @@ class Pman extends HTML_FlexyFramework_Page
         $this->authUser =$u->getAuthUser();
         return $this->authUser ;
     }
+    /**
+     * hasPerm:
+     * wrapper arround authuser->hasPerm
+     * @see Pman_Core_DataObjects_User::hasPerm
+     *
+     * @param {String} $name  The permission name (eg. Projects.List)
+     * @param {String} $lvl   eg. (C)reate (E)dit (D)elete ... etc.
+     * 
+     */
     function hasPerm($name, $lvl)  // do we have a permission
     {
         static $pcache = array();
         $au = $this->getAuthUser();
-        return $au->hasPerm($name,$lvl);
+        return $au && $au->hasPerm($name,$lvl);
         
     }
     

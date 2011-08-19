@@ -619,8 +619,8 @@ class Pman extends HTML_FlexyFramework_Page
         
         $base = dirname($_SERVER['SCRIPT_FILENAME']);
         $dir =   $this->rootDir.'/Pman/'. $mod;
-            
         $path = $this->rootURL ."/Pman/$module/";
+        
         $ar = glob($dir . '/*.js');
         
         $files = array();

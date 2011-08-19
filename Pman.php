@@ -734,7 +734,7 @@ class Pman extends HTML_FlexyFramework_Page
               
             );
             if ($info->translation_mtime) {
-                ret[] = $this->rootURL."/_translations_/". $info->smod.".js?ts=".$info->translation_mtime;
+                $ret[] = $this->rootURL."/_translations_/". $info->smod.".js?ts=".$info->translation_mtime;
             }
             return $ret;
         }

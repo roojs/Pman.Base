@@ -533,11 +533,12 @@ class Pman extends HTML_FlexyFramework_Page
     
     
    
-   
-      
     /**
-     * ---------------- Page output?!?!?
+     * modulesList:  List the modules in the application
+     *
+     * @return {Array} list of modules
      */
+      
     
     function modulesList()
     {
@@ -561,6 +562,9 @@ class Pman extends HTML_FlexyFramework_Page
     }
     
     
+    /**
+     * ---------------- Page output?!?!?
+     */
     function hasBg($fn) // used on front page to check if logos exist..
     {
         return file_exists($this->rootDir.'/Pman/'.$this->appNameShort.'/templates/images/'.  $fn);

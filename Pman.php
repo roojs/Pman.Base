@@ -567,7 +567,12 @@ class Pman extends HTML_FlexyFramework_Page
     {
         return file_exists($this->rootDir.'/Pman/'.$this->appNameShort.'/templates/images/'.  $fn);
     }
-    
+     /**
+     * outputJavascriptIncludes:
+     *
+     * output <script....> for all the modules in the applcaiton
+     *
+     */
     function outputJavascriptIncludes() // includes on devel version..
     {
         
@@ -593,7 +598,12 @@ class Pman extends HTML_FlexyFramework_Page
         }
          
     }
-    
+     /**
+     * outputCSSIncludes:
+     *
+     * output <link rel=stylesheet......> for all the modules in the applcaiton
+     *
+     */
     function outputCSSIncludes() // includes on CSS links.
     {
         
@@ -612,28 +622,7 @@ class Pman extends HTML_FlexyFramework_Page
         }
          
     }
-    /**
-     * packJS:
-     *
-     * @file path to 
-     *
-     *
-     */
-    
-     function packJS($dir)
-    {
-       
-        // target has to be 'aliased'
-        // target filename can be an md5..
-        
-        require_once 'Pman/Core/JsCompile.php';
-        $x = new Pman_Core_JsCompile();
-        $x->packScript(dirname(__FILE__).'/Hex/templates/images', 
-                       array($dir),
-                        $this->rootURL . '/Hex/templates/images');
-        
-        
-    }
+      
     /**
      * Gather infor for javascript files..
      *

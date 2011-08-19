@@ -645,14 +645,19 @@ class Pman extends HTML_FlexyFramework_Page
         $lsort = create_function('$a,$b','return strlen($a) > strlen($b) ? 1 : -1;');
         usort($files, $lsort);
         
-        $output = date('Y-m-d-H-i-s-', $maxtime). str_replace('/','.',$mod).'-'.md5(serialize($arfiles)) .'.js';
+        $smod = str_replace('/','.',$mod);
+        
+        $output = date('Y-m-d-H-i-s-', $maxtime). $smod .'-'.md5(serialize($arfiles)) .'.js';
+        
+        if (file_exists)
         
         return (object) array(
             'files' => $files,
             'filesmtime' => $arfiles,
             'maxtime' => $maxtime,
             'compile' => $compile,
-            'translation_file' =>   $base .'/_translations_/' . str_replace('/','.', $mod) .  '.js',
+            'translation_file' =>   $base .'/_translations_/' . $smod .  '.js',
+            'translation_mtime' =>   $tmtime,
             'output' => $output,
             'translation_data' => preg_replace('/\.js$/', '.__translation__.js', $output),
             'translation_base' => dirname($dir) . '/',

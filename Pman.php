@@ -539,6 +539,27 @@ class Pman extends HTML_FlexyFramework_Page
      * ---------------- Page output?!?!?
      */
     
+    function modulesList()
+    {
+         $mods = explode(',', $this->appModules);
+        if (in_array('Core',$mods)) { // core has to be the first  modules loaded as it contains Pman.js
+            array_unshift($mods,   'Core');
+        }
+        
+        $mods = array_unique($mods);
+         
+        $disabled =  explode(',', $this->appDisable ? $this->appDisable: '');
+        $ret = array();
+        foreach($mods as $mod) {
+            // add the css file..
+            if (in_array($mod, $disabled)) {
+                continue;
+            }
+            $ret[] = $mod;
+        }
+        return $ret;
+    }
+    
     
     function hasBg($fn) // used on front page to check if logos exist..
     {
@@ -548,14 +569,7 @@ class Pman extends HTML_FlexyFramework_Page
     function outputJavascriptIncludes() // includes on devel version..
     {
         
-        $mods = explode(',', $this->appModules);
-        if (in_array('Core',$mods)) { // core has to be the first  modules loaded as it contains Pman.js
-            array_unshift($mods,   'Core');
-        }
-        
-        $mods = array_unique($mods);
-         
-        $disabled =  explode(',', $this->appDisable ? $this->appDisable: '');
+        $mods = $this->modulesList();
         
         foreach($mods as $mod) {
             // add the css file..

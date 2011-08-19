@@ -570,8 +570,7 @@ class Pman extends HTML_FlexyFramework_Page
         
             
             $files = $this->moduleJavascriptList($mod.'/widgets');
-            print_r($files);
-            foreach($files as $f) {
+             foreach($files as $f) {
                 echo '<script type="text/javascript" src="'. $f. '"></script>'."\n";
             }
             
@@ -698,7 +697,10 @@ class Pman extends HTML_FlexyFramework_Page
         
         
         $dir =   $this->rootDir.'/Pman/'. $mod;
+        
+        
         if (!file_exists($dir)) {
+            echo '<!-- missing directory '. htmlspecialchars($dir) .' -->';
             return array();
         }
         

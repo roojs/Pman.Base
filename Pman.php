@@ -174,36 +174,41 @@ class Pman extends HTML_FlexyFramework_Page
         
     }
     
-    function modules()
+    function modules() // DEPRECITAED
     {
-        // appModules/appDisable contain a comma limited list of
-        // both modules and components that can be enabled/disabled..
-         $boot = HTML_FlexyFramework::get();
-
-        // the modules call just lists the modules
-        $enabled =  array('Core' => true);
-         $am = !empty($boot->enable) ? explode(',',  $boot->enable) : array();
-        foreach($am as $k) {
-            if (strpos( $k ,'.') ) {
-                continue;
-            }
-            $enabled[$k] = true;
-        }
-        
-        
-        $disabled =  !empty($boot->disable) ?  explode(',', $boot->disable) : array();
-        foreach($disabled as $k) {
-            if ( strpos( $k ,'.') ) {
-                continue;
-            }
-            if (isset($enabled[$k])) {
-                unset($enabled[$k]);
-            }   
-        }
-         //echo '<PRE>';       var_Dump($enabled);
-
-        return array_keys($enabled); 
+        return $this->modulesList(); 
     }
+    
+    /**
+     * modulesList:  List the modules in the application
+     *
+     * @return {Array} list of modules
+     */
+    function modulesList()
+    {
+        $this->init();
+        
+        $mods = explode(',', $this->appModules);
+        if (in_array('Core',$mods)) { // core has to be the first  modules loaded as it contains Pman.js
+            array_unshift($mods,   'Core');
+        }
+        
+        $mods = array_unique($mods);
+         
+        $disabled =  explode(',', $this->appDisable ? $this->appDisable: '');
+        $ret = array();
+        foreach($mods as $mod) {
+            // add the css file..
+            if (in_array($mod, $disabled)) {
+                continue;
+            }
+            $ret[] = $mod;
+        }
+        return $ret;
+    }
+    
+     
+    
     
     function hasModule($name) 
     {
@@ -221,6 +226,7 @@ class Pman extends HTML_FlexyFramework_Page
         return true;
     }
     
+     
     
     
     
@@ -421,6 +427,8 @@ class Pman extends HTML_FlexyFramework_Page
         $this->jerr("Not authenticated", array('authFailure' => true));
     }
      
+     
+     
     /**
      * ---------------- Standard JSON outputers. - used everywhere
      */
@@ -533,32 +541,6 @@ class Pman extends HTML_FlexyFramework_Page
     
     
    
-    /**
-     * modulesList:  List the modules in the application
-     *
-     * @return {Array} list of modules
-     */
-    function modulesList()
-    {
-         $mods = explode(',', $this->appModules);
-        if (in_array('Core',$mods)) { // core has to be the first  modules loaded as it contains Pman.js
-            array_unshift($mods,   'Core');
-        }
-        
-        $mods = array_unique($mods);
-         
-        $disabled =  explode(',', $this->appDisable ? $this->appDisable: '');
-        $ret = array();
-        foreach($mods as $mod) {
-            // add the css file..
-            if (in_array($mod, $disabled)) {
-                continue;
-            }
-            $ret[] = $mod;
-        }
-        return $ret;
-    }
-    
     
     /**
      * ---------------- OUTPUT

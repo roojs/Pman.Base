@@ -746,7 +746,7 @@ class Pman extends HTML_FlexyFramework_Page
         // give up and output original files...
         
          
-        return $files;
+        return $info->files;
 
         
     }

@@ -567,10 +567,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         foreach($mods as $mod) {
             // add the css file..
-            if (in_array($mod, $disabled)) {
-                continue;
-            }
-            
+        
             
             $files = $this->moduleJavascriptList($mod.'/widgets');
             foreach($files as $f) {

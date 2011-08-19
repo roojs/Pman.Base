@@ -653,6 +653,7 @@ class Pman extends HTML_FlexyFramework_Page
             ? filemtime($this->rootDir.'/_translations/'. $smod.'.js') : 0;
         
         return (object) array(
+            'smod' => $smod,
             'files' => $files,
             'filesmtime' => $arfiles,
             'maxtime' => $maxtime,
@@ -728,7 +729,11 @@ class Pman extends HTML_FlexyFramework_Page
         }
         
         if ($info->compile && file_exists($info->basedir.'/'.$info->output) && filesize($info->basedir.'/'.$info->output)) {
-            
+            $ret =array(
+                $info->baseurl.'/'. $info->output,
+              
+            );
+            if ($info->translation_mtime)
             return array(
                 $info->baseurl.'/'. $info->output,
                 $this->rootURL."/_translations_/". str_replace('/','.', $mod).".js"

@@ -649,8 +649,8 @@ class Pman extends HTML_FlexyFramework_Page
         
         $output = date('Y-m-d-H-i-s-', $maxtime). $smod .'-'.md5(serialize($arfiles)) .'.js';
         
-        $tmtime = file_exists($this->rootDir.'/_translations/'. $smod.'.js')
-            ? filemtime($this->rootDir.'/_translations/'. $smod.'.js') : 0;
+        $tmtime = file_exists($this->rootDir.'/_translations_/'. $smod.'.js')
+            ? filemtime($this->rootDir.'/_translations_/'. $smod.'.js') : 0;
         
         return (object) array(
             'smod' => $smod,

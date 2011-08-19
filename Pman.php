@@ -652,7 +652,7 @@ class Pman extends HTML_FlexyFramework_Page
             'filesmtime' => $arfiles,
             'maxtime' => $maxtime,
             'compile' => $compile,
-            'translation_file' =>  realpath($base .'/_translations_/' . str_replace('/','.', $mod) .  '.js'),
+            'translation_file' =>   $base .'/_translations_/' . str_replace('/','.', $mod) .  '.js',
             'output' => $output,
             'translation_data' => preg_replace('/\.js$/', '.__translation__.js', $output),
             'translation_base' => dirname($dir) . '/',

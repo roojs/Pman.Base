@@ -595,9 +595,8 @@ class Pman extends HTML_FlexyFramework_Page
     function outputCSSIncludes() // includes on CSS links.
     {
         
-        $mods = explode(',', $this->appModules);
-        array_unshift($mods,   'Core');
-        $mods = array_unique($mods);
+        $mods = $this->modulesList();
+        
         
         foreach($mods as $mod) {
             // add the css file..

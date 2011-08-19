@@ -140,17 +140,21 @@ class Pman extends HTML_FlexyFramework_Page
         $this->company->get('comptype', 'OWNER');
         
     }
-    function staticGetAuthUser()
+    
+    
+    function staticGetAuthUser() // DEPRECIATED..
     {
-        $ff = HTML_FlexyFramework::get();
-        $tbl = empty($ff->Pman['authTable']) ? 'Person' : $ff->Pman['authTable'];
         
-        $u = DB_DataObject::factory($tbl);
-        if (!$u->isAuth()) {
-            return false;
-        }
-        return $u->getAuthUser();
+        $x = new Pman();
+        return $x->getAuthUser();
+        
     }
+    /**
+     * getAuthUser: - get the authenticated user..
+     *
+     * @return {DB_DataObject} of type Pman[authTable] if authenticated.
+     */
+    
     function getAuthUser()
     {
         if (!empty($this->authUser)) {

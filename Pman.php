@@ -538,9 +538,7 @@ class Pman extends HTML_FlexyFramework_Page
      *
      * @return {Array} list of modules
      */
-      
-    
-    function modulesList()
+      function modulesList()
     {
          $mods = explode(',', $this->appModules);
         if (in_array('Core',$mods)) { // core has to be the first  modules loaded as it contains Pman.js

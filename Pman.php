@@ -570,6 +570,7 @@ class Pman extends HTML_FlexyFramework_Page
         
             
             $files = $this->moduleJavascriptList($mod.'/widgets');
+            print_r($files);
             foreach($files as $f) {
                 echo '<script type="text/javascript" src="'. $f. '"></script>'."\n";
             }

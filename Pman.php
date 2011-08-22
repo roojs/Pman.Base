@@ -670,7 +670,7 @@ class Pman extends HTML_FlexyFramework_Page
             'translation_mtime' =>  $tmtime,
             'output' =>             $output,
             'translation_data' =>   preg_replace('/\.js$/', '.__translation__.js', $output),
-            'translation_base' =>   $dir, //prefix of filename (without moudle name))
+            'translation_base' =>   $dir .'/', //prefix of filename (without moudle name))
             'basedir' =>            $basedir,   
             'baseurl' =>            $baseurl,
             'module_dir' =>         $dir,  

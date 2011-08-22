@@ -653,18 +653,19 @@ class Pman extends HTML_FlexyFramework_Page
             ? filemtime($this->rootDir.'/_translations_/'. $smod.'.js') : 0;
         
         return (object) array(
-            'smod' => $smod,
-            'files' => $files,
-            'filesmtime' => $arfiles,
-            'maxtime' => $maxtime,
-            'compile' => $this->isDev ? false : $compile,
+            'smod' =>               $smod, // module name without '/'
+            'files' =>              $files, // list of all files.
+            'filesmtime' =>         $arfiles,  // map of mtime=>file
+            'maxtime' =>            $maxtime, // max mtime
+            'compile' =>            $this->isDev ? false : $compile,
             'translation_file' =>   $base .'/_translations_/' . $smod .  '.js',
-            'translation_mtime' =>   $tmtime,
-            'output' => $output,
-            'translation_data' => preg_replace('/\.js$/', '.__translation__.js', $output),
-            'translation_base' => dirname($dir) . '/',
-            'basedir' => $basedir,
-            'baseurl' => $baseurl,
+            'translation_mtime' =>  $tmtime,
+            'output' =>             $output,
+            'translation_data' =>   preg_replace('/\.js$/', '.__translation__.js', $output),
+            'translation_base' =>   dirname($dir) . '/', //??? check me?
+            'basedir' =>            $basedir,
+            'baseurl' =>            $baseurl,
+            'module_dir' =>         $dir,
         );
     }
     

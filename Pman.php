@@ -677,7 +677,6 @@ class Pman extends HTML_FlexyFramework_Page
         );
         return $cache[$mod];
     }
-    
      
     
     /**

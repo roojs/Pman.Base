@@ -668,8 +668,7 @@ class Pman extends HTML_FlexyFramework_Page
         );
     }
     
-    
-    
+     
     
     /**
      *  moduleJavascriptList: list the javascript files in a module

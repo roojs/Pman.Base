@@ -615,6 +615,14 @@ class Pman extends HTML_FlexyFramework_Page
      */
     function moduleJavascriptFilesInfo($mod)
     {
+        
+        static $cache = array();
+        
+        if (isset($cache[$mod])) {
+            return $cache[$mod];
+        }
+        
+        
         $ff = HTML_FlexyFramework::get();
         
         $base = dirname($_SERVER['SCRIPT_FILENAME']);
@@ -652,7 +660,7 @@ class Pman extends HTML_FlexyFramework_Page
         $tmtime = file_exists($this->rootDir.'/_translations_/'. $smod.'.js')
             ? filemtime($this->rootDir.'/_translations_/'. $smod.'.js') : 0;
         
-        return (object) array(
+        $cache[$mod]  = (object) array(
             'smod' =>               $smod, // module name without '/'
             'files' =>              $files, // list of all files.
             'filesmtime' =>         $arfiles,  // map of mtime=>file
@@ -667,6 +675,7 @@ class Pman extends HTML_FlexyFramework_Page
             'baseurl' =>            $baseurl,
             'module_dir' =>         $dir,  
         );
+        return $cache[$mod];
     }
     
      

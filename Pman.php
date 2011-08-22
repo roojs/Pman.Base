@@ -662,10 +662,10 @@ class Pman extends HTML_FlexyFramework_Page
             'translation_mtime' =>  $tmtime,
             'output' =>             $output,
             'translation_data' =>   preg_replace('/\.js$/', '.__translation__.js', $output),
-            'translation_base' =>   dirname($dir) . '/', //??? check me?
-            'basedir' =>            $basedir,
+            'translation_base' =>   dirname($dir) . '/', //prefix of filename (without moudle name))
+            'basedir' =>            $basedir,   
             'baseurl' =>            $baseurl,
-            'module_dir' =>         $dir,
+            'module_dir' =>         $dir,  
         );
     }
     

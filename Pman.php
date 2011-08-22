@@ -657,7 +657,7 @@ class Pman extends HTML_FlexyFramework_Page
             'files' => $files,
             'filesmtime' => $arfiles,
             'maxtime' => $maxtime,
-            'compile' => this->isDev ? false : $compile,
+            'compile' => $this->isDev ? false : $compile,
             'translation_file' =>   $base .'/_translations_/' . $smod .  '.js',
             'translation_mtime' =>   $tmtime,
             'output' => $output,

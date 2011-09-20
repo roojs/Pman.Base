@@ -92,7 +92,7 @@ class Pman_Roo extends Pman
         $tab = str_replace('/', '',$tab); // basic protection??
         
         $x = DB_DataObject::factory($tab);
-        print_R($x);
+        
         if (!is_a($x, 'DB_DataObject')) {
             $this->jerr('invalid url');
         }

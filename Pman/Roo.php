@@ -78,7 +78,7 @@ class Pman_Roo extends Pman
     {
          //  $this->jerr("Not authenticated", array('authFailure' => true));
        //echo '<PRE>';print_R($_GET);
-      DB_DataObject::debuglevel(1);
+      //DB_DataObject::debuglevel(1);
         
         $this->init(); // from pnan.
         
@@ -180,7 +180,7 @@ class Pman_Roo extends Pman
         );
         
         $queryObj = clone($x);
-        
+        DB_DataObject::debuglevel(1);
         $x->find();
         $ret = array();
         

@@ -180,7 +180,7 @@ class Pman_Roo extends Pman
         );
         
         $queryObj = clone($x);
-        DB_DataObject::debuglevel(1);
+        //DB_DataObject::debuglevel(1);
         $x->find();
         $ret = array();
         

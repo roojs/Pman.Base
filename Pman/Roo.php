@@ -598,6 +598,7 @@ class Pman_Roo extends Pman
             $x->onUpdate($old, $req, $this);
         }
         
+        
         if ($lock_warning) {
             $this->jerr($lock_warning);
         }

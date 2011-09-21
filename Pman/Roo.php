@@ -530,12 +530,15 @@ class Pman_Roo extends Pman
             $lock->on_table= $x->tableName();
             if (!empty($_REQUEST['_lock_id'])) {
                 $lock->whereAdd('id != ' . ((int)$_REQUEST['_lock_id']));
+            } else {
+               $lock->whereAdd('person_id !=' . $this->authUser->id);
             }
+            
             $lock->limit(1);
             if ($lock->find(true)) {
                 // it's locked by someone else..
-                $p = $lock->person();
-                $this->jerr("Your lock is invalid, This record is locked by " . $p->name . " at " .$lock->created);
+               $p = $lock->person();
+               $this->jerr("Your lock is invalid, This record is locked by " . $p->name . " at " .$lock->created);
             }
             // check the users lock.. - no point.. ??? - if there are no other locks and it's not the users, then they can 
             // edit it anyways...

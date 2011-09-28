@@ -771,7 +771,8 @@ class Pman extends HTML_FlexyFramework_Page
      * 
      * @param {String} action  - group/name of event
      * @param {DataObject|false} obj - dataobject action occured on.
-     * @param {String} any remarks 
+     * @param {String} any remarks
+     * @return {false|DB_DataObject} Event object.,
      */
     
     function addEventOnce($act, $obj = false, $remarks = '') 
@@ -780,7 +781,7 @@ class Pman extends HTML_FlexyFramework_Page
         $e = DB_DataObject::factory('Events');
         $e->init($act,$obj,$remarks); 
         if ($e->find(true)) {
-            return;
+            return false;
         }
         return $this->addEvent($act, $obj, $remarks);
     }
@@ -791,7 +792,7 @@ class Pman extends HTML_FlexyFramework_Page
      * @param {String} action  - group/name of event
      * @param {DataObject|false} obj - dataobject action occured on.
      * @param {String} any remarks
-     * @return {Number} Event id.,
+     * @return {DB_DataObject} Event object.,
      */
     
     function addEvent($act, $obj = false, $remarks = '') 
@@ -805,7 +806,7 @@ class Pman extends HTML_FlexyFramework_Page
         $eid = $e->insert();
         $ff  = HTML_FlexyFramework::get();
         if (empty($ff->Pman['event_log_dir'])) {
-            return $eid;
+            return $e;
         }
         $file = $ff->Pman['event_log_dir']. date('/Y/m/d/'). $eid . ".php";
         if (!file_exists(dirname($file))) {
@@ -817,7 +818,7 @@ class Pman extends HTML_FlexyFramework_Page
             'POST' => empty($_POST) ? array() : $_POST,
         ), true));
         
-        return $eid;
+        return $e;
         
     }
     // ------------------ DEPERCIATED ---

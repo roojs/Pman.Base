@@ -490,7 +490,8 @@ class Pman_Roo extends Pman
         if (method_exists($x, 'onInsert')) {
             $x->onInsert($_REQUEST, $this);
         }
-        $this->addEvent("ADD", $x);
+        $ev = $this->addEvent("ADD", $x);
+        $ev->audit($x);
         
         // note setFrom might handle this before hand...!??!
         if (!empty($_FILES) && method_exists($x, 'onUpload')) {

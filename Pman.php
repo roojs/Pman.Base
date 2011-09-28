@@ -804,6 +804,11 @@ class Pman extends HTML_FlexyFramework_Page
         $e->event_when = date('Y-m-d H:i:s');
         
         $eid = $e->insert();
+        
+        $wa = DB_DataObject::factory('core_watch');
+        $wa->notifyEvent($e); // trigger any actions..
+        
+        
         $ff  = HTML_FlexyFramework::get();
         if (empty($ff->Pman['event_log_dir'])) {
             return $e;
@@ -817,7 +822,7 @@ class Pman extends HTML_FlexyFramework_Page
             'GET' => empty($_GET) ? array() : $_GET,
             'POST' => empty($_POST) ? array() : $_POST,
         ), true));
-        
+         
         return $e;
         
     }

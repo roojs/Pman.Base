@@ -762,7 +762,7 @@ class Pman_Roo extends Pman
     {
         //DB_DataObject::debugLevel(1);
         
-         $this->countWhat = false;
+        $this->countWhat = false;
         
         $conf = array();
         
@@ -771,35 +771,9 @@ class Pman_Roo extends Pman
         $mods = explode(',',$this->appModules);
         
         $ff = HTML_FlexyFramework::get();
-        //$db->databaseName();
-        
-        //$ff->DB_DataObject['ini_'. $db->database()];
-        //echo '<PRE>';print_r($do->links());exit;
-        //var_dump($mods);
-        /*
-        if (in_array('Builder', $mods) ) {
-            
-            foreach(in_array('Builder', $mods) ? scandir($this->rootDir.'/Pman') : $mods as $m) {
-                
-                if (!strlen($m) || $m[0] == '.' || !is_dir($this->rootDir."/Pman/$m")) {
-                    continue;
-                }
-                $ini = $this->rootDir."/Pman/$m/DataObjects/pman.links.ini";
-                if (!file_exists($ini)) {
-                    continue;
-                }
-                $conf = array_merge($conf, parse_ini_file($ini,true));
-                if (!isset($conf[$do->tableName()])) {
-                    return;
-                }
-                $map = $conf[$do->tableName()];
-            } 
-        } else {
-            */
-            $map = $do->links();
-        //}
+       
+         $map = $do->links();
          
-        
         
         
         // current table..

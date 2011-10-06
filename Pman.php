@@ -727,18 +727,24 @@ class Pman extends HTML_FlexyFramework_Page
         // suggestions...
         //  public_cache_dir =   /var/www/myproject_cache
         //  public_cache_url =   /myproject_cache    (with Alias apache /myproject_cache/ /var/www/myproject_cache/)
-       
-          
+        
+        // bit of debugging
+        if (!$info->compile) {
+            echo "<!-- Javascript compile turned off (isDev on, or public_cache_dir not set) -->\n";
+            return $info->files;
+        }
         // where are we going to write all of this..
         // This has to be done via a 
-        if ( $info->compile && !file_exists($info->basedir.'/'.$info->output)) {
+        if (!file_exists($info->basedir.'/'.$info->output)) {
             require_once 'Pman/Core/JsCompile.php';
             $x = new Pman_Core_JsCompile();
             
             $x->pack($info->filesmtime,$info->basedir.'/'.$info->output, $info->translation_base);
         }
         
-        if ($info->compile && file_exists($info->basedir.'/'.$info->output) && filesize($info->basedir.'/'.$info->output)) {
+        if (file_exists($info->basedir.'/'.$info->output) &&
+                filesize($info->basedir.'/'.$info->output)) {
+            
             $ret =array(
                 $info->baseurl.'/'. $info->output,
               

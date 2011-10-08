@@ -783,7 +783,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     function addEventOnce($act, $obj = false, $remarks = '') 
     {
-        $au = $this->getAuthUser();
+        
         $e = DB_DataObject::factory('Events');
         $e->init($act,$obj,$remarks); 
         if ($e->find(true)) {
@@ -804,6 +804,9 @@ class Pman extends HTML_FlexyFramework_Page
     function addEvent($act, $obj = false, $remarks = '') 
     {
         $au = $this->getAuthUser();
+        if ($this->cli && empty($au) && isset($obj->person_id)) {
+            
+        }
         $e = DB_DataObject::factory('Events');
         $e->init($act,$obj,$remarks); 
          

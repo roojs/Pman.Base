@@ -805,7 +805,8 @@ class Pman extends HTML_FlexyFramework_Page
     {
         $au = $this->getAuthUser();
         if ($this->cli && empty($au) && isset($obj->person_id)) {
-            
+            $au = DB_DataObject::Factory('Person'); // not always a person..
+            $au->get($obj->person_id);
         }
         $e = DB_DataObject::factory('Events');
         $e->init($act,$obj,$remarks); 

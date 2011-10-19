@@ -362,7 +362,7 @@ class Pman_Roo extends Pman
      */
     function post($tab) // update / insert (?? dleete??)
     {
-       // DB_DataObject::debugLevel(1);
+        //DB_DataObject::debugLevel(1);
         if (!empty($_REQUEST['_debug'])) {
             DB_DataObject::debugLevel(1);
         }
@@ -491,7 +491,9 @@ class Pman_Roo extends Pman
             $x->onInsert($_REQUEST, $this);
         }
         $ev = $this->addEvent("ADD", $x);
-        $ev->audit($x);
+        if ($ev) { 
+            $ev->audit($x);
+        }
         
         // note setFrom might handle this before hand...!??!
         if (!empty($_FILES) && method_exists($x, 'onUpload')) {

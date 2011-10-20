@@ -158,6 +158,7 @@ class Pman_Images extends Pman
     }
     function validateSize()
     {
+        // this should be configurable...
         if (!in_array($this->size, array(
                
                 '100', 
@@ -167,7 +168,8 @@ class Pman_Images extends Pman
                 '200', 
                 '200x0',
                 '200x200',  
-                '400x0'
+                '400x0',
+                '500',
             ))) {
             die("invalid scale - ".$this->size);
         }

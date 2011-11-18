@@ -33,7 +33,10 @@ require_once 'Pman.php';
 class Pman_Roo extends Pman
 {
     
-   function getAuth() {
+    
+    var $key; // used by update currenly to store primary key.
+    
+    function getAuth() {
         parent::getAuth(); // load company!
         $au = $this->getAuthUser();
         if (!$au) {
@@ -132,7 +135,18 @@ class Pman_Roo extends Pman
             $this->jok(method_exists($x, 'toRooSingleArray') ? $x->toRooSingleArray($this->authUser, $_REQUEST) : $x->toArray());
             
         }
+        
+       
         if (isset($_REQUEST['_delete'])) {
+            
+            $keys = $x->keys();
+            if (empty($keys) ) {
+                $this->jerr('no key');
+            }
+            
+            $this->key = $keys[0];
+            
+            
             // do we really delete stuff!?!?!?
             return $this->delete($x,$_REQUEST);
         } 
@@ -384,6 +398,8 @@ class Pman_Roo extends Pman
             $this->jerr('no key');
         }
         
+        $this->key = $keys[0];
+        
           // delete should be here...
         if (isset($_REQUEST['_delete'])) {
             // do we really delete stuff!?!?!?
@@ -397,7 +413,7 @@ class Pman_Roo extends Pman
         
         if (!empty($_REQUEST['_ids'])) {
             $ids = explode(',',$_REQUEST['_ids']);
-            $x->whereAddIn($keys[0], $ids, 'int');
+            $x->whereAddIn($this->key, $ids, 'int');
             $ar = $x->fetchAll();
             foreach($ar as $x) {
                 $this->update($x, $_REQUEST);
@@ -409,9 +425,9 @@ class Pman_Roo extends Pman
             
         }
          
-        if (!empty($_REQUEST[$keys[0]])) {
+        if (!empty($_REQUEST[$this->key])) {
             // it's a create..
-            if (!$x->get($keys[0], $_REQUEST[$keys[0]]))  {
+            if (!$x->get($this->key, $_REQUEST[$this->key]))  {
                 $this->jerr("Invalid request");
             }
             $this->jok($this->update($x, $_REQUEST));
@@ -500,10 +516,9 @@ class Pman_Roo extends Pman
         }
         
         $r = DB_DataObject::factory($x->tableName());
-          $pk = $x->keys();
         // let's assume it has a key!!!
-        $pk = $pk[0];
-        $r->$pk = $x->$pk;
+        
+        $r->$pk = $x->{$this->key};
         $this->loadMap($r, $_columns);
         $r->limit(1);
         $r->find(true);
@@ -528,7 +543,7 @@ class Pman_Roo extends Pman
         $lock = DB_DataObjecT::factory('Core_locking');
         if (is_a($lock,'DB_DataObject'))  {
                  
-            $lock->on_id = $x->id;
+            $lock->on_id = $x->{$this->key};
             $lock->on_table= $x->tableName();
             if (!empty($_REQUEST['_lock_id'])) {
                 $lock->whereAdd('id != ' . ((int)$_REQUEST['_lock_id']));
@@ -611,11 +626,9 @@ class Pman_Roo extends Pman
         }
         
         
-        $r = DB_DataObject::factory($x->tableName());
-        $pk = $x->keys();
+        
         // let's assume it has a key!!!
-        $pk = $pk[0];
-        $r->$pk = $x->$pk;
+        $r->$pk = $x->{$this->key};
         $this->loadMap($r, $_columns);
         $r->limit(1);
         $r->find(true);
@@ -662,11 +675,11 @@ class Pman_Roo extends Pman
         $bits = array_map($clean, explode(',', $req['_delete']));
         
        // print_r($bits);exit;
-         $pk = $x->keys();
+         
         // let's assume it has a key!!!
-        $pk = $pk[0];
         
-        $x->whereAdd($pk .'  IN ('. implode(',', $bits) .')');
+        
+        $x->whereAdd($this->key .'  IN ('. implode(',', $bits) .')');
         if (!$x->find()) {
             $this->jerr("Nothing found to delete");
         }
@@ -734,7 +747,7 @@ class Pman_Roo extends Pman
                 $chk = $match_ar[0];
                 $chk->limit(1);
                 $o = $chk->fetchAll();
-                $key = array_shift($chk->keys());
+                $key = $this->key;
                 $desc =  $chk->tableName(). '.' . $key .'='.$xx->$key ;
                 if (method_exists($chk, 'toEventString')) {
                     $desc .=  ' : ' . $o[0]->toEventString();

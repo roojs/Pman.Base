@@ -626,7 +626,7 @@ class Pman_Roo extends Pman
         }
         
         
-        
+        $r = DB_DataObject($x->tableName());
         // let's assume it has a key!!!
         $r->{$this->key}= $x->{$this->key};
         $this->loadMap($r, $_columns);

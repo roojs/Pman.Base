@@ -518,7 +518,7 @@ class Pman_Roo extends Pman
         $r = DB_DataObject::factory($x->tableName());
         // let's assume it has a key!!!
         
-        $r->$pk = $x->{$this->key};
+        $r->{$this->key} = $x->{$this->key};
         $this->loadMap($r, $_columns);
         $r->limit(1);
         $r->find(true);
@@ -628,7 +628,7 @@ class Pman_Roo extends Pman
         
         
         // let's assume it has a key!!!
-        $r->$pk = $x->{$this->key};
+        $r->{$this->key}= $x->{$this->key};
         $this->loadMap($r, $_columns);
         $r->limit(1);
         $r->find(true);
@@ -701,7 +701,7 @@ class Pman_Roo extends Pman
                 if (!is_a($chk,'DB_DataObject')) {
                     $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);
                 }
-                $chk->{$ka[1]} =  $xx->$pk;
+                $chk->{$ka[1]} =  $xx->{$this->key};
                 $matches = $chk->count();
                 
                 if ($matches) {

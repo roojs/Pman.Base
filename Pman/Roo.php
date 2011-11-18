@@ -408,7 +408,7 @@ class Pman_Roo extends Pman
             
             
         }
-        
+        DB_DataObject::debugLevel(1);
         
         if (!empty($_REQUEST[$keys[0]])) {
             // it's a create..

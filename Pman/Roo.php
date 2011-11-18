@@ -597,7 +597,11 @@ class Pman_Roo extends Pman
         }
         
         
-        $x->update($old);
+        $res = $x->update($old);
+        if ($res === false) {
+            $this->jerr($x->_lastError->toString());
+        }
+        
         if (method_exists($x, 'onUpdate')) {
             $x->onUpdate($old, $req, $this);
         }

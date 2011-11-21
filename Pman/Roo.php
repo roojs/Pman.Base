@@ -199,7 +199,7 @@ class Pman_Roo extends Pman
         //DB_DataObject::debuglevel(1);
         $res = $x->find();
         if ($res === false) {
-            print_R($x);exit;
+            echo '<PRE>';print_R($x);exit;
             $this->jerr($x->_lastError->toString());
         }
         

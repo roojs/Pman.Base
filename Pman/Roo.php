@@ -200,8 +200,8 @@ class Pman_Roo extends Pman
         $res = $x->find();
         if ($res === false) {
             $this->err($x->_lastError->toString());
-        
         }
+        
         $ret = array();
         
         if (!empty($_REQUEST['query']['add_blank'])) {

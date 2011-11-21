@@ -197,7 +197,11 @@ class Pman_Roo extends Pman
         
         $queryObj = clone($x);
         //DB_DataObject::debuglevel(1);
-        $x->find();
+        $res = $x->find();
+        if ($res === false) {
+            $this->err($x->_lastError->toString();)
+        
+        }
         $ret = array();
         
         if (!empty($_REQUEST['query']['add_blank'])) {

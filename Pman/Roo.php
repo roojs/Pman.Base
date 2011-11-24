@@ -197,11 +197,9 @@ class Pman_Roo extends Pman
         
         $queryObj = clone($x);
         //DB_DataObject::debuglevel(1);
-        $res = $x->find();
-        if ($res === false) {
-            //echo '<PRE>';print_R($x);exit;
-            $this->jerr($x->_lastError->toString());
-        }
+        $x->find();
+        
+        
         
         $ret = array();
         
@@ -506,7 +504,10 @@ class Pman_Roo extends Pman
         
         
         
-        $x->insert();
+        $res = $x->insert();
+        if ($res === false) {
+            $this->jerr($x->_lastError->toString());
+        }
         if (method_exists($x, 'onInsert')) {
             $x->onInsert($_REQUEST, $this);
         }

@@ -671,7 +671,6 @@ class Pman_Roo extends Pman
             }
         }
         // collect tables
-                die("DELL START");
 
        // echo '<PRE>';print_r($affects);exit;
        //DB_Dataobject::debugLevel(1);
@@ -704,6 +703,7 @@ class Pman_Roo extends Pman
             $match_ar = array();
             foreach($affects as $k=> $true) {
                 $ka = explode('.', $k);
+                var_Dump($ka);
                 $chk = DB_DataObject::factory($ka[0]);
                 if (!is_a($chk,'DB_DataObject')) {
                     $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);

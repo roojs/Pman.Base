@@ -713,6 +713,7 @@ class Pman_Roo extends Pman
                 if (count($chk->keys())) {
                     $matches = $chk->count();
                 } else {
+                    DB_DataObject::DebugLevel(1);
                     $matches = $chk->count($ka[1]);
                 }
                 

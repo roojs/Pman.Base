@@ -650,6 +650,7 @@ class Pman_Roo extends Pman
     
     function delete($x, $req)
     {
+        die("DELL START");
         // do we really delete stuff!?!?!?
         if (empty($req['_delete'])) {
             $this->jerr("Delete Requested with no value");

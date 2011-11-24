@@ -709,7 +709,12 @@ class Pman_Roo extends Pman
                     $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);
                 }
                 $chk->{$ka[1]} =  $xx->{$this->key};
-                $matches = $chk->count();
+                
+                if (count($chk->keys())) {
+                    $matches = $chk->count();
+                } else {
+                    $matches = $chk->count($ka[1]);
+                }
                 
                 if ($matches) {
                     $match_ar[] = clone($chk);

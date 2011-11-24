@@ -650,7 +650,6 @@ class Pman_Roo extends Pman
     
     function delete($x, $req)
     {
-        die("DELL START");
         // do we really delete stuff!?!?!?
         if (empty($req['_delete'])) {
             $this->jerr("Delete Requested with no value");
@@ -672,7 +671,8 @@ class Pman_Roo extends Pman
             }
         }
         // collect tables
-        
+                die("DELL START");
+
        // echo '<PRE>';print_r($affects);exit;
        //DB_Dataobject::debugLevel(1);
        

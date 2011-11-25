@@ -141,7 +141,7 @@ class Pman extends HTML_FlexyFramework_Page
             return; 
         }
         $this->company->get('comptype', 'OWNER');
-        
+        return $this->company;
     }
     
     

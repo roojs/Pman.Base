@@ -137,7 +137,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
          
         $this->company = DB_DataObject::Factory('Companies');
-        if ($this->company) { // non-core pman projects
+        if (!$this->company) { // non-core pman projects
             return; 
         }
         $this->company->get('comptype', 'OWNER');

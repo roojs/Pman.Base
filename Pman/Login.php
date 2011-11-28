@@ -68,9 +68,13 @@ class Pman_Login extends Pman
             exit;
            
         }
+        
+        // might be an idea to disable this?!?
         if (!empty($_REQUEST['username'])) {
             $this->post();
         }
+        
+        
         if (!empty($_REQUEST['switch'])) {
             $this->switchUser($_REQUEST['switch']);
         }

@@ -231,7 +231,7 @@ class Pman_Roo extends Pman
         }
         $extra = false;
         if (method_exists($queryObj ,'postListExtra')) {
-            $extra = $queryObj->postListExtra($_REQUEST);
+            $extra = $queryObj->postListExtra($_REQUEST, $this);
         }
         // filter results, and add any data that is needed...
         if (method_exists($x,'postListFilter')) {

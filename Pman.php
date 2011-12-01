@@ -429,6 +429,10 @@ class Pman extends HTML_FlexyFramework_Page
      */
     function jerrAuth()
     {
+        $au = $this->authUser();
+        if ($au) {  
+            $this->jerr("Permission denied to view this resource", array('authFailure' => true));
+        }
         $this->jerr("Not authenticated", array('authFailure' => true));
     }
      

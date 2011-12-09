@@ -9,6 +9,7 @@ require_once 'Pman.php';
  * 
  * 
  * Uses these methods of the dataobjects:
+ * 
  * - checkPerm('L'/'E'/'A', $authuser) - can we list the stuff
  * 
  * - applySort($au, $sortcol, $direction, $array_of_columns, $multisort) -- does not support multisort at present..
@@ -18,8 +19,10 @@ require_once 'Pman.php';
  * 
  * - toRooSingleArray($authUser, $request) // single fetch, add data..
  * - toRooArray($request) /// toArray if you need to return different data.. for a list fetch.
+ *
  * 
- * 
+ *  CRUD - before/after handlers..
+ *  
  * - beforeDelete($dependants_array, $roo) Argument is an array of un-find/fetched dependant items.
  *                      - jerr() will stop insert.. (Prefered)
  *                      - return false for fail and set DO->err;

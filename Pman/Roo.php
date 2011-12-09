@@ -641,7 +641,7 @@ class Pman_Roo extends Pman
             $x->beforeUpdate($old, $req, $this);
         }
         
-        DB_DataObject::DebugLevel(1);
+        //DB_DataObject::DebugLevel(1);
         $res = $x->update($old);
         if ($res === false) {
             $this->jerr($x->_lastError->toString());

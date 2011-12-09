@@ -1116,13 +1116,17 @@ class Pman_Roo extends Pman
         }
         
         // - projectdirectory staff list - persn queuy
-      
-         
-       
-         
-          
+     
+        
+    }
+    
+    function onPearError($err)
+    {
+        $this->jerr($err->toString());
+        
         
         
     }
+    
     
 }

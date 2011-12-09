@@ -22,6 +22,10 @@ require_once 'Pman.php';
  * 
  * - beforeDelete($ar) -- return false for fail and set DO->err;
  *                        Argument is an array of un-find/fetched dependant items.
+ 
+ * - beforeUpdate($old, $request,$roo) - after update - jerr() will stop insert..
+ * - beforeInsert($request,$roo) - before insert - jerr() will stop insert..
+ * 
  * - onUpdate($old, $request,$roo) - after update // return value ignored
  * - onInsert($request,$roo) - after insert
  * - onUpload($roo)

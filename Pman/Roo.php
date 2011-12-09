@@ -20,7 +20,8 @@ require_once 'Pman.php';
  * - toRooArray($request) /// toArray if you need to return different data.. for a list fetch.
  * 
  * 
- * - beforeDelete($ar) -- return false for fail and set DO->err;
+ * - beforeDelete($dependants_array, $roo) - return false for fail and set DO->err;
+ *                      - jerr() will stop insert..
  *                        Argument is an array of un-find/fetched dependant items.
  
  * - beforeUpdate($old, $request,$roo) - after update - jerr() will stop insert..

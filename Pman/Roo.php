@@ -22,17 +22,22 @@ require_once 'Pman.php';
  *
  * 
  *  CRUD - before/after handlers..
- *  
+ * - setFromRoo($ar, $roo) - values from post (deal with dates etc.) - return true|error string.
+ *      ... call $roo->jerr() on failure...
+ *
+ *  BEFORE
  * - beforeDelete($dependants_array, $roo) Argument is an array of un-find/fetched dependant items.
  *                      - jerr() will stop insert.. (Prefered)
  *                      - return false for fail and set DO->err;
  * - beforeUpdate($old, $request,$roo) - after update - jerr() will stop insert..
  * - beforeInsert($request,$roo) - before insert - jerr() will stop insert..
- * 
+ *
+ *  AFTER
  * - onUpdate($old, $request,$roo) - after update // return value ignored
  * - onInsert($request,$roo) - after insert
  * - onUpload($roo)
- * - setFromRoo($ar) - values from post (deal with dates etc.) - return true|error string.
+ * 
+ 
  * 
  * - toEventString (for logging - this is generically prefixed to all database operations.)
  */

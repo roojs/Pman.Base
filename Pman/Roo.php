@@ -625,6 +625,10 @@ class Pman_Roo extends Pman
             $x->updated_by = $this->authUser->id;
         }
         
+        if (method_exists($x, 'beforeUpdate')) {
+            $x->beforeUpdate($old, $req, $this);
+        }
+        
         //DB_DataObject::DebugLevel(1);
         $res = $x->update($old);
         if ($res === false) {
@@ -737,7 +741,7 @@ class Pman_Roo extends Pman
             $match_total = 0;
             
             if ( method_exists($xx, 'beforeDelete') ) {
-                if ($xx->beforeDelete($match_ar) === false) {
+                if ($xx->beforeDelete($match_ar, $this) === false) {
                     $errs[] = "Delete failed ({$xx->id})\n".
                         (isset($xx->err) ? $xx->err : '');
                     continue;

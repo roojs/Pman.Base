@@ -510,7 +510,9 @@ class Pman_Roo extends Pman
         }
         
      
-        
+        if (method_exists($x, 'beforeInsert')) {
+            $x->beforeInsert($_REQUEST, $this);
+        }
         
         
         $res = $x->insert();

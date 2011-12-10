@@ -997,7 +997,7 @@ class Pman_Roo extends Pman
        // DB_DataObject::debugLevel(1);
         if (method_exists($x, 'applyFilters')) {
            // DB_DataObject::debugLevel(1);
-            $x->applyFilters($q, $this->authUser);
+            $x->applyFilters($q, $this->authUser, $this);
         }
         $q_filtered = array();
         

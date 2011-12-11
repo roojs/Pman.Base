@@ -1125,7 +1125,15 @@ class Pman_Roo extends Pman
         
         $out = $err->toString();
         
-        
+        $bt = 
+        //print_R($bt); exit;
+        $ret = array();
+        foreach($err->backtrace as $b) {
+            $ret[] = $b['file'] . ':' . $b['line'] . ' ' .   @$bt['class'] . '::' . @$bt['function'];            
+        }
+        //convert the huge backtrace into something that is readable..
+        $out .= "\n" . implode("\n",  $ret);
+     
         
         $this->jerr($out);
         

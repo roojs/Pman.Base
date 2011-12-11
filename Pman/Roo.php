@@ -1132,7 +1132,7 @@ class Pman_Roo extends Pman
             $ret[] = $b['file'] . '(' . $b['line'] . ')@' .   @$bt['class'] . '::' . @$bt['function'];  
         }
         //convert the huge backtrace into something that is readable..
-        $out .= "\n" . implode("\n",  $ret);
+        $out .= "\n" . implode("<BR>",  $ret);
      
         
         $this->jerr($out);

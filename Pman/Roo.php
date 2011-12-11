@@ -1122,7 +1122,12 @@ class Pman_Roo extends Pman
     
     function onPearError($err)
     {
-        $this->jerr($err->toString());
+        
+        $out = $err->toString();
+        
+        
+        
+        $this->jerr($out);
         
         
         

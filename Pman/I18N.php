@@ -14,7 +14,7 @@ class Pman_I18N extends Pman_Core_I18n
     
     
      
-    
+    /*
     
     function setSession($au)
     {
@@ -45,7 +45,7 @@ class Pman_I18N extends Pman_Core_I18n
         return implode(', ', $ret);
     }
    
-    
+    */
      
     
 }

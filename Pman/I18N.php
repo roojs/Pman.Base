@@ -10,27 +10,6 @@
 require_once 'Pman/Core/I18n.php';
 class Pman_I18N extends Pman_Core_I18n
 {
-    
-    // these are the languages we support.
-    var $cfg = array(
-        'l' => array(
-            'en', 'zh_CN',   'zh_HK',  'zh_TW', 'th', 'ko', 'ja', 'ms', 
-            'id', // indonesian
-            'tl', // tagalog
-            'vi', //vietnamise
-            'hi', // hindi
-            'ta', // tamil
-            '**', // other
-        ),
-        'c' => array(
-             'AU', 'CN', 'HK', 'IN', 'ID', 'JP', 'MY', 'NZ', 'TW', 'SG', 'TH', 'KR', 'US', 'PH', 'VN','**'
-        ),
-        'm' => array(
-            'USD', 'HKD', 'GBP', 'CNY', 'SGD', 'JPY'
-        )
-    );
-    
-    
      
     
     
@@ -43,63 +22,18 @@ class Pman_I18N extends Pman_Core_I18n
         //    $this->jerr("Not authenticated", array('authFailure' => true));
         //}
         $this->authUser = $au;
-        
-        $opts = PEAR::getStaticProperty('Pman_I18N', 'options');
-        $opts = empty($opts)  ?  array() : $opts;
-        
-        
-        foreach($opts as $k=>$v) {
-            
-            if ($v == '*') {
-                $this->cfg[$k] = $this->getDefaultCfg($k);
-                continue;
-            }
-            $this->cfg[$k] = is_array($v) ? $v  : explode(',', $v);
-        }
-        
-        
-        
-        
+         
+         
         return true;
     }
     // returns a list of all countries..
-    function getDefaultCfg($t) {
-        $ret = array();
-        switch ($t) {
-            case 'c':
-                require_once 'I18Nv2/Country.php';
-                
-                $c = new I18Nv2_Country('en');
-                $ret =  array_keys($c->codes);
-                $ret[] = '**';
-                break;
-            case 'l':
-                require_once 'I18Nv2/Language.php';
-                $c = new I18Nv2_Language('en');
-                $ret =  array_keys($c->codes);
-                $ret[] = '**';
-                break;
-            case 'm':
-                require_once 'I18Nv2/Currency.php';
-                $c = new I18Nv2_Currency('en');
-                $ret =  array_keys($c->codes);
-                $ret[] = '**';
-                break;
-        }
-        foreach ($ret as $k=>$v) {
-            $ret[$k] = strtoupper($v);
-        }
-        
-        
-        return $ret;
-    }
-    
+     
     
     
     function setSession($au)
     {
         $this->authUser = $au;
-        $lbits = implode('_', $this->findLang());
+        $lbits = implode('_', $this->guessUsersLanguage());
         if (empty($_SESSION['Pman_I18N'])) {
             $_SESSION['Pman_I18N']  = array();
         }
@@ -142,28 +76,7 @@ class Pman_I18N extends Pman_Core_I18n
         
     }
      
-    
-    function findLang() {
-         
-        $lang = !$this->authUser || empty($this->authUser->lang ) ? 'en' : $this->authUser->lang;
-        $lbits = explode('_', strtoupper($lang));
-        $lbits[0] = strtolower($lbits[0]);
-        require_once 'I18Nv2/Country.php';
-        require_once 'I18Nv2/Language.php';
-        $langs = new I18Nv2_Language('en');
-        $countries = new I18Nv2_Country('en');
-      //  print_r($langs);
-        //print_R($lbits);
-        if (!isset($langs->codes[strtolower($lbits[0])])) {
-            $this->jerr('invalid lang');
-        }
-        if (!empty($lbits[1]) &&  !isset($countries->codes[$lbits[1]])) {  
-            $this->jerr('invalid lang Country component');
-            
-        }
-        return $lbits;
-    }
-    
+     
     function get($s)
     {
         if (empty($s)) {

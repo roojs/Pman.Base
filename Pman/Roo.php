@@ -767,7 +767,7 @@ class Pman_Roo extends Pman
                     if (!is_a($chk,'DB_DataObject')) {
                         $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);
                     }
-                    $chk->{$ka[1]} =  $xx->$pk;
+                    $chk->{$ka[1]} =  $xx->{$this->key};
                     $matches = $chk->count();
                     $match_total += $matches;
                     if ($matches) {

@@ -158,9 +158,7 @@ class Pman_Images extends Pman
     }
     function validateSize()
     {
-        // this should be configurable...
-        if (!in_array($this->size, array(
-               
+        $sizes = array(
                 '100', 
                 '100x100', 
                 '150', 
@@ -169,7 +167,19 @@ class Pman_Images extends Pman
                 '200x0',
                 '200x200',  
                 '400x0',
-                '500',
+                '500'
+            );
+        
+        // this should be configurable...
+        $ff = HTML_FlexyFramework::get();
+        if ($ff->Pman_Images['sizes']) {
+            $sizes = array_merge($sizes , $ff->Pman_Images['sizes']);
+        }
+        
+        
+        if (!in_array($this->size, array(
+               
+            
             ))) {
             die("invalid scale - ".$this->size);
         }

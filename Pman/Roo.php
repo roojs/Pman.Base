@@ -67,30 +67,33 @@ class Pman_Roo extends Pman
      *    lookup[key]=value  single fetch based on a single key value lookup.
      *                       multiple key/value can be used. eg. ontable+onid..
      *   
+     * Search SELECT
+     *    COLUMNS to fetch
+     *      _columns=a,b,c,d     comma seperated list of columns.
+     *      _distinct=name        a distinct column lookup.
      *
-     * -- defaults to listing data. with args.
+     *    WHERE 
+     *       !colname=....                 => colname != ....
+     *       !colname[0]=... !colname[1]=... => colname NOT IN (.....) ** only supports main table at present..
+     *       colname[0]=... colname[1]=... => colname IN (.....) ** only supports main table at present..
      *
-     * 
-     * !colname=....                 => colname != ....
-     * !colname[0]=... !colname[1]=... => colname NOT IN (.....) ** only supports main table at present..
-     * colname[0]=... colname[1]=... => colname IN (.....) ** only supports main table at present..
-     * 
-     * other opts:
-     * _columns   = comma seperated list of columns.
-     * _distinct   = a distinct column lookup.
-     * _requestMeta = default behaviour of Roo stores.. on first query..
-     * 
-     * csvCols[0] csvCols[1]....    = .... column titles for CSV output
-     * 
-     * csvTitles[0], csvTitles[1] ....  = columns to use for CSV output
+     *    ORDER BY
+     *       sort=name          what to sort.
+     *       sort=a,b,d         can support multiple columns
+     *       dir=ASC            what direction
+     *       _multisort ={...}  JSON encoded { sort : { row : direction }, order : [ row, row, row ] }
      *
-     * sort        = sort column (',' comma delimited)
-     * dir         = sort direction ?? in future comma delimited...
-     * _multisort  = JSON encoded { sort : { row : direction }, order : [ row, row, row ] }
-     * start       = limit start
-     * limit       = limit number 
+     *    LIMIT
+     *      start=0         limit start
+     *      limit=25        limit number 
      * 
-     * _toggleActive !:!:!:! - this hsould not really be here..
+     * 
+     *    Simple CSV support
+     *      csvCols[0] csvCols[1]....    = .... column titles for CSV output
+     *      csvTitles[0], csvTitles[1] ....  = columns to use for CSV output
+     *
+     *      
+     *_toggleActive !:!:!:! - this hsould not really be here..
      * query[add_blank] - add a line in with an empty option...  - not really needed???
      *
      * DEBUGGING
@@ -231,6 +234,9 @@ class Pman_Roo extends Pman
         
         
         $ret = array();
+        
+        // ---------------- THESE ARE DEPRICATED.. they should be moved to the model...
+        
         
         if (!empty($_REQUEST['query']['add_blank'])) {
             $ret[] = array( 'id' => 0, 'name' => '----');

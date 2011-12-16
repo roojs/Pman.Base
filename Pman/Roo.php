@@ -260,13 +260,6 @@ class Pman_Roo extends Pman
         // MOVE ME...
         
         //if (($tab == 'Groups') && ($_REQUEST['type'] != 0))  { // then it's a list of teams..
-        if ($tab == 'Groups') {
-            
-            $ret[] = array( 'id' => 0, 'name' => 'EVERYONE');
-            $ret[] = array( 'id' => -1, 'name' => 'NOT_IN_GROUP');
-            //$ret[] = array( 'id' => 999999, 'name' => 'ADMINISTRATORS');
-            $total+=2;
-        }
         
         // DOWNLOAD...
         
@@ -283,10 +276,14 @@ class Pman_Roo extends Pman
         if (method_exists($queryObj ,'postListExtra')) {
             $extra = $queryObj->postListExtra($_REQUEST, $this);
         }
+        
+        
         // filter results, and add any data that is needed...
         if (method_exists($x,'postListFilter')) {
             $ret = $x->postListFilter($ret, $this->authUser, $_REQUEST);
         }
+        
+        
         
         if (!empty($_REQUEST['csvCols']) && !empty($_REQUEST['csvTitles']) ) {
             header('Content-type: text/csv');

@@ -323,7 +323,7 @@ class Pman_Roo extends Pman
         }
         
        // echo "<PRE>"; print_r($ret);
-        $this->jdata($ret,$total, $extra );
+        $this->jdata($ret, max(count($ret), $total), $extra );
 
     
     }

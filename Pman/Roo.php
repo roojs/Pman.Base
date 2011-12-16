@@ -65,7 +65,9 @@ class Pman_Roo extends Pman
      *    _id=value          single fetch based on primary id.
      *    lookup[key]=value  single fetch based on a single key value lookup.
      *                       multiple key/value can be used. eg. ontable+onid..
-     *   
+     *    _columns           what to return.
+     *
+     *    
      * Search SELECT
      *    COLUMNS to fetch
      *      _columns=a,b,c,d     comma seperated list of columns.
@@ -118,8 +120,9 @@ class Pman_Roo extends Pman
      *   toRooSingleArray($authUser, $request) : array
      *                       - called on single fetch only, add or maniuplate returned array data.
      *   toRooArray($request) : array
-    *                      - if you need to return different data than toArray..
-     *
+     *                      - if you need to return different data than toArray..
+     * autoJoin($request) : array
+     *                      - if you need to return different data than toArray..
      */
     function get($tab)
     {

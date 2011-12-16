@@ -104,7 +104,7 @@ class Pman_Roo extends Pman
      *
      *
      * CALLS methods on dataobjects if they exist
-     *   checkPerm('L'/'E'/'A', $authuser)
+     *   checkPerm('S' , $authuser)
      *                      - can we list the stuff
      *                      - return false to disallow...
      *   applySort($au, $sortcol, $direction, $array_of_columns, $multisort)
@@ -120,7 +120,8 @@ class Pman_Roo extends Pman
      *   toRooSingleArray($authUser, $request) : array
      *                       - called on single fetch only, add or maniuplate returned array data.
      *   toRooArray($request) : array
-     *                      - if you need to return different data than toArray..
+     *                      - called if singleArray is unavailable on single fetch.
+     *                      - always tried for mutiple results.
      *   autoJoin($request) 
      *                      - standard DataObject feature - causes all results to show all
      *                        referenced data.
@@ -333,8 +334,19 @@ class Pman_Roo extends Pman
      *   _debug=1    forces debug
      *   _get=1 - causes a get request to occur when doing a POST..
      *
-     *     
+       * CALLS methods on dataobjects if they exist
+     *   checkPerm('E' / 'D' , $authuser)
+     *                      - can we list the stuff
+     *                      - return false to disallow...
      * 
+     *   toRooSingleArray($authUser, $request) : array
+     *                       - called on single fetch only, add or maniuplate returned array data.
+     *   toRooArray($request) : array
+     *                      - Default mult
+     *                      - if you need to return different data than toArray..
+     *   autoJoin($request) 
+     *                      - standard DataObject feature - causes all results to show all
+     *                        referenced data.
      */
     function post($tab) // update / insert (?? delete??)
     {
@@ -544,8 +556,7 @@ class Pman_Roo extends Pman
             $this->jerr("PERMISSION DENIED");
         }
         
-        $_columns = !empty($req['_columns']) ? explode(',', $req['_columns']) : false;
-   
+        
         if (method_exists($x, 'setFromRoo')) {
             $res = $x->setFromRoo($req, $this);
             if (is_string($res)) {
@@ -660,8 +671,7 @@ class Pman_Roo extends Pman
         
         
        
-        $_columns = !empty($req['_columns']) ? explode(',', $req['_columns']) : false;
-
+         
        
         $old = clone($x);
         $this->old = $x;

@@ -62,7 +62,6 @@ class Pman_Roo extends Pman
      *
      * Generally for SELECT or Single SELECT
      *
-     *
      * Single SELECT:
      *    _id=value          single fetch based on primary id.
      *    lookup[key]=value  single fetch based on a single key value lookup.

@@ -330,90 +330,6 @@ class Pman_Roo extends Pman
 
     
     }
-    /**
-     * applySort
-     * 
-     * apply REQUEST[sort] and [dir]
-     * sort may be an array of columsn..
-     * 
-     * @arg   DB_DataObject $x
-     * 
-     */
-    function applySort($x, $sort = '', $dir ='')
-    {
-        
-        // Db_DataObject::debugLevel(1);
-        $sort = empty($_REQUEST['sort']) ? $sort : $_REQUEST['sort'];
-        $dir = empty($_REQUEST['dir']) ? $dir : $_REQUEST['dir'];
-        $dir = $dir == 'ASC' ? 'ASC' : 'DESC';
-         
-        $ms = empty($_REQUEST['_multisort']) ? false : $_REQUEST['_multisort'];
-        $sorted = false;
-        if (method_exists($x, 'applySort')) {
-            $sorted = $x->applySort(
-                    $this->authUser,
-                    $sort,
-                    $dir,
-                    array_keys($this->cols),
-                    $ms ? json_decode($ms) : false
-            );
-        }
-        if ($ms) {
-            return $this->multiSort($x);
-        }
-        
-        if ($sorted === false) {
-            
-            $cols = $x->table();
-            $sort_ar = explode(',', $sort);
-            $sort_str = array();
-          
-            foreach($sort_ar as $sort) {
-                
-                if (strlen($sort) && isset($cols[$sort]) ) {
-                    $sort_str[] =  $x->tableName() .'.'.$sort . ' ' . $dir ;
-                    
-                } else if (in_array($sort, array_keys($this->cols))) {
-                    $sort_str[] = $sort . ' ' . $dir ;
-                }
-            }
-             
-            if ($sort_str) {
-                $x->orderBy(implode(', ', $sort_str ));
-            }
-        }
-    }
-    
-    function multiSort($x)
-    {
-        //DB_DataObject::debugLevel(1);
-        $ms = json_decode($_REQUEST['_multisort']);
-        
-        $sort_str = array();
-        
-        $cols = $x->table();
-        foreach($ms->order  as $col) {
-            if (!isset($ms->sort->{$col})) {
-                continue; // no direction..
-            }
-            $ms->sort->{$col} = $ms->sort->{$col}  == 'ASC' ? 'ASC' : 'DESC';
-            
-            if (strlen($col) && isset($cols[$col]) ) {
-                $sort_str[] =  $x->tableName() .'.'.$col . ' ' .  $ms->sort->{$col};
-                
-            } else if (in_array($col, array_keys($this->cols))) {
-                $sort_str[] = $col. ' ' . $ms->sort->{$col};
-            }
-        }
-         
-        if ($sort_str) {
-            $x->orderBy(implode(', ', $sort_str ));
-        }
-          
-        
-    }
-    
-    
     
      /**
      * POST method   Roo/TABLENAME.php 
@@ -500,6 +416,94 @@ class Pman_Roo extends Pman
         
         
     }
+    
+    
+    /**
+     * applySort
+     * 
+     * apply REQUEST[sort] and [dir]
+     * sort may be an array of columsn..
+     * 
+     * @arg   DB_DataObject $x
+     * 
+     */
+    function applySort($x, $sort = '', $dir ='')
+    {
+        
+        // Db_DataObject::debugLevel(1);
+        $sort = empty($_REQUEST['sort']) ? $sort : $_REQUEST['sort'];
+        $dir = empty($_REQUEST['dir']) ? $dir : $_REQUEST['dir'];
+        $dir = $dir == 'ASC' ? 'ASC' : 'DESC';
+         
+        $ms = empty($_REQUEST['_multisort']) ? false : $_REQUEST['_multisort'];
+        $sorted = false;
+        if (method_exists($x, 'applySort')) {
+            $sorted = $x->applySort(
+                    $this->authUser,
+                    $sort,
+                    $dir,
+                    array_keys($this->cols),
+                    $ms ? json_decode($ms) : false
+            );
+        }
+        if ($ms) {
+            return $this->multiSort($x);
+        }
+        
+        if ($sorted === false) {
+            
+            $cols = $x->table();
+            $sort_ar = explode(',', $sort);
+            $sort_str = array();
+          
+            foreach($sort_ar as $sort) {
+                
+                if (strlen($sort) && isset($cols[$sort]) ) {
+                    $sort_str[] =  $x->tableName() .'.'.$sort . ' ' . $dir ;
+                    
+                } else if (in_array($sort, array_keys($this->cols))) {
+                    $sort_str[] = $sort . ' ' . $dir ;
+                }
+            }
+             
+            if ($sort_str) {
+                $x->orderBy(implode(', ', $sort_str ));
+            }
+        }
+    }
+    
+    function multiSort($x)
+    {
+        //DB_DataObject::debugLevel(1);
+        $ms = json_decode($_REQUEST['_multisort']);
+        
+        $sort_str = array();
+        
+        $cols = $x->table();
+        foreach($ms->order  as $col) {
+            if (!isset($ms->sort->{$col})) {
+                continue; // no direction..
+            }
+            $ms->sort->{$col} = $ms->sort->{$col}  == 'ASC' ? 'ASC' : 'DESC';
+            
+            if (strlen($col) && isset($cols[$col]) ) {
+                $sort_str[] =  $x->tableName() .'.'.$col . ' ' .  $ms->sort->{$col};
+                
+            } else if (in_array($col, array_keys($this->cols))) {
+                $sort_str[] = $col. ' ' . $ms->sort->{$col};
+            }
+        }
+         
+        if ($sort_str) {
+            $x->orderBy(implode(', ', $sort_str ));
+        }
+          
+        
+    }
+    
+    
+    
+    
     function insert($x, $req)
     {
         

@@ -76,7 +76,6 @@ class Pman_Roo extends Pman
      * colname[0]=... colname[1]=... => colname IN (.....) ** only supports main table at present..
      * 
      * other opts:
-     * _post      = simulate a post with debuggin on.
      * _delete    = delete a list of ids element. (seperated by ,);
      * _columns   = comma seperated list of columns.
      * _distinct   = a distinct column lookup.
@@ -95,7 +94,9 @@ class Pman_Roo extends Pman
      * _toggleActive !:!:!:! - this hsould not really be here..
      * query[add_blank] - add a line in with an empty option...  - not really needed???
      *
-     *
+     * DEBUGGING
+     * _post      = simulate a post with debuggin on.
+
      *
      *
      * CALLS methods on dataobjects if they exist:

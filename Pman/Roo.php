@@ -380,12 +380,10 @@ class Pman_Roo extends Pman
      * CALLS AFTER change occured
      * 
      *      onUpdate($old, $request,$roo)
-                    - after update // return value ignored
+     *               - after update // return value ignored
      *
      *      onInsert($request,$roo)
      *                  - after insert
-     
-     
      * 
      *
      * 

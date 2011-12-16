@@ -328,11 +328,21 @@ class Pman_Roo extends Pman
      *
      * INSERT
      *    if the primary key is empty, this happens
+     *    will automatically set these to current date and authUser->id
+     *        created, created_by, created_dt
+     *        updated, update_by, updated_dt
+     *        modified, modified_by, modified_dt
+     *        
+     *   will return a GET request SINGLE SELECT (and accepts same)
+     *    
      * DELETE
      *    _delete=1,2,3     delete a set of data.
      * UPDATE
      *    if the primary key value is set, then update occurs.
-     *
+     *    will automatically set these to current date and authUser->id
+     *        updated, update_by, updated_dt
+     *        modified, modified_by, modified_dt
+     *        
      *
      * Params:
      *   _delete=1,2,3   causes a delete to occur.

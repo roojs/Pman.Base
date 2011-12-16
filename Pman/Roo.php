@@ -95,6 +95,9 @@ class Pman_Roo extends Pman
      * _toggleActive !:!:!:! - this hsould not really be here..
      * query[add_blank] - add a line in with an empty option...  - not really needed???
      *
+     *
+     *
+     *
      * CALLS methods on dataobjects if they exist:
      *  checkPerm('S'), toRooSingleArray()
      *
@@ -174,7 +177,7 @@ class Pman_Roo extends Pman
         } 
         
         
-        
+        // Depricated...
         
         if (isset($_REQUEST['_toggleActive'])) {
             // do we really delete stuff!?!?!?

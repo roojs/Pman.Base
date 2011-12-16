@@ -333,19 +333,20 @@ class Pman_Roo extends Pman
      * UPDATE
      *    if the primary key value is set, then update occurs.
      *
-     *    
+     *
+     * Params:
+     *   _delete=1,2,3   causes a delete to occur.
+     *   _ids=1,2,3,4    causes update to occur on all primary ids.
      *
      *
-     * 
-     * 
-     * other opts:
-     * _debug - forces debugging on.
-     * _get - forces a get request
-     * _ids - multiple update of records.
-     * {colid} - forces fetching
+     * DEBUGGING
+     *   _debug=1    forces debug
+     *   _get=1 - causes a get request to occur when doing a POST..
+     *
+     *     
      * 
      */
-    function post($tab) // update / insert (?? dleete??)
+    function post($tab) // update / insert (?? delete??)
     {
         
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));

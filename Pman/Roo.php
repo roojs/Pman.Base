@@ -609,17 +609,11 @@ class Pman_Roo extends Pman
             $x->onUpload($this);
         }
         
-        $r = DB_DataObject::factory($x->tableName());
-        // let's assume it has a key!!!
+        return $this->selectSingle(
+            DB_DataObject::factory($x->tableName()),
+            $x->{$this->key}
+        );
         
-        $r->{$this->key} = $x->{$this->key};
-        $this->loadMap($r, $_columns);
-        $r->limit(1);
-        $r->find(true);
-        
-        $rooar = method_exists($r, 'toRooArray');
-        //print_r(var_dump($rooar)); exit;
-        return $rooar  ? $r->toRooArray($_REQUEST) : $r->toArray();
     }
     
     

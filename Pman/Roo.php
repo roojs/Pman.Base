@@ -121,8 +121,9 @@ class Pman_Roo extends Pman
      *                       - called on single fetch only, add or maniuplate returned array data.
      *   toRooArray($request) : array
      *                      - if you need to return different data than toArray..
-     * autoJoin($request) : array
-     *                      - if you need to return different data than toArray..
+     *   autoJoin($request) 
+     *                      - standard DataObject feature - causes all results to show all
+     *                        referenced data.
      */
     function get($tab)
     {

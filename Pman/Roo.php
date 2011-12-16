@@ -96,7 +96,7 @@ class Pman_Roo extends Pman
      * query[add_blank] - add a line in with an empty option...  - not really needed???
      *
      * CALLS methods on dataobjects if they exist:
-     *  checkPerm('S'), 
+     *  checkPerm('S'), toRooSingleArray()
      *
      */
     function get($tab)

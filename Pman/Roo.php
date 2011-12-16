@@ -178,7 +178,7 @@ class Pman_Roo extends Pman
             
             $m = method_exists($x, 'toRooSingleArray') ? 'toRooSingleArray' : false;
             $m = !$m && method_exists($x, 'toRooArray') ? 'toRooArray' : $m;
-            $m = $m ? $m : 'toArray'
+            $m = $m ? $m : 'toArray';
             
             $this->jok($m == 'toArray' ? $x->toArray() : $x->$m($this->authUser, $_REQUEST) );
             

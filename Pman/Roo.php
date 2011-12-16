@@ -328,26 +328,69 @@ class Pman_Roo extends Pman
      * Params:
      *   _delete=1,2,3   causes a delete to occur.
      *   _ids=1,2,3,4    causes update to occur on all primary ids.
+     *  
+     *  RETURNS
+     *     = same as single SELECT GET request..
+     *
      *
      *
      * DEBUGGING
      *   _debug=1    forces debug
      *   _get=1 - causes a get request to occur when doing a POST..
      *
-       * CALLS methods on dataobjects if they exist
+     *
+     * CALLS
+     *   these methods on dataobjects if they exist
+     * 
      *   checkPerm('E' / 'D' , $authuser)
      *                      - can we list the stuff
      *                      - return false to disallow...
-     * 
+   
      *   toRooSingleArray($authUser, $request) : array
      *                       - called on single fetch only, add or maniuplate returned array data.
      *   toRooArray($request) : array
-     *                      - Default mult
+     *                      - Called if toSingleArray does not exist.
      *                      - if you need to return different data than toArray..
-     *   autoJoin($request) 
-     *                      - standard DataObject feature - causes all results to show all
-     *                        referenced data.
-     */
+     *
+     *   toEventString()
+     *                  (for logging - this is generically prefixed to all database operations.)
+     *
+     *  
+     *   onUpload($roo)
+     *                  called when $_FILES is not empty
+     *
+     *                  
+     *   setFromRoo($ar, $roo)
+     *                      - alternative to setFrom() which is called if this method does not exist
+     *                      - values from post (deal with dates etc.) - return true|error string.
+     *                      - call $roo->jerr() on failure...
+     *
+     * CALLS BEFORE change occurs:
+     *  
+     *     beforeDelete($dependants_array, $roo)
+     *                      Argument is an array of un-find/fetched dependant items.
+     *                      - jerr() will stop insert.. (Prefered)
+     *                      - return false for fail and set DO->err;
+     *                      
+     *      beforeUpdate($old, $request,$roo)
+     *                      - after update - jerr() will stop insert..
+     *      beforeInsert($request,$roo)
+     *                      - before insert - jerr() will stop insert..
+     *
+     * CALLS AFTER change occured
+     * 
+     *      onUpdate($old, $request,$roo)
+                    - after update // return value ignored
+     *
+     *      onInsert($request,$roo)
+     *                  - after insert
+     
+     
+     * 
+     *
+     * 
+     */                     
+     
     function post($tab) // update / insert (?? delete??)
     {
         

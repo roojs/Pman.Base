@@ -76,7 +76,6 @@ class Pman_Roo extends Pman
      * colname[0]=... colname[1]=... => colname IN (.....) ** only supports main table at present..
      * 
      * other opts:
-     * _delete    = delete a list of ids element. (seperated by ,);
      * _columns   = comma seperated list of columns.
      * _distinct   = a distinct column lookup.
      * _requestMeta = default behaviour of Roo stores.. on first query..
@@ -96,6 +95,7 @@ class Pman_Roo extends Pman
      *
      * DEBUGGING
      * _post      = simulate a post with debuggin on.
+     * _delete    = delete a list of ids element. (depricated.. this will be removed...)
 
      *
      *

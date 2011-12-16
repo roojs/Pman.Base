@@ -172,7 +172,7 @@ class Pman_Images extends Pman
         
         // this should be configurable...
         $ff = HTML_FlexyFramework::get();
-        if (!empty($ff->Pman_Images['sizes']) {)
+        if (!empty($ff->Pman_Images['sizes'])) {
             $sizes = array_merge($sizes , $ff->Pman_Images['sizes']);
         }
         

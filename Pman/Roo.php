@@ -145,42 +145,17 @@ class Pman_Roo extends Pman
         }
         $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
         
-        if (isset( $_REQUEST['lookup'] )) { // single fetch based on key/value pairs
-            if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
-                $this->jerr("PERMISSION DENIED");
-            }
-            $this->loadMap($x, $_columns);
-            $x->setFrom($_REQUEST['lookup'] );
-            $x->limit(1);
-            if (!$x->find(true)) {
-                $this->jok(false);
-            }
-            $this->jok($x->toArray());
+        if (isset( $_REQUEST['lookup'] ) && is_array($_REQUEST['lookup'] )) { // single fetch based on key/value pairs
+            
+            $this->selectSingle($x, $_REQUEST['lookup']);
+
         }
         
         
         
-        if (isset($_REQUEST['_id'])) { // single fetch
-            
-            if (empty($_REQUEST['_id'])) {
-                $this->jok($x->toArray());  // return an empty array!
-            }
-           
-            $this->loadMap($x, $_columns);
-            
-            if (!$x->get($_REQUEST['_id'])) {
-                $this->jerr("no such record");
-            }
-            
-            if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
-                $this->jerr("PERMISSION DENIED");
-            }
-            
-            $m = method_exists($x, 'toRooSingleArray') ? 'toRooSingleArray' : false;
-            $m = !$m && method_exists($x, 'toRooArray') ? 'toRooArray' : $m;
-            $m = $m ? $m : 'toArray';
-            
-            $this->jok($m == 'toArray' ? $x->toArray() : $x->$m($this->authUser, $_REQUEST) );
+        if (isset($_REQUEST['_id']) && is_numeric($_REQUEST['_id'])) { // single fetch
+            $this->selectSingle($x, $_REQUEST['_id']);
+             
             
         }
         
@@ -521,6 +496,55 @@ class Pman_Roo extends Pman
     
     
     
+    
+    function selectSingle($x, $id)
+    {
+        
+        
+            if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
+                $this->jerr("PERMISSION DENIED");
+            }
+            $this->loadMap($x, $_columns);
+            $x->setFrom($_REQUEST['lookup'] );
+            $x->limit(1);
+            if (!$x->find(true)) {
+                $this->jok(false);
+            }
+            $this->jok($x->toArray());
+        
+        
+        $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
+
+        if (!is_array($id) && empty($id)) {
+            $this->jok($x->toArray());  // return an empty array!
+        }
+       
+        $this->loadMap($x, $_columns);
+        
+        if (is_array($id)) {
+            // lookup...
+            $x->setFrom($_REQUEST['lookup'] );
+            $x->limit(1);
+            if (!$x->find(true)) {
+                $this->jok(false);
+            }
+            
+        } else  if (!$x->get($id)) {
+            $this->jerr("no such record");
+        }
+        
+        if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
+            $this->jerr("PERMISSION DENIED");
+        }
+        
+        $m = method_exists($x, 'toRooSingleArray') ? 'toRooSingleArray' : false;
+        $m = !$m && method_exists($x, 'toRooArray') ? 'toRooArray' : $m;
+        $m = $m ? $m : 'toArray';
+        
+        $this->jok($m == 'toArray' ? $x->toArray() : $x->$m($this->authUser, $_REQUEST) );
+        
+        
+    }
     
     function insert($x, $req)
     {

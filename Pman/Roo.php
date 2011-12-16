@@ -501,17 +501,7 @@ class Pman_Roo extends Pman
     {
         
         
-            if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
-                $this->jerr("PERMISSION DENIED");
-            }
-            $this->loadMap($x, $_columns);
-            $x->setFrom($_REQUEST['lookup'] );
-            $x->limit(1);
-            if (!$x->find(true)) {
-                $this->jok(false);
-            }
-            $this->jok($x->toArray());
-        
+         
         
         $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
 

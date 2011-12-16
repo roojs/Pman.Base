@@ -351,8 +351,7 @@ class Pman_Roo extends Pman
             return $this->get($tab);
         }
       
-        $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
-        
+         
         $tab = str_replace('/', '',$tab); // basic protection??
         $x = DB_DataObject::factory($tab);
         if (!is_a($x, 'DB_DataObject')) {

@@ -257,13 +257,7 @@ class Pman_Roo extends Pman
             $ret[] = array( 'id' => 0, 'name' => '----');
             $total+=1;
         }
-        // MOVE ME...
-        
-        //if (($tab == 'Groups') && ($_REQUEST['type'] != 0))  { // then it's a list of teams..
-        
-        // DOWNLOAD...
-        
-          
+         
         $rooar = method_exists($x, 'toRooArray');
         
         while ($x->fetch()) {

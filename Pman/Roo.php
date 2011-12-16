@@ -147,14 +147,14 @@ class Pman_Roo extends Pman
         
         if (isset( $_REQUEST['lookup'] ) && is_array($_REQUEST['lookup'] )) { // single fetch based on key/value pairs
             
-            $this->selectSingle($x, $_REQUEST['lookup']);
+            $this->jok($this->selectSingle($x, $_REQUEST['lookup']));
 
         }
         
         
         
         if (isset($_REQUEST['_id']) && is_numeric($_REQUEST['_id'])) { // single fetch
-            $this->selectSingle($x, $_REQUEST['_id']);
+            $this->jok($this->selectSingle($x, $_REQUEST['_id']));
              
             
         }

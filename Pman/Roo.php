@@ -58,7 +58,17 @@ class Pman_Roo extends Pman
         return true;
     }
     /**
-     * GET method   Roo/TABLENAME.php 
+     * GET method   Roo/TABLENAME.php
+     *
+     * Generally for SELECT or Single SELECT
+     *
+     *
+     * Single SELECT:
+     *    _id=value          single fetch based on primary id.
+     *    lookup[key]=value  single fetch based on a single key value lookup.
+     *                       multiple key/value can be used. eg. ontable+onid..
+     *   
+     *
      * -- defaults to listing data. with args.
      *
      * 
@@ -68,8 +78,6 @@ class Pman_Roo extends Pman
      * 
      * other opts:
      * _post      = simulate a post with debuggin on.
-     * lookup     =  array( k=>v) single fetch based on a key/value pair
-     * _id        =  single fetch based on id.
      * _delete    = delete a list of ids element. (seperated by ,);
      * _columns   = comma seperated list of columns.
      * _distinct   = a distinct column lookup.

@@ -323,8 +323,20 @@ class Pman_Roo extends Pman
     }
     
      /**
-     * POST method   Roo/TABLENAME.php 
-     * -- updates the data..
+     * POST method   Roo/TABLENAME  
+     * -- creates, updates, or deletes data.
+     *
+     * INSERT
+     *    if the primary key is empty, this happens
+     * DELETE
+     *    _delete=1,2,3     delete a set of data.
+     * UPDATE
+     *    if the primary key value is set, then update occurs.
+     *
+     *    
+     *
+     *
+     * 
      * 
      * other opts:
      * _debug - forces debugging on.

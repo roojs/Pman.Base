@@ -5,8 +5,7 @@ require_once 'Pman.php';
 /**
  * 
  * 
- * not really sure how save our factory method is....!!!
- * 
+  * 
  * 
  * Uses these methods of the dataobjects:
  * 
@@ -92,18 +91,34 @@ class Pman_Roo extends Pman
      *      csvCols[0] csvCols[1]....    = .... column titles for CSV output
      *      csvTitles[0], csvTitles[1] ....  = columns to use for CSV output
      *
-     *      
-     *_toggleActive !:!:!:! - this hsould not really be here..
-     * query[add_blank] - add a line in with an empty option...  - not really needed???
+     *  Depricated  
+     *      _toggleActive !:!:!:! - this hsould not really be here..
+     *      query[add_blank] - add a line in with an empty option...  - not really needed???
      *
      * DEBUGGING
-     * _post      = simulate a post with debuggin on.
-     * _delete    = delete a list of ids element. (depricated.. this will be removed...)
+     *  _post      = simulate a post with debuggin on.
+     *  _delete    = delete a list of ids element. (depricated.. this will be removed...)
      *
      *
      *
-     * CALLS methods on dataobjects if they exist:
-     *  checkPerm('S'), toRooSingleArray()
+     * CALLS methods on dataobjects if they exist
+     *   checkPerm('L'/'E'/'A', $authuser)
+     *                      - can we list the stuff
+     *                      - return false to disallow...
+     *   applySort($au, $sortcol, $direction, $array_of_columns, $multisort)
+     *                     -- does not support multisort at present..
+     *   applyFilters($_REQUEST, $authUser, $roo)
+     *                     -- apply any query filters on data. and hide stuff not to be seen.
+     *                     -- can exit by calling $roo->jerr()
+     *   postListExtra($_REQUEST) : array(extra_name => data)
+     *                     - add extra column data on the results (like new messages etc.)
+     *   postListFilter($data, $authUser, $request) return $data
+     *                      - add extra data to an object
+     * 
+     *   toRooSingleArray($authUser, $request) : array
+     *                       - called on single fetch only, add or maniuplate returned array data.
+     *   toRooArray($request) : array
+    *                      - if you need to return different data than toArray..
      *
      */
     function get($tab)
@@ -394,8 +409,7 @@ class Pman_Roo extends Pman
         if ($sort_str) {
             $x->orderBy(implode(', ', $sort_str ));
         }
-         
-        
+          
         
     }
     

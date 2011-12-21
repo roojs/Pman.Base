@@ -98,12 +98,21 @@ class Pman_Roo extends Pman
         $this->init(); // from pnan.
         //DB_DataObject::debuglevel(1);
         HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev);
+        
+        
+   
+        
         // debugging...
         if (!empty($_GET['_post'])) {
             $_POST  = $_GET;
             //DB_DAtaObject::debuglevel(1);
             return $this->post($tab);
         }
+        
+        
+        PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
+   
+        
         $tab = str_replace('/', '',$tab); // basic protection??
         
         $x = DB_DataObject::factory($tab);
@@ -767,7 +776,7 @@ class Pman_Roo extends Pman
                     if (!is_a($chk,'DB_DataObject')) {
                         $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);
                     }
-                    $chk->{$ka[1]} =  $xx->$pk;
+                    $chk->{$ka[1]} =  $xx->{$this->key};
                     $matches = $chk->count();
                     $match_total += $matches;
                     if ($matches) {
@@ -1122,14 +1131,23 @@ class Pman_Roo extends Pman
     
     function onPearError($err)
     {
-        
+        static $reported = false;
+        if ($reported) {
+            return;
+        }
+        $reported = true;
         $out = $err->toString();
         
         
         //print_R($bt); exit;
         $ret = array();
+        $n = 0;
         foreach($err->backtrace as $b) {
-            $ret[] = $b['file'] . '(' . $b['line'] . ')@' .   @$bt['class'] . '::' . @$bt['function'];  
+            $ret[] = @$b['file'] . '(' . @$b['line'] . ')@' .   @$b['class'] . '::' . @$b['function'];
+            if ($n > 20) {
+                break;
+            }
+            $n++;
         }
         //convert the huge backtrace into something that is readable..
         $out .= "\n" . implode("\n",  $ret);

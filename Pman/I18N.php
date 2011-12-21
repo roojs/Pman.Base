@@ -35,15 +35,7 @@ class Pman_I18N extends Pman_Core_I18n
       
    
      
-    function translateList($au, $type, $k)  
-    {
-        $ar = explode(',', $k);
-        $ret = array();
-        foreach($ar as $kk) {
-            $ret[] = $this->translate($au, $type, $kk);
-        }
-        return implode(', ', $ret);
-    }
+   
    
     */
      

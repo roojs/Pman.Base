@@ -5,8 +5,7 @@ require_once 'Pman.php';
 /**
  * 
  * 
- * not really sure how save our factory method is....!!!
- * 
+  * 
  * 
  * Uses these methods of the dataobjects:
  * 
@@ -58,36 +57,74 @@ class Pman_Roo extends Pman
         return true;
     }
     /**
-     * GET method   Roo/TABLENAME.php 
-     * -- defaults to listing data. with args.
+     * GET method   Roo/TABLENAME.php
      *
-     * 
-     * !colname=....                 => colname != ....
-     * !colname[0]=... !colname[1]=... => colname NOT IN (.....) ** only supports main table at present..
-     * colname[0]=... colname[1]=... => colname IN (.....) ** only supports main table at present..
-     * 
-     * other opts:
-     * _post      = simulate a post with debuggin on.
-     * lookup     =  array( k=>v) single fetch based on a key/value pair
-     * _id        =  single fetch based on id.
-     * _delete    = delete a list of ids element. (seperated by ,);
-     * _columns   = comma seperated list of columns.
-     * _distinct   = a distinct column lookup.
-     * _requestMeta = default behaviour of Roo stores.. on first query..
-     * 
-     * csvCols[0] csvCols[1]....    = .... column titles for CSV output
-     * 
-     * csvTitles[0], csvTitles[1] ....  = columns to use for CSV output
+     * Generally for SELECT or Single SELECT
      *
-     * sort        = sort column (',' comma delimited)
-     * dir         = sort direction ?? in future comma delimited...
-     * _multisort  = JSON encoded { sort : { row : direction }, order : [ row, row, row ] }
-     * start       = limit start
-     * limit       = limit number 
+     * Single SELECT:
+     *    _id=value          single fetch based on primary id.
+     *    lookup[key]=value  single fetch based on a single key value lookup.
+     *                       multiple key/value can be used. eg. ontable+onid..
+     *    _columns           what to return.
+     *
+     *    
+     * Search SELECT
+     *    COLUMNS to fetch
+     *      _columns=a,b,c,d     comma seperated list of columns.
+     *      _distinct=name        a distinct column lookup.
+     *
+     *    WHERE 
+     *       !colname=....                 => colname != ....
+     *       !colname[0]=... !colname[1]=... => colname NOT IN (.....) ** only supports main table at present..
+     *       colname[0]=... colname[1]=... => colname IN (.....) ** only supports main table at present..
+     *
+     *    ORDER BY
+     *       sort=name          what to sort.
+     *       sort=a,b,d         can support multiple columns
+     *       dir=ASC            what direction
+     *       _multisort ={...}  JSON encoded { sort : { row : direction }, order : [ row, row, row ] }
+     *
+     *    LIMIT
+     *      start=0         limit start
+     *      limit=25        limit number 
      * 
-     * _toggleActive !:!:!:! - this hsould not really be here..
-     * query[add_blank] - add a line in with an empty option...  - not really needed???
      * 
+     *    Simple CSV support
+     *      csvCols[0] csvCols[1]....    = .... column titles for CSV output
+     *      csvTitles[0], csvTitles[1] ....  = columns to use for CSV output
+     *
+     *  Depricated  
+     *      _toggleActive !:!:!:! - this hsould not really be here..
+     *      query[add_blank] - add a line in with an empty option...  - not really needed???
+     *
+     * DEBUGGING
+     *  _post      = simulate a post with debuggin on.
+     *  _delete    = delete a list of ids element. (depricated.. this will be removed...)
+     *
+     *
+     *
+     * CALLS methods on dataobjects if they exist
+     *   checkPerm('S' , $authuser)
+     *                      - can we list the stuff
+     *                      - return false to disallow...
+     *   applySort($au, $sortcol, $direction, $array_of_columns, $multisort)
+     *                     -- does not support multisort at present..
+     *   applyFilters($_REQUEST, $authUser, $roo)
+     *                     -- apply any query filters on data. and hide stuff not to be seen.
+     *                     -- can exit by calling $roo->jerr()
+     *   postListExtra($_REQUEST) : array(extra_name => data)
+     *                     - add extra column data on the results (like new messages etc.)
+     *   postListFilter($data, $authUser, $request) return $data
+     *                      - add extra data to an object
+     * 
+     *   toRooSingleArray($authUser, $request) : array
+     *                       - called on single fetch only, add or maniuplate returned array data.
+     *   toRooArray($request) : array
+     *                      - called if singleArray is unavailable on single fetch.
+     *                      - always tried for mutiple results.
+     *   autoJoin($request) 
+     *                      - standard DataObject feature - causes all results to show all
+     *                        referenced data.
      */
     function get($tab)
     {
@@ -122,40 +159,16 @@ class Pman_Roo extends Pman
         }
         $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
         
-        if (isset( $_REQUEST['lookup'] )) { // single fetch based on key/value pairs
-            if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
-                $this->jerr("PERMISSION DENIED");
-            }
-            $this->loadMap($x, $_columns);
-            $x->setFrom($_REQUEST['lookup'] );
-            $x->limit(1);
-            if (!$x->find(true)) {
-                $this->jok(false);
-            }
-            $this->jok($x->toArray());
+        if (isset( $_REQUEST['lookup'] ) && is_array($_REQUEST['lookup'] )) { // single fetch based on key/value pairs
+            $this->jok($this->selectSingle($x, $_REQUEST['lookup']));
         }
         
         
         
-        if (isset($_REQUEST['_id'])) { // single fetch
-            
-            if (empty($_REQUEST['_id'])) {
-                $this->jok($x->toArray());  // return an empty array!
-            }
-           
-            $this->loadMap($x, $_columns);
-            
-            if (!$x->get($_REQUEST['_id'])) {
-                $this->jerr("no such record");
-            }
-            
-            if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
-                $this->jerr("PERMISSION DENIED");
-            }
-            
-            $this->jok(method_exists($x, 'toRooSingleArray') ? $x->toRooSingleArray($this->authUser, $_REQUEST) : $x->toArray());
-            
+        if (isset($_REQUEST['_id']) && is_numeric($_REQUEST['_id'])) { // single fetch
+            $this->jok($this->selectSingle($x, $_REQUEST['_id']));
         }
+        
         
        
         if (isset($_REQUEST['_delete'])) {
@@ -173,7 +186,7 @@ class Pman_Roo extends Pman
         } 
         
         
-        
+        // Depricated...
         
         if (isset($_REQUEST['_toggleActive'])) {
             // do we really delete stuff!?!?!?
@@ -227,40 +240,34 @@ class Pman_Roo extends Pman
         
         $ret = array();
         
+        // ---------------- THESE ARE DEPRICATED.. they should be moved to the model...
+        
+        
         if (!empty($_REQUEST['query']['add_blank'])) {
             $ret[] = array( 'id' => 0, 'name' => '----');
             $total+=1;
         }
-        // MOVE ME...
-        
-        //if (($tab == 'Groups') && ($_REQUEST['type'] != 0))  { // then it's a list of teams..
-        if ($tab == 'Groups') {
-            
-            $ret[] = array( 'id' => 0, 'name' => 'EVERYONE');
-            $ret[] = array( 'id' => -1, 'name' => 'NOT_IN_GROUP');
-            //$ret[] = array( 'id' => 999999, 'name' => 'ADMINISTRATORS');
-            $total+=2;
-        }
-        
-        // DOWNLOAD...
-        
-          
+         
         $rooar = method_exists($x, 'toRooArray');
-        
+        $_columnsf = $_columns  ? array_flip($_columns) : false;
         while ($x->fetch()) {
             //print_R($x);exit;
             $add = $rooar  ? $x->toRooArray($_REQUEST) : $x->toArray();
             
-            $ret[] =  !$_columns ? $add : array_intersect_key($add, array_flip($_columns));
+            $ret[] =  !$_columns ? $add : array_intersect_key($add, $_columnsf);
         }
         $extra = false;
         if (method_exists($queryObj ,'postListExtra')) {
             $extra = $queryObj->postListExtra($_REQUEST, $this);
         }
+        
+        
         // filter results, and add any data that is needed...
         if (method_exists($x,'postListFilter')) {
             $ret = $x->postListFilter($ret, $this->authUser, $_REQUEST);
         }
+        
+        
         
         if (!empty($_REQUEST['csvCols']) && !empty($_REQUEST['csvTitles']) ) {
             header('Content-type: text/csv');
@@ -300,10 +307,172 @@ class Pman_Roo extends Pman
         }
         
        // echo "<PRE>"; print_r($ret);
-        $this->jdata($ret,$total, $extra );
+        $this->jdata($ret, max(count($ret), $total), $extra );
 
     
     }
+    
+     /**
+     * POST method   Roo/TABLENAME  
+     * -- creates, updates, or deletes data.
+     *
+     * INSERT
+     *    if the primary key is empty, this happens
+     *    will automatically set these to current date and authUser->id
+     *        created, created_by, created_dt
+     *        updated, update_by, updated_dt
+     *        modified, modified_by, modified_dt
+     *        
+     *   will return a GET request SINGLE SELECT (and accepts same)
+     *    
+     * DELETE
+     *    _delete=1,2,3     delete a set of data.
+     * UPDATE
+     *    if the primary key value is set, then update occurs.
+     *    will automatically set these to current date and authUser->id
+     *        updated, update_by, updated_dt
+     *        modified, modified_by, modified_dt
+     *        
+     *
+     * Params:
+     *   _delete=1,2,3   causes a delete to occur.
+     *   _ids=1,2,3,4    causes update to occur on all primary ids.
+     *  
+     *  RETURNS
+     *     = same as single SELECT GET request..
+     *
+     *
+     *
+     * DEBUGGING
+     *   _debug=1    forces debug
+     *   _get=1 - causes a get request to occur when doing a POST..
+     *
+     *
+     * CALLS
+     *   these methods on dataobjects if they exist
+     * 
+     *   checkPerm('E' / 'D' , $authuser)
+     *                      - can we list the stuff
+     *                      - return false to disallow...
+   
+     *   toRooSingleArray($authUser, $request) : array
+     *                       - called on single fetch only, add or maniuplate returned array data.
+     *   toRooArray($request) : array
+     *                      - Called if toSingleArray does not exist.
+     *                      - if you need to return different data than toArray..
+     *
+     *   toEventString()
+     *                  (for logging - this is generically prefixed to all database operations.)
+     *
+     *  
+     *   onUpload($roo)
+     *                  called when $_FILES is not empty
+     *
+     *                  
+     *   setFromRoo($ar, $roo)
+     *                      - alternative to setFrom() which is called if this method does not exist
+     *                      - values from post (deal with dates etc.) - return true|error string.
+     *                      - call $roo->jerr() on failure...
+     *
+     * CALLS BEFORE change occurs:
+     *  
+     *     beforeDelete($dependants_array, $roo)
+     *                      Argument is an array of un-find/fetched dependant items.
+     *                      - jerr() will stop insert.. (Prefered)
+     *                      - return false for fail and set DO->err;
+     *                      
+     *      beforeUpdate($old, $request,$roo)
+     *                      - after update - jerr() will stop insert..
+     *      beforeInsert($request,$roo)
+     *                      - before insert - jerr() will stop insert..
+     *
+     * CALLS AFTER change occured
+     * 
+     *      onUpdate($old, $request,$roo)
+     *               - after update // return value ignored
+     *
+     *      onInsert($request,$roo)
+     *                  - after insert
+     * 
+     *
+     * 
+     */                     
+     
+    function post($tab) // update / insert (?? delete??)
+    {
+        
+        PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
+   
+        
+        //DB_DataObject::debugLevel(1);
+        if (!empty($_REQUEST['_debug'])) {
+            DB_DataObject::debugLevel(1);
+        }
+        
+        if (!empty($_REQUEST['_get'])) {
+            return $this->get($tab);
+        }
+      
+         
+        $tab = str_replace('/', '',$tab); // basic protection??
+        $x = DB_DataObject::factory($tab);
+        if (!is_a($x, 'DB_DataObject')) {
+            $this->jerr('invalid url');
+        }
+        // find the key and use that to get the thing..
+        $keys = $x->keys();
+        if (empty($keys) ) {
+            $this->jerr('no key');
+        }
+        
+        $this->key = $keys[0];
+        
+          // delete should be here...
+        if (isset($_REQUEST['_delete'])) {
+            // do we really delete stuff!?!?!?
+            return $this->delete($x,$_REQUEST);
+        } 
+         
+        
+        $old = false;
+        
+        // not sure if this is a good idea here...
+        
+        if (!empty($_REQUEST['_ids'])) {
+            $ids = explode(',',$_REQUEST['_ids']);
+            $x->whereAddIn($this->key, $ids, 'int');
+            $ar = $x->fetchAll();
+            foreach($ar as $x) {
+                $this->update($x, $_REQUEST);
+                
+            }
+            // all done..
+            $this->jok("UPDATED");
+            
+            
+        }
+         
+        if (!empty($_REQUEST[$this->key])) {
+            // it's a create..
+            if (!$x->get($this->key, $_REQUEST[$this->key]))  {
+                $this->jerr("Invalid request");
+            }
+            $this->jok($this->update($x, $_REQUEST));
+        } else {
+            
+            if (empty($_POST)) {
+                $this->jerr("No data recieved for inserting");
+            }
+            
+            $this->jok($this->insert($x, $_REQUEST));
+            
+        }
+        
+        
+        
+    }
+    
+    
     /**
      * applySort
      * 
@@ -383,98 +552,52 @@ class Pman_Roo extends Pman
         if ($sort_str) {
             $x->orderBy(implode(', ', $sort_str ));
         }
-         
-        
+          
         
     }
     
     
     
-     /**
-     * POST method   Roo/TABLENAME.php 
-     * -- updates the data..
-     * 
-     * other opts:
-     * _debug - forces debugging on.
-     * _get - forces a get request
-     * _ids - multiple update of records.
-     * {colid} - forces fetching
-     * 
-     */
-    function post($tab) // update / insert (?? dleete??)
+    
+    function selectSingle($x, $id)
     {
         
-        PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
-   
         
-        //DB_DataObject::debugLevel(1);
-        if (!empty($_REQUEST['_debug'])) {
-            DB_DataObject::debugLevel(1);
-        }
+         
         
-        if (!empty($_REQUEST['_get'])) {
-            return $this->get($tab);
-        }
-      
         $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
-        
-        $tab = str_replace('/', '',$tab); // basic protection??
-        $x = DB_DataObject::factory($tab);
-        if (!is_a($x, 'DB_DataObject')) {
-            $this->jerr('invalid url');
+
+        if (!is_array($id) && empty($id)) {
+            $this->jok($x->toArray());  // return an empty array!
         }
-        // find the key and use that to get the thing..
-        $keys = $x->keys();
-        if (empty($keys) ) {
-            $this->jerr('no key');
-        }
+       
+        $this->loadMap($x, $_columns);
         
-        $this->key = $keys[0];
-        
-          // delete should be here...
-        if (isset($_REQUEST['_delete'])) {
-            // do we really delete stuff!?!?!?
-            return $this->delete($x,$_REQUEST);
-        } 
-         
-        
-        $old = false;
-        
-        // not sure if this is a good idea here...
-        
-        if (!empty($_REQUEST['_ids'])) {
-            $ids = explode(',',$_REQUEST['_ids']);
-            $x->whereAddIn($this->key, $ids, 'int');
-            $ar = $x->fetchAll();
-            foreach($ar as $x) {
-                $this->update($x, $_REQUEST);
-                
-            }
-            // all done..
-            $this->jok("UPDATED");
-            
-            
-        }
-         
-        if (!empty($_REQUEST[$this->key])) {
-            // it's a create..
-            if (!$x->get($this->key, $_REQUEST[$this->key]))  {
-                $this->jerr("Invalid request");
-            }
-            $this->jok($this->update($x, $_REQUEST));
-        } else {
-            
-            if (empty($_POST)) {
-                $this->jerr("No data recieved for inserting");
+        if (is_array($id)) {
+            // lookup...
+            $x->setFrom($_REQUEST['lookup'] );
+            $x->limit(1);
+            if (!$x->find(true)) {
+                $this->jok(false);
             }
             
-            $this->jok($this->insert($x, $_REQUEST));
-            
+        } else  if (!$x->get($id)) {
+            $this->jerr("no such record");
         }
         
+        if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
+            $this->jerr("PERMISSION DENIED");
+        }
+        
+        $m = method_exists($x, 'toRooSingleArray') ? 'toRooSingleArray' : false;
+        $m = !$m && method_exists($x, 'toRooArray') ? 'toRooArray' : $m;
+        $m = $m ? $m : 'toArray';
+        
+        $this->jok($m == 'toArray' ? $x->toArray() : $x->$m($this->authUser, $_REQUEST) );
         
         
     }
+    
     function insert($x, $req)
     {
         
@@ -483,8 +606,7 @@ class Pman_Roo extends Pman
             $this->jerr("PERMISSION DENIED");
         }
         
-        $_columns = !empty($req['_columns']) ? explode(',', $req['_columns']) : false;
-   
+        
         if (method_exists($x, 'setFromRoo')) {
             $res = $x->setFromRoo($req, $this);
             if (is_string($res)) {
@@ -551,17 +673,11 @@ class Pman_Roo extends Pman
             $x->onUpload($this);
         }
         
-        $r = DB_DataObject::factory($x->tableName());
-        // let's assume it has a key!!!
+        return $this->selectSingle(
+            DB_DataObject::factory($x->tableName()),
+            $x->{$this->key}
+        );
         
-        $r->{$this->key} = $x->{$this->key};
-        $this->loadMap($r, $_columns);
-        $r->limit(1);
-        $r->find(true);
-        
-        $rooar = method_exists($r, 'toRooArray');
-        //print_r(var_dump($rooar)); exit;
-        return $rooar  ? $r->toRooArray($_REQUEST) : $r->toArray();
     }
     
     
@@ -605,8 +721,7 @@ class Pman_Roo extends Pman
         
         
        
-        $_columns = !empty($req['_columns']) ? explode(',', $req['_columns']) : false;
-
+         
        
         $old = clone($x);
         $this->old = $x;
@@ -665,16 +780,11 @@ class Pman_Roo extends Pman
             $this->jerr($lock_warning);
         }
         
+        return $this->selectSingle(
+            DB_DataObject::factory($x->tableName()),
+            $x->{$this->key}
+        );
         
-        $r = DB_DataObject::factory($x->tableName());
-        // let's assume it has a key!!!
-        $r->{$this->key}= $x->{$this->key};
-        $this->loadMap($r, $_columns);
-        $r->limit(1);
-        $r->find(true);
-        $rooar = method_exists($r, 'toRooArray');
-        //print_r(var_dump($rooar)); exit;
-        return $rooar  ? $r->toRooArray($_REQUEST) : $r->toArray();
     }
     /**
      * Delete a number of records.

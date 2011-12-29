@@ -602,9 +602,7 @@ class Pman_Roo extends Pman
     {
         
     
-        if (method_exists($x, 'checkPerm') && !$x->checkPerm('A', $this->authUser, $req))  {
-            $this->jerr("PERMISSION DENIED");
-        }
+       
         
         
         if (method_exists($x, 'setFromRoo')) {
@@ -616,7 +614,9 @@ class Pman_Roo extends Pman
             $x->setFrom($req);
         }
         
-         
+        if (method_exists($x, 'checkPerm') && !$x->checkPerm('A', $this->authUser, $req))  {
+            $this->jerr("PERMISSION DENIED");
+        }
         $cols = $x->table();
      
         if (isset($cols['created'])) {

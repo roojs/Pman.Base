@@ -132,7 +132,7 @@ class Pman_Roo extends Pman
        //echo '<PRE>';print_R($_GET);
       //DB_DataObject::debuglevel(1);
         
-        $this->init(); // from pnan.
+        $this->init(); // from pman.
         //DB_DataObject::debuglevel(1);
         HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev);
         
@@ -1238,6 +1238,21 @@ class Pman_Roo extends Pman
      
         
     }
+    
+    function dataObject($name)
+    {
+        
+        $tab = str_replace('/', '',$tab); // basic protection??
+        
+        $x = DB_DataObject::factory($tab);
+        
+        if (!is_a($x, 'DB_DataObject')) {
+            $this->jerr('invalid url');
+        }
+        return $x;
+        
+    }
+    
     
     function onPearError($err)
     {

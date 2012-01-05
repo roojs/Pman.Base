@@ -152,15 +152,10 @@ class Pman_Roo extends Pman
         
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
    
+         
+        $x = $this->dataObject($tab);
         
-        $tab = str_replace('/', '',$tab); // basic protection??
-        
-        $x = DB_DataObject::factory($tab);
-        
-        if (!is_a($x, 'DB_DataObject')) {
-            $this->jerr('invalid url');
-        }
-        $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
+         $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
         
         if (isset( $_REQUEST['lookup'] ) && is_array($_REQUEST['lookup'] )) { // single fetch based on key/value pairs
             $this->jok($this->selectSingle($x, $_REQUEST['lookup']));
@@ -417,11 +412,7 @@ class Pman_Roo extends Pman
         }
       
          
-        $tab = str_replace('/', '',$tab); // basic protection??
-        $x = DB_DataObject::factory($tab);
-        if (!is_a($x, 'DB_DataObject')) {
-            $this->jerr('invalid url');
-        }
+        $x = $this->dataObject($tab);
         // find the key and use that to get the thing..
         $keys = $x->keys();
         if (empty($keys) ) {

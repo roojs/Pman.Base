@@ -43,7 +43,10 @@ require_once 'Pman.php';
 
 class Pman_Roo extends Pman
 {
-    
+    /**
+     * if set to an array (when extending this, then you can restrict which tables are available
+     */
+    var $validTables = false; 
     
     var $key; // used by update currenly to store primary key.
     
@@ -1238,10 +1241,19 @@ class Pman_Roo extends Pman
      
         
     }
-    
-    function dataObject($name)
+    /**
+     * create the  dataobject from (usually the url)
+     * This uses $this->validTables
+     *           $this->validPrefix (later..)
+     * to determine if class can be created..
+     *
+     */
+     
+    function dataObject($tab)
     {
-        
+        if (is_array($this->validTables) &&  !in_array($tbl,$this->validTables)) {
+            $this->jerr("Invalid url");
+        }
         $tab = str_replace('/', '',$tab); // basic protection??
         
         $x = DB_DataObject::factory($tab);

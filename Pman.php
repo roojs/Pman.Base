@@ -79,11 +79,7 @@ class Pman extends HTML_FlexyFramework_Page
         ) {
             $this->isDev = true;
         }
-        if ($this->company->logo_id) {
-            $im = DB_DataObject::Factory('Image');
-            $im->get($this->company->logo_id);
-            $this->appLogo = $this->baseURL . '/Images/'. $this->company->logo_id .'/' . $im->filename;
-        }
+        
         
         
         
@@ -129,6 +125,14 @@ class Pman extends HTML_FlexyFramework_Page
         
         //header('Content-type: application/xhtml+xml; charset=utf-8');
         header('Content-type: text/html; charset=utf-8');
+        
+        
+        if ($this->company->logo_id) {
+            $im = DB_DataObject::Factory('Image');
+            $im->get($this->company->logo_id);
+            $this->appLogo = $this->baseURL . '/Images/'. $this->company->logo_id .'/' . $im->filename;
+        }
+        
          
     }
     function post($base) {

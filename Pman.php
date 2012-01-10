@@ -124,7 +124,7 @@ class Pman extends HTML_FlexyFramework_Page
         HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev);
         
         //header('Content-type: application/xhtml+xml; charset=utf-8');
-        header('Content-type: text/html; charset=utf-8');
+        
         
         
         if ($this->company->logo_id) {
@@ -133,6 +133,7 @@ class Pman extends HTML_FlexyFramework_Page
             $this->appLogo = $this->baseURL . '/Images/'. $this->company->logo_id .'/' . $im->filename;
         }
         
+        header('Content-type: text/html; charset=utf-8');
          
     }
     function post($base) {

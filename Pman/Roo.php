@@ -582,7 +582,7 @@ class Pman_Roo extends Pman
             }
             
         } else if (!$x->get($id)) {
-            $this->jerr("no such record");
+            $this->jerr("selectSingle: no such record");
         }
         
         if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {

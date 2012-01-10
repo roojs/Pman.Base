@@ -252,7 +252,7 @@ class Pman_Roo extends Pman
         $rooar = method_exists($x, 'toRooArray');
         $_columnsf = $_columns  ? array_flip($_columns) : false;
         while ($x->fetch()) {
-            print_R($x);exit;
+            //print_R($x);exit;
             $add = $rooar  ? $x->toRooArray($_REQUEST) : $x->toArray();
             
             $ret[] =  !$_columns ? $add : array_intersect_key($add, $_columnsf);

@@ -675,7 +675,7 @@ class Pman_Roo extends Pman
         
         return $this->selectSingle(
             DB_DataObject::factory($x->tableName()),
-            $x->pid();
+            $x->pid()
         );
         
     }

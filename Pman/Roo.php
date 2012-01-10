@@ -572,7 +572,7 @@ class Pman_Roo extends Pman
         $this->loadMap($x, $_columns);
         
         $this->setFilters($x, $_REQUEST);
-        
+        DB_DataObject::DebugLevel(1);
         if (is_array($id)) {
             // lookup...
             $x->setFrom($_REQUEST['lookup'] );

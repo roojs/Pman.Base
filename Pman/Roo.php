@@ -149,6 +149,9 @@ class Pman_Roo extends Pman
             return $this->post($tab);
         }
         
+        if (isset($_REQUEST['_debug']) && in_array('Administrators', $this->authUser->groups('name'))) {
+            DB_DAtaObject::debuglevel(1);
+        }
         
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
    

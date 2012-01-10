@@ -161,13 +161,13 @@ class Pman_Roo extends Pman
          $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
         
         if (isset( $_REQUEST['lookup'] ) && is_array($_REQUEST['lookup'] )) { // single fetch based on key/value pairs
-            $this->jok($this->selectSingle($x, $_REQUEST['lookup']));
+            $this->jok($this->selectSingle($x, $_REQUEST['lookup'],$_REQUEST));
         }
         
         
         
         if (!empty($_REQUEST['_id']) && is_numeric($_REQUEST['_id'])) { // single fetch
-            $this->jok($this->selectSingle($x, $_REQUEST['_id']));
+            $this->jok($this->selectSingle($x, $_REQUEST['_id'],$_REQUEST));
         }
         
         
@@ -557,13 +557,13 @@ class Pman_Roo extends Pman
     
     
     
-    function selectSingle($x, $id)
+    function selectSingle($x, $id, $req=array())
     {
         
         
          
         
-        $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
+        $_columns = !empty($req['_columns']) ? explode(',', $req['_columns']) : false;
 
         if (!is_array($id) && empty($id)) {
             $this->jok($x->toArray());  // return an empty array!
@@ -571,11 +571,11 @@ class Pman_Roo extends Pman
        
         $this->loadMap($x, $_columns);
         
-        $this->setFilters($x, $_REQUEST);
+        $this->setFilters($x, $req);
         DB_DataObject::DebugLevel(1);
         if (is_array($id)) {
             // lookup...
-            $x->setFrom($_REQUEST['lookup'] );
+            $x->setFrom($req['lookup'] );
             $x->limit(1);
             if (!$x->find(true)) {
                 $this->jok(false);
@@ -593,7 +593,7 @@ class Pman_Roo extends Pman
         $m = !$m && method_exists($x, 'toRooArray') ? 'toRooArray' : $m;
         $m = $m ? $m : 'toArray';
         
-        $this->jok($m == 'toArray' ? $x->toArray() : $x->$m($this->authUser, $_REQUEST) );
+        $this->jok($m == 'toArray' ? $x->toArray() : $x->$m($this->authUser, $req) );
         
         
     }

@@ -150,7 +150,7 @@ class Pman_Roo extends Pman
         }
         
         if (isset($_REQUEST['_debug']) && in_array('Administrators', $this->authUser->groups('name'))) {
-            DB_DAtaObject::debuglevel(1);
+            DB_DAtaObject::debuglevel((int)$_REQUEST['_debug']);
         }
         
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));

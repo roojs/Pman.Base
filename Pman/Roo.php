@@ -571,6 +571,8 @@ class Pman_Roo extends Pman
        
         $this->loadMap($x, $_columns);
         
+        $this->setFilters($x, $_REQUEST);
+        
         if (is_array($id)) {
             // lookup...
             $x->setFrom($_REQUEST['lookup'] );
@@ -579,7 +581,7 @@ class Pman_Roo extends Pman
                 $this->jok(false);
             }
             
-        } else  if (!$x->get($id)) {
+        } else if (!$x->get($id)) {
             $this->jerr("no such record");
         }
         

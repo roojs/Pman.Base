@@ -146,7 +146,7 @@ class Pman_Images extends Pman
             $x->serve($this->method);
             exit;
         }
-        
+        echo "SKALING?";
         $this->validateSize();
         $x->convert( $this->as_mimetype, $this->size);
         $x->serve();

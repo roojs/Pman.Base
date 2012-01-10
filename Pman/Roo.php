@@ -166,7 +166,7 @@ class Pman_Roo extends Pman
         
         
         
-        if (isset($_REQUEST['_id']) && is_numeric($_REQUEST['_id'])) { // single fetch
+        if (!empty($_REQUEST['_id']) && is_numeric($_REQUEST['_id'])) { // single fetch
             $this->jok($this->selectSingle($x, $_REQUEST['_id']));
         }
         

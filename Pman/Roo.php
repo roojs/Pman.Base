@@ -103,7 +103,7 @@ class Pman_Roo extends Pman
      * DEBUGGING
      *  _post      = simulate a post with debuggin on.
      *  _delete    = delete a list of ids element. (depricated.. this will be removed...)
-     *
+     *  _debug     = turn on DB_dataobject deubbing, must be admin at present..
      *
      *
      * CALLS methods on dataobjects if they exist

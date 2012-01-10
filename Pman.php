@@ -65,6 +65,8 @@ class Pman extends HTML_FlexyFramework_Page
         // echo'<PRE>';print_R($boot);exit;
         $this->appName= $boot->appName;
         $this->appNameShort= $boot->appNameShort;
+        
+        
         $this->appModules= $boot->enable;
         $this->isDev = empty($boot->Pman['isDev']) ? false : $boot->Pman['isDev'];
         $this->appDisable = $boot->disable;
@@ -77,6 +79,13 @@ class Pman extends HTML_FlexyFramework_Page
         ) {
             $this->isDev = true;
         }
+        if ($this->company->logo_id) {
+            $im = DB_DataObject::Factory('Image');
+            $im->get($this->company->logo_id);
+            $this->baseURL . '/Images/'. $this->company->logo_id .'/' / $im->filename;
+        }
+        $this->appLogo = $
+        
         
     }
     

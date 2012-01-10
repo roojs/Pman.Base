@@ -167,7 +167,7 @@ class Pman_Images extends Pman
                 '200x0',
                 '200x200',  
                 '400x0',
-                '400x100', // logo on login.
+                '300x100', // logo on login.
                 '500'
             );
         

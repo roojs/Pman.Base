@@ -128,7 +128,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         
         if ($this->company->logo_id) {
-            $im = DB_DataObject::Factory('Image');
+            $im = DB_DataObject::Factory('Images');
             $im->get($this->company->logo_id);
             $this->appLogo = $this->baseURL . '/Images/'. $this->company->logo_id .'/' . $im->filename;
         }

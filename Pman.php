@@ -24,6 +24,7 @@
 class Pman extends HTML_FlexyFramework_Page 
 {
     var $appName= "";
+    var $appLogo= "";
     var $appShortName= "";
     var $appVersion = "1.8";
     var $version = 'dev';

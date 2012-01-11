@@ -562,9 +562,6 @@ class Pman_Roo extends Pman
      * @param array $req    the request, or false if it comes from insert/update.
      *
      */
-    
-    
-    
     function selectSingle($x, $id, $req=false)
     {
         

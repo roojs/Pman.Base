@@ -557,7 +557,7 @@ class Pman_Roo extends Pman
     
     
     
-    function selectSingle($x, $id, $req=array())
+    function selectSingle($x, $id, $req=false)
     {
         
         
@@ -570,8 +570,9 @@ class Pman_Roo extends Pman
         }
        
         $this->loadMap($x, $_columns);
-        
-        $this->setFilters($x, $req);
+        if ($req !== false) { 
+            $this->setFilters($x, $req);
+        }
         
         // DB_DataObject::DebugLevel(1);
         if (is_array($id)) {

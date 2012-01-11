@@ -553,7 +553,15 @@ class Pman_Roo extends Pman
           
         
     }
-    
+    /**
+     * single select call
+     * - used when _id is set, or after insert or update
+     *
+     * @param DataObject $x the dataobject to use
+     * @param int $id       the pid of the object
+     * @param array $req    the request, or false if it comes from insert/update.
+     *
+     */
     
     
     
@@ -570,6 +578,7 @@ class Pman_Roo extends Pman
         }
        
         $this->loadMap($x, $_columns);
+        
         if ($req !== false) { 
             $this->setFilters($x, $req);
         }

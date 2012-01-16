@@ -506,7 +506,8 @@ class Pman extends HTML_FlexyFramework_Page
     }
     function jok($str)
     {
-         if ($this->cli) {
+        $cli = HTML_FlexyFramework::get()->cli;
+        if ($cli) {
             echo "OK: " .$str . "\n";
             exit;
         }

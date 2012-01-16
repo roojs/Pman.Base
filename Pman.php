@@ -506,7 +506,10 @@ class Pman extends HTML_FlexyFramework_Page
     }
     function jok($str)
     {
-        
+         if ($cli) {
+            echo "OK: " .$str . "\n";
+            exit;
+        }
         require_once 'Services/JSON.php';
         $json = new Services_JSON();
         

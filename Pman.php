@@ -498,6 +498,9 @@ class Pman extends HTML_FlexyFramework_Page
             'errors' => $errors ? $errors : true, // used by forms to flag errors.
             'authFailure' => !empty($errors['authFailure']),
         ));
+        if ($this->cli) {
+            echo "\n";
+        }
         exit;
         
     }

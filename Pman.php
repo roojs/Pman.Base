@@ -528,9 +528,7 @@ class Pman extends HTML_FlexyFramework_Page
          
         
         echo  $json->encode(array('success'=> true, 'data' => $str));
-        if ($this->cli) {
-            echo "\n";
-        }
+        
         exit;
         
     }

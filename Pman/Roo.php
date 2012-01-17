@@ -506,6 +506,9 @@ class Pman_Roo extends Pman
         if ($sorted === false) {
             
             $cols = $x->table();
+            if (isset($x->_extra_cols)) {
+                $cols = array_merge($cols, $x->_extra_cols);
+            }
             $sort_ar = explode(',', $sort);
             $sort_str = array();
           

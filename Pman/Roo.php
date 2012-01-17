@@ -506,8 +506,9 @@ class Pman_Roo extends Pman
         if ($sorted === false) {
             
             $cols = $x->table();
+            $excols = array_keys($this->cols);
             if (isset($x->_extra_cols)) {
-                $cols = array_merge($cols, $x->_extra_cols);
+                $excols = array_merge($excols, $x->_extra_cols);
             }
             $sort_ar = explode(',', $sort);
             $sort_str = array();
@@ -517,7 +518,7 @@ class Pman_Roo extends Pman
                 if (strlen($sort) && isset($cols[$sort]) ) {
                     $sort_str[] =  $x->tableName() .'.'.$sort . ' ' . $dir ;
                     
-                } else if (in_array($sort, array_keys($this->cols))) {
+                } else if (in_array($sort, $excols)) {
                     $sort_str[] = $sort . ' ' . $dir ;
                 }
             }
@@ -941,9 +942,16 @@ class Pman_Roo extends Pman
     }
    
     
-    
+    /**
+     * cols stores the list of columns that are available from the query.
+     * 
+     *
+     */
     
     var $cols = array();
+    
+    
+    
     function loadMap($do, $filter=false, $distinct = false) 
     {
         //DB_DataObject::debugLevel(1);

@@ -607,10 +607,10 @@ class Pman_Roo extends Pman
         }
         // different symantics on all these calls??
         if (method_exists($x, 'toRooSingleArray')) {
-            $this->jok($this->toRooSingleArray($au, $req));
+            $this->jok($x->toRooSingleArray($au, $req));
         }
         if (method_exists($x, 'toRooArray')) {
-            $this->jok($this->toRooArray($req));
+            $this->jok($x->toRooArray($req));
         }
         
         $this->jok($x->toArray());

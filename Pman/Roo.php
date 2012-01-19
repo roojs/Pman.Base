@@ -128,6 +128,11 @@ class Pman_Roo extends Pman
      *   autoJoin($request) 
      *                      - standard DataObject feature - causes all results to show all
      *                        referenced data.
+     *
+     * PROPERTIES:
+     *    _extra_cols  -- if set, then filtering by column etc. will use them.
+     *
+     
      */
     function get($tab)
     {

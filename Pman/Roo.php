@@ -606,11 +606,14 @@ class Pman_Roo extends Pman
             $this->jerr("PERMISSION DENIED");
         }
         
-        $m = method_exists($x, 'toRooSingleArray') ? 'toRooSingleArray' : false;
-        $m = !$m && method_exists($x, 'toRooArray') ? 'toRooArray' : $m;
-        $m = $m ? $m : 'toArray';
+        if (method_exists($x, 'toRooSingleArray')) {
+            $this->jok($this->toRooSingleArray($au, $req));
+        }
+        if (method_exists($x, 'toRooArray')) {
+            $this->jok($this->toRooArray($req));
+        }
         
-        $this->jok($m == 'toArray' ? $x->toArray() : $x->$m($this->authUser, $req) );
+        $this->jok($x->toArray());
         
         
     }

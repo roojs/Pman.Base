@@ -605,7 +605,7 @@ class Pman_Roo extends Pman
         if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
             $this->jerr("PERMISSION DENIED");
         }
-        
+        // different symantics on all these calls??
         if (method_exists($x, 'toRooSingleArray')) {
             $this->jok($this->toRooSingleArray($au, $req));
         }

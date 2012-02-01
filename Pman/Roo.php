@@ -66,6 +66,9 @@ class Pman_Roo extends Pman
      *
      * Single SELECT:
      *    _id=value          single fetch based on primary id.
+     *                       can be '0' if you want to fetch a set of defaults
+     *                       Use in conjuntion with toRooSingleArray()
+     *                      
      *    lookup[key]=value  single fetch based on a single key value lookup.
      *                       multiple key/value can be used. eg. ontable+onid..
      *    _columns           what to return.
@@ -107,6 +110,8 @@ class Pman_Roo extends Pman
      *
      *
      * CALLS methods on dataobjects if they exist
+     *
+     * 
      *   checkPerm('S' , $authuser)
      *                      - can we list the stuff
      *                      - return false to disallow...
@@ -122,6 +127,7 @@ class Pman_Roo extends Pman
      * 
      *   toRooSingleArray($authUser, $request) : array
      *                       - called on single fetch only, add or maniuplate returned array data.
+     *                       - is also called when _id=0 is used (for fetching a default set.)
      *   toRooArray($request) : array
      *                      - called if singleArray is unavailable on single fetch.
      *                      - always tried for mutiple results.
@@ -170,12 +176,13 @@ class Pman_Roo extends Pman
         }
         
         
-        
-        if (!empty($_REQUEST['_id']) && is_numeric($_REQUEST['_id'])) { // single fetch
+        // single fetch (use '0' to fetch an empty object..)
+        if (isset($_REQUEST['_id']) && is_numeric($_REQUEST['_id'])) { 
             $this->jok($this->selectSingle($x, $_REQUEST['_id'],$_REQUEST));
         }
         
-        
+        // Depricated...
+
        
         if (isset($_REQUEST['_delete'])) {
             
@@ -573,14 +580,19 @@ class Pman_Roo extends Pman
      */
     function selectSingle($x, $id, $req=false)
     {
-        
-        
          
         
         $_columns = !empty($req['_columns']) ? explode(',', $req['_columns']) : false;
 
         if (!is_array($id) && empty($id)) {
-            $this->jok($x->toArray());  // return an empty array!
+            if (method_exists($x, 'toRooSingleArray')) {
+                $this->jok($x->toRooSingleArray($au, $req));
+            }
+            if (method_exists($x, 'toRooArray')) {
+                $this->jok($x->toRooArray($req));
+            }
+            
+            $this->jok($x->toArray());
         }
        
         $this->loadMap($x, $_columns);

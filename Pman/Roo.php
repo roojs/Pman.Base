@@ -588,6 +588,7 @@ class Pman_Roo extends Pman
 
         if (!is_array($id) && empty($id)) {
             if (method_exists($x, 'toRooSingleArray')) {
+                print_r($x);exit;
                 $this->jok($x->toRooSingleArray($au, $req));
             }
             if (method_exists($x, 'toRooArray')) {

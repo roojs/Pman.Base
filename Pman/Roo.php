@@ -588,8 +588,10 @@ class Pman_Roo extends Pman
         $_columns = !empty($req['_columns']) ? explode(',', $req['_columns']) : false;
         var_dump(array(!is_array($id) , empty($id)));
         if (!is_array($id) && empty($id)) {
+            
+            print_r($x);exit;
+
             if (method_exists($x, 'toRooSingleArray')) {
-                print_r($x);exit;
                 $this->jok($x->toRooSingleArray($au, $req));
             }
             if (method_exists($x, 'toRooArray')) {

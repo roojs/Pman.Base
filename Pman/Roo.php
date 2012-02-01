@@ -178,7 +178,9 @@ class Pman_Roo extends Pman
         
         
         // single fetch (use '0' to fetch an empty object..)
-        if (isset($_REQUEST['_id']) && is_numeric($_REQUEST['_id'])) { 
+        if (isset($_REQUEST['_id']) && is_numeric($_REQUEST['_id'])) {
+            
+            die("calling single select);")
              $this->selectSingle($x, $_REQUEST['_id'],$_REQUEST);
              // actually exits.
         }

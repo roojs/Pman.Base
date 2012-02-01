@@ -172,13 +172,15 @@ class Pman_Roo extends Pman
          $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
         
         if (isset( $_REQUEST['lookup'] ) && is_array($_REQUEST['lookup'] )) { // single fetch based on key/value pairs
-            $this->jok($this->selectSingle($x, $_REQUEST['lookup'],$_REQUEST));
+             $this->selectSingle($x, $_REQUEST['lookup'],$_REQUEST);
+             // actually exits.
         }
         
         
         // single fetch (use '0' to fetch an empty object..)
         if (isset($_REQUEST['_id']) && is_numeric($_REQUEST['_id'])) { 
-            $this->jok($this->selectSingle($x, $_REQUEST['_id'],$_REQUEST));
+             $this->selectSingle($x, $_REQUEST['_id'],$_REQUEST);
+             // actually exits.
         }
         
         // Depricated...

@@ -1275,7 +1275,11 @@ class Pman_Roo extends Pman
         // used by: 
         // Person / Group / most of my queries noww...
         if (!empty($q['query']['name'])) {
-            $x->whereAdd($x->tableName().".name LIKE '". $x->escape($q['query']['name']) . "%'");
+            
+             if (in_array( 'name',  array_keys($this->cols))) {
+            
+                $x->whereAdd($x->tableName().".name LIKE '". $x->escape($q['query']['name']) . "%'");
+             }
         }
         
         // - projectdirectory staff list - persn queuy

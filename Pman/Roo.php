@@ -220,15 +220,17 @@ class Pman_Roo extends Pman
             
         }
        //DB_DataObject::debugLevel(1);
-        if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
-            $this->jerr("PERMISSION DENIED");
-        }
+       
         
         // sets map and countWhat
         $this->loadMap($x, $_columns, empty($_REQUEST['_distinct']) ? false:  $_REQUEST['_distinct']);
         
         $this->setFilters($x,$_REQUEST);
       
+        if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
+            $this->jerr("PERMISSION DENIED");
+        }
+        
          //print_r($x);
         // build join if req.
           //DB_DataObject::debugLevel(1);

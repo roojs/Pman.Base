@@ -735,7 +735,7 @@ class Pman_Roo extends Pman
             if (!empty($_REQUEST['_lock_id'])) {
                 $lock->whereAdd('id != ' . ((int)$_REQUEST['_lock_id']));
             } else {
-               $lock->whereAdd('person_id !=' . $this->authUser->id);
+                $lock->whereAdd('person_id !=' . $this->authUser->id);
             }
             
             $lock->limit(1);

@@ -766,7 +766,7 @@ class Pman_Roo extends Pman
             {
                 $p = DB_DataObject::factory('Person');
                 $p->get($x->modified_by);
-                $this->jerr($p->name . " saved the record since you started editing, Do you really want to update it?", array('needs_confirm' => true)); 
+                $this->jerr($p->name . " saved the record since you started editing,\nDo you really want to update it?", array('needs_confirm' => true)); 
                 
             }
             

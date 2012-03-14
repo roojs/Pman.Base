@@ -749,6 +749,27 @@ class Pman_Roo extends Pman
             // check the users lock.. - no point.. ??? - if there are no other locks and it's not the users, then they can 
             // edit it anyways...
             
+            // can we find the user's lock.
+            $lock = DB_DataObjecT::factory('Core_locking');
+            $lock->on_id = $x->{$this->key};
+            $lock->on_table= strtolower($x->tableName());
+            $lock->person_id = $this->authUser->id;
+            $lock->orderBy('created DESC');
+            $lock->limit(1);
+            
+            if ($lock->find(true) &&
+                    isset($x->modified_dt) &&
+                    strtotime($x->modified_dt) > strtotime($lock->created) &&
+                    empty($req['_force'])
+                    ) {
+                $p = DB_DataObject::factory('Person');
+                $p->get($x->modified_by);
+                $this->jerr($p->name . " saved the record since you started editing", array('needs_force' => true)); 
+                
+            }
+            
+            
+            
         }
         
          

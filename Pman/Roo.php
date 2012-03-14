@@ -731,7 +731,7 @@ class Pman_Roo extends Pman
         if (is_a($lock,'DB_DataObject'))  {
                  
             $lock->on_id = $x->{$this->key};
-            $lock->on_table= $x->tableName();
+            $lock->on_table= strtolower($x->tableName());
             if (!empty($_REQUEST['_lock_id'])) {
                 $lock->whereAdd('id != ' . ((int)$_REQUEST['_lock_id']));
             } else {

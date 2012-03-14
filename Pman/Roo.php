@@ -760,7 +760,7 @@ class Pman_Roo extends Pman
             if (    $lock->find(true) &&
                     isset($x->modified_dt) &&
                     strtotime($x->modified_dt) > strtotime($lock->created) &&
-                    empty($req['_force'])
+                    empty($req['_submit_confirmed'])
                 )
             {
                 $p = DB_DataObject::factory('Person');

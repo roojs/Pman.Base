@@ -757,7 +757,8 @@ class Pman_Roo extends Pman
             $lock->orderBy('created DESC');
             $lock->limit(1);
             
-            if (    $lock->find(true) &&
+            if (
+                    $lock->find(true) &&
                     isset($x->modified_dt) &&
                     strtotime($x->modified_dt) > strtotime($lock->created) &&
                     empty($req['_submit_confirmed'])

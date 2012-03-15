@@ -50,6 +50,8 @@ class Pman_Roo extends Pman
     
     var $key; // used by update currenly to store primary key.
     
+    var $transObj = false ; // the transaction BEGIN / ROLLBACK / COMMIT Dataobject.
+    
     function getAuth() {
         parent::getAuth(); // load company!
         $au = $this->getAuthUser();
@@ -1374,6 +1376,13 @@ class Pman_Roo extends Pman
     }
     
     
-    function jerr($str, $errors=array()) // standard error reporting..
+    function jerr($str, $errors=array())
+    {
+        // standard error reporting..
+        if ($this->transObj) {
+            $this->transObj->query('COMMIT');
+        }
+        return parent::jok($str);
     
+    }
 }

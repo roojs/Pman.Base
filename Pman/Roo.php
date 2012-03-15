@@ -1363,6 +1363,17 @@ class Pman_Roo extends Pman
         
         
     }
+    // our handlers to commit / rollback.
     
+    function jok($str)
+    {
+        if ($this->transObj) {
+            $this->transObj->query('COMMIT');
+        }
+        return parent::jok($str);
+    }
+    
+    
+    function jerr($str, $errors=array()) // standard error reporting..
     
 }

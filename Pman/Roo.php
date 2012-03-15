@@ -434,6 +434,8 @@ class Pman_Roo extends Pman
       
          
         $x = $this->dataObject($tab);
+        
+        $x->query('BEGIN');
         // find the key and use that to get the thing..
         $keys = $x->keys();
         if (empty($keys) ) {

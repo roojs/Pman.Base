@@ -1380,9 +1380,9 @@ class Pman_Roo extends Pman
     {
         // standard error reporting..
         if ($this->transObj) {
-            $this->transObj->query('COMMIT');
+            $this->transObj->query('ROLLBACK');
         }
-        return parent::jok($str);
+        return parent::jerr($str);
     
     }
 }

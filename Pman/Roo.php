@@ -732,7 +732,7 @@ class Pman_Roo extends Pman
         // only done if we recieve a lock_id.
         // we are very trusing here.. that someone has not messed around with locks..
         // the object might want to check in their checkPerm - if locking is essential..
-        $lock_warning =  false;
+        
         $lock = DB_DataObjecT::factory('Core_locking');
         if (is_a($lock,'DB_DataObject'))  {
                  
@@ -748,9 +748,13 @@ class Pman_Roo extends Pman
             if ($lock->find(true)) {
                 // it's locked by someone else..
                $p = $lock->person();
-               $lock_warning =  "Record was locked by " . $p->name . " at " .$lock->created.
-                           " - Your changes have been saved - you may like to warn them if " .
-                           " they are editing now";
+               
+               
+               $this->jerr( "Record was locked by " . $p->name . " at " .$lock->created.
+                           " - Please confirm you wish to save" 
+                           , array('needs_confirm' => true)); 
+          
+              
             }
             // check the users lock.. - no point.. ??? - if there are no other locks and it's not the users, then they can 
             // edit it anyways...
@@ -840,9 +844,6 @@ class Pman_Roo extends Pman
         }
         
         
-        if ($lock_warning) {
-            $this->jok($lock_warning);
-        }
         
         return $this->selectSingle(
             DB_DataObject::factory($x->tableName()),

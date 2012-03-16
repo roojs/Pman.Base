@@ -841,7 +841,7 @@ class Pman_Roo extends Pman
         
         
         if ($lock_warning) {
-            $this->jerr($lock_warning);
+            $this->jok($lock_warning);
         }
         
         return $this->selectSingle(

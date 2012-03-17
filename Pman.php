@@ -314,7 +314,7 @@ class Pman extends HTML_FlexyFramework_Page
         if (PEAR::isError($mail)) {
             return $mail;
         } 
-        $oe = error_reporting(E_ALL ^ E_NOTICE);
+        $oe = error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
         $ret = $mail->send($recipents,$headers,$body);
         error_reporting($oe);
        

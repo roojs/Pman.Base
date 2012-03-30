@@ -725,7 +725,7 @@ class Pman_Roo extends Pman
     function update($x, $req)
     {
         if (method_exists($x, 'checkPerm') && !$x->checkPerm('E', $this->authUser, $_REQUEST))  {
-            $this->jerr("PERMISSION DENIED");
+            $this->jerr("PERMISSION DENIED - No Edit permissions on this element");
         }
        
         // check any locks..

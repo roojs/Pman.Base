@@ -615,6 +615,8 @@ class Pman extends HTML_FlexyFramework_Page
      *
      * output <link rel=stylesheet......> for all the modules in the applcaiton
      *
+     *
+     * This could css minify as well.
      */
     function outputCSSIncludes() // includes on CSS links.
     {
@@ -624,9 +626,10 @@ class Pman extends HTML_FlexyFramework_Page
         
         foreach($mods as $mod) {
             // add the css file..
-            $css = $this->rootDir.'/Pman/'.$mod.'/'.strtolower($mod).'.css';
-            if (file_exists( $css)){
-                $css = $this->rootURL .'/Pman/'.$mod.'/'.strtolower($mod).'.css';
+            $dir = $this->rootDir.'/Pman/'.$mod;
+            $ar = glob($dir . '/*.css');
+            foreach($ar as $fn) { 
+                $css = $this->rootURL .'/Pman/'.$mod.'/'.basename($mod);
                 echo '<link rel="stylesheet" type="text/css" href="'.$css.'" />'."\n";
             }
              

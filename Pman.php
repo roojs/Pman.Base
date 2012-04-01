@@ -586,7 +586,7 @@ class Pman extends HTML_FlexyFramework_Page
      * output <script....> for all the modules in the applcaiton
      *
      */
-    function outputJavascriptIncludes() // includes on devel version..
+    function outputJavascriptIncludes()  
     {
         
         $mods = $this->modulesList();

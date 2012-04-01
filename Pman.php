@@ -606,6 +606,8 @@ class Pman extends HTML_FlexyFramework_Page
             }
             
         }
+        // and finally the JsTemplate...
+        echo '<script type="text/javascript" src="'. $this->baseURL. '/Core/JsTemplate"></script>'."\n";
          
     }
      /**
@@ -850,10 +852,18 @@ class Pman extends HTML_FlexyFramework_Page
         if (!file_exists(dirname($file))) {
             mkdir(dirname($file),0700,true);
         }
+        // Remove all the password from logs...
+        $p =  empty($_POST) ? array() : $_POST;
+        foreach(array('passwd', 'password', 'passwd2', 'password2') as $rm) {
+            if (isset($p[$rm])) {
+                $p['passwd'] = '******';
+            }
+        }
+        
         file_put_contents($file, var_export(array(
             'REQUEST_URI' => empty($_SERVER['REQUEST_URI']) ? 'cli' : $_SERVER['REQUEST_URI'],
             'GET' => empty($_GET) ? array() : $_GET,
-            'POST' => empty($_POST) ? array() : $_POST,
+            'POST' =>$p,
         ), true));
          
         return $e;

@@ -629,7 +629,7 @@ class Pman extends HTML_FlexyFramework_Page
             $dir = $this->rootDir.'/Pman/'.$mod;
             $ar = glob($dir . '/*.css');
             foreach($ar as $fn) { 
-                $css = $this->rootURL .'/Pman/'.$mod.'/'.basename($mod);
+                $css = $this->rootURL .'/Pman/'.$mod.'/'.basename($fn);
                 echo '<link rel="stylesheet" type="text/css" href="'.$css.'" />'."\n";
             }
              

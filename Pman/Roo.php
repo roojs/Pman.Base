@@ -853,7 +853,7 @@ class Pman_Roo extends Pman
     }
     /**
      * Delete a number of records.
-     * calls $delete_obj->beforeDelete($array_of_dependant_dataobjects)
+     * calls $delete_obj->beforeDelete($array_of_dependant_dataobjects, $this)
      *
      */
     

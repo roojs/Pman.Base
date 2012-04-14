@@ -52,7 +52,8 @@ class Pman_Roo extends Pman
     
     var $transObj = false ; // the transaction BEGIN / ROLLBACK / COMMIT Dataobject.
     
-    function getAuth() {
+    function getAuth()
+    {
         parent::getAuth(); // load company!
         $au = $this->getAuthUser();
         if (!$au) {

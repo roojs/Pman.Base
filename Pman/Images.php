@@ -125,7 +125,7 @@ class Pman_Images extends Pman
         exit;
     }
     var $thumb = false;
-    var $as_imetype = false;
+    var $as_mimetype = false;
     var $method = 'inline';
     function serve($img)
     {

@@ -36,6 +36,9 @@ class Pman_Images extends Pman
         
         return true;
     }
+    var $thumb = false;
+    var $as_mimetype = false;
+    var $method = 'inline';
     
     function get($s) // determin what to serve!!!!
     {
@@ -124,9 +127,7 @@ class Pman_Images extends Pman
         $this->serve($img);
         exit;
     }
-    var $thumb = false;
-    var $as_mimetype = false;
-    var $method = 'inline';
+ 
     function serve($img)
     {
         require_once 'File/Convert.php';

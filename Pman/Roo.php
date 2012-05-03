@@ -531,6 +531,7 @@ class Pman_Roo extends Pman
             
             $cols = $x->table();
             $excols = array_keys($this->cols);
+            DB_DataObject::debugLevel(1);
             if (isset($x->_extra_cols)) {
                 $excols = array_merge($excols, $x->_extra_cols);
             }

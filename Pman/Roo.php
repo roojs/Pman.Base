@@ -247,7 +247,7 @@ class Pman_Roo extends Pman
  
         $x->limit(
             empty($_REQUEST['start']) ? 0 : (int)$_REQUEST['start'],
-            min(empty($_REQUEST['limit']) ? 25 : (int)$_REQUEST['limit'], 5000)
+            min(empty($_REQUEST['limit']) ? 25 : (int)$_REQUEST['limit'], 10000)
         );
         
         $queryObj = clone($x);

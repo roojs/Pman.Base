@@ -622,6 +622,10 @@ class Pman_Roo extends Pman
             $x->setFrom($req['lookup'] );
             $x->limit(1);
             if (!$x->find(true)) {
+                if (!empty($id['_id'])) {
+                    // standardize this?
+                    $this->jok($x->toArray());
+                }
                 $this->jok(false);
             }
             

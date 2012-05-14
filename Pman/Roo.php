@@ -999,7 +999,9 @@ class Pman_Roo extends Pman
     
     /**
      * cols stores the list of columns that are available from the query.
-     * 
+     *
+     *
+     * This is a dupe of what is in autojoin -- we should move to using autojoin really.
      *
      */
     

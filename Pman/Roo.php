@@ -1092,7 +1092,7 @@ class Pman_Roo extends Pman
             $xx = array_keys($tabdef);
             
             
-            if ($filter || $distinct) {
+            if ($onlycolumns || $distinct) {
                 $cols = array();
                 foreach($xx as $c) {
                     $tn = sprintf($ocl.'_%s', $c);
@@ -1104,7 +1104,7 @@ class Pman_Roo extends Pman
                     }
                     
                     
-                    if (!$filter || in_array($tn, $filter)) {
+                    if (!$onlycolumns || in_array($tn, $onlycolumns)) {
                         $cols[] = $c;
                     }
                 }

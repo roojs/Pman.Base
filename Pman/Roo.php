@@ -1026,8 +1026,8 @@ class Pman_Roo extends Pman
     function loadMap($do, $cfg =array()) //$onlycolumns=false, $distinct = false) 
     {
         //DB_DataObject::debugLevel(1);
-        $onlycolumns = !empty($cfg['columns']);
-        $distinct= !empty($cfg['distinct']);
+        $onlycolumns    = !empty($cfg['columns']);
+        $distinct       = !empty($cfg['distinct']);
         $excludecolumns = !empty($cfg['exclude']);
         
         
@@ -1050,8 +1050,12 @@ class Pman_Roo extends Pman
         $xx = array_keys($tabdef);
         $do->selectAdd(); // we need thsi as normally it's only cleared by an empty selectAs call.
         
-        $selectAs = array(array(  $xx , '%s', false));
-       
+        if ($excludecolumns) {
+            $selectAs = array(array(  array_diff($xx , $excludecolumns), '%s', false));
+        } else {
+        
+            $selectAs = array(array(  $xx , '%s', false));
+        }
         $has_distinct = false;
         if ($onlycolumns || $distinct) {
             $cols = array();

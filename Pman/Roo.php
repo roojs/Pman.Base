@@ -1014,7 +1014,7 @@ class Pman_Roo extends Pman
     
     
     
-    function loadMap($do, $filter=false, $distinct = false) 
+    function loadMap($do, $onlycolumns=false, $distinct = false) 
     {
         //DB_DataObject::debugLevel(1);
         
@@ -1040,7 +1040,7 @@ class Pman_Roo extends Pman
         $selectAs = array(array(  $xx , '%s', false));
        
         $has_distinct = false;
-        if ($filter || $distinct) {
+        if ($onlycolumns || $distinct) {
             $cols = array();
             //echo '<PRE>' ;print_r($filter);exit;
             foreach($xx as $c) {
@@ -1049,7 +1049,7 @@ class Pman_Roo extends Pman
                     $this->countWhat =  'DISTINCT  ' . $do->tableName() .'.'. $c .'';
                     continue;
                 }
-                if (!$filter || in_array($c, $filter)) {
+                if (!$onlycolumns || in_array($c, $onlycolumns)) {
                     $cols[] = $c;
                 }
             }

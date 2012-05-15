@@ -434,7 +434,8 @@ class Pman_Roo extends Pman
         if (!empty($_REQUEST['_get'])) {
             return $this->get($tab);
         }
-      
+        
+        $this->init(); // for pman.
          
         $x = $this->dataObject($tab);
         
@@ -1021,13 +1022,8 @@ class Pman_Roo extends Pman
         
         $conf = array();
         
-        $this->init();
         
-        $mods = explode(',',$this->appModules);
-        
-        $ff = HTML_FlexyFramework::get();
-       
-         $map = $do->links();
+        $map = $do->links();
          
         
         

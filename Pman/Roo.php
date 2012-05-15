@@ -80,6 +80,7 @@ class Pman_Roo extends Pman
      * Search SELECT
      *    COLUMNS to fetch
      *      _columns=a,b,c,d     comma seperated list of columns.
+     *      _exclude=a,b,c,d   comma seperated list of columns.
      *      _distinct=name        a distinct column lookup.
      *
      *    WHERE 

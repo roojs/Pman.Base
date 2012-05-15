@@ -1051,7 +1051,9 @@ class Pman_Roo extends Pman
         $do->selectAdd(); // we need thsi as normally it's only cleared by an empty selectAs call.
         
         if ($excludecolumns) {
-            $selectAs = array(array(  array_diff($xx , $excludecolumns), '%s', false));
+            // array diff - what's not in both..
+            
+            $selectAs = array(array(  array_intersect($xx,array_diff($xx , $excludecolumns)), '%s', false));
         } else {
         
             $selectAs = array(array(  $xx , '%s', false));

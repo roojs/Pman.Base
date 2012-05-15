@@ -1026,9 +1026,9 @@ class Pman_Roo extends Pman
     function loadMap($do, $cfg =array()) //$onlycolumns=false, $distinct = false) 
     {
         //DB_DataObject::debugLevel(1);
-        $onlycolumns    = !empty($cfg['columns']);
-        $distinct       = !empty($cfg['distinct']);
-        $excludecolumns = !empty($cfg['exclude']);
+        $onlycolumns    = !empty($cfg['columns']) ? $cfg['columns']) : false;
+        $distinct       = !empty($cfg['distinct']) ? $cfg['distinct'] : false;
+        $excludecolumns = !empty($cfg['exclude']) ? $cfg['exclude'] : false;
         
         
         $this->countWhat = false;

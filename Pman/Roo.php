@@ -617,8 +617,11 @@ class Pman_Roo extends Pman
             $this->jok($x->toArray());
         }
        
-        $this->loadMap($x, $_columns);
         
+        $this->loadMap($x, array(
+                    'columns' => $_columns,
+                     
+            ));
         if ($req !== false) { 
             $this->setFilters($x, $req);
         }

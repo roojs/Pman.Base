@@ -765,7 +765,6 @@ class Pman extends HTML_FlexyFramework_Page
             return $info->files;
         }
         
-        
         // where are we going to write all of this..
         // This has to be done via a 
         if (!file_exists($info->basedir.'/'.$info->output)) {
@@ -773,6 +772,8 @@ class Pman extends HTML_FlexyFramework_Page
             $x = new Pman_Core_JsCompile();
             
             $x->pack($info->filesmtime,$info->basedir.'/'.$info->output, $info->translation_base);
+        } else {
+            echo "<!-- file does not exist: {$info->basedir}/{$info->output} -->\n";
         }
         
         if (file_exists($info->basedir.'/'.$info->output) &&

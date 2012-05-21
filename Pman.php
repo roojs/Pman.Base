@@ -851,7 +851,17 @@ class Pman extends HTML_FlexyFramework_Page
         if (empty($ff->Pman['event_log_dir'])) {
             return $e;
         }
-        $file = $ff->Pman['event_log_dir']. date('/Y/m/d/'). $eid . ".php";
+        
+        // add user (eg. www-data or local user if not..)
+        if (function_exists('posix_getpwuid')) {
+            $uinfo = posix_getpwuid( posix_getuid () ); 
+         
+            $user = $uinfo['name'];
+        } else {
+            $user = getenv('USERNAME'); // windows.
+        }
+         
+        $file = $ff->Pman['event_log_dir']. '/'. $user. date('/Y/m/d/'). $eid . ".php";
         if (!file_exists(dirname($file))) {
             mkdir(dirname($file),0700,true);
         }
@@ -862,6 +872,7 @@ class Pman extends HTML_FlexyFramework_Page
                 $p['passwd'] = '******';
             }
         }
+        
         
         file_put_contents($file, var_export(array(
             'REQUEST_URI' => empty($_SERVER['REQUEST_URI']) ? 'cli' : $_SERVER['REQUEST_URI'],

@@ -764,6 +764,8 @@ class Pman extends HTML_FlexyFramework_Page
             echo "<!-- Javascript compile turned off (isDev on, or public_cache_dir not set) -->\n";
             return $info->files;
         }
+        
+        
         // where are we going to write all of this..
         // This has to be done via a 
         if (!file_exists($info->basedir.'/'.$info->output)) {

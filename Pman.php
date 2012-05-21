@@ -773,7 +773,7 @@ class Pman extends HTML_FlexyFramework_Page
             
             $x->pack($info->filesmtime,$info->basedir.'/'.$info->output, $info->translation_base);
         } else {
-            echo "<!-- file does not exist: {$info->basedir}/{$info->output} -->\n";
+            echo "<!-- file exists not exist: {$info->basedir}/{$info->output} -->\n";
         }
         
         if (file_exists($info->basedir.'/'.$info->output) &&

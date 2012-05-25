@@ -308,7 +308,7 @@ class Pman extends HTML_FlexyFramework_Page
     function sendTemplate($templateFile, $args)
     {
         
-        list($recipents,$headers,$body) = $this->emailTemplate($templateFile,$args);
+       $email = $this->emailTemplate($templateFile,$args);
         
         ///$recipents = array($this->email);
         $mailOptions = PEAR::getStaticProperty('Mail','options');

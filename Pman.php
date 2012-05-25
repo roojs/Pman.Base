@@ -309,7 +309,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
         
         list($recipents,$headers,$body) = $this->emailTemplate($templateFile,$args);
-         
+        
         ///$recipents = array($this->email);
         $mailOptions = PEAR::getStaticProperty('Mail','options');
         $mail = Mail::factory("SMTP",$mailOptions);
@@ -318,7 +318,7 @@ class Pman extends HTML_FlexyFramework_Page
             return $mail;
         } 
         $oe = error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
-        $ret = $mail->send($recipents,$headers,$body);
+        $ret = $mail->send($email['recipents'],$email['headers'],$email['body']);
         error_reporting($oe);
        
         return $ret;

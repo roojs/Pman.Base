@@ -77,13 +77,17 @@ class Pman_Roo extends Pman
      *    _columns           what to return.
      *
      *    
+     * JOINS:
+     *  - all tables are always autojoined.
+     * 
      * Search SELECT
      *    COLUMNS to fetch
      *      _columns=a,b,c,d     comma seperated list of columns.
      *      _columns_exclude=a,b,c,d   comma seperated list of columns.
-     *      _distinct=name        a distinct column lookup.
+     *      _distinct=name        a distinct column lookup. you also have to use _columns with this.
      *
-     *    WHERE 
+     *    WHERE (searches)
+     *       colname = ...              => colname = ....
      *       !colname=....                 => colname != ....
      *       !colname[0]=... !colname[1]=... => colname NOT IN (.....) ** only supports main table at present..
      *       colname[0]=... colname[1]=... => colname IN (.....) ** only supports main table at present..
@@ -106,10 +110,11 @@ class Pman_Roo extends Pman
      *  Depricated  
      *      _toggleActive !:!:!:! - this hsould not really be here..
      *      query[add_blank] - add a line in with an empty option...  - not really needed???
-     *
+     *      _delete    = delete a list of ids element. (depricated.. this will be removed...)
+     * 
      * DEBUGGING
-     *  _post      = simulate a post with debuggin on.
-     *  _delete    = delete a list of ids element. (depricated.. this will be removed...)
+     *  _post   =1    = simulate a post with debuggin on.
+     * 
      *  _debug     = turn on DB_dataobject deubbing, must be admin at present..
      *
      *
@@ -129,12 +134,15 @@ class Pman_Roo extends Pman
      *   postListFilter($data, $authUser, $request) return $data
      *                      - add extra data to an object
      * 
+     *   
      *   toRooSingleArray($authUser, $request) : array
      *                       - called on single fetch only, add or maniuplate returned array data.
      *                       - is also called when _id=0 is used (for fetching a default set.)
      *   toRooArray($request) : array
      *                      - called if singleArray is unavailable on single fetch.
      *                      - always tried for mutiple results.
+     *   toArray()          - the default method if none of the others are found. 
+     *   
      *   autoJoin($request) 
      *                      - standard DataObject feature - causes all results to show all
      *                        referenced data.
@@ -404,7 +412,7 @@ class Pman_Roo extends Pman
      *
      * CALLS BEFORE change occurs:
      *  
-     *     beforeDelete($dependants_array, $roo)
+     *      beforeDelete($dependants_array, $roo)
      *                      Argument is an array of un-find/fetched dependant items.
      *                      - jerr() will stop insert.. (Prefered)
      *                      - return false for fail and set DO->err;
@@ -952,7 +960,7 @@ class Pman_Roo extends Pman
             // before delte = allows us to trash dependancies if needed..
             $match_total = 0;
             
-            if ( method_exists($xx, 'beforeDelete') ) {
+            if ( $has_beforeDelete ) {
                 if ($xx->beforeDelete($match_ar, $this) === false) {
                     $errs[] = "Delete failed ({$xx->id})\n".
                         (isset($xx->err) ? $xx->err : '');

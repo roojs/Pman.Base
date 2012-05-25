@@ -313,8 +313,10 @@ class Pman extends HTML_FlexyFramework_Page
     function sendTemplate($templateFile, $args)
     {
         
-       $email = $this->emailTemplate($templateFile,$args);
-        
+        $email = $this->emailTemplate($templateFile,$args);
+        if (is_a($email, 'PEAR_Error')) {
+            return $email;
+        }
         ///$recipents = array($this->email);
         $mailOptions = PEAR::getStaticProperty('Mail','options');
         $mail = Mail::factory("SMTP",$mailOptions);

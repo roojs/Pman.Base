@@ -308,44 +308,8 @@ class Pman extends HTML_FlexyFramework_Page
     function sendTemplate($templateFile, $args)
     {
         
-        
-        
-        $content  = clone($this);
-        
-        foreach((array)$args as $k=>$v) {
-            $content->$k = $v;
-        }
-        $content->msgid = md5(time() . rand());
-        
-        $content->HTTP_HOST = $_SERVER["HTTP_HOST"];
-        /* use the regex compiler, as it doesnt parse <tags */
-        require_once 'HTML/Template/Flexy.php';
-        $template = new HTML_Template_Flexy( array(
-                 'compiler'    => 'Regex',
-                 'filters' => array('SimpleTags','Mail'),
-            //     'debug'=>1,
-            ));
-        
-        // this should be done by having multiple template sources...!!!
+        list($recipents,$headers,$body) = $this->emailTemplate($templateFile,$args);
          
-        $template->compile('mail/'. $templateFile.'.txt');
-        
-        /* use variables from this object to ouput data. */
-        $mailtext = $template->bufferedOutputObject($content);
-        //echo "<PRE>";print_R($mailtext);
-        
-        /* With the output try and send an email, using a few tricks in Mail_MimeDecode. */
-        require_once 'Mail/mimeDecode.php';
-        require_once 'Mail.php';
-        
-        $decoder = new Mail_mimeDecode($mailtext);
-        $parts = $decoder->getSendArray();
-        if (PEAR::isError($parts)) {
-            return $parts;
-            //echo "PROBLEM: {$parts->message}";
-            //exit;
-        } 
-        list($recipents,$headers,$body) = $parts;
         ///$recipents = array($this->email);
         $mailOptions = PEAR::getStaticProperty('Mail','options');
         $mail = Mail::factory("SMTP",$mailOptions);

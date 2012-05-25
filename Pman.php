@@ -292,8 +292,13 @@ class Pman extends HTML_FlexyFramework_Page
             //echo "PROBLEM: {$parts->message}";
             //exit;
         } 
+        
        // list($recipents,$headers,$body) = $parts;
-        return $parts;
+        return array(
+            'recipents' => $parts[0],
+            'headers' => $parts[1],
+            'body' => $parts[2]
+        );
     }
     /**
      * send a template to the user

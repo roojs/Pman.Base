@@ -275,8 +275,9 @@ class Pman extends HTML_FlexyFramework_Page
         /* use the regex compiler, as it doesnt parse <tags */
         require_once 'HTML/Template/Flexy.php';
         $template = new HTML_Template_Flexy( array(
-                 'compiler'    => 'Regex',
-                 'filters' => array('SimpleTags','Mail'),
+                'nonHTML' => true,
+                 //'compiler'    => 'Regex',
+                 //'filters' => array('SimpleTags','Mail'),
             //     'debug'=>1,
             ));
         

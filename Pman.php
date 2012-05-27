@@ -266,10 +266,13 @@ class Pman extends HTML_FlexyFramework_Page
         
         $ff = HTML_FlexyFramework::get();
         $http_host = isset($_SERVER["HTTP_HOST"]) ? $_SERVER["HTTP_HOST"] : 'http://pman.HTTP_HOST/not.set/';
+        if (isset($ff->Pman['HTTP_HOST'])) {
+            $http_host  = $ff->Pman['HTTP_HOST'];
             
+        }
         
         
-        $content->HTTP_HOST = $_SERVER["HTTP_HOST"];
+        $content->HTTP_HOST = $http_host;
         /* use the regex compiler, as it doesnt parse <tags */
         require_once 'HTML/Template/Flexy.php';
         $template = new HTML_Template_Flexy( array(

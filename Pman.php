@@ -265,7 +265,7 @@ class Pman extends HTML_FlexyFramework_Page
         $content->msgid = md5(time() . rand());
         
         $ff = HTML_FlexyFramework::get();
-        $http_host = isset($_SERVER["HTTP_HOST"]) ? $_SERVER["HTTP_HOST"] : 'http://pman.HTTP_HOST/not.set/';
+        $http_host = isset($_SERVER["HTTP_HOST"]) ? $_SERVER["HTTP_HOST"] : 'pman.HTTP_HOST.not.set';
         if (isset($ff->Pman['HTTP_HOST'])) {
             $http_host  = $ff->Pman['HTTP_HOST'];
         }

@@ -268,7 +268,6 @@ class Pman extends HTML_FlexyFramework_Page
         $http_host = isset($_SERVER["HTTP_HOST"]) ? $_SERVER["HTTP_HOST"] : 'http://pman.HTTP_HOST/not.set/';
         if (isset($ff->Pman['HTTP_HOST'])) {
             $http_host  = $ff->Pman['HTTP_HOST'];
-            
         }
         
         

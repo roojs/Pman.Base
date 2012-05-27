@@ -264,6 +264,11 @@ class Pman extends HTML_FlexyFramework_Page
         }
         $content->msgid = md5(time() . rand());
         
+        $ff = HTML_FlexyFramework::get();
+        $http_host = isset($_SERVER["HTTP_HOST"]) ? $_SERVER["HTTP_HOST"] : 'http://pman.HTTP_HOST/not.set/';
+            
+        
+        
         $content->HTTP_HOST = $_SERVER["HTTP_HOST"];
         /* use the regex compiler, as it doesnt parse <tags */
         require_once 'HTML/Template/Flexy.php';

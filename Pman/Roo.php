@@ -756,7 +756,7 @@ class Pman_Roo extends Pman
         // only done if we recieve a lock_id.
         // we are very trusing here.. that someone has not messed around with locks..
         // the object might want to check in their checkPerm - if locking is essential..
-        
+        Pman_Roo::$permitError = true; // allow it to fail without dieing
         $lock = DB_DataObjecT::factory('Core_locking');
         if (is_a($lock,'DB_DataObject'))  {
                  

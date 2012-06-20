@@ -757,8 +757,9 @@ class Pman_Roo extends Pman
         // we are very trusing here.. that someone has not messed around with locks..
         // the object might want to check in their checkPerm - if locking is essential..
         Pman_Roo::$permitError = true; // allow it to fail without dieing
-        var_dump(Pman_Roo::$permitError);
+        
         $lock = DB_DataObjecT::factory('Core_locking');
+        Pman_Roo::$permitError = false; 
         if (is_a($lock,'DB_DataObject'))  {
                  
             $lock->on_id = $x->{$this->key};
@@ -1379,7 +1380,7 @@ class Pman_Roo extends Pman
         if ($reported) {
             return;
         }
-        var_dump(Pman_Roo::$permitError);
+        
         if (Pman_Roo::$permitError) {
              
             return;

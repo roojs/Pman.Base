@@ -1378,6 +1378,13 @@ class Pman_Roo extends Pman
         if ($reported) {
             return;
         }
+        if (Pman_Roo::$permitError) {
+            Pman_Roo::$permitError = false;
+            return;
+            
+        }
+        
+        
         $reported = true;
         $out = $err->toString();
         

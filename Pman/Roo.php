@@ -829,7 +829,9 @@ class Pman_Roo extends Pman
             $x->setFrom($req);
         }
         $ev = $this->addEvent("EDIT", $x);
-        $ev->audit($x, $old);
+        if ($ev) { 
+            $ev->audit($x, $old);
+        }
         //print_r($x);
         //print_r($old);
         

@@ -1370,6 +1370,8 @@ class Pman_Roo extends Pman
     }
     
     
+    static $permitError = false;
+    
     function onPearError($err)
     {
         static $reported = false;

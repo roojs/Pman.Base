@@ -1381,7 +1381,7 @@ class Pman_Roo extends Pman
         }
         var_dump(Pman_Roo::$permitError);
         if (Pman_Roo::$permitError) {
-            Pman_Roo::$permitError = false;
+             
             return;
             
         }

@@ -861,6 +861,10 @@ class Pman_Roo extends Pman
             $x->beforeUpdate($old, $req, $this);
         }
         
+        if (!empty($_FILES) && method_exists($x, 'onUpload')) {
+            $x->onUpload($this, $_REQUEST);
+        }
+        
         //DB_DataObject::DebugLevel(1);
         $res = $x->update($old);
         if ($res === false) {

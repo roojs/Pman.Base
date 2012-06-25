@@ -1340,7 +1340,7 @@ class Pman_Roo extends Pman
         }
         if (!empty($q_filtered)) {
             $x->setFrom($q_filtered);
-        ]
+        }
         
         
         

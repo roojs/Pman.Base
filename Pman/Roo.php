@@ -1338,8 +1338,9 @@ class Pman_Roo extends Pman
                     continue;
             }
         }
-        
-        $x->setFrom($q_filtered);
+        if (!empty($q_filtered)) {
+            $x->setFrom($q_filtered);
+        ]
         
         
         

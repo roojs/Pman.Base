@@ -1318,7 +1318,7 @@ class Pman_Roo extends Pman
                 
                 
                 default:
-                    if (strlen($val)) {
+                    if (strlen($val) && $key[0] != '_') {
                         $q_filtered[$key] = $val;
                     }
                     

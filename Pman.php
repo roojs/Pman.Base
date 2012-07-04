@@ -303,8 +303,8 @@ class Pman extends HTML_FlexyFramework_Page
             //exit;
         } 
         
-        $parts[1]['Message-Id'] = '<' . (empty($content->msgid) ? md5(rand(0,9999)) : $content->msgid ) .
-            '@' . $content->HTTP_HOST .'>';
+        $parts[1]['Message-Id'] = '<' .   $content->msgid   .
+                                     '@' . $content->HTTP_HOST .'>';
         
         
        // list($recipents,$headers,$body) = $parts;

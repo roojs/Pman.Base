@@ -262,7 +262,8 @@ class Pman extends HTML_FlexyFramework_Page
         foreach((array)$args as $k=>$v) {
             $content->$k = $v;
         }
-        $content->msgid = md5(time() . rand());
+        
+        $content->msgid = empty($content->msgid ) ? md5(time() . rand()) : $content->msgid ;
         
         $ff = HTML_FlexyFramework::get();
         $http_host = isset($_SERVER["HTTP_HOST"]) ? $_SERVER["HTTP_HOST"] : 'pman.HTTP_HOST.not.set';

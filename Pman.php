@@ -272,7 +272,6 @@ class Pman extends HTML_FlexyFramework_Page
         
         
         $content->HTTP_HOST = $http_host;
-        $content->full_msgid = 
         
         /* use the regex compiler, as it doesnt parse <tags */
         require_once 'HTML/Template/Flexy.php';

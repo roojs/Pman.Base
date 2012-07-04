@@ -272,8 +272,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         
         $content->HTTP_HOST = $http_host;
-        $content->full_msgid = '<' . (empty($content->msgid) ? md5(rand(0,9999)) : $content->msgid ) .
-            '@' . $content->HTTP_HOST .'>';
+        $content->full_msgid = 
         
         /* use the regex compiler, as it doesnt parse <tags */
         require_once 'HTML/Template/Flexy.php';
@@ -303,6 +302,10 @@ class Pman extends HTML_FlexyFramework_Page
             //echo "PROBLEM: {$parts->message}";
             //exit;
         } 
+        
+        $part[1]['Message-Id'] = '<' . (empty($content->msgid) ? md5(rand(0,9999)) : $content->msgid ) .
+            '@' . $content->HTTP_HOST .'>';
+        
         
        // list($recipents,$headers,$body) = $parts;
         return array(

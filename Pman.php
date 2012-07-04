@@ -272,7 +272,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         
         $content->HTTP_HOST = $http_host;
-        $content->full_msgid = '<' . (empty($content->msgid) ? : md5(rand(0,9999)) : $content->msgid ) .
+        $content->full_msgid = '<' . (empty($content->msgid) ? md5(rand(0,9999)) : $content->msgid ) .
             '@' . $content->HTTP_HOST .'>';
         
         /* use the regex compiler, as it doesnt parse <tags */

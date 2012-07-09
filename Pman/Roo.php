@@ -612,7 +612,7 @@ class Pman_Roo extends Pman
                 $sort_str[] = $col. ' ' . $ms->sort->{$col};
                 continue;
             }
-            if (isset($x->_extra_cols && in_array($col, $x->_extra_cols))) {
+            if (isset($x->_extra_cols) && in_array($col, $x->_extra_cols)) {
                 $sort_str[] = $col. ' ' . $ms->sort->{$col};
             }
         }

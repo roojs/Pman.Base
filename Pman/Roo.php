@@ -560,7 +560,7 @@ class Pman_Roo extends Pman
                     $ms ? json_decode($ms) : false
             );
         }
-        if ($ms) {
+        if ($ms !== false) {
             return $this->multiSort($x);
         }
         
@@ -590,7 +590,13 @@ class Pman_Roo extends Pman
             }
         }
     }
-    
+    /**
+     * Multisort support
+     *
+     * _multisort
+     *
+     *
+     */
     function multiSort($x)
     {
         //DB_DataObject::debugLevel(1);

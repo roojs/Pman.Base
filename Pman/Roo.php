@@ -598,6 +598,8 @@ class Pman_Roo extends Pman
         $sort_str = array();
         
         $cols = $x->table();
+        
+        print_r($this->cols);exit;
         foreach($ms->order  as $col) {
             if (!isset($ms->sort->{$col})) {
                 continue; // no direction..

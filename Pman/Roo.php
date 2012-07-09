@@ -263,13 +263,19 @@ class Pman_Roo extends Pman
         //var_dump($total);exit;
         $this->applySort($x);
         
+        $fake_limit = false;
         
+        if (!empty($_REQUEST['_distinct']) && $total < 400) {
+            $fake_limit  = true;
+        }
+        
+        if (!$fake_limit) {
  
-        $x->limit(
-            empty($_REQUEST['start']) ? 0 : (int)$_REQUEST['start'],
-            min(empty($_REQUEST['limit']) ? 25 : (int)$_REQUEST['limit'], 10000)
-        );
-        
+            $x->limit(
+                empty($_REQUEST['start']) ? 0 : (int)$_REQUEST['start'],
+                min(empty($_REQUEST['limit']) ? 25 : (int)$_REQUEST['limit'], 10000)
+            );
+        } 
         $queryObj = clone($x);
         //DB_DataObject::debuglevel(1);
         if (false === $x->find()) {
@@ -297,6 +303,16 @@ class Pman_Roo extends Pman
             
             $ret[] =  !$_columns ? $add : array_intersect_key($add, $_columnsf);
         }
+        
+        if ($fake_limit) {
+            $ret = array_slice($ret,
+                   $_REQUEST['start']) ? 0 : (int)$_REQUEST['start'],
+                    min(empty($_REQUEST['limit']) ? 25 : (int)$_REQUEST['limit'], 10000)
+            );
+            
+            
+        }
+        
         
         $extra = false;
         if (method_exists($queryObj ,'postListExtra')) {

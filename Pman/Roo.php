@@ -608,7 +608,7 @@ class Pman_Roo extends Pman
                 $sort_str[] =  $x->tableName() .'.'.$col . ' ' .  $ms->sort->{$col};
                 continue;
             }
-            print_r($this->cols);
+            //print_r($this->cols);
             
             if (in_array($col, array_keys($this->cols))) {
                 $sort_str[] = $col. ' ' . $ms->sort->{$col};

@@ -549,6 +549,7 @@ class Pman_Roo extends Pman
         $dir = $dir == 'ASC' ? 'ASC' : 'DESC';
          
         $ms = empty($_REQUEST['_multisort']) ? false : $_REQUEST['_multisort'];
+        var_Dump($ms);exit;
         $sorted = false;
         if (method_exists($x, 'applySort')) {
             $sorted = $x->applySort(

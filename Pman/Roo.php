@@ -607,6 +607,7 @@ class Pman_Roo extends Pman
         $cols = $x->table();
         
         //print_r($this->cols);exit;
+        // this-><cols contains  colname => aliased name...
         foreach($ms->order  as $col) {
             if (!isset($ms->sort->{$col})) {
                 continue; // no direction..

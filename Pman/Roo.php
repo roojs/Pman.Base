@@ -306,10 +306,9 @@ class Pman_Roo extends Pman
         
         if ($fake_limit) {
             $ret = array_slice($ret,
-                   $_REQUEST['start']) ? 0 : (int)$_REQUEST['start'],
+                   empty($_REQUEST['start']) ? 0 : (int)$_REQUEST['start'],
                     min(empty($_REQUEST['limit']) ? 25 : (int)$_REQUEST['limit'], 10000)
             );
-            
             
         }
         

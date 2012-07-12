@@ -1085,6 +1085,7 @@ class Pman_Roo extends Pman
         $distinct       = !empty($cfg['distinct']) ? $cfg['distinct'] : false;
         $excludecolumns = !empty($cfg['exclude']) ? $cfg['exclude'] : false;
         
+        print_r($cfg);exit;
         
         $this->countWhat = false;
         

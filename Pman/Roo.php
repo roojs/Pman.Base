@@ -257,7 +257,7 @@ class Pman_Roo extends Pman
          //print_r($x);
         // build join if req.
           //DB_DataObject::debugLevel(1);
-          var_dump($this->countWhat);
+       //   var_dump($this->countWhat);
         $total = $x->count($this->countWhat);
         // sorting..
       //   

@@ -184,7 +184,7 @@ class Pman_Roo extends Pman
     }
     
     
-    function select($tab, $r)
+    function select($tab, $q)
     {
          $this->init(); // from pman.
         //DB_DataObject::debuglevel(1);
@@ -193,25 +193,25 @@ class Pman_Roo extends Pman
         
         $x = $this->dataObject($tab);
         
-         $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
+         $_columns = !empty($q['_columns']) ? explode(',', $q['_columns']) : false;
         
-        if (isset( $_REQUEST['lookup'] ) && is_array($_REQUEST['lookup'] )) { // single fetch based on key/value pairs
-             $this->selectSingle($x, $_REQUEST['lookup'],$_REQUEST);
+        if (isset( $q['lookup'] ) && is_array($q['lookup'] )) { // single fetch based on key/value pairs
+             $this->selectSingle($x, $q['lookup'],$q);
              // actually exits.
         }
         
         
         // single fetch (use '0' to fetch an empty object..)
-        if (isset($_REQUEST['_id']) && is_numeric($_REQUEST['_id'])) {
+        if (isset($q['_id']) && is_numeric($q['_id'])) {
              
-             $this->selectSingle($x, $_REQUEST['_id'],$_REQUEST);
+             $this->selectSingle($x, $q['_id'],$q);
              // actually exits.
         }
         
         // Depricated...
 
        
-        if (isset($_REQUEST['_delete'])) {
+        if (isset($q['_delete'])) {
             
             $keys = $x->keys();
             if (empty($keys) ) {
@@ -222,19 +222,19 @@ class Pman_Roo extends Pman
             
             
             // do we really delete stuff!?!?!?
-            return $this->delete($x,$_REQUEST);
+            return $this->delete($x,$q);
         } 
         
         
         // Depricated...
         
-        if (isset($_REQUEST['_toggleActive'])) {
+        if (isset($q['_toggleActive'])) {
             // do we really delete stuff!?!?!?
             if (!$this->hasPerm("Core.Staff", 'E'))  {
                 $this->jerr("PERMISSION DENIED");
             }
             $clean = create_function('$v', 'return (int)$v;');
-            $bits = array_map($clean, explode(',', $_REQUEST['_toggleActive']));
+            $bits = array_map($clean, explode(',', $q['_toggleActive']));
             if (in_array($this->authUser->id, $bits) && $this->authUser->active) {
                 $this->jerr("you can not disable yourself");
             }
@@ -249,12 +249,12 @@ class Pman_Roo extends Pman
         // sets map and countWhat
         $this->loadMap($x, array(
                     'columns' => $_columns,
-                    'distinct' => empty($_REQUEST['_distinct']) ? false:  $_REQUEST['_distinct'],
-                    'exclude' => empty($_REQUEST['_exclude_columns']) ? false:  explode(',', $_REQUEST['_exclude_columns'])
+                    'distinct' => empty($q['_distinct']) ? false:  $q['_distinct'],
+                    'exclude' => empty($q['_exclude_columns']) ? false:  explode(',', $q['_exclude_columns'])
             ));
         
         
-        $this->setFilters($x,$_REQUEST);
+        $this->setFilters($x,$q);
       
         if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
             $this->jerr("PERMISSION DENIED");
@@ -272,15 +272,15 @@ class Pman_Roo extends Pman
         
         $fake_limit = false;
         
-        if (!empty($_REQUEST['_distinct']) && $total < 400) {
+        if (!empty($q['_distinct']) && $total < 400) {
             $fake_limit  = true;
         }
         
         if (!$fake_limit) {
  
             $x->limit(
-                empty($_REQUEST['start']) ? 0 : (int)$_REQUEST['start'],
-                min(empty($_REQUEST['limit']) ? 25 : (int)$_REQUEST['limit'], 10000)
+                empty($q['start']) ? 0 : (int)$q['start'],
+                min(empty($q['limit']) ? 25 : (int)$q['limit'], 10000)
             );
         } 
         $queryObj = clone($x);
@@ -297,7 +297,7 @@ class Pman_Roo extends Pman
         // ---------------- THESE ARE DEPRICATED.. they should be moved to the model...
         
         
-        if (!empty($_REQUEST['query']['add_blank'])) {
+        if (!empty($q['query']['add_blank'])) {
             $ret[] = array( 'id' => 0, 'name' => '----');
             $total+=1;
         }
@@ -306,15 +306,15 @@ class Pman_Roo extends Pman
         $_columnsf = $_columns  ? array_flip($_columns) : false;
         while ($x->fetch()) {
             //print_R($x);exit;
-            $add = $rooar  ? $x->toRooArray($_REQUEST) : $x->toArray();
+            $add = $rooar  ? $x->toRooArray($q) : $x->toArray();
             
             $ret[] =  !$_columns ? $add : array_intersect_key($add, $_columnsf);
         }
         
         if ($fake_limit) {
             $ret = array_slice($ret,
-                   empty($_REQUEST['start']) ? 0 : (int)$_REQUEST['start'],
-                    min(empty($_REQUEST['limit']) ? 25 : (int)$_REQUEST['limit'], 10000)
+                   empty($q['start']) ? 0 : (int)$q['start'],
+                    min(empty($q['limit']) ? 25 : (int)$q['limit'], 10000)
             );
             
         }
@@ -322,30 +322,30 @@ class Pman_Roo extends Pman
         
         $extra = false;
         if (method_exists($queryObj ,'postListExtra')) {
-            $extra = $queryObj->postListExtra($_REQUEST, $this);
+            $extra = $queryObj->postListExtra($q, $this);
         }
         
         
         // filter results, and add any data that is needed...
         if (method_exists($x,'postListFilter')) {
-            $ret = $x->postListFilter($ret, $this->authUser, $_REQUEST);
+            $ret = $x->postListFilter($ret, $this->authUser, $q);
         }
         
         
         
-        if (!empty($_REQUEST['csvCols']) && !empty($_REQUEST['csvTitles']) ) {
+        if (!empty($q['csvCols']) && !empty($q['csvTitles']) ) {
             header('Content-type: text/csv');
             
             header('Content-Disposition: attachment; filename="list-export-'.date('Y-m-d') . '.csv"');
             //header('Content-type: text/plain');
             $fh = fopen('php://output', 'w');
-            fputcsv($fh, $_REQUEST['csvTitles']);
+            fputcsv($fh, $q['csvTitles']);
             
             
             foreach($ret as $x) {
-                //echo "<PRE>"; print_r(array($_REQUEST['csvCols'], $x->toArray())); exit;
+                //echo "<PRE>"; print_r(array($q['csvCols'], $x->toArray())); exit;
                 $line = array();
-                foreach($_REQUEST['csvCols'] as $k) {
+                foreach($q['csvCols'] as $k) {
                     $line[] = isset($x[$k]) ? $x[$k] : '';
                 }
                 fputcsv($fh, $line);
@@ -363,7 +363,7 @@ class Pman_Roo extends Pman
         
         
         
-        if (!empty($_REQUEST['_requestMeta']) &&  count($ret)) {
+        if (!empty($q['_requestMeta']) &&  count($ret)) {
             $meta = $this->meta($x, $ret);
             if ($meta) {
                 $extra['metaData'] = $meta;

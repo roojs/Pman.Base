@@ -158,10 +158,7 @@ class Pman_Roo extends Pman
        //echo '<PRE>';print_R($_GET);
       //DB_DataObject::debuglevel(1);
         
-        $this->init(); // from pman.
-        //DB_DataObject::debuglevel(1);
-        HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev);
-        
+       
         
    
         
@@ -183,8 +180,17 @@ class Pman_Roo extends Pman
         }
         
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
-   
-         
+        $this->select($tab,$_REQUEST);
+    }
+    
+    
+    function select($tab, $r)
+    {
+         $this->init(); // from pman.
+        //DB_DataObject::debuglevel(1);
+        HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev);
+        
+        
         $x = $this->dataObject($tab);
         
          $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;

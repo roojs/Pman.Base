@@ -1461,10 +1461,12 @@ class Pman_Roo extends Pman
     }
     // our handlers to commit / rollback.
     
-     
+      
     
     function jok($str)
     {
+        // note that commit will only work if an insert/update was done,
+        // so some stored proc calls may not have flagged this.
         if ($this->transObj) {
             $this->transObj->query('COMMIT');
         }

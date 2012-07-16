@@ -1461,15 +1461,7 @@ class Pman_Roo extends Pman
     }
     // our handlers to commit / rollback.
     
-    
-    function commit()
-    {
-        if ($this->transObj) {
-            $this->transObj->query('COMMIT');
-        }
-        $this->transObj->query('BEGIN');
-        
-    }
+     
     
     function jok($str)
     {

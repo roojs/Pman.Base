@@ -328,6 +328,8 @@ class Pman_Roo extends Pman
         
         
         if (!empty($_REQUEST['csvCols']) && !empty($_REQUEST['csvTitles']) ) {
+            
+            $fn = empty($_REQUEST['csvFilename']) ? 'list-export-' : urlencode($_REQUEST['csvFilename']);
             header('Content-type: text/csv');
             
             header('Content-Disposition: attachment; filename="list-export-'.date('Y-m-d') . '.csv"');

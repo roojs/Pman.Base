@@ -337,7 +337,7 @@ class Pman_Roo extends Pman
             $fh = fopen('php://output', 'w');
             fwrite($fh,"\xEF\xBB\xBF"); // Stupid Excel and unicode!
             
-            fputcsv($fh, $_REQUEST['csvTitles']);
+            fputcsv($fh, $_REQUEST['csvTitles'],';');
             
             
             foreach($ret as $x) {
@@ -346,7 +346,7 @@ class Pman_Roo extends Pman
                 foreach($_REQUEST['csvCols'] as $k) {
                     $line[] = isset($x[$k]) ? $x[$k] : '';
                 }
-                fputcsv($fh, $line);
+                fputcsv($fh, $line,';');
             }
             fclose($fh);
             exit;

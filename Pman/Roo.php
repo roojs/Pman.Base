@@ -335,6 +335,8 @@ class Pman_Roo extends Pman
             header('Content-Disposition: attachment; filename="'.$fn.date('Y-m-d') . '.csv"');
             //header('Content-type: text/plain');
             $fh = fopen('php://output', 'w');
+            fwrite($fh,"\xEF\xBB\xBF"); // Stupid Excel and unicode!
+            
             fputcsv($fh, $_REQUEST['csvTitles']);
             
             

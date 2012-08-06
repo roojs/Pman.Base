@@ -886,7 +886,7 @@ class Pman_Roo extends Pman
         if (isset($cols['modified_dt'])) {
             $x->modified_dt = date('Y-m-d H:i:s');
         }
-        if (isset($cols['modified_by'])) {
+        if (isset($cols['modified_by']) && $this->authUser) {
             $x->modified_by = $this->authUser->id;
         }
         
@@ -896,7 +896,7 @@ class Pman_Roo extends Pman
         if (isset($cols['updated_dt'])) {
             $x->updated_dt = date('Y-m-d H:i:s');
         }
-        if (isset($cols['updated_by'])) {
+        if (isset($cols['updated_by']) && $this->authUser) {
             $x->updated_by = $this->authUser->id;
         }
         

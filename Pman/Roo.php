@@ -803,7 +803,7 @@ class Pman_Roo extends Pman
         
         $lock = DB_DataObjecT::factory('Core_locking');
         Pman_Roo::$permitError = false; 
-        if (is_a($lock,'DB_DataObject'))  {
+        if (is_a($lock,'DB_DataObject') && $this->authUser)  {
                  
             $lock->on_id = $x->{$this->key};
             $lock->on_table= strtolower($x->tableName());

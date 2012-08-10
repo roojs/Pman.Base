@@ -710,7 +710,7 @@ class Pman_Roo extends Pman
         
     }
     
-    function insert($x, $req)
+    function insert($x, $req, $with_perm_check = true)
     {
         
          if (method_exists($x, 'setFromRoo')) {
@@ -722,7 +722,7 @@ class Pman_Roo extends Pman
             $x->setFrom($req);
         }
         
-        if (method_exists($x, 'checkPerm') && !$x->checkPerm('A', $this->authUser, $req))  {
+        if ( $with_perm_check && method_exists($x, 'checkPerm') && !$x->checkPerm('A', $this->authUser, $req))  {
             $this->jerr("PERMISSION DENIED");
         }
         $cols = $x->table();

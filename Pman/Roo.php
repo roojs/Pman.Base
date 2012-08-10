@@ -695,7 +695,7 @@ class Pman_Roo extends Pman
         }
         // ignore perms if comming from update/insert - as it's already done...
         if ($req !== false && method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
-            $this->jerr("PERMISSION DENIED");
+            $this->jerr("PERMISSION DENIED - si");
         }
         // different symantics on all these calls??
         if (method_exists($x, 'toRooSingleArray')) {

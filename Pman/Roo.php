@@ -904,7 +904,7 @@ class Pman_Roo extends Pman
             $x->beforeUpdate($old, $req, $this);
         }
         
-        if ( $with_perm_check && !empty($_FILES) && method_exists($x, 'onUpload')) {
+        if ($with_perm_check && !empty($_FILES) && method_exists($x, 'onUpload')) {
             $x->onUpload($this, $_REQUEST);
         }
         

@@ -694,7 +694,7 @@ class Pman_Roo extends Pman
             $this->jerr("selectSingle: no such record ($id)");
         }
         
-        if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
+        if ($req !== false && method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
             $this->jerr("PERMISSION DENIED");
         }
         // different symantics on all these calls??

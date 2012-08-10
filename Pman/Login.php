@@ -58,7 +58,7 @@ class Pman_Login extends Pman
             // log it..
             
             $_SESSION['Pman_I18N'] = array();
-            
+            $this->jok("Logged out");
         }
         
         // general query...

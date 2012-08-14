@@ -249,9 +249,19 @@ class Pman_Roo extends Pman
             $this->jok("Updated");
             
         }
-       //DB_DataObject::debugLevel(1);
+        //DB_DataObject::debugLevel(1);
        
-       $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
+        // general searching
+        
+        $this->setFilters($x,$_REQUEST);
+        
+        
+        if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
+            $this->jerr("PERMISSION DENIED");
+        }
+        
+        
+        $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
         
        
         
@@ -263,11 +273,8 @@ class Pman_Roo extends Pman
             ));
         
         
-        $this->setFilters($x,$_REQUEST);
+        
       
-        if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
-            $this->jerr("PERMISSION DENIED");
-        }
         
          //print_r($x);
         // build join if req.

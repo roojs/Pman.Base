@@ -51,10 +51,7 @@ class Pman_Roo extends Pman
     var $key; // used by update currenly to store primary key.
     
     var $transObj = false ; // the transaction BEGIN / ROLLBACK / COMMIT Dataobject.
-    
-    
-    var $debugEnabled = true; // disable this for public versions of this code.
-    
+     
     var $skipPerms = false; // disable this to skip hasPerm checks..
     
     function getAuth()

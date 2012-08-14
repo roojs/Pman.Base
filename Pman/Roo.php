@@ -55,6 +55,8 @@ class Pman_Roo extends Pman
     
     var $debugEnabled = true; // disable this for public versions of this code.
     
+    var $skipPerms = false; // disable this to skip hasPerm checks..
+    
     function getAuth()
     {
         parent::getAuth(); // load company!
@@ -253,7 +255,16 @@ class Pman_Roo extends Pman
        
         // general searching
         
+        $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
+        
+        $this->loadMap($x, array(
+                    'columns' => $_columns,
+                    'distinct' => empty($_REQUEST['_distinct']) ? false:  $_REQUEST['_distinct'],
+                    'exclude' => empty($_REQUEST['_exclude_columns']) ? false:  explode(',', $_REQUEST['_exclude_columns'])
+        ));
+        
         $this->setFilters($x,$_REQUEST);
+        
         
         
         if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
@@ -261,17 +272,12 @@ class Pman_Roo extends Pman
         }
         
         
-        $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
+        
         
        
         
         // sets map and countWhat
-        $this->loadMap($x, array(
-                    'columns' => $_columns,
-                    'distinct' => empty($_REQUEST['_distinct']) ? false:  $_REQUEST['_distinct'],
-                    'exclude' => empty($_REQUEST['_exclude_columns']) ? false:  explode(',', $_REQUEST['_exclude_columns'])
-            ));
-        
+       
         
         
       

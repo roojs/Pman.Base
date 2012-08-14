@@ -738,7 +738,7 @@ class Pman_Roo extends Pman
         
     }
     
-    function insert($x, $req, $with_perm_check = true)
+    function insert($x, $req, $with_perm_check = true, $return_json = true)
     {
         
         if (method_exists($x, 'setFromRoo')) {

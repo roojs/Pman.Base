@@ -117,7 +117,7 @@ class Pman_Roo extends Pman
      *      query[add_blank] - add a line in with an empty option...  - not really needed???
      *      _delete    = delete a list of ids element. (depricated.. this will be removed...)
      * 
-     * DEBUGGING
+     * DEBUGGING 
      *  _post   =1    = simulate a post with debuggin on.
      * 
      *  _debug     = turn on DB_dataobject deubbing, must be admin at present..
@@ -174,13 +174,13 @@ class Pman_Roo extends Pman
         
         
         
-        if ($this->debugEnabled && !empty($_GET['_post'])) {
+        if (!empty($_GET['_post'])) {
             $_POST  = $_GET;
             //DB_DAtaObject::debuglevel(1);
             return $this->post($tab);
         }
         
-        if ($this->debugEnabled && isset($_REQUEST['_debug']) && 
+        if (isset($_REQUEST['_debug']) && 
                 (
                     !method_exists($this->authUser,'groups') 
                     ||

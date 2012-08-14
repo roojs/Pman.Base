@@ -677,7 +677,7 @@ class Pman_Roo extends Pman
      * @param array $req    the request, or false if it comes from insert/update.
      *
      */
-    function selectSingle($x, $id, $req=false)
+    function selectSingle($x, $id, $req=false, $return_json = true)
     {
          
         
@@ -808,6 +808,7 @@ class Pman_Roo extends Pman
         if (!empty($_FILES) && method_exists($x, 'onUpload')) {
             $x->onUpload($this, $_REQUEST);
         }
+        
         
         return $this->selectSingle(
             DB_DataObject::factory($x->tableName()),

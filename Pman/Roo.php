@@ -190,10 +190,13 @@ class Pman_Roo extends Pman
         
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
    
+   
+   
+   
+   
          
         $x = $this->dataObject($tab);
         
-        $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
         
         if (isset( $_REQUEST['lookup'] ) && is_array($_REQUEST['lookup'] )) { // single fetch based on key/value pairs
              $this->selectSingle($x, $_REQUEST['lookup'],$_REQUEST);
@@ -247,6 +250,9 @@ class Pman_Roo extends Pman
             
         }
        //DB_DataObject::debugLevel(1);
+       
+       $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
+        
        
         
         // sets map and countWhat

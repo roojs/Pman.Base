@@ -690,13 +690,18 @@ class Pman_Roo extends Pman
             
             
             if (method_exists($x, 'toRooSingleArray')) {
-                $this->jok($x->toRooSingleArray($this->authUser, $req));
+                $ret = $x->toRooSingleArray($this->authUser, $req);
+                return $return_json ? $this->jok($ret) : $ret;
             }
             if (method_exists($x, 'toRooArray')) {
-                $this->jok($x->toRooArray($req));
+                $ret = $x->toRooArray($req);
+                return $return_json ? $this->jok($ret) : $ret;
+                
             }
+            $ret = $x->toArray();
+            return $return_json ? $this->jok($ret) : $ret;
+                
             
-            $this->jok($x->toArray());
         }
        
         
@@ -730,13 +735,18 @@ class Pman_Roo extends Pman
         }
         // different symantics on all these calls??
         if (method_exists($x, 'toRooSingleArray')) {
-            $this->jok($x->toRooSingleArray($this->authUser, $req));
+            $ret = $x->toRooSingleArray($this->authUser, $req);
+            return $return_json ? $this->jok($ret) : $ret;
         }
         if (method_exists($x, 'toRooArray')) {
-            $this->jok($x->toRooArray($req));
+            $ret = $x->toRooArray($req);
+            return $return_json ? $this->jok($ret) : $ret;
+            
         }
+        $ret = $x->toArray();
+        return $return_json ? $this->jok($ret) : $ret;
+            
         
-        $this->jok($x->toArray());
         
         
     }

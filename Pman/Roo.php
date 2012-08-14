@@ -51,8 +51,9 @@ class Pman_Roo extends Pman
     var $key; // used by update currenly to store primary key.
     
     var $transObj = false ; // the transaction BEGIN / ROLLBACK / COMMIT Dataobject.
-     
-    var $skipPerms = false; // disable this to skip hasPerm checks..
+    
+    
+    var $debugEnabled = true; // disable this for public versions of this code.
     
     function getAuth()
     {
@@ -114,7 +115,7 @@ class Pman_Roo extends Pman
      *      query[add_blank] - add a line in with an empty option...  - not really needed???
      *      _delete    = delete a list of ids element. (depricated.. this will be removed...)
      * 
-     * DEBUGGING 
+     * DEBUGGING
      *  _post   =1    = simulate a post with debuggin on.
      * 
      *  _debug     = turn on DB_dataobject deubbing, must be admin at present..
@@ -171,13 +172,13 @@ class Pman_Roo extends Pman
         
         
         
-        if (!empty($_GET['_post'])) {
+        if ($this->debugEnabled && !empty($_GET['_post'])) {
             $_POST  = $_GET;
             //DB_DAtaObject::debuglevel(1);
             return $this->post($tab);
         }
         
-        if (isset($_REQUEST['_debug']) && 
+        if ($this->debugEnabled && isset($_REQUEST['_debug']) && 
                 (
                     !method_exists($this->authUser,'groups') 
                     ||
@@ -189,13 +190,10 @@ class Pman_Roo extends Pman
         
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
    
-   
-   
-   
-   
          
         $x = $this->dataObject($tab);
         
+        $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
         
         if (isset( $_REQUEST['lookup'] ) && is_array($_REQUEST['lookup'] )) { // single fetch based on key/value pairs
              $this->selectSingle($x, $_REQUEST['lookup'],$_REQUEST);
@@ -248,38 +246,22 @@ class Pman_Roo extends Pman
             $this->jok("Updated");
             
         }
-        //DB_DataObject::debugLevel(1);
+       //DB_DataObject::debugLevel(1);
        
-        // general searching
         
-        $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
-        
+        // sets map and countWhat
         $this->loadMap($x, array(
                     'columns' => $_columns,
                     'distinct' => empty($_REQUEST['_distinct']) ? false:  $_REQUEST['_distinct'],
                     'exclude' => empty($_REQUEST['_exclude_columns']) ? false:  explode(',', $_REQUEST['_exclude_columns'])
-        ));
+            ));
+        
         
         $this->setFilters($x,$_REQUEST);
-        
-        
-        
-        if (!$this->skipPerms &&
-            method_exists($x, 'checkPerm') &&
-            !$x->checkPerm('S', $this->authUser))  {
+      
+        if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
             $this->jerr("PERMISSION DENIED");
         }
-        
-        
-        
-        
-       
-        
-        // sets map and countWhat
-       
-        
-        
-      
         
          //print_r($x);
         // build join if req.
@@ -324,7 +306,6 @@ class Pman_Roo extends Pman
         }
          
         $rooar = method_exists($x, 'toRooArray');
-        
         $_columnsf = $_columns  ? array_flip($_columns) : false;
         while ($x->fetch()) {
             //print_R($x);exit;
@@ -677,31 +658,23 @@ class Pman_Roo extends Pman
      * @param array $req    the request, or false if it comes from insert/update.
      *
      */
-    function selectSingle($x, $id, $req=false, $return_json = true)
+    function selectSingle($x, $id, $req=false)
     {
          
         
         $_columns = !empty($req['_columns']) ? explode(',', $req['_columns']) : false;
         //var_dump(array(!is_array($id) , empty($id)));
-        
-        
-        // empty records..
         if (!is_array($id) && empty($id)) {
             
             
             if (method_exists($x, 'toRooSingleArray')) {
-                $ret = $x->toRooSingleArray($this->authUser, $req);
-                return $return_json ? $this->jok($ret) : $ret;
+                $this->jok($x->toRooSingleArray($this->authUser, $req));
             }
             if (method_exists($x, 'toRooArray')) {
-                $ret = $x->toRooArray($req);
-                return $return_json ? $this->jok($ret) : $ret;
-                
+                $this->jok($x->toRooArray($req));
             }
-            $ret = $x->toArray();
-            return $return_json ? $this->jok($ret) : $ret;
-                
             
+            $this->jok($x->toArray());
         }
        
         
@@ -735,26 +708,21 @@ class Pman_Roo extends Pman
         }
         // different symantics on all these calls??
         if (method_exists($x, 'toRooSingleArray')) {
-            $ret = $x->toRooSingleArray($this->authUser, $req);
-            return $return_json ? $this->jok($ret) : $ret;
+            $this->jok($x->toRooSingleArray($this->authUser, $req));
         }
         if (method_exists($x, 'toRooArray')) {
-            $ret = $x->toRooArray($req);
-            return $return_json ? $this->jok($ret) : $ret;
-            
+            $this->jok($x->toRooArray($req));
         }
-        $ret = $x->toArray();
-        return $return_json ? $this->jok($ret) : $ret;
-            
         
+        $this->jok($x->toArray());
         
         
     }
     
-    function insert($x, $req,  $return_json = true)
+    function insert($x, $req, $with_perm_check = true)
     {
         
-        if (method_exists($x, 'setFromRoo')) {
+         if (method_exists($x, 'setFromRoo')) {
             $res = $x->setFromRoo($req, $this);
             if (is_string($res)) {
                 $this->jerr($res);
@@ -763,7 +731,7 @@ class Pman_Roo extends Pman
             $x->setFrom($req);
         }
         
-        if ( !$this->skipPerms && method_exists($x, 'checkPerm') && !$x->checkPerm('A', $this->authUser, $req))  {
+        if ( $with_perm_check && method_exists($x, 'checkPerm') && !$x->checkPerm('A', $this->authUser, $req))  {
             $this->jerr("PERMISSION DENIED");
         }
         $cols = $x->table();
@@ -822,12 +790,9 @@ class Pman_Roo extends Pman
             $x->onUpload($this, $_REQUEST);
         }
         
-        
         return $this->selectSingle(
             DB_DataObject::factory($x->tableName()),
-            $x->pid(),
-            false, //?? should be true?
-            $return_json
+            $x->pid()
         );
         
     }

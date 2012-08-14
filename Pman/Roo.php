@@ -52,6 +52,9 @@ class Pman_Roo extends Pman
     
     var $transObj = false ; // the transaction BEGIN / ROLLBACK / COMMIT Dataobject.
     
+    
+    var $debugEnabled = true; // disable this for public versions of this code.
+    
     function getAuth()
     {
         parent::getAuth(); // load company!
@@ -166,6 +169,9 @@ class Pman_Roo extends Pman
    
         
         // debugging...
+        
+        
+        
         if (!empty($_GET['_post'])) {
             $_POST  = $_GET;
             //DB_DAtaObject::debuglevel(1);
@@ -187,7 +193,7 @@ class Pman_Roo extends Pman
          
         $x = $this->dataObject($tab);
         
-         $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
+        $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
         
         if (isset( $_REQUEST['lookup'] ) && is_array($_REQUEST['lookup'] )) { // single fetch based on key/value pairs
              $this->selectSingle($x, $_REQUEST['lookup'],$_REQUEST);

@@ -285,10 +285,18 @@ class Pman extends HTML_FlexyFramework_Page
         // this should be done by having multiple template sources...!!!
         
         
-        if (is_string($template->resolvePath('mail/'.$template.'.headers.txt')) &&
-            is_string($template->resolvePath('mail/'.$template.'.body.txt'))
+        if (is_string($template->resolvePath('mail/'.$template.'.header.txt')) &&
+            is_string($template->resolvePath('mail/'.$template.'.body.html'))
         ) {
             // then we have a multi-part email...
+            
+            $template->compile('mail/'. $templateFile.'header.txt');
+            $mailtext = $template->bufferedOutputObject($content);
+            require_once 'HTML/Template/Flexy.php';
+            $template = new HTML_Template_Flexy( array(
+                    'nonHTML' => true,
+            ));
+            
             
             
             

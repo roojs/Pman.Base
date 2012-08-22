@@ -277,6 +277,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         /* use the regex compiler, as it doesnt parse <tags */
         require_once 'HTML/Template/Flexy.php';
+        
         $template = new HTML_Template_Flexy( array(
                 'nonHTML' => true,
                  //'compiler'    => 'Regex',
@@ -303,6 +304,9 @@ class Pman extends HTML_FlexyFramework_Page
             //echo "PROBLEM: {$parts->message}";
             //exit;
         } 
+        
+        
+        
         
         $parts[1]['Message-Id'] = '<' .   $content->msgid   .
                                      '@' . $content->HTTP_HOST .'>';

@@ -250,49 +250,14 @@ class Pman extends HTML_FlexyFramework_Page
      
     
     
+
     
+    
+    
+        
     /**
      * ---------------- Global Tools ---------------   
      */
-    
-    function emailTemplate($templateFile, $args)
-    {
-    
-        require_once 'Pman/Core/Mailer.php';
-        $r = new Pman_Core_Mailer(array(
-            'template'=>$templateFile,
-            'contents' => $args,
-            'page' => $this
-        ));
-        return $r->toData();
-         
-    }
-    /**
-     * send a template to the user
-     *
-     * Depricated - USE Pman_Core_Mailer
-     * 
-     * rcpts are read from the resulting template.
-     * 
-     * @arg $templateFile  - the file in mail/XXXXXX.txt
-     * @arg $args  - variables available to the form as {t.*} over and above 'this'
-     * 
-     * 
-     */
-    
-    function sendTemplate($templateFile, $args)
-    {
-        require_once 'Pman/Core/Mailer.php';
-        $r = new Pman_Core_Mailer(array(
-            'template'=>$templateFile,
-            'contents' => $args,
-            'page' => $this
-        ));
-        return $r->send();
-        
-    
-    }
-    
     function checkFileUploadError()  // check for file upload errors.
     {    
         if (
@@ -857,19 +822,41 @@ class Pman extends HTML_FlexyFramework_Page
         return $e;
         
     }
-    // ------------------ DEPERCIATED ---
+    // ------------------ DEPERCIATED ----------------------------
      
-    function modules() // DEPRECITAED
-    {
-        return $this->modulesList(); 
-    }
-    function staticGetAuthUser() // DEPRECIATED..
-    {
-        
-        $x = new Pman();
-        return $x->getAuthUser();
-        
-    }
+    // DEPRECITAED - use moduleslist
+    function modules()  { return $this->modulesList();  }
+    
+    // DEPRECIATED.. - use getAuthUser...
+    function staticGetAuthUser()  { $x = new Pman(); return $x->getAuthUser();  }
      
     
+    // DEPRICATED  USE Pman_Core_Mailer
+    
+    function emailTemplate($templateFile, $args)
+    {
+    
+        require_once 'Pman/Core/Mailer.php';
+        $r = new Pman_Core_Mailer(array(
+            'template'=>$templateFile,
+            'contents' => $args,
+            'page' => $this
+        ));
+        return $r->toData();
+         
+    }
+    // Depricated - USE Pman_Core_Mailer 
+    
+    function sendTemplate($templateFile, $args)
+    {
+        require_once 'Pman/Core/Mailer.php';
+        $r = new Pman_Core_Mailer(array(
+            'template'=>$templateFile,
+            'contents' => $args,
+            'page' => $this
+        ));
+        return $r->send();
+        
+    
+    }
 }

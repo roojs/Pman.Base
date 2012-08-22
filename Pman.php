@@ -344,6 +344,9 @@ class Pman extends HTML_FlexyFramework_Page
     }
     /**
      * send a template to the user
+     *
+     * Depricated - USE Pman_Core_Mailer
+     * 
      * rcpts are read from the resulting template.
      * 
      * @arg $templateFile  - the file in mail/XXXXXX.txt
@@ -354,23 +357,14 @@ class Pman extends HTML_FlexyFramework_Page
     
     function sendTemplate($templateFile, $args)
     {
+        require_once 'Pman/Core/Mailer.php';
+        $r = new Pman_Core_Mailer(array(
+            'template'=>$templateFile,
+            'contents' => $args,
+            'page' => $this
+        ));
+        return $r->send();
         
-        $email = $this->emailTemplate($templateFile,$args);
-        if (is_a($email, 'PEAR_Error')) {
-            return $email;
-        }
-        ///$recipents = array($this->email);
-        $mailOptions = PEAR::getStaticProperty('Mail','options');
-        $mail = Mail::factory("SMTP",$mailOptions);
-        $headers['Date'] = date('r');
-        if (PEAR::isError($mail)) {
-            return $mail;
-        } 
-        $oe = error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
-        $ret = $mail->send($email['recipents'],$email['headers'],$email['body']);
-        error_reporting($oe);
-       
-        return $ret;
     
     }
     

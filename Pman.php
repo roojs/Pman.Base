@@ -258,89 +258,14 @@ class Pman extends HTML_FlexyFramework_Page
     function emailTemplate($templateFile, $args)
     {
     
-        $content  = clone($this);
-        
-        foreach((array)$args as $k=>$v) {
-            $content->$k = $v;
-        }
-        
-        $content->msgid = empty($content->msgid ) ? md5(time() . rand()) : $content->msgid ;
-        
-        $ff = HTML_FlexyFramework::get();
-        $http_host = isset($_SERVER["HTTP_HOST"]) ? $_SERVER["HTTP_HOST"] : 'pman.HTTP_HOST.not.set';
-        if (isset($ff->Pman['HTTP_HOST'])) {
-            $http_host  = $ff->Pman['HTTP_HOST'];
-        }
-        
-        
-        $content->HTTP_HOST = $http_host;
-        
-        
-        
-        // this should be done by having multiple template sources...!!!
-        
-        require_once 'HTML/Template/Flexy.php';
-        
-        $htmlbody = false;
-        
-        if (is_string($template->resolvePath('mail/'.$template.'.body.html')) ) {
-            // then we have a multi-part email...
-            
-            
-            $htmltemplate = new HTML_Template_Flexy(  );
-            $htmltemplate->compile('mail/'. $templateFile.'.body.html');
-            $htmlbody =  $template->bufferedOutputObject($content);
-            
-            // for the html body, we may want to convert the attachments to images.
-            
-            
-             
-        } 
-        $template = new HTML_Template_Flexy( array(
-                'nonHTML' => true,
+        require_once 'Pman/Core/Mailer.php';
+        $r = new Pman_Core_Mailer(array(
+            'template'=>$templateFile,
+            'contents' => $args,
+            'page' => $this
         ));
-        
-        $template->compile('mail/'. $templateFile.'.txt');
-        
-        /* use variables from this object to ouput data. */
-        $mailtext = $template->bufferedOutputObject($content);
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        //echo "<PRE>";print_R($mailtext);
-        
-        /* With the output try and send an email, using a few tricks in Mail_MimeDecode. */
-        require_once 'Mail/mimeDecode.php';
-        require_once 'Mail.php';
-        
-        $decoder = new Mail_mimeDecode($mailtext);
-        $parts = $decoder->getSendArray();
-        if (PEAR::isError($parts)) {
-            return $parts;
-            //echo "PROBLEM: {$parts->message}";
-            //exit;
-        } 
-        
-        
-        
-        
-        $parts[1]['Message-Id'] = '<' .   $content->msgid   .
-                                     '@' . $content->HTTP_HOST .'>';
-        
-        
-       // list($recipents,$headers,$body) = $parts;
-        return array(
-            'recipents' => $parts[0],
-            'headers' => $parts[1],
-            'body' => $parts[2]
-        );
+        return $r->toData();
+         
     }
     /**
      * send a template to the user

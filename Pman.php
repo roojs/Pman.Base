@@ -275,22 +275,46 @@ class Pman extends HTML_FlexyFramework_Page
         
         $content->HTTP_HOST = $http_host;
         
-        /* use the regex compiler, as it doesnt parse <tags */
-        require_once 'HTML/Template/Flexy.php';
         
+        
+        require_once 'HTML/Template/Flexy.php';
         $template = new HTML_Template_Flexy( array(
                 'nonHTML' => true,
-                 //'compiler'    => 'Regex',
-                 //'filters' => array('SimpleTags','Mail'),
-            //     'debug'=>1,
-            ));
+        ));
         
         // this should be done by having multiple template sources...!!!
+        
+        
+        if (is_string($template->resolvePath('mail/'.$template.'.headers.txt')) &&
+            is_string($template->resolvePath('mail/'.$template.'.body.txt'))
+        ) {
+            // then we have a multi-part email...
+            
+            
+            
+        }
+        
+        
          
         $template->compile('mail/'. $templateFile.'.txt');
         
         /* use variables from this object to ouput data. */
         $mailtext = $template->bufferedOutputObject($content);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         //echo "<PRE>";print_R($mailtext);
         
         /* With the output try and send an email, using a few tricks in Mail_MimeDecode. */

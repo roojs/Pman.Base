@@ -845,7 +845,7 @@ class Pman extends HTML_FlexyFramework_Page
         return $r->toData();
          
     }
-    // Depricated - USE Pman_Core_Mailer 
+    // DEPRICATED - USE Pman_Core_Mailer 
     
     function sendTemplate($templateFile, $args)
     {

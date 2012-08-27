@@ -1250,8 +1250,9 @@ class Pman_Roo extends Pman
         }
         
         $rdata = unserialize(file_get_contents($reader));
-                echo '<PRE>';print_r($rdata);exit;
-
+        
+        echo '<PRE>';print_r(this->cols);exit;
+        echo '<PRE>';print_r($rdata);exit;
        // echo '<PRE>';print_r($rdata);exit;
         
         $meta = array();

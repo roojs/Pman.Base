@@ -1245,13 +1245,13 @@ class Pman_Roo extends Pman
         //echo '<PRE>';print_r($this->cols); exit;
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
         $reader = $options["ini_{$x->_database}"] .'.reader';
-        var_dump($reader);exit;
         if (!file_exists( $reader )) {
             return;
         }
         
         $rdata = unserialize(file_get_contents($reader));
-        
+                var_dump($rdata);exit;
+
        // echo '<PRE>';print_r($rdata);exit;
         
         $meta = array();

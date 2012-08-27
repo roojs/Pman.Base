@@ -1250,7 +1250,7 @@ class Pman_Roo extends Pman
         }
         
         $rdata = unserialize(file_get_contents($reader));
-                var_dump($rdata);exit;
+                echo '<PRE>';print_r($rdata);exit;
 
        // echo '<PRE>';print_r($rdata);exit;
         

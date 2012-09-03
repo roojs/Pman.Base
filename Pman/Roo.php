@@ -1099,7 +1099,7 @@ class Pman_Roo extends Pman
         $excludecolumns = !empty($cfg['exclude']) ? $cfg['exclude'] : false;
         
         
-        
+        var_dump($cfg);exit;
         $this->countWhat = false;
         
         $conf = array();

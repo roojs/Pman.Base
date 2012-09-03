@@ -1132,7 +1132,7 @@ class Pman_Roo extends Pman
             $cols = array();
             //echo '<PRE>' ;print_r($filter);exit;
             foreach($xx as $c) {
-                var_dump($c);
+                //var_dump($c);
                 
                 if ($distinct && $distinct == $c) {
                     $has_distinct = 'DISTINCT( ' . $do->tableName() .'.'. $c .') as ' . $c;

@@ -1186,7 +1186,7 @@ class Pman_Roo extends Pman
                 $cols = array();
                 foreach($xx as $c) {
                     $tn = sprintf($ocl.'_%s', $c);
-                     var_dump($tn);
+                     //var_dump($tn);
                     if ($distinct && $tn == $distinct) {
                         $has_distinct = 'DISTINCT( ' . 'join_'.$ocl.'_'.$col.'.'.$k .')  as ' . $tn ;
                         $this->countWhat =  'DISTINCT  join_'.$ocl.'_'.$col.'.'.$k;
@@ -1201,7 +1201,7 @@ class Pman_Roo extends Pman
                 }
                 
                 if (!empty($cols)) {
-                     $selectAs[] = array($cols, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
+                    $selectAs[] = array($cols, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
                 }
                
                 
@@ -1218,7 +1218,7 @@ class Pman_Roo extends Pman
             
             
         }
-        var_dump($selectAs);exit;
+        //var_dump($selectAs);exit;
         if ($has_distinct) {
             $do->selectAdd($has_distinct);
         }

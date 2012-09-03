@@ -1216,7 +1216,7 @@ class Pman_Roo extends Pman
             
             
         }
-        var_dump($selectAs);exit;
+        //var_dump($selectAs);exit;
         if ($has_distinct) {
             $do->selectAdd($has_distinct);
         }

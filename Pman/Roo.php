@@ -1132,6 +1132,8 @@ class Pman_Roo extends Pman
             $cols = array();
             //echo '<PRE>' ;print_r($filter);exit;
             foreach($xx as $c) {
+                var_dump($c);
+                
                 if ($distinct && $distinct == $c) {
                     $has_distinct = 'DISTINCT( ' . $do->tableName() .'.'. $c .') as ' . $c;
                     $this->countWhat =  'DISTINCT  ' . $do->tableName() .'.'. $c .'';
@@ -1148,7 +1150,7 @@ class Pman_Roo extends Pman
             
             
         } 
-        //var_dump($selectAs);exit;
+        var_dump($selectAs);exit;
         $this->cols = array();
         $this->colsJoinName =array();
         foreach($xx as $k) {

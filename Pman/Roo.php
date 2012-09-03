@@ -1160,7 +1160,7 @@ class Pman_Roo extends Pman
         
         
         
-         var_dump($map);exit;
+        //var_dump($map);exit;
         
         foreach($map as $ocl=>$info) {
             

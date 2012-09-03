@@ -1181,7 +1181,7 @@ class Pman_Roo extends Pman
             } 
             $xx = array_keys($tabdef);
             
-            var_dump($xx);exit;
+            var_dump($xx);
             if ($onlycolumns || $distinct) {
                 $cols = array();
                 foreach($xx as $c) {
@@ -1218,7 +1218,7 @@ class Pman_Roo extends Pman
             
             
         }
-        //var_dump($selectAs);exit;
+        var_dump($selectAs);exit;
         if ($has_distinct) {
             $do->selectAdd($has_distinct);
         }

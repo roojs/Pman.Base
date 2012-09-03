@@ -1181,12 +1181,12 @@ class Pman_Roo extends Pman
             } 
             $xx = array_keys($tabdef);
             
-            
+            var_dump($xx);exit;
             if ($onlycolumns || $distinct) {
                 $cols = array();
                 foreach($xx as $c) {
                     $tn = sprintf($ocl.'_%s', $c);
-                  // echo '<PRE>'; var_dump($tn);
+                  // var_dump($tn);
                     if ($distinct && $tn == $distinct) {
                         $has_distinct = 'DISTINCT( ' . 'join_'.$ocl.'_'.$col.'.'.$k .')  as ' . $tn ;
                         $this->countWhat =  'DISTINCT  join_'.$ocl.'_'.$col.'.'.$k;

@@ -1160,7 +1160,7 @@ class Pman_Roo extends Pman
         
         
         
-         
+         var_dump($map);exit;
         
         foreach($map as $ocl=>$info) {
             
@@ -1196,8 +1196,10 @@ class Pman_Roo extends Pman
                     
                     if (!$onlycolumns || in_array($tn, $onlycolumns)) {
                         $cols[] = $c;
+                        
                     }
                 }
+                
                 if (!empty($cols)) {
                      $selectAs[] = array($cols, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
                 }

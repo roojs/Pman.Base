@@ -1148,7 +1148,7 @@ class Pman_Roo extends Pman
             
             
         } 
-        var_dump($selectAs);exit;
+        //var_dump($selectAs);exit;
         $this->cols = array();
         $this->colsJoinName =array();
         foreach($xx as $k) {

@@ -213,7 +213,7 @@ class Pman_Login extends Pman
             $this->jerr('You typed the wrong Username or Password  (1)');
             exit;
         }
-        //if active == 2, that account is pending
+        
         if (!$u->active()) {
             $this->jerr('Account disabled');
         }

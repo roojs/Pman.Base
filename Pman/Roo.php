@@ -383,6 +383,37 @@ class Pman_Roo extends Pman
     
     }
     
+    
+    function toCsv($data, $cols, $titles, $filename)
+    {
+          
+            $fn = empty($filename) ? 'list-export-' : urlencode($filename);
+            header('Content-type: text/csv');
+            
+            header('Content-Disposition: attachment; filename="'.$fn.date('Y-m-d') . '.csv"');
+            //header('Content-type: text/plain');
+            $fh = fopen('php://output', 'w');
+            fwrite($fh,"\xEF\xBB\xBF"); // Stupid Excel and unicode!
+            
+            fputcsv($fh, $titles);
+            
+            
+            foreach($data as $x) {
+                //echo "<PRE>"; print_r(array($_REQUEST['csvCols'], $x->toArray())); exit;
+                $line = array();
+                foreach($cols as $k) {
+                    $line[] = isset($x[$k]) ? $x[$k] : '';
+                }
+                fputcsv($fh, $line,',','"');
+            }
+            fclose($fh);
+            exit;
+        
+        
+        
+    }
+    
+    
      /**
      * POST method   Roo/TABLENAME  
      * -- creates, updates, or deletes data.

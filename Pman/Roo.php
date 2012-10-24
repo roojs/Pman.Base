@@ -338,27 +338,11 @@ class Pman_Roo extends Pman
         
         if (!empty($_REQUEST['csvCols']) && !empty($_REQUEST['csvTitles']) ) {
             
-            $fn = empty($_REQUEST['csvFilename']) ? 'list-export-' : urlencode($_REQUEST['csvFilename']);
-            header('Content-type: text/csv');
             
-            header('Content-Disposition: attachment; filename="'.$fn.date('Y-m-d') . '.csv"');
-            //header('Content-type: text/plain');
-            $fh = fopen('php://output', 'w');
-            fwrite($fh,"\xEF\xBB\xBF"); // Stupid Excel and unicode!
+            $this->toCsv($ret, $_REQUEST['csvCols'], $_REQUEST['csvTitles'],
+                        empty($_REQUEST['csvFilename']) ? '' : $_REQUEST['csvFilename']
+                         );
             
-            fputcsv($fh, $_REQUEST['csvTitles']);
-            
-            
-            foreach($ret as $x) {
-                //echo "<PRE>"; print_r(array($_REQUEST['csvCols'], $x->toArray())); exit;
-                $line = array();
-                foreach($_REQUEST['csvCols'] as $k) {
-                    $line[] = isset($x[$k]) ? $x[$k] : '';
-                }
-                fputcsv($fh, $line,',','"');
-            }
-            fclose($fh);
-            exit;
             
         
         }

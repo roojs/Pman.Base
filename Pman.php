@@ -819,7 +819,7 @@ class Pman extends HTML_FlexyFramework_Page
          
     }
     // DEPRICATED - USE Pman_Core_Mailer 
-    
+    // WHAT Part about DEPRICATED Does no one understand??
     function sendTemplate($templateFile, $args)
     {
         require_once 'Pman/Core/Mailer.php';

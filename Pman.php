@@ -815,6 +815,8 @@ class Pman extends HTML_FlexyFramework_Page
             'contents' => $args,
             'page' => $this
         ));
+        print_r('in');exit;
+        
         return $r->toData();
          
     }

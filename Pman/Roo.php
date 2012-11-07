@@ -895,10 +895,7 @@ class Pman_Roo extends Pman
         } else {
             $x->setFrom($req);
         }
-        $ev = $this->addEvent("EDIT", $x);
-        if ($ev) { 
-            $ev->audit($x, $old);
-        }
+      
         //print_r($x);
         //print_r($old);
         
@@ -941,7 +938,10 @@ class Pman_Roo extends Pman
         if (method_exists($x, 'onUpdate')) {
             $x->onUpdate($old, $req, $this);
         }
-        
+        $ev = $this->addEvent("EDIT", $x);
+        if ($ev) { 
+            $ev->audit($x, $old);
+        }
         
         
         return $this->selectSingle(

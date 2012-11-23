@@ -505,7 +505,16 @@ class Pman extends HTML_FlexyFramework_Page
         
         
     }
-    
+    /** a daily cache **/
+    function jdataCache($key)
+    {
+        $fn = sys_get_temp_dir() . date('/Y/m/d').'.'. $key . 'cache.json';
+        if (file_exists($fn)) {
+            echo file_get_contents($fn);
+        }
+        
+        
+    }
     
    
     

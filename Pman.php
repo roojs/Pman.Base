@@ -510,6 +510,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
         $fn = sys_get_temp_dir() . date('/Y/m/d').'.'. $key . 'cache.json';
         if (file_exists($fn)) {
+            header('Content-type: application/json');
             echo file_get_contents($fn);
         }
         

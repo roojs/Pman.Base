@@ -512,6 +512,7 @@ class Pman extends HTML_FlexyFramework_Page
         if (file_exists($fn)) {
             header('Content-type: application/json');
             echo file_get_contents($fn);
+            exit;
         }
         
         

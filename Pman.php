@@ -514,7 +514,7 @@ class Pman extends HTML_FlexyFramework_Page
             echo file_get_contents($fn);
             exit;
         }
-        
+        return false;
         
     }
     

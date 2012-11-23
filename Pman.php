@@ -498,7 +498,8 @@ class Pman extends HTML_FlexyFramework_Page
         $ret =  $json->encode(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra);  
         
         if (!empty($cachekey)) {
-            $fn = sys_get_temp_dir() . date('/Y/m/d').'.'. $cachekey . '.cache.json';
+            
+            $fn = ini_get('session.save_path') . date('/Y/m/d').'.'. $cachekey . '.cache.json';
             if (!file_exists(dirname($fn))) {
                 mkdir(dirname($fn), 0666,true);
             }
@@ -512,7 +513,7 @@ class Pman extends HTML_FlexyFramework_Page
     /** a daily cache **/
     function jdataCache($key)
     {
-        $fn = sys_get_temp_dir() . date('/Y/m/d').'.'. $key . 'cache.json';
+        $fn = ini_get('session.save_path'). date('/Y/m/d').'.'. $key . 'cache.json';
         if (file_exists($fn)) {
             header('Content-type: application/json');
             echo file_get_contents($fn);

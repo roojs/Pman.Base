@@ -499,7 +499,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         if (!empty($cachekey)) {
             
-            $fn = ini_get('session.save_path') . date('/Y/m/d').'.'. $cachekey . '.cache.json';
+            $fn = ini_get('session.save_path') . '/json-cache'.date('/Y/m/d').'.'. $cachekey . '.cache.json';
             if (!file_exists(dirname($fn))) {
                 mkdir(dirname($fn), 0666,true);
             }

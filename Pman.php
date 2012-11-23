@@ -474,7 +474,7 @@ class Pman extends HTML_FlexyFramework_Page
      * @extra {Array} extra key value list of data to pass as extra data.
      * 
      */
-    function jdata($ar,$total=false, $extra=array())
+    function jdata($ar,$total=false, $extra=array(), $cachekey = false)
     {
         // should do mobile checking???
         if ($total == false) {

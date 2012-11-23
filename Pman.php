@@ -499,7 +499,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         if (!empty($cachekey)) {
             $fn = sys_get_temp_dir() . date('/Y/m/d').'.'. $cachekey . 'cache.json';
-            if (!file_exists(dirname($fn)) {
+            if (!file_exists(dirname($fn))) {
                 mkdir(dirname($fn), 0666,true);
             }
             file_put_contents($fn, $ret);

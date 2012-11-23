@@ -511,9 +511,9 @@ class Pman extends HTML_FlexyFramework_Page
         
     }
     /** a daily cache **/
-    function jdataCache($key)
+    function jdataCache($cachekey)
     {
-        $fn = ini_get('session.save_path'). date('/Y/m/d').'.'. $key . 'cache.json';
+        $fn = ini_get('session.save_path') . '/json-cache'.date('/Y/m/d').'.'. $cachekey . '.cache.json';
         if (file_exists($fn)) {
             header('Content-type: application/json');
             echo file_get_contents($fn);

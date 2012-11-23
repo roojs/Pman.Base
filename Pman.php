@@ -501,14 +501,12 @@ class Pman extends HTML_FlexyFramework_Page
             
             $fn = ini_get('session.save_path') . '/json-cache'.date('/Y/m/d').'.'. $cachekey . '.cache.json';
             if (!file_exists(dirname($fn))) {
-                mkdir(dirname($fn), 0666,true);
+                mkdir(dirname($fn), 0777,true);
             }
             file_put_contents($fn, $ret);
         }
         echo $ret;
         exit;
-        
-        
     }
     /** a daily cache **/
     function jdataCache($cachekey)

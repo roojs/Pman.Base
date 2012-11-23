@@ -495,12 +495,16 @@ class Pman extends HTML_FlexyFramework_Page
         }
         
       
+        $ret =  $json->encode(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra);  
         
-        
-        
-        
-       
-        echo $json->encode(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra);    
+        if (!empty($cachekey)) {
+            $fn = sys_get_temp_dir() . date('/Y/m/d').'.'. $cachekey . 'cache.json';
+            if (!file_exists(dirname($fn)) {
+                mkdir(dirname($fn), 0666,true);
+            }
+            file_put_contents($fn, $ret);
+        }
+        echo $ret;
         exit;
         
         

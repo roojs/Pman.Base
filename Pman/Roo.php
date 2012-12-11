@@ -177,7 +177,7 @@ class Pman_Roo extends Pman
             //DB_DAtaObject::debuglevel(1);
             return $this->post($tab);
         }
-        
+        echo 'HERE1';
         if ($this->debugEnabled && isset($_REQUEST['_debug']) && 
                 (
                     !method_exists($this->authUser,'groups') 

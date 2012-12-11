@@ -1307,7 +1307,7 @@ class Pman_Roo extends Pman
         $q_filtered = array();
         
         foreach($q as $key=>$val) {
-            
+             // handles name[]=fred&name[]=brian => name in ('fred', 'brian').
             // value is an array..
             if (is_array($val) ) {
                 
@@ -1352,7 +1352,7 @@ class Pman_Roo extends Pman
             }
             
             
-            
+            // handles !name=fred => name not equal fred.
             if ($key[0] == '!' && in_array(substr($key, 1), array_keys($this->cols))) {
                 
                 $key  = substr($key, 1) ;

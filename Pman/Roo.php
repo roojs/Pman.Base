@@ -170,7 +170,7 @@ class Pman_Roo extends Pman
         // debugging...
         
         
-        
+        print_r($_GET['_post']);
         if ($this->debugEnabled && !empty($_GET['_post'])) {
             $_POST  = $_GET;
             //DB_DAtaObject::debuglevel(1);

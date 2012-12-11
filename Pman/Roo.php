@@ -1299,7 +1299,7 @@ class Pman_Roo extends Pman
         // if a column is type int, and we get ',' -> the it should be come an inc clause..
        // DB_DataObject::debugLevel(1);
         if (method_exists($x, 'applyFilters')) {
-           // DB_DataObject::debugLevel(1);
+            DB_DataObject::debugLevel(1);
             $x->applyFilters($q, $this->authUser, $this);
         }
         $q_filtered = array();

@@ -1125,7 +1125,6 @@ class Pman_Roo extends Pman
         
         // current table..
         $tabdef = $do->table();
-        print_r($tabdef);
         if (isset($tabdef['passwd'])) {
             // prevent exposure of passwords..
             unset($tabdef['passwd']);     

@@ -1121,7 +1121,6 @@ class Pman_Roo extends Pman
         
         
         $map = $do->links();
-        print_r($map);
         
         
         // current table..

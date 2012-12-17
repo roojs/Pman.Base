@@ -384,7 +384,7 @@ class Pman_Roo extends Pman
             fputcsv($fh, $titles);
             
             
-            if (isObject($data)) {
+            if (is_object($data)) {
                 while($data->fetch()) {
                     $x = $rooar  ? $data->toRooArray($q) : $data->toArray();
                     foreach($cols as $k) {

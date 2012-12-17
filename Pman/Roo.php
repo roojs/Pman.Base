@@ -387,6 +387,7 @@ class Pman_Roo extends Pman
             if (is_object($data)) {
                 while($data->fetch()) {
                     $x = $rooar  ? $data->toRooArray($q) : $data->toArray();
+                    $line = array();
                     foreach($cols as $k) {
                         $line[] = isset($x[$k]) ? $x[$k] : '';
                     }

@@ -370,6 +370,9 @@ class Pman_Roo extends Pman
     function toCsv($data, $cols, $titles, $filename)
     {
           
+            
+            
+            
             $fn = empty($filename) ? 'list-export-' : urlencode($filename);
             header('Content-type: text/csv');
             
@@ -379,6 +382,21 @@ class Pman_Roo extends Pman
             fwrite($fh,"\xEF\xBB\xBF"); // Stupid Excel and unicode!
             
             fputcsv($fh, $titles);
+            
+            
+            if (isObject($data)) {
+                while($data->fetch()) {
+                    $x = $rooar  ? $data->toRooArray($q) : $data->toArray();
+                    foreach($cols as $k) {
+                        $line[] = isset($x[$k]) ? $x[$k] : '';
+                    }
+                    fputcsv($fh, $line,',','"');
+                    
+                }
+                fclose($fh);
+                exit;
+                
+            } 
             
             
             foreach($data as $x) {

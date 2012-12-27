@@ -505,7 +505,6 @@ class Pman_Roo extends Pman
      
     function post($tab) // update / insert (?? delete??)
     {
-        print_r('run');
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
    
         

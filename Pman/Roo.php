@@ -388,6 +388,10 @@ class Pman_Roo extends Pman
                 $rooar = method_exists($data, 'toRooArray');
                 while($data->fetch()) {
                     $x = $rooar  ? $data->toRooArray($q) : $data->toArray();
+                    if ($cols == '*') {
+                        $cols = array_keys($x);
+                    }
+                    
                     $line = array();
                     foreach($cols as $k) {
                         $line[] = isset($x[$k]) ? $x[$k] : '';

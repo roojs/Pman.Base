@@ -381,7 +381,8 @@ class Pman_Roo extends Pman
             $fh = fopen('php://output', 'w');
             fwrite($fh,"\xEF\xBB\xBF"); // Stupid Excel and unicode!
             
-            fputcsv($fh, $titles);
+            
+            
             
             
             if (is_object($data)) {
@@ -390,6 +391,13 @@ class Pman_Roo extends Pman
                     $x = $rooar  ? $data->toRooArray($q) : $data->toArray();
                     if ($cols == '*') {
                         $cols = array_keys($x);
+                    }
+                    if ($titles== '*') {
+                        $titles= array_keys($x);
+                    }
+                    if ($titles !== false) {
+                        fputcsv($fh, $titles);
+                        $titles = false;
                     }
                     
                     $line = array();
@@ -408,6 +416,18 @@ class Pman_Roo extends Pman
             foreach($data as $x) {
                 //echo "<PRE>"; print_r(array($_REQUEST['csvCols'], $x->toArray())); exit;
                 $line = array();
+                if ($titles== '*') {
+                    $titles= array_keys($x);
+                }
+                if ($cols== '*') {
+                    $cols= array_keys($x);
+                }
+                if ($titles !== false) {
+                    fputcsv($fh, $titles);
+                    $titles = false;
+                }
+                
+                
                 foreach($cols as $k) {
                     $line[] = isset($x[$k]) ? $x[$k] : '';
                 }

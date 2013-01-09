@@ -1187,7 +1187,7 @@ class Pman_Roo extends Pman
         $has_distinct = false;
         if ($onlycolumns || $distinct) {
             $cols = array();
-            //echo '<PRE>' ;print_r($filter);exit;
+             echo '<PRE>' ;print_r($xx);exit;
             foreach($xx as $c) {
                 //var_dump($c);
                 

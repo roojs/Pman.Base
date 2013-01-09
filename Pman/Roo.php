@@ -1246,9 +1246,9 @@ class Pman_Roo extends Pman
                       
                     if ($distinct && $tn == $distinct) {
                         
-                        $has_distinct = 'DISTINCT( ' . 'join_'.$ocl.'_'.$col.'.'.$k .')  as ' . $tn ;
-                        $this->countWhat =  'DISTINCT  join_'.$ocl.'_'.$col.'.'.$k;
-                        var_dump($this->countWhat );
+                        $has_distinct = 'DISTINCT( ' . 'join_'.$ocl.'_'.$col.'.'.$c .')  as ' . $tn ;
+                        $this->countWhat =  'DISTINCT  join_'.$ocl.'_'.$col.'.'.$c;
+                       // var_dump($this->countWhat );
                         continue;
                     }
                     

@@ -1349,6 +1349,8 @@ class Pman_Roo extends Pman
         }
         $q_filtered = array();
         
+        $keys = array_keys($x->keys());
+        
         foreach($q as $key=>$val) {
              // handles name[]=fred&name[]=brian => name in ('fred', 'brian').
             // value is an array..
@@ -1452,6 +1454,9 @@ class Pman_Roo extends Pman
         }
         if (!empty($q_filtered)) {
             //var_dump($q_filtered);
+            
+            
+            
             $x->setFrom($q_filtered);
         }
         

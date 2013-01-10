@@ -1349,9 +1349,14 @@ class Pman_Roo extends Pman
         }
         $q_filtered = array();
         
-        $keys = array_keys($x->keys());
+        $keys = $x->keys();
         
         foreach($q as $key=>$val) {
+            
+            if (isset($keys[$key])) {
+                $x->$key  = $val;
+            }
+            
              // handles name[]=fred&name[]=brian => name in ('fred', 'brian').
             // value is an array..
             if (is_array($val) ) {

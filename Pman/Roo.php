@@ -1568,7 +1568,7 @@ class Pman_Roo extends Pman
         if ($this->transObj) {
             $this->transObj->query('ROLLBACK');
         }
-        return parent::jerr($str);
+        return parent::jerr($str,$errors);
     
     }
     

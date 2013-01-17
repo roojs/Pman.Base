@@ -1353,7 +1353,7 @@ class Pman_Roo extends Pman
         // var_dump($keys);exit;
         foreach($q as $key=>$val) {
             
-            if (isset($keys[$key])) {
+            if (in_array($key,$keys)) {
                
                 $x->$key  = $val;
             }

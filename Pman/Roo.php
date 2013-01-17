@@ -1350,11 +1350,11 @@ class Pman_Roo extends Pman
         $q_filtered = array();
         
         $keys = $x->keys();
-        
+         var_dump($keys);exit;
         foreach($q as $key=>$val) {
             
             if (isset($keys[$key])) {
-                var_dump($key);exit;
+               
                 $x->$key  = $val;
             }
             

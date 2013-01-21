@@ -171,7 +171,14 @@ class Pman_Roo extends Pman
         
         
         
-        if ($this->debugEnabled && !empty($_GET['_post'])) {
+        if ( !empty($_GET['_post']) && 
+                    $this->authUser && 
+                    method_exists($this->authUser,'groups') &&
+                    in_array('Administrators', $this->authUser->groups('name'))
+                ) {
+                    
+            
+            
             $_POST  = $_GET;
             //DB_DAtaObject::debuglevel(1);
             return $this->post($tab);

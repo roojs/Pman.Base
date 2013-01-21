@@ -184,12 +184,13 @@ class Pman_Roo extends Pman
             return $this->post($tab);
         }
         
-        if ($this->debugEnabled && isset($_REQUEST['_debug']) && 
-                (
-                    !method_exists($this->authUser,'groups') 
-                    ||
-                    in_array('Administrators', $this->authUser->groups('name'))
-                )
+        if (isset($_REQUEST['_debug']) && 
+                $this->authUser
+                &&
+                method_exists($this->authUser,'groups') 
+                &&
+                in_array('Administrators', $this->authUser->groups('name'))
+                
             ){
             DB_DAtaObject::debuglevel((int)$_REQUEST['_debug']);
         }

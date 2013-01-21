@@ -948,7 +948,9 @@ class Pman_Roo extends Pman
             $x->setFrom($req);
         }
       
-        //print_r($x);
+        
+        
+        print_r($x);exit;
         //print_r($old);
         
         $cols = $x->table();

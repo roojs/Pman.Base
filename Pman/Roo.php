@@ -950,7 +950,7 @@ class Pman_Roo extends Pman
       
         
         
-        echo '<PRE>';print_r($x);print_r($old);exit;
+        echo '<PRE>';print_r($old);print_r($x);exit;
         //print_r($old);
         
         $cols = $x->table();

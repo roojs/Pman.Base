@@ -184,7 +184,8 @@ class Pman_Roo extends Pman
             return $this->post($tab);
         }
         
-        if (isset($_REQUEST['_debug']) && 
+        if (isset($_REQUEST['_debug']) 
+                && 
                 $this->authUser
                 &&
                 method_exists($this->authUser,'groups') 

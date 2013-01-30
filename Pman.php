@@ -797,6 +797,8 @@ class Pman extends HTML_FlexyFramework_Page
         
         $eid = $e->insert();
         
+        print_r($eid);
+        
         // fixme - this should be in onInsert..
         $wa = DB_DataObject::factory('core_watch');
         if (method_exists($wa,'notifyEvent')) {

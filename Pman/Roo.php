@@ -1506,7 +1506,7 @@ class Pman_Roo extends Pman
     function dataObject($tab)
     {
         if (is_array($this->validTables) &&  !in_array($tab,$this->validTables)) {
-            $this->jerr("Invalid url");
+            $this->jerr("Invalid url - not listed in validTables");
         }
         $tab = str_replace('/', '',$tab); // basic protection??
         

@@ -1173,8 +1173,9 @@ class Pman_Roo extends Pman
         //DB_DataObject::debugLevel(5);
         $onlycolumns    = !empty($cfg['columns']) ? $cfg['columns'] : false;
         $distinct       = !empty($cfg['distinct']) ? $cfg['distinct'] : false;
-        $excludecolumns = !empty($cfg['exclude']) ? $cfg['exclude'] : false;
+        $excludecolumns = !empty($cfg['exclude']) ? $cfg['exclude'] : array();
        
+        $excludecolumns[] = 'passwd'; // we never expose passwords
        
         $ret = $do->autoJoin(array(
             'include' => $onlycolumns,
@@ -1185,6 +1186,11 @@ class Pman_Roo extends Pman
         $this->countWhat = $ret['count'];
         $this->cols = $ret['cols'];
         $this->colsJname = $ret['join_names'];
+        
+        
+        return;
+        
+        
         
         
         

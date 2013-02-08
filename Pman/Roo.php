@@ -1183,7 +1183,7 @@ class Pman_Roo extends Pman
             'distinct' => $distinct
         ));
         
-        print_R($ret);
+      
         
         $this->countWhat = $ret['count'];
         $this->cols = $ret['cols'];

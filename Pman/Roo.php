@@ -1174,6 +1174,18 @@ class Pman_Roo extends Pman
         $onlycolumns    = !empty($cfg['columns']) ? $cfg['columns'] : false;
         $distinct       = !empty($cfg['distinct']) ? $cfg['distinct'] : false;
         $excludecolumns = !empty($cfg['exclude']) ? $cfg['exclude'] : false;
+       
+       
+        $ret = $do->autoJoin(array(
+            'include' => $onlycolumns,
+            'exclude' => $excludecolumns,
+            'distinct' => $distinct
+        ));
+        
+        $this->countWhat = $ret['count'];
+        $this->cols = $ret['cols'];
+        $this->colsJname = $ret['join_names'];
+        
         
         
         //var_dump($cfg);exit;
@@ -1251,7 +1263,6 @@ class Pman_Roo extends Pman
             $tabdef = $xx->table();
             $table = $xx->tableName();
             if (isset($tabdef['passwd'])) {
-             
                 unset($tabdef['passwd']);
               
             } 

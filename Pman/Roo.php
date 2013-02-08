@@ -1160,8 +1160,7 @@ class Pman_Roo extends Pman
       countWhat
       cols
       $this->colsJoinName
-     *
-     *$this->colsJname
+    
      *
      */
     

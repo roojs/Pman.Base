@@ -1154,6 +1154,15 @@ class Pman_Roo extends Pman
      *
      * This is a dupe of what is in autojoin -- we should move to using autojoin really.
      *
+     *
+     * // changes:
+     
+      countWhat
+      cols
+      $this->colsJoinName
+     *
+     *$this->colsJname
+     *
      */
     
     var $cols = array();
@@ -1220,7 +1229,7 @@ class Pman_Roo extends Pman
         } 
         //var_dump($selectAs);exit;
         $this->cols = array();
-        $this->colsJoinName =array();
+        $this->colsJname =array();
         foreach($xx as $k) {
             $this->cols[$k] = $do->tableName(). '.' . $k;
         }

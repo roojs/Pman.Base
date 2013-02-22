@@ -418,7 +418,7 @@ class Pman_Roo extends Pman
             
             
             
-            
+            $se = false;
             if (is_object($data)) {
                 $rooar = method_exists($data, 'toRooArray');
                 while($data->fetch()) {

@@ -456,7 +456,7 @@ class Pman_Roo extends Pman
                     foreach($cols as $k) {
                         $line[] = isset($x[$k]) ? $x[$k] : '';
                     }
-                    $se->addLine($se_config['workbook'], $line)
+                    $se->addLine($se_config['workbook'], $line);
                         
                     
                 }

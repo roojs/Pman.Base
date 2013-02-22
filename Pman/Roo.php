@@ -391,7 +391,6 @@ class Pman_Roo extends Pman
                 'leave_open' => true
             );
             
-            $se = new Core_SimpleExcel($se_config, array());
                 
                 /*
  *     cols :  array(
@@ -443,10 +442,10 @@ class Pman_Roo extends Pman
                                  //   'color' => 'yellow', // set color for the cell which is a header element
                                   // 'fillBlank' => 'gray', // set 
                             );
-                            
+                             $se = new Core_SimpleExcel($se_config, array());
+           
                             
                         }
-                        
                         
                         
                         fputcsv($fh, $titles);
@@ -457,7 +456,8 @@ class Pman_Roo extends Pman
                     foreach($cols as $k) {
                         $line[] = isset($x[$k]) ? $x[$k] : '';
                     }
-                    fputcsv($fh, $line,',','"');
+                    $se->addLine($se_config['workbook'], $line)
+                        
                     
                 }
                 fclose($fh);

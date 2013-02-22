@@ -406,12 +406,7 @@ class Pman_Roo extends Pman
         */
         // if this is set then it will add a tab foreach one.
        
-            
-        'leave_open' => false  
-                
-            ), array())
-            
-            
+         
             
             $fn = empty($filename) ? 'list-export-' : urlencode($filename);
             header('Content-type: text/csv');
@@ -429,13 +424,31 @@ class Pman_Roo extends Pman
                 $rooar = method_exists($data, 'toRooArray');
                 while($data->fetch()) {
                     $x = $rooar  ? $data->toRooArray($q) : $data->toArray();
-                    if ($cols == '*') {
+                    
+                    
+                    if ($cols == '*') {  /// did we get cols sent to us?
                         $cols = array_keys($x);
                     }
                     if ($titles== '*') {
                         $titles= array_keys($x);
                     }
                     if ($titles !== false) {
+                        
+                        foreach($cols as $i=>$col) {
+                            $se_config[] = array(
+                                'header'=> isset($titles[$i]) ? $titles[$i] : $col,
+                                'dataIndex'=> $col,
+                                'width'=>  100,
+                               //     'renderer' => array($this, 'getThumb'),
+                                 //   'color' => 'yellow', // set color for the cell which is a header element
+                                  // 'fillBlank' => 'gray', // set 
+                            );
+                            
+                            
+                        }
+                        
+                        
+                        
                         fputcsv($fh, $titles);
                         $titles = false;
                     }

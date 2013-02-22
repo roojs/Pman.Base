@@ -386,8 +386,8 @@ class Pman_Roo extends Pman
             
             
             $se_config=  array(
-                'workbook' : substr($fn, 0, 31),
-                'cols' : array(),
+                'workbook' => substr($fn, 0, 31),
+                'cols' => array(),
                 'leave_open' => true
             );
             

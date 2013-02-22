@@ -452,11 +452,8 @@ class Pman_Roo extends Pman
                         $titles = false;
                     }
                     
-                    $line = array();
-                    foreach($cols as $k) {
-                        $line[] = isset($x[$k]) ? $x[$k] : '';
-                    }
-                    $se->addLine($se_config['workbook'], $line);
+ 
+                    $se->addLine($se_config['workbook'], $x);
                         
                     
                 }
@@ -496,10 +493,8 @@ class Pman_Roo extends Pman
                 }
                 
                 
-                foreach($cols as $k) {
-                    $line[] = isset($x[$k]) ? $x[$k] : '';
-                }
-                $se->addLine($se_config['workbook'], $line);
+                
+                $se->addLine($se_config['workbook'], $x);
             }
             $se->send($fn .'.xls');
             exit;

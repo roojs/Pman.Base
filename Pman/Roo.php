@@ -460,7 +460,7 @@ class Pman_Roo extends Pman
                         
                     
                 }
-                fclose($fh);
+                $se->send($fn .'.xls');
                 exit;
                 
             } 

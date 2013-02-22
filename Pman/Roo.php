@@ -380,6 +380,37 @@ class Pman_Roo extends Pman
     {
           
             
+            require_once 'Core/SimpleExcel.php';
+            
+            $fn = (empty($filename) ? 'list-export-' : urlencode($filename)) . date('Y-m-d') ;
+            
+            
+            $se_config=  array(
+                'workbook' : substr($fn, 0, 31),
+                'cols' : array(),
+                'leave_open' => true
+            );
+            
+            $se = new Core_SimpleExcel($se_config, array());
+                
+                /*
+ *     cols :  array(
+            array(
+                'header'=> "Thumbnail",
+                'dataIndex'=> 'id',
+                'width'=>  75,
+                'renderer' => array($this, 'getThumb'),
+ *              'color' => 'yellow', // set color for the cell which is a header element
+ *              'fillBlank' => 'gray', // set the color for the cell which is a blank area
+            ),
+        */
+        // if this is set then it will add a tab foreach one.
+       
+            
+        'leave_open' => false  
+                
+            ), array())
+            
             
             
             $fn = empty($filename) ? 'list-export-' : urlencode($filename);

@@ -380,7 +380,7 @@ class Pman_Roo extends Pman
     {
           
             
-            require_once 'Core/SimpleExcel.php';
+            require_once 'Pman/Core/SimpleExcel.php';
             
             $fn = (empty($filename) ? 'list-export-' : urlencode($filename)) . date('Y-m-d') ;
             

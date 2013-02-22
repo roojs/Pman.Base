@@ -405,7 +405,7 @@ class Pman_Roo extends Pman
         */
         // if this is set then it will add a tab foreach one.
        
-         
+         /*
             
             $fn = empty($filename) ? 'list-export-' : urlencode($filename);
             header('Content-type: text/csv');
@@ -414,7 +414,7 @@ class Pman_Roo extends Pman
             //header('Content-type: text/plain');
             $fh = fopen('php://output', 'w');
             fwrite($fh,"\xEF\xBB\xBF"); // Stupid Excel and unicode!
-            
+           */ 
             
             
             

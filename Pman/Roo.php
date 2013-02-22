@@ -476,6 +476,21 @@ class Pman_Roo extends Pman
                     $cols= array_keys($x);
                 }
                 if ($titles !== false) {
+                    foreach($cols as $i=>$col) {
+                        $se_config[] = array(
+                            'header'=> isset($titles[$i]) ? $titles[$i] : $col,
+                            'dataIndex'=> $col,
+                            'width'=>  100,
+                           //     'renderer' => array($this, 'getThumb'),
+                             //   'color' => 'yellow', // set color for the cell which is a header element
+                              // 'fillBlank' => 'gray', // set 
+                        );
+                         $se = new Core_SimpleExcel($se_config, array());
+       
+                        
+                    }
+                    
+                    
                     fputcsv($fh, $titles);
                     $titles = false;
                 }

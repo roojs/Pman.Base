@@ -442,7 +442,7 @@ class Pman_Roo extends Pman
                                  //   'color' => 'yellow', // set color for the cell which is a header element
                                   // 'fillBlank' => 'gray', // set 
                             );
-                             $se = new Pman_Core_SimpleExcel($se_config, array());
+                             $se = new Pman_Core_SimpleExcel(array(), $se_config);
            
                             
                         }
@@ -485,7 +485,7 @@ class Pman_Roo extends Pman
                              //   'color' => 'yellow', // set color for the cell which is a header element
                               // 'fillBlank' => 'gray', // set 
                         );
-                        $se = new Pman_Core_SimpleExcel($se_config, array());
+                        $se = new Pman_Core_SimpleExcel(array(),$se_config);
        
                         
                     }

@@ -499,9 +499,9 @@ class Pman_Roo extends Pman
                 foreach($cols as $k) {
                     $line[] = isset($x[$k]) ? $x[$k] : '';
                 }
-                fputcsv($fh, $line,',','"');
+                $se->addLine($se_config['workbook'], $line);
             }
-            fclose($fh);
+            $se->send($fn .'.xls');
             exit;
         
         

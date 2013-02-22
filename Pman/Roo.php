@@ -434,7 +434,7 @@ class Pman_Roo extends Pman
                     if ($titles !== false) {
                         
                         foreach($cols as $i=>$col) {
-                            $se_config[] = array(
+                            $se_config['cols'][] = array(
                                 'header'=> isset($titles[$i]) ? $titles[$i] : $col,
                                 'dataIndex'=> $col,
                                 'width'=>  100,
@@ -477,7 +477,7 @@ class Pman_Roo extends Pman
                 }
                 if ($titles !== false) {
                     foreach($cols as $i=>$col) {
-                        $se_config[] = array(
+                        $se_config['cols'][] = array(
                             'header'=> isset($titles[$i]) ? $titles[$i] : $col,
                             'dataIndex'=> $col,
                             'width'=>  100,

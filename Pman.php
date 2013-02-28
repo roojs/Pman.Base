@@ -639,6 +639,8 @@ class Pman extends HTML_FlexyFramework_Page
         
         $output = date('Y-m-d-H-i-s-', $maxtime). $smod .'-'.md5(serialize($arfiles)) .'.js';
         
+        
+        // why are translations done line this - we just build them on the fly frmo the database..
         $tmtime = file_exists($this->rootDir.'/_translations_/'. $smod.'.js')
             ? filemtime($this->rootDir.'/_translations_/'. $smod.'.js') : 0;
         

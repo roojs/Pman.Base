@@ -12,9 +12,9 @@ Mime-Version: 1.0
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        Welcome, {t.person.name}
+        Hi, {t.person.name}
         <br />
-        Your Password: {t.person.rawPasswd}
+        Your Petition {t.petition.title}
         <br />
         <br /> 
  

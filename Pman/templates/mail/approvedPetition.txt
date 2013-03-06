@@ -1,0 +1,25 @@
+From: admin@petition.com
+To: {t.person.email:h}
+Subject: Your Petition was Approved
+Content-Type: text/html; charset="utf-8"
+Message-Id: {t.full_msgid}
+Mime-Version: 1.0
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        Welcome, {t.person.name}
+        <br />
+        Your Password: {t.person.rawPasswd}
+        <br />
+        <br />
+ 
+        <br />
+        <br />
+    
+    </body>
+</html>

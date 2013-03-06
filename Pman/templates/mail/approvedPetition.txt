@@ -15,7 +15,7 @@ Mime-Version: 1.0
         Hi, {t.person.name}
         <br />
         Your Petition {t.petition.title:h} was approved.
-        <a href="http://localhost/web.Petition/index.local.php/View?petition_id={t.petition.id}">Click here</a> to view your petition.
+        <a href="{t.url}">Click here</a> to view your petition.
         <br />
         <br /> 
  

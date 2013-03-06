@@ -1,6 +1,6 @@
 From: admin@petition.com
 To: {t.person.email:h}
-Subject: Your Petition was Approved
+Subject: Your petition was approved
 Content-Type: text/html; charset="utf-8"
 Message-Id: {t.full_msgid}
 Mime-Version: 1.0
@@ -14,7 +14,8 @@ Mime-Version: 1.0
     <body>
         Hi, {t.person.name}
         <br />
-        Your Petition {t.petition.title}
+        Your Petition {t.petition.title:h} was approved.
+        <a href="http://localhost/web.Petition/index.local.php/View?petition_id={t.petition.id}">Click here</a> to view your petition.
         <br />
         <br /> 
  

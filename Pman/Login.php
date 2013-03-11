@@ -87,6 +87,7 @@ class Pman_Login extends Pman
     function sendAuthUserDetails()
     {
         // remove for normal use - it's a secuirty hole!
+       
         if (!empty($_REQUEST['_debug'])) {
            // DB_DataObject::debugLevel(1);
         }

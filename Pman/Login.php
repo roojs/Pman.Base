@@ -272,7 +272,14 @@ class Pman_Login extends Pman
         $this->authKey = $u->genPassKey($this->authFrom);
         $this->authKey = md5($u->email . $this->authFrom . $u->passwd);
         
-        $ret =  $u->sendTemplate('password_reset', $this);
+        require_once 'Pman/Core/Mailer.php';
+        $r = new Pman_Core_Mailer(array(
+            'template'=> 'password_reset',
+            'page' => $this,
+             
+        ));
+        
+        $ret = $r->send();
         if (is_object($ret)) {
             $this->addEvent('SYSERR',false, $ret->getMessage());
             $this->jerr($ret->getMessage());

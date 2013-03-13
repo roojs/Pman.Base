@@ -1648,8 +1648,9 @@ class Pman_Roo extends Pman
     {
         // note that commit will only work if an insert/update was done,
         // so some stored proc calls may not have flagged this.
-        if ($this->transObj) {
-            $this->transObj->query('COMMIT');
+        
+        if ($this->transObj ) {
+            $this->transObj->query( connection_aborted() ? 'ROLLBACK' :  'COMMIT');
         }
         return parent::jok($str);
     }

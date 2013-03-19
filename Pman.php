@@ -502,7 +502,7 @@ class Pman extends HTML_FlexyFramework_Page
             foreach($nar as $as) {
                 $add = array();
                 foreach($as as $k=>$v) {
-                    if (is_string($v) && !strlen($v)) {
+                    if (is_string($v) && !strlen(trim($v))) {
                         continue;
                     }
                     $add[$k] = $v;

@@ -495,6 +495,26 @@ class Pman extends HTML_FlexyFramework_Page
             exit;
         }
         
+        
+        // see if trimming will help...
+        if (!empty($_REQUEST['_pman_short'])) {
+            $nar = array();
+            foreach($nar as $as) {
+                $add = array();
+                foreach($as as $k=>$v) {
+                    if (is_string($v) || !strlen($v)) {
+                        continue;
+                    }
+                    $add[$k] = $v;
+                }
+                $nar[] = $add;
+            }
+            $ar = $nar;
+            
+            
+            
+        }
+        
       
         $ret =  $json->encode(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra);  
         
@@ -509,6 +529,9 @@ class Pman extends HTML_FlexyFramework_Page
         echo $ret;
         exit;
     }
+    
+    
+    
     /** a daily cache **/
     function jdataCache($cachekey)
     {

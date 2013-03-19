@@ -499,7 +499,8 @@ class Pman extends HTML_FlexyFramework_Page
         // see if trimming will help...
         if (!empty($_REQUEST['_pman_short'])) {
             $nar = array();
-            foreach($nar as $as) {
+            
+            foreach($ar as $as) {
                 $add = array();
                 foreach($as as $k=>$v) {
                     if (is_string($v) && !strlen(trim($v))) {
@@ -510,9 +511,7 @@ class Pman extends HTML_FlexyFramework_Page
                 $nar[] = $add;
             }
             $ar = $nar;
-            print_r($ar);exit;
-            
-            
+              
         }
         
       

@@ -510,7 +510,7 @@ class Pman extends HTML_FlexyFramework_Page
                 $nar[] = $add;
             }
             $ar = $nar;
-            
+            print_r($ar);exit;
             
             
         }

@@ -735,7 +735,9 @@ class Pman_Roo extends Pman
     {
         //DB_DataObject::debugLevel(1);
         $ms = json_decode($_REQUEST['_multisort']);
-        
+        if (!isset($ms->order) || !is_array($ms->order)) {
+            return;
+        }
         $sort_str = array();
         
         $cols = $x->table();

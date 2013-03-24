@@ -296,7 +296,12 @@ class Pman_Roo extends Pman
         } 
         $queryObj = clone($x);
         //DB_DataObject::debuglevel(1);
-        if (false === $x->find()) {
+        
+        $this->sessionState(0);
+        
+        $res = $x->find();
+        $this->sessionState(1);
+        if (false === $res) {
             $this->jerr($x->_lastError->toString());
             
         }

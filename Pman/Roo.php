@@ -385,7 +385,7 @@ class Pman_Roo extends Pman
     {
           
         $this->sessionState(0); // turn off sessions  - no locking..
-        
+
         require_once 'Pman/Core/SimpleExcel.php';
         
         $fn = (empty($filename) ? 'list-export-' : urlencode($filename)) . date('Y-m-d') ;
@@ -396,31 +396,6 @@ class Pman_Roo extends Pman
             'cols' => array(),
             'leave_open' => true
         );
-        
-            
-            /*
-*     cols :  array(
-        array(
-            'header'=> "Thumbnail",
-            'dataIndex'=> 'id',
-            'width'=>  75,
-            'renderer' => array($this, 'getThumb'),
-*              'color' => 'yellow', // set color for the cell which is a header element
-*              'fillBlank' => 'gray', // set the color for the cell which is a blank area
-        ),
-    */
-    // if this is set then it will add a tab foreach one.
-   
-     /*
-        
-        $fn = empty($filename) ? 'list-export-' : urlencode($filename);
-        header('Content-type: text/csv');
-        
-        header('Content-Disposition: attachment; filename="'.$fn.date('Y-m-d') . '.csv"');
-        //header('Content-type: text/plain');
-        $fh = fopen('php://output', 'w');
-        fwrite($fh,"\xEF\xBB\xBF"); // Stupid Excel and unicode!
-       */ 
         
         
         

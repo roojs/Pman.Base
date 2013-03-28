@@ -776,7 +776,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     /**
      * Error handling...
-     * 
+     *  PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
      */
     
     static $permitError = false;

@@ -373,7 +373,8 @@ class Pman_Roo extends Pman
                 $extra['metaData'] = $meta;
             }
         }
-        
+        // this make take some time...
+        $this->sessionState(0);
        // echo "<PRE>"; print_r($ret);
         $this->jdata($ret, max(count($ret), $total), $extra );
 

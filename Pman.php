@@ -788,7 +788,7 @@ class Pman extends HTML_FlexyFramework_Page
             return;
         }
         
-        if (Pman_Roo::$permitError) {
+        if (Pman::$permitError) {
              
             return;
             

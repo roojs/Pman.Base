@@ -12,7 +12,7 @@ require_once 'Pman.php';
  * - checkPerm('L'/'E'/'A', $authuser) - can we list the stuff
  * 
  * - applySort($au, $sortcol, $direction, $array_of_columns, $multisort) -- does not support multisort at present..
- * - applyFilters($_REQUEST, $authUser, $roo) -- apply any query filters on data. and hide stuff not to be seen.
+ * - applyFilters($_REQUEST, $authUser, $roo) -- apply any query filters on data. and hide stuff not to be seen. (RETURN false to prevent default filters.)
  * - postListExtra($_REQUEST) : array(extra_name => data) - add extra column data on the results (like new messages etc.)
  * - postListFilter($data, $authUser, $request) return $data - add extra data to an object
  * 
@@ -1421,7 +1421,9 @@ class Pman_Roo extends Pman
        // DB_DataObject::debugLevel(1);
         if (method_exists($x, 'applyFilters')) {
            // DB_DataObject::debugLevel(1);
-            $x->applyFilters($q, $this->authUser, $this);
+            if (false === $x->applyFilters($q, $this->authUser, $this)) {
+                return; 
+            } 
         }
         $q_filtered = array();
         

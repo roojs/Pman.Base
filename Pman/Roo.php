@@ -12,7 +12,7 @@ require_once 'Pman.php';
  * - checkPerm('L'/'E'/'A', $authuser) - can we list the stuff
  * 
  * - applySort($au, $sortcol, $direction, $array_of_columns, $multisort) -- does not support multisort at present..
- * - applyFilters($_REQUEST, $authUser, $roo) -- apply any query filters on data. and hide stuff not to be seen.
+ * - applyFilters($_REQUEST, $authUser, $roo) -- apply any query filters on data. and hide stuff not to be seen. (RETURN false to prevent default filters.)
  * - postListExtra($_REQUEST) : array(extra_name => data) - add extra column data on the results (like new messages etc.)
  * - postListFilter($data, $authUser, $request) return $data - add extra data to an object
  * 
@@ -373,7 +373,8 @@ class Pman_Roo extends Pman
                 $extra['metaData'] = $meta;
             }
         }
-        
+        // this make take some time...
+        $this->sessionState(0);
        // echo "<PRE>"; print_r($ret);
         $this->jdata($ret, max(count($ret), $total), $extra );
 
@@ -385,7 +386,7 @@ class Pman_Roo extends Pman
     {
           
         $this->sessionState(0); // turn off sessions  - no locking..
-        
+
         require_once 'Pman/Core/SimpleExcel.php';
         
         $fn = (empty($filename) ? 'list-export-' : urlencode($filename)) . date('Y-m-d') ;
@@ -396,31 +397,6 @@ class Pman_Roo extends Pman
             'cols' => array(),
             'leave_open' => true
         );
-        
-            
-            /*
-*     cols :  array(
-        array(
-            'header'=> "Thumbnail",
-            'dataIndex'=> 'id',
-            'width'=>  75,
-            'renderer' => array($this, 'getThumb'),
-*              'color' => 'yellow', // set color for the cell which is a header element
-*              'fillBlank' => 'gray', // set the color for the cell which is a blank area
-        ),
-    */
-    // if this is set then it will add a tab foreach one.
-   
-     /*
-        
-        $fn = empty($filename) ? 'list-export-' : urlencode($filename);
-        header('Content-type: text/csv');
-        
-        header('Content-Disposition: attachment; filename="'.$fn.date('Y-m-d') . '.csv"');
-        //header('Content-type: text/plain');
-        $fh = fopen('php://output', 'w');
-        fwrite($fh,"\xEF\xBB\xBF"); // Stupid Excel and unicode!
-       */ 
         
         
         
@@ -936,10 +912,10 @@ class Pman_Roo extends Pman
         // only done if we recieve a lock_id.
         // we are very trusing here.. that someone has not messed around with locks..
         // the object might want to check in their checkPerm - if locking is essential..
-        Pman_Roo::$permitError = true; // allow it to fail without dieing
+        Pman::$permitError = true; // allow it to fail without dieing
         
         $lock = DB_DataObjecT::factory('Core_locking');
-        Pman_Roo::$permitError = false; 
+        Pman::$permitError = false; 
         if (is_a($lock,'DB_DataObject') && $this->authUser)  {
                  
             $lock->on_id = $x->{$this->key};
@@ -1445,7 +1421,9 @@ class Pman_Roo extends Pman
        // DB_DataObject::debugLevel(1);
         if (method_exists($x, 'applyFilters')) {
            // DB_DataObject::debugLevel(1);
-            $x->applyFilters($q, $this->authUser, $this);
+            if (false === $x->applyFilters($q, $this->authUser, $this)) {
+                return; 
+            } 
         }
         $q_filtered = array();
         
@@ -1608,46 +1586,7 @@ class Pman_Roo extends Pman
         
     }
     
-    
-    static $permitError = false;
-    
-    function onPearError($err)
-    {
-        static $reported = false;
-        if ($reported) {
-            return;
-        }
-        
-        if (Pman_Roo::$permitError) {
-             
-            return;
-            
-        }
-        
-        
-        $reported = true;
-        $out = $err->toString();
-        
-        
-        //print_R($bt); exit;
-        $ret = array();
-        $n = 0;
-        foreach($err->backtrace as $b) {
-            $ret[] = @$b['file'] . '(' . @$b['line'] . ')@' .   @$b['class'] . '::' . @$b['function'];
-            if ($n > 20) {
-                break;
-            }
-            $n++;
-        }
-        //convert the huge backtrace into something that is readable..
-        $out .= "\n" . implode("\n",  $ret);
      
-        
-        $this->jerr($out);
-        
-        
-        
-    }
     // our handlers to commit / rollback.
     
       

@@ -774,6 +774,50 @@ class Pman extends HTML_FlexyFramework_Page
         
     }
     
+    /**
+     * Error handling...
+     *  PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
+     */
+    
+    static $permitError = false;
+    
+    function onPearError($err)
+    {
+        static $reported = false;
+        if ($reported) {
+            return;
+        }
+        
+        if (Pman::$permitError) {
+             
+            return;
+            
+        }
+        
+        
+        $reported = true;
+        $out = $err->toString();
+        
+        
+        //print_R($bt); exit;
+        $ret = array();
+        $n = 0;
+        foreach($err->backtrace as $b) {
+            $ret[] = @$b['file'] . '(' . @$b['line'] . ')@' .   @$b['class'] . '::' . @$b['function'];
+            if ($n > 20) {
+                break;
+            }
+            $n++;
+        }
+        //convert the huge backtrace into something that is readable..
+        $out .= "\n" . implode("\n",  $ret);
+     
+        
+        $this->jerr($out);
+        
+        
+        
+    }
     
     
     /**

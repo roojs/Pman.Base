@@ -34,7 +34,7 @@ require_once 'Pman.php';
  *  AFTER
  * - onUpdate($old, $request,$roo) - after update // return value ignored
  * - onInsert($request,$roo) - after insert
- * - onInsert($req, $roo) - after delete
+ * - onDelete($req, $roo) - after delete
  * - onUpload($roo)
  * 
  

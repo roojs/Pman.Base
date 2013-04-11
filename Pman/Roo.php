@@ -1177,6 +1177,12 @@ class Pman_Roo extends Pman
             $this->addEvent("DELETE", $x);
             
             $xx->delete();
+            
+            if (method_exists($xx,'onDelete')) {
+                $xx->onDelete($this, $req);
+            }
+            
+            
         }
         if ($errs) {
             $this->jerr(implode("\n<BR>", $errs));

@@ -561,6 +561,7 @@ class Pman_Roo extends Pman
      *      beforeInsert($request,$roo)
      *                      - before insert - jerr() will stop insert..
      *
+     *
      * CALLS AFTER change occured
      * 
      *      onUpdate($old, $request,$roo)
@@ -569,7 +570,7 @@ class Pman_Roo extends Pman
      *      onInsert($request,$roo)
      *                  - after insert
      * 
-     *
+     *      onDelete($request, $roo) - after delete
      * 
      */                     
      
@@ -1180,7 +1181,7 @@ class Pman_Roo extends Pman
             $xx->delete();
             
             if (method_exists($xx,'onDelete')) {
-                $xx->onDelete($this, $req);
+                $xx->onDelete($req, $this);
             }
             
             

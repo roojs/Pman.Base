@@ -257,6 +257,7 @@ class Pman_Roo extends Pman
         }
        //DB_DataObject::debugLevel(1);
        
+        
         // sets map and countWhat
         $this->loadMap($x, array(
                     'columns' => $_columns,
@@ -347,7 +348,7 @@ class Pman_Roo extends Pman
             $ret = $x->postListFilter($ret, $this->authUser, $_REQUEST);
         }
         
-        print_r('aaaa');exit;
+        
         
         if (!empty($_REQUEST['csvCols']) && !empty($_REQUEST['csvTitles']) ) {
             

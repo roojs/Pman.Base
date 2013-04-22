@@ -161,9 +161,8 @@ class Pman_Roo extends Pman
          //  $this->jerr("Not authenticated", array('authFailure' => true));
        //echo '<PRE>';print_R($_GET);
       //DB_DataObject::debuglevel(1);
-        
+        print_r('11111');exit;
         $this->init(); // from pman.
-        //print_r('11111');exit;
         //DB_DataObject::debuglevel(1);
         HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev);
         

@@ -347,7 +347,7 @@ class Pman_Roo extends Pman
             $ret = $x->postListFilter($ret, $this->authUser, $_REQUEST);
         }
         
-        
+        print_r('aaaa');exit;
         
         if (!empty($_REQUEST['csvCols']) && !empty($_REQUEST['csvTitles']) ) {
             

@@ -169,7 +169,7 @@ class Pman_Roo extends Pman
    
         
         // debugging...
-        
+        print_r('11111');exit;
         
         
         if ( !empty($_GET['_post']) && 

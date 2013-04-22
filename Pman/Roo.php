@@ -163,13 +163,14 @@ class Pman_Roo extends Pman
       //DB_DataObject::debuglevel(1);
         
         $this->init(); // from pman.
+        //print_r('11111');exit;
         //DB_DataObject::debuglevel(1);
         HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev);
         
    
         
         // debugging...
-        print_r('11111');exit;
+        
         
         
         if ( !empty($_GET['_post']) && 

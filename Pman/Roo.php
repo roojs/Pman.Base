@@ -257,7 +257,7 @@ class Pman_Roo extends Pman
         }
        //DB_DataObject::debugLevel(1);
        
-        print_r('aaaa');exit;
+      //  print_r('aaaa');exit;
         // sets map and countWhat
         $this->loadMap($x, array(
                     'columns' => $_columns,

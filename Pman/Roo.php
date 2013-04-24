@@ -481,7 +481,9 @@ class Pman_Roo extends Pman
             
             $se->addLine($se_config['workbook'], $x);
         }
-        $se->send($fn .'.xls');
+        if($se){
+            $se->send($fn .'.xls');
+        }
         exit;
     
         

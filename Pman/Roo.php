@@ -440,9 +440,10 @@ class Pman_Roo extends Pman
                     
                 
             }
-            if($se){
-                $se->send($fn .'.xls');
+            if(!$se){
+                $this->jerr('no data found');
             }
+            $se->send($fn .'.xls');
             exit;
             
         } 
@@ -481,9 +482,10 @@ class Pman_Roo extends Pman
             
             $se->addLine($se_config['workbook'], $x);
         }
-        if($se){
-            $se->send($fn .'.xls');
+        if(!$se){
+            
         }
+        $se->send($fn .'.xls');
         exit;
     
         

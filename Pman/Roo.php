@@ -483,7 +483,7 @@ class Pman_Roo extends Pman
             $se->addLine($se_config['workbook'], $x);
         }
         if(!$se){
-            
+            $this->jerr('no data found');
         }
         $se->send($fn .'.xls');
         exit;

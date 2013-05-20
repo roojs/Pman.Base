@@ -534,6 +534,7 @@ class Pman extends HTML_FlexyFramework_Page
     /** a daily cache **/
     function jdataCache($cachekey)
     {
+        print_r($cachekey);exit;
         $fn = ini_get('session.save_path') . '/json-cache'.date('/Y/m/d').'.'. $cachekey . '.cache.json';
         if (file_exists($fn)) {
             header('Content-type: application/json');

@@ -179,7 +179,6 @@ class Pman_Login extends Pman
     var $domObj = false;
     function post()
     {
-        print_r('run???');
         //DB_DataObject::debugLevel(1);
         if (!empty($_REQUEST['getAuthUser'])) {
             $this->sendAuthUserDetails();

@@ -400,7 +400,6 @@ class Pman_Roo extends Pman
         );
         
         
-        print_r($data);exit;
         $se = false;
         if (is_object($data)) {
             $rooar = method_exists($data, 'toRooArray');

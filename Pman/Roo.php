@@ -404,6 +404,7 @@ class Pman_Roo extends Pman
         if (is_object($data)) {
             $rooar = method_exists($data, 'toRooArray');
             while($data->fetch()) {
+                print_r($data);exit;
                 $x = $rooar  ? $data->toRooArray($q) : $data->toArray();
                 
                 

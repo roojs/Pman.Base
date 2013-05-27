@@ -1243,7 +1243,7 @@ class Pman_Roo extends Pman
         
         return;
         
-        
+        /*
         
         
         
@@ -1377,7 +1377,7 @@ class Pman_Roo extends Pman
         foreach($selectAs as $ar) {
             $do->selectAs($ar[0], $ar[1], $ar[2]);
         }
-        
+        */
         
     }
     /**

@@ -1225,8 +1225,7 @@ class Pman_Roo extends Pman
         $onlycolumns    = !empty($cfg['columns']) ? $cfg['columns'] : false;
         $distinct       = !empty($cfg['distinct']) ? $cfg['distinct'] : false;
         $excludecolumns = !empty($cfg['exclude']) ? $cfg['exclude'] : array();
-        //var_dump($onlycolumns);
-        
+          
         $excludecolumns[] = 'passwd'; // we never expose passwords
        
         $ret = $do->autoJoin(array(

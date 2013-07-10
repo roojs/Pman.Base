@@ -103,8 +103,15 @@ class Pman extends HTML_FlexyFramework_Page
             return;
         } 
         
-        
-        if ($this->getAuthUser()) {
+        $au = $this->getAuthUser();
+        if ($au) {
+            $ff= HTML_FlexyFramework::get();
+
+            if (!empty($ff->Pman['auth_comptype']) && $au->id > 0 &&
+                ($ff->Pman['auth_comptype'] != $au->company()->comptype)) {
+                $au->logout();
+                $this->jerr("Login not permited to outside companies - please reload");
+            }
             $this->addEvent("RELOAD");
         }
         

@@ -658,8 +658,8 @@ class Pman extends HTML_FlexyFramework_Page
         ksort($arfiles); // just sort by name so it's consistant for serialize..
         
         $compile  = empty($ff->Pman['public_cache_dir']) ? 0 : 1;
-        $basedir = $ff->Pman['public_cache_dir'];
-        $baseurl = $ff->Pman['public_cache_url'];
+        $basedir = $compile ? $ff->Pman['public_cache_dir'] : false;
+        $baseurl = $compile ? $ff->Pman['public_cache_url'] : false;
         
         $lsort = create_function('$a,$b','return strlen($a) > strlen($b) ? 1 : -1;');
         usort($files, $lsort);

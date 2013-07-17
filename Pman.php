@@ -109,8 +109,9 @@ class Pman extends HTML_FlexyFramework_Page
 
             if (!empty($ff->Pman['auth_comptype']) && $au->id > 0 &&
                 ($ff->Pman['auth_comptype'] != $au->company()->comptype)) {
-                $au->logout();
                 die("about to errr");
+                $au->logout();
+                
                 
                 $this->jerr("Login not permited to outside companies - please reload");
             }

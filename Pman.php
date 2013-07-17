@@ -102,7 +102,7 @@ class Pman extends HTML_FlexyFramework_Page
             header('Content-type: text/html; charset=utf-8');
             return;
         } 
-         DB_DAtaObject::debugLevel(1);
+         //DB_DAtaObject::debugLevel(1);
         $au = $this->getAuthUser();
         if ($au) {
             $ff= HTML_FlexyFramework::get();

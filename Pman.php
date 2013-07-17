@@ -106,7 +106,7 @@ class Pman extends HTML_FlexyFramework_Page
         $au = $this->getAuthUser();
         if ($au) {
             $ff= HTML_FlexyFramework::get();
-            
+            DB_DAtaObject::debugLevel(1);
             if (!empty($ff->Pman['auth_comptype']) && $au->id > 0 &&
                 ( !$au->company_id || ($ff->Pman['auth_comptype'] != $au->company()->comptype))) {
                 die("about to errr");

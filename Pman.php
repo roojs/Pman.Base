@@ -109,7 +109,7 @@ class Pman extends HTML_FlexyFramework_Page
            
             if (!empty($ff->Pman['auth_comptype']) && $au->id > 0 &&
                 ( !$au->company_id || ($ff->Pman['auth_comptype'] != $au->company()->comptype))) {
-                die("about to errr");
+           
                 $au->logout();
                 
                 

@@ -83,8 +83,8 @@ class Pman extends HTML_FlexyFramework_Page
         //var_dump($this->appModules);
         foreach(explode(',',$this->appModules) as $m) {
             $cls = 'Pman_'. $m . '_Pman';
-            //echo $cls;
-            //echo __DIR__ . '/'.str_replace('_','/', $cls). '.php';
+            echo $cls;
+            echo $this->rootDir . '/'.str_replace('_','/', $cls). '.php';
             
             if (!file_exists($this->rootDir . '/'.str_replace('_','/', $cls). '.php')) {
                 continue;

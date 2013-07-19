@@ -86,7 +86,7 @@ class Pman extends HTML_FlexyFramework_Page
             //echo $cls;
             //echo __DIR__ . '/'.str_replace('_','/', $cls). '.php';
             
-            if (!file_exists(__DIR__ . '/'.str_replace('_','/', $cls). '.php')) {
+            if (!file_exists($this->rootDir . '/'.str_replace('_','/', $cls). '.php')) {
                 continue;
             }
             require_once str_replace('_','/', $cls). '.php';

@@ -88,7 +88,9 @@ class Pman extends HTML_FlexyFramework_Page
             }
             require_once str_replace('_','/', $cls). '.php';
             $c = new $cls();
-            $c->init($this);
+            if (method_exists($c,'init')) {
+                $c->init($this);
+            }
         }
         
         

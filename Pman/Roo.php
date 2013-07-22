@@ -383,7 +383,7 @@ class Pman_Roo extends Pman
     }
     
     
-    function toCsv($data, $cols, $titles, $filename)
+    function toCsv($data, $cols, $titles, $filename, $addDate = true)
     {
           
         $this->sessionState(0); // turn off sessions  - no locking..

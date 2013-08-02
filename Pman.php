@@ -425,7 +425,7 @@ class Pman extends HTML_FlexyFramework_Page
             exit;
         }
         
-        
+        // should the cli report erros?
         $this->addEvent("ERROR", false, $str);
         
         if ($content_type == 'text/plain') {

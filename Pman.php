@@ -424,11 +424,14 @@ class Pman extends HTML_FlexyFramework_Page
             echo "ERROR: " .$str . "\n";
             exit;
         }
+        $this->addEvent("ERROR", false, $str);
+        
         if ($content_type == 'text/plain') {
+            header('Content-Disposition: attachment; filename="error.txt"');
             header('Content-type: '. $content_type);
             echo "ERROR: " .$str . "\n";
-            exit;
-        }
+             
+        } 
         
         
         
@@ -436,7 +439,7 @@ class Pman extends HTML_FlexyFramework_Page
         $json = new Services_JSON();
         
         // log all errors!!!
-        $this->addEvent("ERROR", false, $str);
+        
         
         if (!empty($_REQUEST['returnHTML']) || 
             (isset($_SERVER['CONTENT_TYPE']) && preg_match('#multipart/form-data#i', $_SERVER['CONTENT_TYPE']))

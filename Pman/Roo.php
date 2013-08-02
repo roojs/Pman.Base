@@ -1617,13 +1617,13 @@ class Pman_Roo extends Pman
     }
     
     
-    function jerr($str, $errors=array())
+    function jerr($str, $errors=array(), $content_type = false)
     {
         // standard error reporting..
         if ($this->transObj) {
             $this->transObj->query('ROLLBACK');
         }
-        return parent::jerr($str,$errors);
+        return parent::jerr($str,$errors,$content_type);
     
     }
     

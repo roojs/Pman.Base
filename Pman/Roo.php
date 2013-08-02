@@ -440,7 +440,8 @@ class Pman_Roo extends Pman
                 
             }
             if(!$se){
-                $this->jerr('no data found');
+                
+                $this->jerr('no data found', false, 'text/plain');
             }
             $se->send($fn .'.xls');
             exit;

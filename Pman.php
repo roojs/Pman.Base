@@ -431,7 +431,7 @@ class Pman extends HTML_FlexyFramework_Page
             header('Content-Disposition: attachment; filename="error.txt"');
             header('Content-type: '. $content_type);
             echo "ERROR: " .$str . "\n";
-             
+            exit;
         } 
         
         

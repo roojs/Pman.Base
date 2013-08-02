@@ -424,6 +424,8 @@ class Pman extends HTML_FlexyFramework_Page
             echo "ERROR: " .$str . "\n";
             exit;
         }
+        
+        
         $this->addEvent("ERROR", false, $str);
         
         if ($content_type == 'text/plain') {

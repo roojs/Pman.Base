@@ -416,7 +416,7 @@ class Pman extends HTML_FlexyFramework_Page
      * ---------------- Standard JSON outputers. - used everywhere
      */
     
-    function jerr($str, $errors=array()) // standard error reporting..
+    function jerr($str, $errors=array(), $content_type = false) // standard error reporting..
     {
         
         $cli = HTML_FlexyFramework::get()->cli;
@@ -424,6 +424,13 @@ class Pman extends HTML_FlexyFramework_Page
             echo "ERROR: " .$str . "\n";
             exit;
         }
+        if ($content_type == 'text/plain') {
+            header('Content-type: '. $content_type);
+            echo "ERROR: " .$str . "\n";
+            exit;
+        }
+        
+        
         
         require_once 'Services/JSON.php';
         $json = new Services_JSON();

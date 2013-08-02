@@ -418,15 +418,14 @@ class Pman extends HTML_FlexyFramework_Page
     
     function jerr($str, $errors=array(), $content_type = false) // standard error reporting..
     {
-        
+        $this->addEvent("ERROR", false, $str);
+         
         $cli = HTML_FlexyFramework::get()->cli;
         if ($cli) {
             echo "ERROR: " .$str . "\n";
             exit;
         }
         
-        // should the cli report erros?
-        $this->addEvent("ERROR", false, $str);
         
         if ($content_type == 'text/plain') {
             header('Content-Disposition: attachment; filename="error.txt"');

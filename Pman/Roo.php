@@ -191,6 +191,8 @@ class Pman_Roo extends Pman
                 &&
                 method_exists($this->authUser,'groups') 
                 &&
+                is_a($this->authUser, 'Pman_DataObjects_Core_Person')
+                &&
                 in_array('Administrators', $this->authUser->groups('name'))
                 
             ){

@@ -459,6 +459,19 @@ class Pman extends HTML_FlexyFramework_Page
             exit;
         }
         
+        if (isset($_REQUEST['_debug'])) {
+            echo '<PRE>'.htmlspecialchars(print_r(array(
+                'success'=> false, 
+                'data'=> array(), 
+                'errorMsg' => $str,
+                'message' => $str, // compate with exeption / loadexception.
+                'errors' => $errors ? $errors : true, // used by forms to flag errors.
+                'authFailure' => !empty($errors['authFailure']),
+            ),true));
+            exit;
+                
+        }
+        
         echo $json->encode(array(
             'success'=> false, 
             'data'=> array(), 
@@ -494,7 +507,7 @@ class Pman extends HTML_FlexyFramework_Page
             echo "</BODY></HTML>";
             exit;
         }
-         
+        
         
         echo  $json->encode(array('success'=> true, 'data' => $str));
         

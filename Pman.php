@@ -922,7 +922,7 @@ class Pman extends HTML_FlexyFramework_Page
         }
         
         
-        $e->onInsert($_REQUEST, $this);
+        $e->onInsert(isset($_REQUEST) ? $_REQUEST : array() , $this);
         
        
         return $e;

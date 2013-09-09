@@ -371,7 +371,8 @@ class Pman_Roo extends Pman
 
     
     }
-    function checkDebug() {
+    function checkDebug()
+    {
          if (isset($_REQUEST['_debug']) 
                 && 
                 $this->authUser

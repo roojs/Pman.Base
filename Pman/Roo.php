@@ -185,19 +185,7 @@ class Pman_Roo extends Pman
             return $this->post($tab);
         }
         
-        if (isset($_REQUEST['_debug']) 
-                && 
-                $this->authUser
-                &&
-                method_exists($this->authUser,'groups') 
-                &&
-                is_a($this->authUser, 'Pman_DataObjects_Core_Person')
-                &&
-                in_array('Administrators', $this->authUser->groups('name'))
-                
-            ){
-            DB_DAtaObject::debuglevel((int)$_REQUEST['_debug']);
-        }
+        $this->checkDebug();
         
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
    
@@ -603,9 +591,7 @@ class Pman_Roo extends Pman
    
         
         //DB_DataObject::debugLevel(1);
-        if (!empty($_REQUEST['_debug'])) {
-            DB_DataObject::debugLevel(1);
-        }
+        $this->checkDebug();
         
         if (!empty($_REQUEST['_get'])) {
             return $this->get($tab);

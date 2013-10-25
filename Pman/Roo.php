@@ -919,6 +919,66 @@ class Pman_Roo extends Pman
         
     }
     
+    function updateLock($x, $req )
+    {
+        Pman::$permitError = true; // allow it to fail without dieing
+        
+        $lock = DB_DataObjecT::factory('Core_locking');
+        Pman::$permitError = false; 
+        if (is_a($lock,'DB_DataObject') && $this->authUser)  {
+                 
+            $lock->on_id = $x->{$this->key};
+            $lock->on_table= strtolower($x->tableName());
+            if (!empty($_REQUEST['_lock_id'])) {
+                $lock->whereAdd('id != ' . ((int)$_REQUEST['_lock_id']));
+            } else {
+                $lock->whereAdd('person_id !=' . $this->authUser->id);
+            }
+            
+            $lock->limit(1);
+            if ($lock->find(true)) {
+                // it's locked by someone else..
+               $p = $lock->person();
+               
+               
+               $this->jerr( "Record was locked by " . $p->name . " at " .$lock->created.
+                           " - Please confirm you wish to save" 
+                           , array('needs_confirm' => true)); 
+          
+              
+            }
+            // check the users lock.. - no point.. ??? - if there are no other locks and it's not the users, then they can 
+            // edit it anyways...
+            
+            // can we find the user's lock.
+            $lock = DB_DataObjecT::factory('Core_locking');
+            $lock->on_id = $x->{$this->key};
+            $lock->on_table= strtolower($x->tableName());
+            $lock->person_id = $this->authUser->id;
+            $lock->orderBy('created DESC');
+            $lock->limit(1);
+            
+            if (
+                    $lock->find(true) &&
+                    isset($x->modified_dt) &&
+                    strtotime($x->modified_dt) > strtotime($lock->created) &&
+                    empty($req['_submit_confirmed']) &&
+	            $x->modified_by != $this->authUser->id 	
+                )
+            {
+                $p = DB_DataObject::factory('Person');
+                $p->get($x->modified_by);
+		 $this->jerr($p->name . " saved the record since you started editing,\nDo you really want to update it?", array('needs_confirm' => true)); 
+                
+            }
+            
+            
+            
+        }
+        return $lock;
+        
+    }
+    
     
     function update($x, $req,  $with_perm_check = true)
     {

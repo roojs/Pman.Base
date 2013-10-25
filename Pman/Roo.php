@@ -172,11 +172,7 @@ class Pman_Roo extends Pman
         
         
         
-        if ( !empty($_GET['_post']) && 
-                    $this->authUser && 
-                    method_exists($this->authUser,'groups') &&
-                    in_array('Administrators', $this->authUser->groups('name'))
-                ) {
+        if ( $this->checkDebugPost()) {
                     
             
             

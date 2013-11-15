@@ -229,16 +229,18 @@ class Pman extends HTML_FlexyFramework_Page
      */
     function modulesList()
     {
-        $this->init();
-        
-        $mods = explode(',', $this->appModules);
+        $boot = HTML_FlexyFramework::get();
+        // echo'<PRE>';print_R($boot);exit;
+         
+         
+        $mods = explode(',', $boot->enable);
         if (in_array('Core',$mods)) { // core has to be the first  modules loaded as it contains Pman.js
             array_unshift($mods,   'Core');
         }
         
         $mods = array_unique($mods);
          
-        $disabled =  explode(',', $this->appDisable ? $this->appDisable: '');
+        $disabled =  explode(',', $boot->disable ? $boot->disable : '');
         $ret = array();
         foreach($mods as $mod) {
             // add the css file..

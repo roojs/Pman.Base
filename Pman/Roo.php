@@ -594,6 +594,8 @@ class Pman_Roo extends Pman
      
     function post($tab) // update / insert (?? delete??)
     {
+        
+        DB_DAtaObject::debugLevel(1);
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
    
         

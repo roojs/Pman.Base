@@ -597,8 +597,7 @@ class Pman_Roo extends Pman
         
         
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
-   
-        
+    
         //DB_DataObject::debugLevel(1);
         $this->checkDebug();
         

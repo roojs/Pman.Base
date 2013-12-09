@@ -99,6 +99,8 @@ class Pman_Login extends Pman
         if (!$u->isAuth()) {
             die("not isAuth");
             
+            
+            
             $this->jok(array('id' => 0)); // not logged in..
             exit;
         }

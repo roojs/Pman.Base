@@ -104,7 +104,7 @@ class Pman_Login extends Pman
             $this->jok(array('id' => 0)); // not logged in..
             exit;
         }
-        
+        die("got here?");
         $au = $u->getAuthUser();
  
          // might occur on shared systems.

@@ -97,10 +97,7 @@ class Pman_Login extends Pman
         
         $u = DB_DataObject::factory($tbl);
         if (!$u->isAuth()) {
-            die("not isAuth");
-            
-            
-            
+             
             $this->jok(array('id' => 0)); // not logged in..
             exit;
         }

@@ -627,7 +627,7 @@ class Pman extends HTML_FlexyFramework_Page
             }
             
         }
-        if (!empty($this->disable_jstemplate)) {
+        if (empty($this->disable_jstemplate)) {
         // and finally the JsTemplate...
             echo '<script type="text/javascript" src="'. $this->baseURL. '/Core/JsTemplate"></script>'."\n";
         }

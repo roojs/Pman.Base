@@ -936,6 +936,17 @@ class Pman_Roo extends Pman
                 $lock->whereAdd('person_id !=' . $this->authUser->id);
             }
             
+            $llc = clone($lock);
+            $exp = date('Y-m-d', strtotime('NOW - 1 WEEK'));
+            $llc->whereAdd("created < '$exp'");
+            if ($llc->count()) {
+                $llc->find();
+                while($llc->fetch()) {
+                    $llcd = clone($llc);
+                    $llcd->delete();
+                }
+            }
+            
             $lock->limit(1);
             if ($lock->find(true)) {
                 // it's locked by someone else..

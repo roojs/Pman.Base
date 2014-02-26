@@ -279,6 +279,7 @@ class Pman_Login extends Pman
         $this->authFrom = time();
         $this->authKey = $u->genPassKey($this->authFrom);
         $this->authKey = md5($u->email . $this->authFrom . $u->passwd);
+        $this->user = $u;
         
         require_once 'Pman/Core/Mailer.php';
         $r = new Pman_Core_Mailer(array(

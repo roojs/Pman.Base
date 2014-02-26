@@ -276,6 +276,19 @@ class Pman_Login extends Pman
         if ($u->no_reset_sent > 3) {
             $this->jerr('We have issued to many resets - please contact the Administrator');
         }
+        
+        // sort out sender.
+        
+        $g = DB_DAtaObject::factory('Groups');
+        if (!$g->get('name', 'system-email-from')) {
+            $this->jerr("no group 'system-email-from' exists in the system");
+        }
+        $from_ar = $g->members();
+        if (count($from_ar) != 1) {
+            $this->jerr(count($from_ar) ? "To many members in the 'system-email-from' group " :
+                       "'system-email-from' group  does not have any members");
+        }
+        
         $this->authFrom = time();
         $this->authKey = $u->genPassKey($this->authFrom);
         $this->authKey = md5($u->email . $this->authFrom . $u->passwd);

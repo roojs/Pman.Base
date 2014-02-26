@@ -284,9 +284,7 @@ class Pman_Login extends Pman
         require_once 'Pman/Core/Mailer.php';
         $r = new Pman_Core_Mailer(array(
             'template'=> 'password_reset',
-            'page' => $this,
-            'contents' => $this,
-             
+            'page' => $this
         ));
         
         $ret = $r->send();

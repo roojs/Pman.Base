@@ -288,6 +288,18 @@ class Pman_Login extends Pman
             $this->jerr(count($from_ar) ? "To many members in the 'system-email-from' group " :
                        "'system-email-from' group  does not have any members");
         }
+        
+        // bcc..
+        $g = DB_DAtaObject::factory('Groups');
+        if (!$g->get('name', 'bcc-email')) {
+            $this->jerr("no group 'bcc-email' exists in the system");
+        }
+        $bcc = $g->members();
+        if (!count($from_ar)) {
+            $this->jerr( "'bcc-email' group  does not have any members");
+        }
+        
+        
         $this->from = $from_ar[0];
         $this->authFrom = time();
         $this->authKey = $u->genPassKey($this->authFrom);
@@ -297,7 +309,8 @@ class Pman_Login extends Pman
         require_once 'Pman/Core/Mailer.php';
         $r = new Pman_Core_Mailer(array(
             'template'=> 'password_reset',
-            'page' => $this
+            'page' => $this,
+            'bcc' => $bcc
         ));
         //$this->jerr(print_r($r->toData(),true));
         $ret = $r->send();

@@ -299,7 +299,7 @@ class Pman_Login extends Pman
             'template'=> 'password_reset',
             'page' => $this
         ));
-        $this->jerr(print_r($r->toData(),true));
+        //$this->jerr(print_r($r->toData(),true));
         $ret = $r->send();
         if (is_object($ret)) {
             $this->addEvent('SYSERR',false, $ret->getMessage());

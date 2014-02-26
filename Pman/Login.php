@@ -285,6 +285,7 @@ class Pman_Login extends Pman
         $r = new Pman_Core_Mailer(array(
             'template'=> 'password_reset',
             'page' => $this,
+            'contents' => $this,
              
         ));
         

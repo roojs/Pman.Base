@@ -288,7 +288,7 @@ class Pman_Login extends Pman
             $this->jerr(count($from_ar) ? "To many members in the 'system-email-from' group " :
                        "'system-email-from' group  does not have any members");
         }
-        
+        $this->from = $from_ar[0];
         $this->authFrom = time();
         $this->authKey = $u->genPassKey($this->authFrom);
         $this->authKey = md5($u->email . $this->authFrom . $u->passwd);

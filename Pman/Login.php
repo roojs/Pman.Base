@@ -128,6 +128,9 @@ class Pman_Login extends Pman
         // technically each module should only add properties to an array named after that module..
         
         foreach($this->modules() as $m) {
+            if (empty($m)) {
+                continue;
+            }
             if (!file_exists($this->rootDir.'/Pman/'.$m.'/Login.php')) {
                 continue;
             }

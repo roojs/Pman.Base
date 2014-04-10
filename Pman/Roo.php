@@ -310,7 +310,9 @@ class Pman_Roo extends Pman
         while ($x->fetch()) {
             //print_R($x);exit;
             $add = $rooar  ? $x->toRooArray($_REQUEST) : $x->toArray();
-            
+            if ($add === false) {
+                continue;
+            }
             $ret[] =  !$_columns ? $add : array_intersect_key($add, $_columnsf);
         }
         

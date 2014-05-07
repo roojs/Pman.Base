@@ -39,6 +39,7 @@ class Pman extends HTML_FlexyFramework_Page
     var $authUser; // always contains the authenticated user..
     
     var $disable_jstemplate = false; /// disable inclusion of jstemplate code..
+    var $company = false;
     
     /**
      * ------------- Standard getAuth/get/post methods of framework.

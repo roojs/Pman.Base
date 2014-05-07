@@ -918,6 +918,10 @@ class Pman extends HTML_FlexyFramework_Page
     
     function addEvent($act, $obj = false, $remarks = '') 
     {
+        
+        if (!empty(HTML_FlexyFramework::get()->Pman['disabled_events'])) {
+            return;
+        }
         $au = $this->getAuthUser();
        
         $e = DB_DataObject::factory('Events');

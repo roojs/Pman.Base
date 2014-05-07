@@ -896,7 +896,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     function addEventOnce($act, $obj = false, $remarks = '') 
     {
-        if (!empty(HTML_FlexyFramework::get()->Pman['disabled_events'])) {
+        if (!empty(HTML_FlexyFramework::get()->Pman['disable_events'])) {
             return;
         }
         $e = DB_DataObject::factory('Events');
@@ -919,7 +919,7 @@ class Pman extends HTML_FlexyFramework_Page
     function addEvent($act, $obj = false, $remarks = '') 
     {
         
-        if (!empty(HTML_FlexyFramework::get()->Pman['disabled_events'])) {
+        if (!empty(HTML_FlexyFramework::get()->Pman['disable_events'])) {
             return;
         }
         $au = $this->getAuthUser();

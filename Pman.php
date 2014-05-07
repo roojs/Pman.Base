@@ -173,7 +173,12 @@ class Pman extends HTML_FlexyFramework_Page
      */
     function loadOwnerCompany()
     {
-         
+        // only applies if authtable is person..
+        $ff = HTML_FlexyFramework::get();
+        if (!empty($ff->Pman['authTable']) && $ff->Pman['authTable'] != 'Person') {
+            return false;
+        }
+        
         $this->company = DB_DataObject::Factory('Companies');
         if (!is_a($this->company, 'DB_DataObject')) { // non-core pman projects
             return false; 

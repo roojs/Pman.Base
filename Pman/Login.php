@@ -105,7 +105,7 @@ class Pman_Login extends Pman
         }
         //die("got here?");
         $au = $u->getAuthUser();
- 
+        print_r($au);
          // might occur on shared systems.
         $ff= HTML_FlexyFramework::get();
         

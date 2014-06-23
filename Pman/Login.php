@@ -117,7 +117,7 @@ class Pman_Login extends Pman
         
         //$au = $u->getAuthUser();
         
-        $aur = $au->authUserArray();
+        $aur = $au ?  $au->authUserArray() : array();
         
         /** -- these need modulizing somehow! **/
         

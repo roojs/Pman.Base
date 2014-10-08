@@ -974,7 +974,7 @@ class Pman extends HTML_FlexyFramework_Page
         require_once 'Pman/Core/Mailer.php';
         $r = new Pman_Core_Mailer(array(
             'template'=>$templateFile,
-            'contents' => $args,
+            'contents' => array(),
             'page' => $this
         ));
         return $r->send();

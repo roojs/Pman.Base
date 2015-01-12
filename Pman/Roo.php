@@ -381,11 +381,22 @@ class Pman_Roo extends Pman
                 && 
                 $this->authUser
                 &&
-                method_exists($this->authUser,'groups') 
-                &&
-                is_a($this->authUser, 'Pman_Core_DataObjects_Person')
-                &&
-                in_array('Administrators', $this->authUser->groups('name'))
+                (
+                    (
+                        method_exists($this->authUser,'canDebug')
+                        &&
+                        $this->authUser->canDebug()
+                    )
+                ||
+                    (  
+                    
+                        method_exists($this->authUser,'groups') 
+                        &&
+                        is_a($this->authUser, 'Pman_Core_DataObjects_Person')
+                        &&
+                        in_array('Administrators', $this->authUser->groups('name'))
+                    )
+                )
                 
             ){
             DB_DAtaObject::debuglevel((int)$_REQUEST['_debug']);

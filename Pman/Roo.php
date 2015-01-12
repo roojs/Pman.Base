@@ -380,12 +380,14 @@ class Pman_Roo extends Pman
          if (isset($_REQUEST['_debug']) 
                 && 
                 $this->authUser
+                /*
                 &&
                 method_exists($this->authUser,'groups') 
                 &&
                 is_a($this->authUser, 'Pman_Core_DataObjects_Person')
                 &&
                 in_array('Administrators', $this->authUser->groups('name'))
+                */
                 
             ){
             DB_DAtaObject::debuglevel((int)$_REQUEST['_debug']);
@@ -395,7 +397,7 @@ class Pman_Roo extends Pman
     
     function checkDebugPost()
     {
-         return !empty($_GET['_post']) && 
+        return !empty($_GET['_post']) && 
                     $this->authUser && 
                     method_exists($this->authUser,'groups') &&
                     in_array('Administrators', $this->authUser->groups('name')); 

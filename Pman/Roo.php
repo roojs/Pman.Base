@@ -804,7 +804,8 @@ class Pman_Roo extends Pman
     {
          
         
-        $_columns = !empty($req['_columns']) ? explode(',', $req['_columns']) : false;print_r($_columns);exit;
+        $_columns = !empty($req['_columns']) ? explode(',', $req['_columns']) : false;
+        print_r($_columns);exit;
         //var_dump(array(!is_array($id) , empty($id)));
         if (!is_array($id) && empty($id)) {
             

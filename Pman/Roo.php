@@ -824,7 +824,7 @@ class Pman_Roo extends Pman
         $this->loadMap($x, array(
                     'columns' => $_columns,
                      
-            ));print_r($x);exit;
+            ));print_r($req);exit;
         if ($req !== false) { 
             $this->setFilters($x, $req);
         }

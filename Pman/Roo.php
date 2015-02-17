@@ -810,7 +810,6 @@ class Pman_Roo extends Pman
             
             
             if (method_exists($x, 'toRooSingleArray')) {
-                $this->jok('here');
                 $this->jok($x->toRooSingleArray($this->authUser, $req));
             }
             if (method_exists($x, 'toRooArray')) {

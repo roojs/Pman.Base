@@ -849,7 +849,7 @@ class Pman_Roo extends Pman
             $this->jerr("PERMISSION DENIED - si");
         }
         // different symantics on all these calls??
-        if (method_exists($x, 'toRooSingleArray')) {print_r($x);
+        if (method_exists($x, 'toRooSingleArray')) {print_r($x);exit;
             $this->jok($x->toRooSingleArray($this->authUser, $req));
         }
         if (method_exists($x, 'toRooArray')) {

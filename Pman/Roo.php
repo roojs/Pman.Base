@@ -835,13 +835,13 @@ class Pman_Roo extends Pman
             $x->setFrom($req['lookup'] );
             $x->limit(1);
             if (!$x->find(true)) {
-                if (!empty($id['_id'])) {
+                if (!empty($id['_id'])) {print_r($x);exit;
                     // standardize this?
                     $this->jok($x->toArray());
                 }
                 $this->jok(false);
             }
-            print_r($x);exit;
+            
         } else if (!$x->get($id)) {
             $this->jerr("selectSingle: no such record ($id)");
         }

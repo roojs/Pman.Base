@@ -830,12 +830,12 @@ class Pman_Roo extends Pman
         }
         
         // DB_DataObject::DebugLevel(1);
-        if (is_array($id)) {
+        if (is_array($id)) {print_r($x);exit;
             // lookup...
             $x->setFrom($req['lookup'] );
             $x->limit(1);
             if (!$x->find(true)) {
-                if (!empty($id['_id'])) {print_r($x);exit;
+                if (!empty($id['_id'])) {
                     // standardize this?
                     $this->jok($x->toArray());
                 }

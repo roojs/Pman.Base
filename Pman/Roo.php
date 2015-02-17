@@ -805,7 +805,7 @@ class Pman_Roo extends Pman
          
         
         $_columns = !empty($req['_columns']) ? explode(',', $req['_columns']) : false;
-        
+
         //var_dump(array(!is_array($id) , empty($id)));
         if (!is_array($id) && empty($id)) {
             
@@ -824,11 +824,11 @@ class Pman_Roo extends Pman
         $this->loadMap($x, array(
                     'columns' => $_columns,
                      
-            ));print_r($req);exit;
+            ));
         if ($req !== false) { 
             $this->setFilters($x, $req);
         }
-        
+        print_r($x);exit;
         // DB_DataObject::DebugLevel(1);
         if (is_array($id)) {
             // lookup...

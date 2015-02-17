@@ -828,7 +828,7 @@ class Pman_Roo extends Pman
         if ($req !== false) { 
             $this->setFilters($x, $req);
         }
-        print_r($x);exit;
+        print_r($id);exit;
         // DB_DataObject::DebugLevel(1);
         if (is_array($id)) {
             // lookup...

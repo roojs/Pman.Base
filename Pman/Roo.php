@@ -828,7 +828,7 @@ class Pman_Roo extends Pman
         if ($req !== false) { 
             $this->setFilters($x, $req);
         }
-        print_r($id);exit;
+        
         // DB_DataObject::DebugLevel(1);
         if (is_array($id)) {
             // lookup...
@@ -845,6 +845,7 @@ class Pman_Roo extends Pman
         } else if (!$x->get($id)) {
             $this->jerr("selectSingle: no such record ($id)");
         }
+        print_r($x);exit;
         // ignore perms if comming from update/insert - as it's already done...
         if ($req !== false && method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
             $this->jerr("PERMISSION DENIED - si");

@@ -803,7 +803,7 @@ class Pman_Roo extends Pman
     function selectSingle($x, $id, $req=false)
     {
          
-        
+        print_r($x);exit;
         $_columns = !empty($req['_columns']) ? explode(',', $req['_columns']) : false;
         //var_dump(array(!is_array($id) , empty($id)));
         if (!is_array($id) && empty($id)) {
@@ -849,7 +849,7 @@ class Pman_Roo extends Pman
             $this->jerr("PERMISSION DENIED - si");
         }
         // different symantics on all these calls??
-        if (method_exists($x, 'toRooSingleArray')) {print_r($x);exit;
+        if (method_exists($x, 'toRooSingleArray')) {
             $this->jok($x->toRooSingleArray($this->authUser, $req));
         }
         if (method_exists($x, 'toRooArray')) {

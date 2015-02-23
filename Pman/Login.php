@@ -43,7 +43,7 @@ class Pman_Login extends Pman
         
         
         
-         DB_DataObject::DebugLevel(1);
+         //DB_DataObject::DebugLevel(1);
         if (!empty($_REQUEST['logout'])) {
             $u = $this->getAuthUser();
             //print_r($u);
@@ -89,7 +89,7 @@ class Pman_Login extends Pman
     function sendAuthUserDetails()
     {
         // remove for normal use - it's a secuirty hole!
-       
+       DB_DataObject::debugLevel(1);
         if (!empty($_REQUEST['_debug'])) {
            // DB_DataObject::debugLevel(1);
         }

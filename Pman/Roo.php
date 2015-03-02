@@ -647,7 +647,7 @@ class Pman_Roo extends Pman
          
         
         $old = false;
-        print_r('hrer');exit;
+        print_r($_REQUEST);exit;
         // not sure if this is a good idea here...
         
         if (!empty($_REQUEST['_ids'])) {

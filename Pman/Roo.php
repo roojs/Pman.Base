@@ -654,6 +654,7 @@ class Pman_Roo extends Pman
             $ids = explode(',',$_REQUEST['_ids']);
             $x->whereAddIn($this->key, $ids, 'int');
             $ar = $x->fetchAll();
+            print_r($x);
             foreach($ar as $x) {
                 $this->update($x, $_REQUEST);
                 

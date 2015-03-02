@@ -1050,7 +1050,7 @@ class Pman_Roo extends Pman
         //print_r($old);
         
         $cols = $x->table();
-        print_r($cols);
+        //print_r($cols);
         if (isset($cols['modified'])) {
             $x->modified = date('Y-m-d H:i:s');
         }

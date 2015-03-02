@@ -670,7 +670,6 @@ class Pman_Roo extends Pman
             if (!$x->get($this->key, $_REQUEST[$this->key]))  {
                 $this->jerr("Invalid request");
             }
-            print_r($x);exit;
             $this->jok($this->update($x, $_REQUEST));
         } else {
             

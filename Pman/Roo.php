@@ -1041,7 +1041,7 @@ class Pman_Roo extends Pman
             }
         } else {
             $x->setFrom($req);
-            print_r($x);exit;
+            print_r($req);exit;
         }
       
         

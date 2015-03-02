@@ -647,7 +647,7 @@ class Pman_Roo extends Pman
          
         
         $old = false;
-        print_r($_REQUEST);exit;
+        
         // not sure if this is a good idea here...
         
         if (!empty($_REQUEST['_ids'])) {
@@ -670,6 +670,7 @@ class Pman_Roo extends Pman
             if (!$x->get($this->key, $_REQUEST[$this->key]))  {
                 $this->jerr("Invalid request");
             }
+            print_r($x);exit;
             $this->jok($this->update($x, $_REQUEST));
         } else {
             

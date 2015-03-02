@@ -614,7 +614,7 @@ class Pman_Roo extends Pman
     function post($tab) // update / insert (?? delete??)
     {
         
-        exit;
+        
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
     
         //DB_DataObject::debugLevel(1);
@@ -647,7 +647,7 @@ class Pman_Roo extends Pman
          
         
         $old = false;
-        
+        print_r('hrer');exit;
         // not sure if this is a good idea here...
         
         if (!empty($_REQUEST['_ids'])) {

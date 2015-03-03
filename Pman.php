@@ -110,7 +110,10 @@ class Pman extends HTML_FlexyFramework_Page
             $this->linkFail = $this->linkAuth(@$bits[1],@$bits[2]);
             header('Content-type: text/html; charset=utf-8');
             return;
-        } 
+        }
+        
+        // should really be moved to Login...
+        
         if ($bits[0] == 'PasswordReset') {
             $this->linkFail = $this->resetPassword(@$bits[1],@$bits[2],@$bits[3]);
             header('Content-type: text/html; charset=utf-8');

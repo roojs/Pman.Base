@@ -259,8 +259,8 @@ class Pman_Roo extends Pman
         
         
         $this->setFilters($x,$_REQUEST);
-      
-        if (method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
+        
+        if (!$this->checkPerm($x,'S'))  {
             $this->jerr("PERMISSION DENIED");
         }
         
@@ -413,7 +413,7 @@ class Pman_Roo extends Pman
         
     }
     
-    function checkPerm($obj, $lvl, $req)
+    function checkPerm($obj, $lvl, $req= null)
     {
         if (!method_exists($x, 'checkPerm')) {
             return true;
@@ -858,7 +858,7 @@ class Pman_Roo extends Pman
         }
         
         // ignore perms if comming from update/insert - as it's already done...
-        if ($req !== false && method_exists($x, 'checkPerm') && !$x->checkPerm('S', $this->authUser))  {
+        if ($req !== false && !$this->checkPerm($x,'S'))  {
             $this->jerr("PERMISSION DENIED - si");
         }
         // different symantics on all these calls??
@@ -886,7 +886,7 @@ class Pman_Roo extends Pman
             $x->setFrom($req);
         }
         
-        if ( $with_perm_check && method_exists($x, 'checkPerm') && !$x->checkPerm('A', $this->authUser, $req))  {
+        if ( $with_perm_check &&  !$this->checkPerm($x,'A', $req))  {
             $this->jerr("PERMISSION DENIED");
         }
         $cols = $x->table();
@@ -1026,7 +1026,7 @@ class Pman_Roo extends Pman
     
     function update($x, $req,  $with_perm_check = true)
     {
-        if ( $with_perm_check && method_exists($x, 'checkPerm') && !$x->checkPerm('E', $this->authUser, $_REQUEST))  {
+        if ( $with_perm_check && !$this->checkPerm($x,'E', $req) )  {
             $this->jerr("PERMISSION DENIED - No Edit permissions on this element");
         }
        
@@ -1164,7 +1164,7 @@ class Pman_Roo extends Pman
            
             // perms first.
             
-            if (method_exists($x, 'checkPerm') && !$x->checkPerm('D', $this->authUser))  {
+            if (!$this->checkPerm($x,'D') )  {
                 $this->jerr("PERMISSION DENIED");
             }
             

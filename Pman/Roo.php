@@ -413,6 +413,16 @@ class Pman_Roo extends Pman
         
     }
     
+    function checkPerm($obj, $lvl, $req)
+    {
+        if (!method_exists($x, 'checkPerm')) {
+            return true;
+        }
+        if ($x->checkPerm($lvl, $this->authUser, $req))  {
+            return true;
+        }
+        return false;
+    }
     
     function toCsv($data, $cols, $titles, $filename, $addDate = true)
     {

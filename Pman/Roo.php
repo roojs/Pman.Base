@@ -415,10 +415,10 @@ class Pman_Roo extends Pman
     
     function checkPerm($obj, $lvl, $req= null)
     {
-        if (!method_exists($x, 'checkPerm')) {
+        if (!method_exists($obj, 'checkPerm')) {
             return true;
         }
-        if ($x->checkPerm($lvl, $this->authUser, $req))  {
+        if ($obj->checkPerm($lvl, $this->authUser, $req))  {
             return true;
         }
         return false;

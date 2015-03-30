@@ -1469,7 +1469,8 @@ class Pman_Roo extends Pman
         //echo '<PRE>';print_r($rdata);exit;
        // echo '<PRE>';print_r($rdata);exit;
         
-        
+        $keys = $x->keys();
+        $key = empty($keys) ? 'id' : $keys[0];
         
         
         $meta = array();
@@ -1486,7 +1487,7 @@ class Pman_Roo extends Pman
             'totalProperty' =>  'total',
             'successProperty' => 'success',
             'root' => 'data',
-            'id' => $this->key, // was 'id'...
+            'id' => $key, // was 'id'...
             'fields' => $meta
         );
          

@@ -1628,7 +1628,7 @@ class Pman_Roo extends Pman
        
         // nice generic -- let's get rid of it.. where is it used!!!!
         // used by: 
-        // Person / Group / most of my queries noww...
+        // Person / Group / Comapnies.... most of my queries noww...
         if (!empty($q['query']['name'])) {
             
             

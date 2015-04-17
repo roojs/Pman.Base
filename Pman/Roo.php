@@ -1216,6 +1216,7 @@ class Pman_Roo extends Pman
                     $matches = $chk->count();
                     $match_total += $matches;
                     if ($matches) {
+                        $chk->_match_key = {$ka[1]};
                         $match_ar[] = clone($chk);
                         continue;
                     }          

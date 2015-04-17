@@ -1187,6 +1187,7 @@ class Pman_Roo extends Pman
                 }
                 
                 if ($matches) {
+                    $chk->_match_key = $ka[1];
                     $match_ar[] = clone($chk);
                     continue;
                 }          
@@ -1229,7 +1230,7 @@ class Pman_Roo extends Pman
                 $chk = $match_ar[0];
                 $chk->limit(1);
                 $o = $chk->fetchAll();
-                $key = $this->key;
+                $key = isset($chk->_match_key) ?$chk->_match_key  : '?unknown column?';
                 $desc =  $chk->tableName(). '.' . $key .'='.$xx->$key ;
                 if (method_exists($chk, 'toEventString')) {
                     $desc .=  ' : ' . $o[0]->toEventString();

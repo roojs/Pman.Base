@@ -1141,7 +1141,7 @@ class Pman_Roo extends Pman
         // collect tables
 
        // echo '<PRE>';print_r($affects);exit;
-        DB_Dataobject::debugLevel(1);
+       // DB_Dataobject::debugLevel(1);
        
         
         $clean = create_function('$v', 'return (int)$v;');
@@ -1176,7 +1176,7 @@ class Pman_Roo extends Pman
                 if (!is_a($chk,'DB_DataObject')) {
                     $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);
                 }
-                print_r(array($chk->tablename() , $ka[1] ,  $xx->tablename() , $this->key ));
+               // print_r(array($chk->tablename() , $ka[1] ,  $xx->tablename() , $this->key ));
                 $chk->{$ka[1]} =  $xx->{$this->key};
                 
                 if (count($chk->keys())) {

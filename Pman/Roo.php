@@ -1176,6 +1176,7 @@ class Pman_Roo extends Pman
                 if (!is_a($chk,'DB_DataObject')) {
                     $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);
                 }
+                print_r(array($chk->tablename() , $ka[1] ,  $xx->tablename() , $this->key ));
                 $chk->{$ka[1]} =  $xx->{$this->key};
                 
                 if (count($chk->keys())) {

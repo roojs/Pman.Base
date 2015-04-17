@@ -1231,7 +1231,7 @@ class Pman_Roo extends Pman
                 $chk->limit(1);
                 $o = $chk->fetchAll();
                 $key = isset($chk->_match_key) ?$chk->_match_key  : '?unknown column?';
-                $desc =  $chk->tableName(). '.' . $key .'='.$xx->$key ;
+                $desc =  $chk->tableName(). '.' . $key .'='.$xx->{$this->key} ;
                 if (method_exists($chk, 'toEventString')) {
                     $desc .=  ' : ' . $o[0]->toEventString();
                 }

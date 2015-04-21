@@ -1244,6 +1244,7 @@ class Pman_Roo extends Pman
             
             // now che 
             // finally log it.. 
+            DB_DataObject::Factory('Events')->logDeletedRecord($x);
             
             $this->addEvent("DELETE", $x);
             

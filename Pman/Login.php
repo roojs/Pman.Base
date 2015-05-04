@@ -318,7 +318,7 @@ class Pman_Login extends Pman
         
         $this->authFrom = time();
         $this->authKey = $u->genPassKey($this->authFrom);
-        $this->authKey = md5($u->email . $this->authFrom . $u->passwd);
+        //$this->authKey = md5($u->email . $this->authFrom . $u->passwd);
         $this->person = $u;
         
         
@@ -328,7 +328,12 @@ class Pman_Login extends Pman
            'page' => $this,
       
             'contents' => array(
-                'bcc' => $bcc
+                'bcc' => $bcc,
+                'authFrom' => $this->authFrom,
+                'authKey '
+                $this->authKey = $u->genPassKey($this->authFrom);
+                    $this->authKey = md5($u->email . $this->authFrom . $u->passwd);
+                    $this->person = $u;
             ),
         ));
         //$this->jerr(print_r($r->toData(),true));

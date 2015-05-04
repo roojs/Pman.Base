@@ -280,7 +280,15 @@ class Pman_Login extends Pman
             $this->jerr('We have issued to many resets - please contact the Administrator');
         }
         
+        
+        
+        
         // sort out sender.
+        $cm = DB_DataObject::factory('core_email');
+        if (!$cm->get('name', 'ADMIN_PASSWORD_RESET')) {
+            $this->jerr("no template ADMIN_PASSWORD_RESET exists - please run importer ");
+            
+        }
         
         $g = DB_DAtaObject::factory('Groups');
         if (!$g->get('name', 'system-email-from')) {
@@ -291,6 +299,9 @@ class Pman_Login extends Pman
             $this->jerr(count($from_ar) ? "To many members in the 'system-email-from' group " :
                        "'system-email-from' group  does not have any members");
         }
+        
+        
+        
         
         // bcc..
         $g = DB_DAtaObject::factory('Groups');

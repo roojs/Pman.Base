@@ -330,10 +330,9 @@ class Pman_Login extends Pman
             'contents' => array(
                 'bcc' => $bcc,
                 'authFrom' => $this->authFrom,
-                'authKey '
-                $this->authKey = $u->genPassKey($this->authFrom);
-                    $this->authKey = md5($u->email . $this->authFrom . $u->passwd);
-                    $this->person = $u;
+                'authKey '  =>  $u->genPassKey($this->authFrom),
+                'person' => $u,
+                
             ),
         ));
         //$this->jerr(print_r($r->toData(),true));

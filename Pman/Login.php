@@ -289,6 +289,7 @@ class Pman_Login extends Pman
             $this->jerr("no template ADMIN_PASSWORD_RESET exists - please run importer ");
             
         }
+        /*
         
         $g = DB_DAtaObject::factory('Groups');
         if (!$g->get('name', 'system-email-from')) {
@@ -299,7 +300,7 @@ class Pman_Login extends Pman
             $this->jerr(count($from_ar) ? "To many members in the 'system-email-from' group " :
                        "'system-email-from' group  does not have any members");
         }
-        
+        */
         
         
         
@@ -320,10 +321,12 @@ class Pman_Login extends Pman
         $this->authKey = md5($u->email . $this->authFrom . $u->passwd);
         $this->person = $u;
         
-        require_once 'Pman/Core/Mailer.php';
-        $r = new Pman_Core_Mailer(array(
-            'template'=> 'password_reset',
-            'page' => $this,
+        
+        $ret = $cm->send(array(
+            'rcpts' => $u->getEmailFrom(),
+            // 'bcc' => 
+           'page' => $this,
+      
             'contents' => array(
                 'bcc' => $bcc
             ),

@@ -332,6 +332,8 @@ class Pman_Login extends Pman
                 'authFrom' => $this->authFrom,
                 'authKey '  =>  $u->genPassKey($this->authFrom),
                 'person' => $u,
+                'baseURL' => $this->baseURL,
+                
                 
             ),
         ));

@@ -326,16 +326,12 @@ class Pman_Login extends Pman
             'rcpts' => $u->getEmailFrom(),
             // 'bcc' => 
            'page' => $this,
-      
-            'contents' => array(
-                'bcc' => $bcc,
-                'authFrom' => $this->authFrom,
-                'authKey '  =>  $u->genPassKey($this->authFrom),
-                'person' => $u,
-                'baseURL' => $this->baseURL,
-                
-                
-            ),
+            'bcc' => $bcc,
+            'authFrom' => $this->authFrom,
+            'authKey '  =>  $u->genPassKey($this->authFrom),
+            'person' => $u,
+            'baseURL' => $this->baseURL,
+            
         ));
         //$this->jerr(print_r($r->toData(),true));
         

@@ -310,7 +310,7 @@ class Pman_Login extends Pman
             $this->jerr("no group 'bcc-email' exists in the system");
         }
         $bcc = $g->members('email');
-        if (!count($from_ar)) {
+        if (!count($bcc)) {
             $this->jerr( "'bcc-email' group  does not have any members");
         }
         

@@ -315,7 +315,7 @@ class Pman_Login extends Pman
         }
         
         
-        $this->from = $from_ar[0];
+        
         $this->authFrom = time();
         $this->authKey = $u->genPassKey($this->authFrom);
         $this->authKey = md5($u->email . $this->authFrom . $u->passwd);

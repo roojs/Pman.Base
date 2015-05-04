@@ -332,7 +332,7 @@ class Pman_Login extends Pman
             ),
         ));
         //$this->jerr(print_r($r->toData(),true));
-        $ret = $r->send();
+        
         if (is_object($ret)) {
             $this->addEvent('SYSERR',false, $ret->getMessage());
             $this->jerr($ret->getMessage());

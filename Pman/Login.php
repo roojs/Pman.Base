@@ -320,19 +320,10 @@ class Pman_Login extends Pman
         $this->authKey = $u->genPassKey($this->authFrom);
         //$this->authKey = md5($u->email . $this->authFrom . $u->passwd);
         $this->person = $u;
+        $this->bcc = $bcc;
+        $this->rcpts = $u->getEmailFrom();
         
-        
-        $ret = $cm->send(array(
-            'rcpts' => $u->getEmailFrom(),
-            // 'bcc' => 
-           'page' => $this,
-            'bcc' => $bcc,
-            'authFrom' => $this->authFrom,
-            'authKey '  =>  $u->genPassKey($this->authFrom),
-            'person' => $u,
-            'baseURL' => $this->baseURL,
-            
-        ));
+        $ret = $cm->send($this);
         //$this->jerr(print_r($r->toData(),true));
         
         if (is_object($ret)) {

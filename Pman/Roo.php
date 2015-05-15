@@ -623,7 +623,9 @@ class Pman_Roo extends Pman
      
     function post($tab) // update / insert (?? delete??)
     {
-        
+        if (!$this->hasPerm("Core.All", 'E'))  {
+                $this->jerr("PERMISSION DENIED");
+        }
         
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
     

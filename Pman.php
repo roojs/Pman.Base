@@ -247,9 +247,9 @@ class Pman extends HTML_FlexyFramework_Page
             array_unshift($mods,   'Core');
         }
         
-        if (in_array($this->appNameShort,$mods)) { // Project has to be the last  modules loaded as it contains Pman.js
-            unset($mods[array_search($this->appNameShort, $mods)]);
-            $mods[] = $this->appNameShort;
+        if (in_array($boot->appNameShort,$mods)) { // Project has to be the last  modules loaded as it contains Pman.js
+            unset($mods[array_search($boot->appNameShort, $mods)]);
+            $mods[] = $boot->appNameShort;
         }
         
         $mods = array_unique($mods);

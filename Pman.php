@@ -81,6 +81,9 @@ class Pman extends HTML_FlexyFramework_Page
         ) {
             $this->isDev = true;
         }
+        
+        // if a file Pman_{module}_Pman exists.. and it has an init function... - call that..
+        
         //var_dump($this->appModules);
         foreach(explode(',',$this->appModules) as $m) {
             $cls = 'Pman_'. $m . '_Pman';

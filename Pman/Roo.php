@@ -1533,7 +1533,7 @@ class Pman_Roo extends Pman
         if (!is_a($x, 'DB_DataObject')) {
             $this->jerr('invalid url - no dataobject');
         }
-        print_r($x);exit;
+       // print_r($x);exit;
         return $x;
         
     }

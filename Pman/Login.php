@@ -238,7 +238,7 @@ class Pman_Login extends Pman
         
         
         
-        if ($u->checkPassword($_REQUEST['password'])) {
+        if ($u->checkPassword(trim($_REQUEST['password']))) {
             $u->login();
             // we might need this later..
             $this->addEvent("LOGIN", false, session_id());

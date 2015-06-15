@@ -344,6 +344,7 @@ class Pman_Login extends Pman
             $uu = clone($au);
             $au->setPassword($r['passwd1']);
             $au->update($uu);
+            $this->addEvent("CHANGEPASS", $u);
             $this->jok($au);
         }
         // not logged in -> need to validate 
@@ -374,7 +375,7 @@ class Pman_Login extends Pman
         $u->setPassword($r['passwd1']);
         $u->update($uu);
         $u->login();
-        
+        $this->addEvent("CHANGEPASS", $u);
         $this->jok($u);
     }
     

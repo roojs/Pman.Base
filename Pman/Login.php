@@ -374,7 +374,7 @@ class Pman_Login extends Pman
         $u->setPassword($r['passwd1']);
         $u->update($uu);
         $u->login();
-        
+        $this->addEvent("CHANGEPASS", $u);
         $this->jok($u);
     }
     

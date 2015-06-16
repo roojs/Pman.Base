@@ -237,8 +237,9 @@ class Pman_Login extends Pman
         }
         
         
-        
-        if ($u->checkPassword(trim($_REQUEST['password']))) {
+        // note we trim \x10 -- line break - as it was injected the front end
+        // may have an old bug on safari/chrome that added that character in certian wierd scenarios..
+        if ($u->checkPassword(trim($_REQUEST['password'],"\x10"))) {
             $u->login();
             // we might need this later..
             $this->addEvent("LOGIN", false, session_id());

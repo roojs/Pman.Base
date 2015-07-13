@@ -1308,7 +1308,6 @@ class Pman_Roo extends Pman
         $this->cols = $ret['cols'];
         $this->colsJname = $ret['join_names'];
         
-        print_R($ret);exit;
         
         return;
         

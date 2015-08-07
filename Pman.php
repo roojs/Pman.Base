@@ -85,6 +85,13 @@ class Pman extends HTML_FlexyFramework_Page
         // if a file Pman_{module}_Pman exists.. and it has an init function... - call that..
         
         //var_dump($this->appModules);
+        
+        
+        
+    }
+    
+    function initModules()
+    {
         foreach(explode(',',$this->appModules) as $m) {
             $cls = 'Pman_'. $m . '_Pman';
             //echo $cls;
@@ -99,9 +106,9 @@ class Pman extends HTML_FlexyFramework_Page
                 $c->init($this);
             }
         }
-        
-        
     }
+    
+    
     
     function get($base) 
     {

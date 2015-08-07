@@ -89,7 +89,9 @@ class Pman extends HTML_FlexyFramework_Page
         
         
     }
-    
+    /*
+     * module init is only loaded on main page call, and includes checks for configuration settings.
+     */
     function initModules()
     {
         foreach(explode(',',$this->appModules) as $m) {

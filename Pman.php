@@ -113,6 +113,10 @@ class Pman extends HTML_FlexyFramework_Page
     function get($base) 
     {
         $this->init();
+        if (empty($base)) {
+            $this->initModules();
+        }
+        
             //$this->allowSignup= empty($opts['allowSignup']) ? 0 : 1;
         $bits = explode('/', $base);
         //print_R($bits);

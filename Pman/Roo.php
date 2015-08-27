@@ -235,7 +235,7 @@ class Pman_Roo extends Pman
         if (isset($_REQUEST['_toggleActive'])) {
             // do we really delete stuff!?!?!?
             if (!$this->hasPerm("Core.Staff", 'E'))  {
-                $this->jerr("PERMISSION DENIED");
+                $this->jerr("PERMISSION DENIED (ta)");
             }
             $clean = create_function('$v', 'return (int)$v;');
             $bits = array_map($clean, explode(',', $_REQUEST['_toggleActive']));
@@ -261,7 +261,7 @@ class Pman_Roo extends Pman
         $this->setFilters($x,$_REQUEST);
         
         if (!$this->checkPerm($x,'S', $_REQUEST))  {
-            $this->jerr("PERMISSION DENIED");
+            $this->jerr("PERMISSION DENIED (g)");
         }
         
          //print_r($x);
@@ -624,7 +624,7 @@ class Pman_Roo extends Pman
     function post($tab) // update / insert (?? delete??)
     {
         if (!$this->hasPerm("Core.All", 'E'))  {
-                $this->jerr("PERMISSION DENIED");
+                $this->jerr("PERMISSION DENIED (e)");
         }
         
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
@@ -889,7 +889,7 @@ class Pman_Roo extends Pman
         }
         
         if ( $with_perm_check &&  !$this->checkPerm($x,'A', $req))  {
-            $this->jerr("PERMISSION DENIED");
+            $this->jerr("PERMISSION DENIED (i)");
         }
         $cols = $x->table();
      
@@ -1167,7 +1167,7 @@ class Pman_Roo extends Pman
             // perms first.
             
             if (!$this->checkPerm($x,'D') )  {
-                $this->jerr("PERMISSION DENIED");
+                $this->jerr("PERMISSION DENIED (d)");
             }
             
             $match_ar = array();

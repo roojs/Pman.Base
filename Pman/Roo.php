@@ -623,9 +623,11 @@ class Pman_Roo extends Pman
      
     function post($tab) // update / insert (?? delete??)
     {
-        if (!$this->hasPerm("Core.All", 'E'))  {
-                $this->jerr("PERMISSION DENIED (e)");
-        }
+        // -- why was this put in? - Roo is not related to Core.All ?
+        //if (!$this->hasPerm("Core.All", 'E'))  {
+        //        $this->jerr("PERMISSION DENIED (e)");
+        //}
+        
         
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
     

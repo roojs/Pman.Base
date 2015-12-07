@@ -345,7 +345,7 @@ class Pman_Roo extends Pman
         
         
         if (!empty($_REQUEST['csvCols']) && !empty($_REQUEST['csvTitles']) ) {
-            
+            print_R($ret);exit;
             
             $this->toCsv($ret, $_REQUEST['csvCols'], $_REQUEST['csvTitles'],
                         empty($_REQUEST['csvFilename']) ? '' : $_REQUEST['csvFilename']

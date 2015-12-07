@@ -509,7 +509,7 @@ class Pman_Roo extends Pman
                          //   'color' => 'yellow', // set color for the cell which is a header element
                           // 'fillBlank' => 'gray', // set 
                     );
-                    print_R($se_config);
+                    
                     $se = new Pman_Core_SimpleExcel(array(),$se_config);
    
                     
@@ -524,7 +524,6 @@ class Pman_Roo extends Pman
             
             $se->addLine($se_config['workbook'], $x);
         }
-        exit;
         if(!$se){
             $this->jerr('no data found');
         }

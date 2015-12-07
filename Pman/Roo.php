@@ -510,12 +510,10 @@ class Pman_Roo extends Pman
                           // 'fillBlank' => 'gray', // set 
                     );
                     
-                    $se = new Pman_Core_SimpleExcel(array(),$se_config);
-   
                     
                 }
                 
-                
+                $se = new Pman_Core_SimpleExcel(array(),$se_config);
                 //fputcsv($fh, $titles);
                 $titles = false;
             }

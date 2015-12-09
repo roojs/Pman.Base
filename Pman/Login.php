@@ -216,7 +216,7 @@ class Pman_Login extends Pman
         $e = DB_DataObject::Factory('Events');
         $e->evtype = 'BADLOGIN';
         $e->ipaddr = $_SERVER['REMOTE_ADDR'];
-        $e->whereAdd('event_when > NOW() - 10 MINUTES');
+        $e->whereAdd('event_when > NOW() - INTERVAL 10 MINUTES');
         if ($e->count() > 5) {
             $this->jerror(false, "Login failures are rate limited - please try later");
         }

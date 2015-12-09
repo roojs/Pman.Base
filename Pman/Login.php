@@ -208,6 +208,20 @@ class Pman_Login extends Pman
         
        
         $u = DB_DataObject::factory($tbl);
+        
+        
+        
+        // ratelimit
+        if (!empty($_SERVER['REMOTE_ADDR'])) {}
+        $e = DB_DataObject::Factory('Events');
+        $e->evtype = 'BADLOGIN';
+        $e->ipaddr = $_SERVER['REMOTE_ADDR'];
+        $e->whereAdd('event_when > NOW() - INTERVAL 10 MINUTE');
+        if ($e->count() > 5) {
+            $this->jerror(false, "Login failures are rate limited - please try later");
+        }
+        
+        
         //$u->active = 1;
         
         
@@ -220,12 +234,12 @@ class Pman_Login extends Pman
         
         
         if ($u->count() > 1 || !$u->find(true)) {
-            $this->jerr('You typed the wrong Username or Password  (1)');
+            $this->jerror('BADLOGIN','You typed the wrong Username or Password  (1)');
             exit;
         }
         
         if (!$u->active()) {
-            $this->jerr('Account disabled');
+            $this->jerr('BADLOGIN','Account disabled');
         }
         
         // check if config allows non-owner passwords.
@@ -255,7 +269,7 @@ class Pman_Login extends Pman
         }
         
          
-        $this->jerr('You typed the wrong Username or Password  (2)'); // - " . htmlspecialchars(print_r($_POST,true))."'");
+        $this->jerror('BADLOGIN', 'You typed the wrong Username or Password  (2)'); // - " . htmlspecialchars(print_r($_POST,true))."'");
         exit;
     }
     

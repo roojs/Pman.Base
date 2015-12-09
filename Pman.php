@@ -282,7 +282,6 @@ class Pman extends HTML_FlexyFramework_Page
             }
             $ret[] = $mod;
         }
-        print_R($ret);exit;
         return $ret;
     }
     

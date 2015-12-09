@@ -459,6 +459,8 @@ class Pman extends HTML_FlexyFramework_Page
      * Recomended JSON error indicator
      * @param string $type  - normally 'ERROR' - you can use this to track error types.
      * @param string $message - error message displayed to user.
+     * @param array $errors - optioanl data to pass to front end.
+     * @param string $content_type - use text/plain to return plan text - ?? not sure why...
      *
      */
     

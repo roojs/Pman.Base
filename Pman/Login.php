@@ -225,7 +225,7 @@ class Pman_Login extends Pman
         }
         
         if (!$u->active()) {
-            $this->jerr('Account disabled');
+            $this->jerr('BADLOGIN','Account disabled');
         }
         
         // check if config allows non-owner passwords.

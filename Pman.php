@@ -450,7 +450,7 @@ class Pman extends HTML_FlexyFramework_Page
     /**
      * ---------------- Standard JSON outputers. - used everywhere
      * JSON error - simple error with logging.
-     * 
+     * @see Pman::jerror
      */
     
     function jerr($str, $errors=array(), $content_type = false) // standard error reporting..

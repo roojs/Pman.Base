@@ -453,6 +453,12 @@ class Pman extends HTML_FlexyFramework_Page
     
     function jerr($str, $errors=array(), $content_type = false) // standard error reporting..
     {
+        return $this->jerrTyped('ERROR', $str,$errors,$content_type);
+    }
+    
+    
+    function jerrTyped($type, $str, $errors=array(), $content_type = false) // standard error reporting..
+    {
         $this->addEvent("ERROR", false, $str);
          
         $cli = HTML_FlexyFramework::get()->cli;

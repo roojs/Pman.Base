@@ -291,7 +291,6 @@ class Pman extends HTML_FlexyFramework_Page
     function hasModule($name) 
     {
         $this->init();
-        print_R($this->modules());exit;
         if (!strpos( $name,'.') ) {
             // use enable / disable..
             return in_array($name, $this->modules()); 
@@ -450,30 +449,11 @@ class Pman extends HTML_FlexyFramework_Page
      
     /**
      * ---------------- Standard JSON outputers. - used everywhere
-     * JSON error - simple error with logging.
-     * @see Pman::jerror
      */
     
     function jerr($str, $errors=array(), $content_type = false) // standard error reporting..
     {
-        return $this->jerror('ERROR', $str,$errors,$content_type);
-    }
-    /**
-     * Recomended JSON error indicator
-     *
-     * 
-     * @param string $type  - normally 'ERROR' - you can use this to track error types.
-     * @param string $message - error message displayed to user.
-     * @param array $errors - optioanl data to pass to front end.
-     * @param string $content_type - use text/plain to return plan text - ?? not sure why...
-     *
-     */
-    
-    function jerror($type, $str, $errors=array(), $content_type = false) // standard error reporting..
-    {
-        if ($type !== false) {
-            $this->addEvent($type, false, $str);
-        }
+        $this->addEvent("ERROR", false, $str);
          
         $cli = HTML_FlexyFramework::get()->cli;
         if ($cli) {

@@ -290,6 +290,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     function hasModule($name) 
     {
+        print_R('run??');exit;
         $this->init();
         if (!strpos( $name,'.') ) {
             // use enable / disable..

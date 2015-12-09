@@ -470,7 +470,9 @@ class Pman extends HTML_FlexyFramework_Page
     
     function jerror($type, $str, $errors=array(), $content_type = false) // standard error reporting..
     {
-        $this->addEvent($type, false, $str);
+        if ($type !== false) {
+            $this->addEvent($type, false, $str);
+        }
          
         $cli = HTML_FlexyFramework::get()->cli;
         if ($cli) {

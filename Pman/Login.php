@@ -220,7 +220,7 @@ class Pman_Login extends Pman
         
         
         if ($u->count() > 1 || !$u->find(true)) {
-            $this->jerror('BADPASS','You typed the wrong Username or Password  (1)');
+            $this->jerror('BADLOGIN','You typed the wrong Username or Password  (1)');
             exit;
         }
         
@@ -255,7 +255,7 @@ class Pman_Login extends Pman
         }
         
          
-        $this->jerror('BADPASS', 'You typed the wrong Username or Password  (2)'); // - " . htmlspecialchars(print_r($_POST,true))."'");
+        $this->jerror('BADLOGIN', 'You typed the wrong Username or Password  (2)'); // - " . htmlspecialchars(print_r($_POST,true))."'");
         exit;
     }
     

@@ -255,7 +255,7 @@ class Pman_Login extends Pman
         }
         
          
-        $this->jerr('You typed the wrong Username or Password  (2)'); // - " . htmlspecialchars(print_r($_POST,true))."'");
+        $this->jerror('BADPASS', 'You typed the wrong Username or Password  (2)'); // - " . htmlspecialchars(print_r($_POST,true))."'");
         exit;
     }
     

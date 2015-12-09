@@ -453,13 +453,18 @@ class Pman extends HTML_FlexyFramework_Page
     
     function jerr($str, $errors=array(), $content_type = false) // standard error reporting..
     {
-        return $this->jerrTyped('ERROR', $str,$errors,$content_type);
+        return $this->jerror('ERROR', $str,$errors,$content_type);
     }
+    /**
+     * Recomended JSON error indicator
+     * @param string $type  - normally 'ERROR' - you can use this to track error types.
+     * 
+     *
+     */
     
-    
-    function jerrTyped($type, $str, $errors=array(), $content_type = false) // standard error reporting..
+    function jerror($type, $str, $errors=array(), $content_type = false) // standard error reporting..
     {
-        $this->addEvent("ERROR", false, $str);
+        $this->addEvent($type, false, $str);
          
         $cli = HTML_FlexyFramework::get()->cli;
         if ($cli) {

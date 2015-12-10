@@ -224,6 +224,7 @@ class Pman_Login extends Pman
         
         //$u->active = 1;
         
+        // empty username = not really a hacking attempt.
         
         if (empty($_REQUEST['username'])) { //|| (strpos($_REQUEST['username'], '@') < 1)) {
             $this->jerr('You typed the wrong Username or Password (0)');

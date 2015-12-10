@@ -213,6 +213,7 @@ class Pman_Login extends Pman
         
         // ratelimit
         if (!empty($_SERVER['REMOTE_ADDR'])) {
+            DB_DataObject::DebugLevel(1);
             $e = DB_DataObject::Factory('Events');
             $e->evtype = 'BADLOGIN';
             $e->ipaddr = $_SERVER['REMOTE_ADDR'];

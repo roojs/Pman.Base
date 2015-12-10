@@ -921,6 +921,7 @@ class Pman extends HTML_FlexyFramework_Page
         //convert the huge backtrace into something that is readable..
         $out .= "\n" . implode("\n",  $ret);
      
+        print_R($out);exit;
         
         $this->jerr($out);
         

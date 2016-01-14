@@ -681,6 +681,48 @@ class Pman extends HTML_FlexyFramework_Page
         }
          
     }
+    
+     /**
+     * outputCSSIncludes:
+     *
+     * output <link rel=stylesheet......> for all the modules in the applcaiton
+     *
+     *
+     * This could css minify as well.
+     */
+    function outputCSSIncludes() // includes on CSS links.
+    {
+        
+        $mods = $this->modulesList();
+        
+        
+        foreach($mods as $mod) {
+            // add the css file..
+            $this->outputCSSDir("Pman/$mod","*.css");
+            
+            
+        }
+         
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // --- OLD CODE - in for BC on MO project.... - needs removing...
+    
     // used on old versions.....
     function outputJavascriptIncludesBC()  
     {
@@ -708,33 +750,6 @@ class Pman extends HTML_FlexyFramework_Page
         }
          
     }
-     /**
-     * outputCSSIncludes:
-     *
-     * output <link rel=stylesheet......> for all the modules in the applcaiton
-     *
-     *
-     * This could css minify as well.
-     */
-    function outputCSSIncludes() // includes on CSS links.
-    {
-        
-        $mods = $this->modulesList();
-        
-        
-        foreach($mods as $mod) {
-            // add the css file..
-            $this->outputCSSDir("Pman/$mod","*.css");
-            
-            
-        }
-         
-    }
-    
-    
-    // --- OLD CODE - in for BC on MO project.... - needs removing...
-    
-    
     /**
      * Gather infor for javascript files..
      *

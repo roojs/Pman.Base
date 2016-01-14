@@ -25,6 +25,10 @@ require_once 'Pman_Core_AssetTrait.php';
  
 class Pman extends HTML_FlexyFramework_Page 
 {
+    use Pman_Core_AssetTrait;
+    //outputJavascriptDir()
+    //outputCssDir();
+    
     var $appName= "";
     var $appLogo= "";
     var $appShortName= "";

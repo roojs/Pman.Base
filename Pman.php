@@ -715,7 +715,9 @@ class Pman extends HTML_FlexyFramework_Page
         }
          
     }
-      
+    
+    
+    // --- OLD CODE - in for BC on MO project.... - needs removing...
     /**
      * Gather infor for javascript files..
      *
@@ -793,15 +795,6 @@ class Pman extends HTML_FlexyFramework_Page
     /**
      *  moduleJavascriptList: list the javascript files in a module
      *
-     *  Now uses 'Asset' code...
-     *  - translations are handled seperatly... -- see Hydra front end for this... FIXME...
-     *
-     *
-     *  We used to be clever with the compiling to get the translatable strings.. - now we just
-     *  use the md5 data in the bjs file...
-     *
-     *  ** we probably need to have  BC version of this - as MO uses the old version and actually has a translated UI...
-     *
      *  The original version of this.. still needs more thought...
      *
      *  Compiled is in Pman/_compiled_/{$mod}/{LATEST...}.js
@@ -818,84 +811,9 @@ class Pman extends HTML_FlexyFramework_Page
      *
      */
 
-     
+    
+    
     function moduleJavascriptList($mod)
-    {
-        
-        
-        $dir =   $this->rootDir.'/Pman/'. $mod;
-        
-        
-        if (!file_exists($dir)) {
-            echo '<!-- missing directory '. htmlspecialchars($dir) .' -->';
-            return array();
-        }
-        
-        $info = $this->moduleJavascriptFilesInfo($mod);
-       
-        
-          
-        if (empty($info->files)) {
-            return array();
-        }
-        // finally sort the files, so they are in the right order..
-        
-        // only compile this stuff if public_cache is set..
-        
-         
-        // suggestions...
-        //  public_cache_dir =   /var/www/myproject_cache
-        //  public_cache_url =   /myproject_cache    (with Alias apache /myproject_cache/ /var/www/myproject_cache/)
-        
-        // bit of debugging
-        if (!$info->compile) {
-            echo "<!-- Javascript compile turned off (isDev on, or public_cache_dir not set) -->\n";
-            return $info->files;
-        }
-        
-        // where are we going to write all of this..
-        // This has to be done via a 
-        if (!file_exists($info->basedir.'/'.$info->output) || !filesize($info->basedir.'/'.$info->output)) {
-            require_once 'Pman/Core/JsCompile.php';
-            $x = new Pman_Core_JsCompile();
-            
-            $x->pack($info->filesmtime,$info->basedir.'/'.$info->output, $info->translation_base);
-        } else {
-            echo "<!-- file exists not exist: {$info->basedir}/{$info->output} -->\n";
-        }
-        
-        if (file_exists($info->basedir.'/'.$info->output) &&
-                filesize($info->basedir.'/'.$info->output)) {
-            
-            $ret =array(
-                $info->baseurl.'/'. $info->output,
-              
-            );
-            // output all the ava
-            // fixme  - this needs the max datetime for the translation file..
-            $ret[] = $this->baseURL."/Admin/InterfaceTranslations/".$mod.".js"; //?ts=".$info->translation_mtime;
-            
-            //if ($info->translation_mtime) {
-            //    $ret[] = $this->rootURL."/_translations_/". $info->smod.".js?ts=".$info->translation_mtime;
-            //}
-            return $ret;
-        }
-        
-        
-        
-        // give up and output original files...
-        
-         
-        return $info->files;
-
-        
-    }
-     
-     
-     
-    
-    
-    function moduleJavascriptListOld($mod)
     {
         
         

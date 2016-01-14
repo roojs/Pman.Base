@@ -724,13 +724,8 @@ class Pman extends HTML_FlexyFramework_Page
         
         foreach($mods as $mod) {
             // add the css file..
-            $dir = $this->rootDir.'/Pman/'.$mod;
-            $ar = glob($dir . '/*.css');
-            foreach($ar as $fn) { 
-                $css = $this->rootURL .'/Pman/'.$mod.'/'.basename($fn) . '?ts=' . filemtime($fn);
-                echo '<link rel="stylesheet" type="text/css" href="'.$css.'" />'."\n";
-            }
-             
+            $this->outputCSSDir("Pman/$mod","*.css");
+            
             
         }
          

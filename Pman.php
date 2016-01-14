@@ -21,7 +21,7 @@
  *   - any data object where this method exists, the result will get prefixed to the log remarks
  */
 
-require_once 'Pman_Core_AssetTrait.php';
+require_once 'Pman/Core/AssetTrait.php';
  
 class Pman extends HTML_FlexyFramework_Page 
 {

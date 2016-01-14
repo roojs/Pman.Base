@@ -670,9 +670,37 @@ class Pman extends HTML_FlexyFramework_Page
         foreach($mods as $mod) {
             // add the css file..
         
+            $this->outputJavascriptDir("Pman/$mod/widget/*.js");
             
             $files = $this->moduleJavascriptList($mod.'/widgets');
-             foreach($files as $f) {
+            foreach($files as $f) {
+                echo '<script type="text/javascript" src="'. $f. '"></script>'."\n";
+            }
+            
+            $files = $this->moduleJavascriptList($mod);
+            foreach($files as $f) {
+                echo '<script type="text/javascript" src="'. $f. '"></script>'."\n";
+            }
+            
+        }
+        if (empty($this->disable_jstemplate)) {
+        // and finally the JsTemplate...
+            echo '<script type="text/javascript" src="'. $this->baseURL. '/Core/JsTemplate"></script>'."\n";
+        }
+         
+    }
+    // used on old versions.....
+    function outputJavascriptIncludesBC()  
+    {
+        
+        $mods = $this->modulesList();
+        
+        foreach($mods as $mod) {
+            // add the css file..
+        
+             
+            $files = $this->moduleJavascriptList($mod.'/widgets');
+            foreach($files as $f) {
                 echo '<script type="text/javascript" src="'. $f. '"></script>'."\n";
             }
             
@@ -718,6 +746,8 @@ class Pman extends HTML_FlexyFramework_Page
     
     
     // --- OLD CODE - in for BC on MO project.... - needs removing...
+    
+    
     /**
      * Gather infor for javascript files..
      *

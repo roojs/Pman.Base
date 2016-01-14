@@ -676,7 +676,7 @@ class Pman extends HTML_FlexyFramework_Page
         foreach($mods as $mod) {
             // add the css file..
         
-            $this->outputJavascriptDir("Pman/$mod/widget", "*.js");
+            $this->outputJavascriptDir("Pman/$mod/widgets", "*.js");
             $this->outputJavascriptDir("Pman/$mod", "*.js");
             
         }

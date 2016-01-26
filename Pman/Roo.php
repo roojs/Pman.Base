@@ -400,7 +400,7 @@ class Pman_Roo extends Pman
                 )
                 
             ){
-            DB_DAtaObject::debuglevel((int)$_REQUEST['_debug']);
+            DB_DAtaObject::debuglevel((int)$req['_debug']);
         }
         
     }

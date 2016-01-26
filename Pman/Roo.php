@@ -430,66 +430,8 @@ class Pman_Roo extends Pman
           
         $this->sessionState(0); // turn off sessions  - no locking..
 
-        require_once 'Pman/Core/SimpleExcel.php';
-        
-        $fn = (empty($filename) ? 'list-export-' : urlencode($filename)) . (($addDate) ? date('Y-m-d') : '') ;
-        
-        
-        $se_config=  array(
-            'workbook' => substr($fn, 0, 31),
-            'cols' => array(),
-            'leave_open' => true
-        );
-        
-        
-        $se = false;
-        if (is_object($data)) {
-            $rooar = method_exists($data, 'toRooArray');
-            while($data->fetch()) {
-                $x = $rooar  ? $data->toRooArray($q) : $data->toArray();
-                
-                
-                if ($cols == '*') {  /// did we get cols sent to us?
-                    $cols = array_keys($x);
-                }
-                if ($titles== '*') {
-                    $titles= array_keys($x);
-                }
-                if ($titles !== false) {
+        $fh = fopen($filename,'w');
                     
-                    foreach($cols as $i=>$col) {
-                        $se_config['cols'][] = array(
-                            'header'=> isset($titles[$i]) ? $titles[$i] : $col,
-                            'dataIndex'=> $col,
-                            'width'=>  100,
-                           //     'renderer' => array($this, 'getThumb'),
-                             //   'color' => 'yellow', // set color for the cell which is a header element
-                              // 'fillBlank' => 'gray', // set 
-                        );
-                         $se = new Pman_Core_SimpleExcel(array(), $se_config);
-       
-                        
-                    }
-                    
-                    
-                    //fputcsv($fh, $titles);
-                    $titles = false;
-                }
-                
-
-                $se->addLine($se_config['workbook'], $x);
-                    
-                
-            }
-            if(!$se){
-                
-                $this->jerr('no data found', false, 'text/plain');
-            }
-            $se->send($fn .'.xls');
-            exit;
-            
-        } 
-        
         
         foreach($data as $x) {
             //echo "<PRE>"; print_r(array($_REQUEST['csvCols'], $x->toArray())); exit;
@@ -501,33 +443,23 @@ class Pman_Roo extends Pman
                 $cols= array_keys($x);
             }
             if ($titles !== false) {
-                foreach($cols as $i=>$col) {
-                    $se_config['cols'][] = array(
-                        'header'=> isset($titles[$i]) ? $titles[$i] : $col,
-                        'dataIndex'=> $col,
-                        'width'=>  100,
-                       //     'renderer' => array($this, 'getThumb'),
-                         //   'color' => 'yellow', // set color for the cell which is a header element
-                          // 'fillBlank' => 'gray', // set 
-                    );
-                    $se = new Pman_Core_SimpleExcel(array(),$se_config);
-   
-                    
-                }
+                fputcsv($fh,$titles);
                 
                 
                 //fputcsv($fh, $titles);
                 $titles = false;
             }
+            $ar = array();
+            foreach($cols as $c) {
+                $ar[] = $x[$c];
+            }
+            fputcsv($fh,$ar);
             
             
-            
-            $se->addLine($se_config['workbook'], $x);
         }
-        if(!$se){
-            $this->jerr('no data found');
-        }
-        $se->send($fn .'.xls');
+        
+        fclose($fh);
+        $this->jok("Wrote file : " . $filename);
         exit;
     
         

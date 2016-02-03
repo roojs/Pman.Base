@@ -1009,7 +1009,7 @@ class Pman extends HTML_FlexyFramework_Page
     function addEvent($act, $obj = false, $remarks = '') 
     {
         
-        if (!empty(HTML_FlexyFramework::get()->Pman['disable_events'])) {
+        if (!empty(HTML_FlexyFramework::get()->Pman['disable_events']) || !empty(HTML_FlexyFramework::get()->nodatabase)) {
             return;
         }
         $au = $this->getAuthUser();

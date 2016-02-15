@@ -219,7 +219,7 @@ class Pman_Login extends Pman
             $e->ipaddr = $_SERVER['REMOTE_ADDR'];
             $e->whereAdd('event_when > NOW() - INTERVAL 10 MINUTE');
             if ($e->count() > 5) {
-                $this->jerror(false, "Login failures are rate limited - please try later");
+                $this->jerror('LOGIN-RATE', "Login failures are rate limited - please try later");
             }
         }
         
@@ -228,7 +228,7 @@ class Pman_Login extends Pman
         // empty username = not really a hacking attempt.
         
         if (empty($_REQUEST['username'])) { //|| (strpos($_REQUEST['username'], '@') < 1)) {
-            $this->jerr('You typed the wrong Username or Password (0)');
+            $this->jerror('LOGIN-BAD', 'You typed the wrong Username or Password (0)');
             exit;
         }
         
@@ -236,12 +236,12 @@ class Pman_Login extends Pman
         
         
         if ($u->count() > 1 || !$u->find(true)) {
-            $this->jerror('BADLOGIN','You typed the wrong Username or Password  (1)');
+            $this->jerror('LOGIN-BAD','You typed the wrong Username or Password  (1)');
             exit;
         }
         
         if (!$u->active()) {
-            $this->jerror('BADLOGIN','Account disabled');
+            $this->jerror('LOGIN-BAD','Account disabled');
         }
         
         // check if config allows non-owner passwords.

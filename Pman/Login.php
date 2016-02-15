@@ -215,7 +215,7 @@ class Pman_Login extends Pman
         if (!empty($_SERVER['REMOTE_ADDR'])) {
             //DB_DataObject::DebugLevel(1);
             $e = DB_DataObject::Factory('Events');
-            $e->action = 'BADLOGIN';
+            $e->action = 'LOGIN-BAD';
             $e->ipaddr = $_SERVER['REMOTE_ADDR'];
             $e->whereAdd('event_when > NOW() - INTERVAL 10 MINUTE');
             if ($e->count() > 5) {
@@ -228,7 +228,7 @@ class Pman_Login extends Pman
         // empty username = not really a hacking attempt.
         
         if (empty($_REQUEST['username'])) { //|| (strpos($_REQUEST['username'], '@') < 1)) {
-            $this->jerror('LOGIN-BAD', 'You typed the wrong Username or Password (0)');
+            $this->jerror('LOGIN-BADUSER', 'You typed the wrong Username or Password (0)');
             exit;
         }
         

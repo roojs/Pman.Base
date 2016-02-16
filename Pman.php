@@ -593,7 +593,26 @@ class Pman extends HTML_FlexyFramework_Page
         $extra=  $extra ? $extra : array();
         require_once 'Services/JSON.php';
         $json = new Services_JSON();
-        if (isset($_SERVER['CONTENT_TYPE']) && preg_match('#multipart/form-data#i', $_SERVER['CONTENT_TYPE'])) {
+        
+        $retHTML = isset($_SERVER['CONTENT_TYPE']) && 
+                preg_match('#multipart/form-data#i', $_SERVER['CONTENT_TYPE']);
+        
+        if ($retHTML){
+            if (isset($_REQUEST['returnHTML']) && $_REQUEST['returnHTML'] == 'NO') {
+                $retHTML = false;
+            }
+        } else {
+            $retHTML = isset($_REQUEST['returnHTML']) && $_REQUEST['returnHTML'] !='NO';
+        }
+        
+        
+        
+        if (
+                isset($_SERVER['CONTENT_TYPE']) && 
+                preg_match('#multipart/form-data#i', $_SERVER['CONTENT_TYPE']) && 
+                (!isset($_REQUEST['returnHTML']) || $_REQUEST['returnHTML'] != 'NO')
+                
+        ) {
             
             header('Content-type: text/html');
             echo "<HTML><HEAD></HEAD><BODY>";

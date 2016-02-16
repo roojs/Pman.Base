@@ -605,8 +605,6 @@ class Pman extends HTML_FlexyFramework_Page
             $retHTML = isset($_REQUEST['returnHTML']) && $_REQUEST['returnHTML'] !='NO';
         }
         
-        
-        
         if ($retHTML) {
             
             header('Content-type: text/html');

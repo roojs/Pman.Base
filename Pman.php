@@ -607,12 +607,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         
         
-        if (
-                isset($_SERVER['CONTENT_TYPE']) && 
-                preg_match('#multipart/form-data#i', $_SERVER['CONTENT_TYPE']) && 
-                (!isset($_REQUEST['returnHTML']) || $_REQUEST['returnHTML'] != 'NO')
-                
-        ) {
+        if ($retHTML) {
             
             header('Content-type: text/html');
             echo "<HTML><HEAD></HEAD><BODY>";

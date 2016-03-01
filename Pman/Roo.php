@@ -124,7 +124,8 @@ class Pman_Roo extends Pman
      * 
      * DEBUGGING
      *  _post   =1    = simulate a post with debuggin on.
-     * 
+     *  _debug_post << This is prefered, as _post may overlap with accouting posts..
+     *  
      *  _debug     = turn on DB_dataobject deubbing, must be admin at present..
      *
      *

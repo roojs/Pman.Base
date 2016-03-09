@@ -161,8 +161,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         
         if (strlen($base)) {
-            $this->addEvent("BADURL", false, $base);
-            $this->jerr("invalid url");
+            $this->jerror("BADURL","invalid url: $base");
         }
         // deliver template
         if (isset($_GET['onloadTrack'])) {

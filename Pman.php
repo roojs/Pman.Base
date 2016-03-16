@@ -690,7 +690,11 @@ class Pman extends HTML_FlexyFramework_Page
      */
     function outputJavascriptIncludes()  
     {
-        
+         
+        $o = HTML_FlexyFramework::get()->Pman_Core;
+        if (isset($o['packseed'])) {
+            return $this->outputJavascriptIncludesBC();
+        }
         $mods = $this->modulesList();
         
         foreach($mods as $mod) {

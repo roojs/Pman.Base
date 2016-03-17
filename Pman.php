@@ -566,10 +566,18 @@ class Pman extends HTML_FlexyFramework_Page
         require_once 'Services/JSON.php';
         $json = new Services_JSON();
         
-        if (!empty($_REQUEST['returnHTML']) || 
-            (isset($_SERVER['CONTENT_TYPE']) && preg_match('#multipart/form-data#i', $_SERVER['CONTENT_TYPE']))
+        $retHTML = isset($_SERVER['CONTENT_TYPE']) && 
+                preg_match('#multipart/form-data#i', $_SERVER['CONTENT_TYPE']);
         
-        ) {
+        if ($retHTML){
+            if (isset($_REQUEST['returnHTML']) && $_REQUEST['returnHTML'] == 'NO') {
+                $retHTML = false;
+            }
+        } else {
+            $retHTML = isset($_REQUEST['returnHTML']) && $_REQUEST['returnHTML'] !='NO';
+        }
+        
+        if ($retHTML) {
             header('Content-type: text/html');
             echo "<HTML><HEAD></HEAD><BODY>";
             // encode html characters so they can be read..

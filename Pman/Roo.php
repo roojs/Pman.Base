@@ -1032,7 +1032,6 @@ class Pman_Roo extends Pman
     
     function update($x, $req,  $with_perm_check = true)
     {
-        print_R('run??????');exit;
         if ( $with_perm_check && !$this->checkPerm($x,'E', $req) )  {
             $this->jerr("PERMISSION DENIED - No Edit permissions on this element");
         }

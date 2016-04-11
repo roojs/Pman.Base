@@ -15,6 +15,15 @@
  *  - authentication link checking?? MOVEME?
  *  - authentication reset password ?? MOVEME?
  *  ?? arrayClean.. what's it doing here?!? ;)
+ *
+ *
+ *  OPTIONS
+ *  Pman['local_autoauth']   // who to login as when using localhost
+ *  Pman['isDev']  // can the site show develpment info.?
+ *   Pman['uiConfig']  // extra variable to export to front end..
+        
+ *
+ *
  * 
  * Usefull implemetors
  * DB_DataObject*:*toEventString (for logging - this is generically prefixed to all database operations.)

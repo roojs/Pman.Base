@@ -20,9 +20,9 @@
  *  OPTIONS
  *  Pman['local_autoauth']   // who to login as when using localhost
  *  Pman['isDev']  // can the site show develpment info.?
- *   Pman['uiConfig']  // extra variable to export to front end..
-        
- *
+ *  Pman['uiConfig']  // extra variable to export to front end..
+ *  Pman['auth_comptype'] // -- if set to 'OWNER' then only users with company=OWNER can log in
+ *  Pman['authTable'] // the authentication table (default 'person')
  *
  * 
  * Usefull implemetors

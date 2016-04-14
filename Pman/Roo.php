@@ -420,6 +420,7 @@ class Pman_Roo extends Pman
         if (!method_exists($obj, 'checkPerm')) {
             return true;
         }
+        print_R($obj);exit;
         if ($obj->checkPerm($lvl, $this->authUser, $req))  {
             return true;
         }

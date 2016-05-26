@@ -237,8 +237,7 @@ class Pman extends HTML_FlexyFramework_Page
         if (!empty($this->authUser)) {
             return $this->authUser;
         }
-        DB_DataObject::debugLevel(1);
-        $ff = HTML_FlexyFramework::get();
+         $ff = HTML_FlexyFramework::get();
         $tbl = empty($ff->Pman['authTable']) ? 'Person' : $ff->Pman['authTable'];
         
         $u = DB_DataObject::factory( $tbl );

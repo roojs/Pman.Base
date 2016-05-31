@@ -950,7 +950,7 @@ class Pman_Roo extends Pman
         if (!empty($_FILES) && method_exists($x, 'onUpload')) {
             $x->onUpload($this, $_REQUEST);
         }
-        print_R('in??');exit;
+        
         return $this->selectSingle(
             DB_DataObject::factory($x->tableName()),
             $x->pid()

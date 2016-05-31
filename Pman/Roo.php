@@ -372,6 +372,7 @@ class Pman_Roo extends Pman
         // this make take some time...
         $this->sessionState(0);
        // echo "<PRE>"; print_r($ret);
+        print_R($ret);exit;
         $this->jdata($ret, max(count($ret), $total), $extra );
 
     

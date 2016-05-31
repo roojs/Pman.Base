@@ -882,7 +882,7 @@ class Pman_Roo extends Pman
     
     function insert($x, $req, $with_perm_check = true)
     {
-        print_R('run???');exit;
+        
          if (method_exists($x, 'setFromRoo')) {
             $res = $x->setFromRoo($req, $this);
             if (is_string($res)) {

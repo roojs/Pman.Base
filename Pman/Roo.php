@@ -875,6 +875,7 @@ class Pman_Roo extends Pman
             $this->jok($x->toRooArray($req));
         }
         
+        print_R($x->toArray());exit;
         $this->jok($x->toArray());
         
         

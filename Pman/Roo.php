@@ -948,6 +948,7 @@ class Pman_Roo extends Pman
         
         // note setFrom might handle this before hand...!??!
         if (!empty($_FILES) && method_exists($x, 'onUpload')) {
+            print_r('int???');exit;
             $x->onUpload($this, $_REQUEST);
         }
         

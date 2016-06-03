@@ -1077,6 +1077,22 @@ class Pman extends HTML_FlexyFramework_Page
         return $e;
         
     }
+    
+    function addEventNotifyOnly($act, $obj = false, $remarks = '')
+    {
+         $au = $this->getAuthUser();
+       
+        $e = DB_DataObject::factory('Events');
+        $e->init($act,$obj,$remarks); 
+         
+        $e->event_when = date('Y-m-d H:i:s');
+        $wa = DB_DataObject::factory('core_watch');
+        if (method_exists($wa,'notifyEvent')) {
+            $wa->notifyEvent($e); // trigger any actions..
+        }
+    }
+    
+    
     // ------------------ DEPERCIATED ----------------------------
      
     // DEPRECITAED - use moduleslist

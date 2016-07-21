@@ -494,7 +494,7 @@ class Pman extends HTML_FlexyFramework_Page
         $cli = HTML_FlexyFramework::get()->cli;
         if ($cli) {
             echo "ERROR: " .$str . "\n";
-            exit(1);
+            exit(1); // cli --- exit code to stop shell execution if necessary.
         }
         
         

@@ -364,10 +364,10 @@ class Pman_Roo extends Pman
         
         
         if (!empty($_REQUEST['_requestMeta']) &&  count($ret)) {
-            $meta = $this->meta($x, $ret);
-            if ($meta) {
-                $extra['metaData'] = $meta;
-            }
+//            $meta = $this->meta($x, $ret);
+//            if ($meta) {
+//                $extra['metaData'] = $meta;
+//            }
         }
         // this make take some time...
         $this->sessionState(0);

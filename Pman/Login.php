@@ -184,6 +184,7 @@ class Pman_Login extends Pman
     var $domObj = false;
     function post()
     {
+        @session_start();
         print_R($_SESSION['Pman_PressRelease_DataObjects_Person']['Pman-PressRelease-Pman_PressRelease_DataObjects_Person-clipping_press-auth']);exit;
         //DB_DataObject::debugLevel(1);
         if (!empty($_REQUEST['getAuthUser'])) {

@@ -58,13 +58,6 @@ class Pman_Roo extends Pman
     
     function getAuth()
     {
-        if (!isset($_SERVER['PHP_AUTH_USER'])) {
-    header('WWW-Authenticate: Basic realm="My Realm"');
-    header('HTTP/1.0 401 Unauthorized');
-    echo 'Text to send if user hits Cancel button';
-    exit;
-}
-
         parent::getAuth(); // load company!
         $au = $this->getAuthUser();
        

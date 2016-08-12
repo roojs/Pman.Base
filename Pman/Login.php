@@ -184,10 +184,6 @@ class Pman_Login extends Pman
     var $domObj = false;
     function post()
     {
-        @session_start();
-        $sesPrefix = DB_DataObject::Factory('Person')->sesPrefix();
-        print_r($_SESSION[get_class($this)][$sesPrefix .'-auth']);exit;
-                
         //DB_DataObject::debugLevel(1);
         if (!empty($_REQUEST['getAuthUser'])) {
             $this->sendAuthUserDetails();

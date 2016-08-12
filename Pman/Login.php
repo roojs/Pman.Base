@@ -248,7 +248,6 @@ class Pman_Login extends Pman
         // auth_company = "OWNER" // auth_company = "CLIENT" or blank for all?
         // perhaps it should support arrays..
         $ff= HTML_FlexyFramework::get();
-        print_r($ff->Pman['auth_comptype']);exit;
         if (!empty($ff->Pman['auth_comptype']) && $ff->Pman['auth_comptype'] != $u->company()->comptype) {
             $this->jerror('LOGIN-BADUSER', "Login not permited to outside companies"); // serious failure
         }

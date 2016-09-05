@@ -61,7 +61,8 @@ class Pman_Login extends Pman
             
             $this->jok("Logged out");
         }
-        
+        $this->sendAuthUserDetails();
+        exit;
         // general query...
         if (!empty($_REQUEST['getAuthUser'])) {
             //DB_Dataobject::debugLevel(5);

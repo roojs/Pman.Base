@@ -58,6 +58,7 @@ class Pman_Roo extends Pman
     
     function getAuth()
     {
+        print_R($_REQUEST);exit;
         parent::getAuth(); // load company!
         $au = $this->getAuthUser();
        

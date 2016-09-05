@@ -41,7 +41,7 @@ class Pman_Login extends Pman
     function get() 
     {
         
-         print_R($_GET);exit;
+         
          //DB_DataObject::DebugLevel(1);
         if (!empty($_REQUEST['logout'])) {
             $u = $this->getAuthUser();

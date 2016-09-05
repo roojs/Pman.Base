@@ -42,6 +42,7 @@ class Pman_Login extends Pman
     {
         
         print_R($_REQUEST);exit;
+        
          //DB_DataObject::DebugLevel(1);
         if (!empty($_REQUEST['logout'])) {
             $u = $this->getAuthUser();

@@ -81,7 +81,7 @@ class Pman_Login extends Pman
         }
         
         
-        $this->jerr("INVALID REQUEST");
+        $this->jerr("INVALID REQUEST?!");
         exit;
     }
     

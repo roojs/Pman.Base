@@ -630,7 +630,7 @@ class Pman_Roo extends Pman
         //        $this->jerr("PERMISSION DENIED (e)");
         //}
         
-        print_R($_REQUEST);exit;
+        
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
     
         //DB_DataObject::debugLevel(1);

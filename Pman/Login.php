@@ -40,6 +40,7 @@ class Pman_Login extends Pman
      */
     function get() 
     {
+        print_R($_REQUEST);exit;
         
          
          //DB_DataObject::DebugLevel(1);

@@ -40,8 +40,7 @@ class Pman_Login extends Pman
      */
     function get() 
     {
-        $this->sendAuthUserDetails();
-            exit;
+        
          
          //DB_DataObject::DebugLevel(1);
         if (!empty($_REQUEST['logout'])) {

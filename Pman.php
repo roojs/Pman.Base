@@ -216,7 +216,7 @@ class Pman extends HTML_FlexyFramework_Page
             return false;
         }
         
-        $this->company = DB_DataObject::Factory('Companies');
+        $this->company = DB_DataObject::Factory('core_company');
         if (!is_a($this->company, 'DB_DataObject')) { // non-core pman projects
             return false; 
         }

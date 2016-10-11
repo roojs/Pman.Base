@@ -139,12 +139,7 @@ class Pman extends HTML_FlexyFramework_Page
         
             //$this->allowSignup= empty($opts['allowSignup']) ? 0 : 1;
         $bits = explode('/', $base);
-        //print_R($bits);
-        if ($bits[0] == 'Link') {
-            $this->linkFail = $this->linkAuth(@$bits[1],@$bits[2]);
-            header('Content-type: text/html; charset=utf-8');
-            return;
-        }
+      
         
         // should really be moved to Login...
         
@@ -238,7 +233,7 @@ class Pman extends HTML_FlexyFramework_Page
             return $this->authUser;
         }
          $ff = HTML_FlexyFramework::get();
-        $tbl = empty($ff->Pman['authTable']) ? 'Person' : $ff->Pman['authTable'];
+        $tbl = empty($ff->Pman['authTable']) ? 'core_person' : $ff->Pman['authTable'];
         
         $u = DB_DataObject::factory( $tbl );
         if (!$u->isAuth()) {
@@ -310,7 +305,7 @@ class Pman extends HTML_FlexyFramework_Page
             return in_array($name, $this->modules()); 
         }
         
-        $x = DB_DataObject::factory('Group_Rights');
+        $x = DB_DataObject::factory('core_group_right');
         $ar = $x->defaultPermData();
         if (empty($ar[$name]) || empty($ar[$name][0])) {
             return false;
@@ -354,60 +349,7 @@ class Pman extends HTML_FlexyFramework_Page
         unlink($x);
         return $x .'.'. $ext;
     }
-    /**
-     * ------------- Authentication testing ------ ??? MOVEME?
-     * 
-     * 
-     */
-    function linkAuth($trid, $trkey) 
-    {
-        $tr = DB_DataObject::factory('Documents_Tracking');
-        if (!$tr->get($trid)) {
-            return "Invalid URL";
-        }
-        if (strtolower($tr->authkey) != strtolower($trkey)) {
-            $this->AddEvent("ERROR-L", false, "Invalid Key");
-            return "Invalid KEY";
-        }
-        // check date..
-        $this->onloadTrack = (int) $tr->doc_id;
-        if (strtotime($tr->date_sent) < strtotime("NOW - 14 DAYS")) {
-            $this->AddEvent("ERROR-L", false, "Key Expired");
-            return "Key Expired";
-        }
-        // user logged in and not
-        $au = $this->getAuthUser();
-        if ($au && $au->id && $au->id != $tr->person_id) {
-            $au->logout();
-            
-            return "Logged Out existing Session\n - reload to log in with correct key";
-        }
-        if ($au) { // logged in anyway..
-            $this->AddEvent("LOGIN", false, "With Key (ALREADY)");
-            header('Location: ' . $this->baseURL.'?onloadTrack='.$this->onloadTrack);
-            exit;
-            return false;
-        }
-        
-        // authenticate the user...
-        // slightly risky...
-        $u = DB_DataObject::factory('Person');
-         
-        $u->get($tr->person_id);
-        $u->login();
-        $this->AddEvent("LOGIN", false, "With Key");
-        
-        // we need to redirect out - otherwise refererer url will include key!
-        header('Location: ' . $this->baseURL.'?onloadTrack='.$this->onloadTrack);
-        exit;
-        
-        return false;
-        
-        
-        
-        
-    }
-    
+   
     
     /**
      * ------------- Authentication password reset ------ ??? MOVEME?

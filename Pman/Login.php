@@ -153,7 +153,7 @@ class Pman_Login extends Pman
     
     function switchUser($id)
     {
-        $tbl = empty($ff->Pman['authTable']) ? 'Person' : $ff->Pman['authTable'];
+        $tbl = empty($ff->Pman['authTable']) ? 'core_person' : $ff->Pman['authTable'];
         $u = DB_DataObject::factory($tbl);
         if (!$u->isAuth()) {
             $this->err("not logged in");
@@ -204,7 +204,7 @@ class Pman_Login extends Pman
         // login attempt..
         
         $ff = HTML_FlexyFramework::get();
-        $tbl = empty($ff->Pman['authTable']) ? 'Person' : $ff->Pman['authTable'];
+        $tbl = empty($ff->Pman['authTable']) ? 'core_person' : $ff->Pman['authTable'];
         
        
         $u = DB_DataObject::factory($tbl);
@@ -277,7 +277,7 @@ class Pman_Login extends Pman
     
     function passwordRequest($n) 
     {
-        $u = DB_DataObject::factory('Person');
+        $u = DB_DataObject::factory('core_person');
         //$u->company_id = $this->company->id;
         
         $u->whereAdd('LENGTH(passwd) > 1');
@@ -321,7 +321,7 @@ class Pman_Login extends Pman
         
         
         // bcc..
-        $g = DB_DAtaObject::factory('Groups');
+        $g = DB_DAtaObject::factory('core_group');
         if (!$g->get('name', 'bcc-email')) {
             $this->jerr("no group 'bcc-email' exists in the system");
         }
@@ -380,7 +380,7 @@ class Pman_Login extends Pman
         }
         // key is correct.. let's change password...
         
-        $u = DB_DataObject::factory('Person');
+        $u = DB_DataObject::factory('core_person');
         
         //$u->company_id = $this->company->id;
         $u->whereAdd('LENGTH(passwd) > 1');

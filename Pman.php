@@ -366,7 +366,7 @@ class Pman extends HTML_FlexyFramework_Page
             return "Already Logged in - no need to use Password Reset";
         }
         
-        $u = DB_DataObject::factory('Person');
+        $u = DB_DataObject::factory('core_person');
         //$u->company_id = $this->company->id;
         $u->active = 1;
         if (!$u->get($id) || !strlen($u->passwd)) {

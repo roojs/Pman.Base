@@ -1532,6 +1532,16 @@ class Pman_Roo extends Pman
         }
         $tab = str_replace('/', '',$tab); // basic protection??
         
+        $pm = HTML_FlexyFramework::get()->Pman;
+        
+        if (isset($pm['roo_alias'])) {
+            $map = array_flip($pm['roo_alias']);
+            if (isset($map[$tab])) {
+                $tab = $map[$tab];
+            }
+        }
+        
+        
         $x = DB_DataObject::factory($tab);
         
         if (!is_a($x, 'DB_DataObject')) {

@@ -40,7 +40,8 @@ class Pman_Login extends Pman
      */
     function get() 
     {
-        
+        PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
+
          
          //DB_DataObject::DebugLevel(1);
         if (!empty($_REQUEST['logout'])) {
@@ -184,6 +185,8 @@ class Pman_Login extends Pman
     var $domObj = false;
     function post()
     {
+        PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
+        
         //DB_DataObject::debugLevel(1);
         if (!empty($_REQUEST['getAuthUser'])) {
             $this->sendAuthUserDetails();

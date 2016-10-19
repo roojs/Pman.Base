@@ -86,6 +86,28 @@ class Pman_Login extends Pman
         exit;
     }
     
+    
+    function logout()
+    {
+        $u = $this->getAuthUser();
+        //print_r($u);
+        if ($u) {
+            
+            $this->addEvent('LOGOUT');
+            $e = DB_DataObject::factory('Events');
+          
+            session_regenerate_id(true);
+            $u->logout();
+        }
+        // log it..
+        
+        $_SESSION['Pman_I18N'] = array();
+        session_regenerate_id(true);
+        
+        $this->jok("Logged out");
+        
+    }
+    
     function sendAuthUserDetails()
     {
         // remove for normal use - it's a secuirty hole!
@@ -185,7 +207,6 @@ class Pman_Login extends Pman
     var $domObj = false;
     function post()
     {
-        PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
         
         //DB_DataObject::debugLevel(1);
         if (!empty($_REQUEST['getAuthUser'])) {

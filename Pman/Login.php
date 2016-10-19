@@ -45,22 +45,7 @@ class Pman_Login extends Pman
          
          //DB_DataObject::DebugLevel(1);
         if (!empty($_REQUEST['logout'])) {
-            $u = $this->getAuthUser();
-            //print_r($u);
-            if ($u) {
-                
-                $this->addEvent('LOGOUT');
-                $e = DB_DataObject::factory('Events');
-              
-                session_regenerate_id(true);
-                $u->logout();
-            }
-            // log it..
-            
-            $_SESSION['Pman_I18N'] = array();
-            session_regenerate_id(true);
-            
-            $this->jok("Logged out");
+           return $this->logout();
         }
         
         // general query...
@@ -214,6 +199,9 @@ class Pman_Login extends Pman
             exit;
         }
         
+        if (!empty($_REQUEST['logout'])) {
+           return $this->logout();
+        }
         
         if (!empty($_REQUEST['passwordRequest'])) { //|| (strpos($_REQUEST['username'], '@') < 1)) {
             

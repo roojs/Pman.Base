@@ -260,7 +260,7 @@ class Pman_Roo extends Pman
         
         
         $this->setFilters($x,$_REQUEST);
-        
+        print_R($x);exit;
         if (!$this->checkPerm($x,'S', $_REQUEST))  {
             $this->jerr("PERMISSION DENIED (g)");
         }

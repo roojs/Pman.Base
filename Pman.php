@@ -207,7 +207,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
         // only applies if authtable is person..
         $ff = HTML_FlexyFramework::get();
-        if (!empty($ff->Pman['authTable']) && $ff->Pman['authTable'] != 'Person') {
+        if (!empty($ff->Pman['authTable']) && !in_array($ff->Pman['authTable'] , [ 'core_person', 'Person' ])) {
             return false;
         }
         

@@ -379,6 +379,7 @@ class Pman_Roo extends Pman
     function checkDebug($req = false)
     {
         $req =  $req === false  ? $_REQUEST : $req;
+        
         if (isset($req['_debug']) 
                 && 
                 $this->authUser
@@ -394,7 +395,7 @@ class Pman_Roo extends Pman
                     
                         method_exists($this->authUser,'groups') 
                         &&
-                        is_a($this->authUser, 'Pman_Core_DataObjects_Person')
+                        is_a($this->authUser, 'Pman_Core_DataObjects_Core_person')
                         &&
                         in_array('Administrators', $this->authUser->groups('name'))
                     )
@@ -633,7 +634,7 @@ class Pman_Roo extends Pman
         
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
     
-        //DB_DataObject::debugLevel(1);
+         DB_DataObject::debugLevel(1);
         $this->checkDebug();
         
         if (!empty($_REQUEST['_get'])) {
@@ -1505,6 +1506,7 @@ class Pman_Roo extends Pman
         // nice generic -- let's get rid of it.. where is it used!!!!
         // used by: 
         // Person / Group / Comapnies.... most of my queries noww...
+        /*
         if (!empty($q['query']['name'])) {
             
             
@@ -1512,6 +1514,7 @@ class Pman_Roo extends Pman
                 $x->whereAdd($x->tableName().".name LIKE '". $x->escape($q['query']['name']) . "%'");
             }
         }
+        */
         
         // - projectdirectory staff list - persn queuy
      

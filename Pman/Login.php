@@ -203,7 +203,9 @@ class Pman_Login extends Pman
             $this->jerr('Account disabled');
         }
         
-        $u->loginPublic();
+        if(!$u->loginPublic()){
+            $this->jerr('Switch fail');
+        }
         
         $this->jok('OK');
     }

@@ -194,7 +194,14 @@ class Pman_Login extends Pman
     
     function switchPublicUser($id)
     {
+        $tbl = empty($ff->Pman['authTable']) ? 'core_person' : $ff->Pman['authTable'];
+        $u = DB_DataObject::factory($tbl);
         
+        if(!$u->get($id)){
+            $this->jerr("User does not exist");
+        }
+
+        $u->loginPublic();
     }
     
     

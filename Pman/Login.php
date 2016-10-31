@@ -67,7 +67,7 @@ class Pman_Login extends Pman
         }
         
         if (!empty($_REQUEST['loginPublic'])) {
-            $this->switchPublicUser($_REQUEST['switch']);
+            $this->switchPublicUser($_REQUEST['loginPublic']);
         }
         
         

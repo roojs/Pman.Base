@@ -192,6 +192,11 @@ class Pman_Login extends Pman
         
     }
     
+    function switchPublicUser($id)
+    {
+        
+    }
+    
     
     var $domObj = false;
     function post()

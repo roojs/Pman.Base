@@ -130,7 +130,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     
     
-    function get($base) 
+    function get($base, $opts=array()) 
     {
         $this->init();
         if (empty($base)) {

@@ -265,9 +265,9 @@ class Pman_Login extends Pman
             $this->jerror('LOGIN-EMPTY', 'You typed the wrong Username or Password (0)');
             exit;
         }
-        
+        DB_DataObject::debugLevel(1);
         $u->authUserName($_REQUEST['username']);
-        print_R($u);exit;
+        print_R($u->count());exit;
         if ($u->count() > 1 || !$u->find(true)) {
             $this->jerror('LOGIN-BAD','You typed the wrong Username or Password  (1)');
             exit;

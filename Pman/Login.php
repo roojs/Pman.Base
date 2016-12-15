@@ -243,7 +243,7 @@ class Pman_Login extends Pman
        
         $u = DB_DataObject::factory($tbl);
         
-        
+        print_r($u);exit;
         
         // ratelimit
         if (!empty($_SERVER['REMOTE_ADDR'])) {

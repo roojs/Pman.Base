@@ -243,7 +243,7 @@ class Pman_Login extends Pman
        
         $u = DB_DataObject::factory($tbl);
         
-        print_r($u);exit;
+        
         
         // ratelimit
         if (!empty($_SERVER['REMOTE_ADDR'])) {
@@ -267,7 +267,7 @@ class Pman_Login extends Pman
         }
         
         $u->authUserName($_REQUEST['username']);
-        
+        print_R($u);exit;
         if ($u->count() > 1 || !$u->find(true)) {
             $this->jerror('LOGIN-BAD','You typed the wrong Username or Password  (1)');
             exit;

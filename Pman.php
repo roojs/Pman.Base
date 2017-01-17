@@ -30,9 +30,17 @@
  *   - any data object where this method exists, the result will get prefixed to the log remarks
  */
 
+ // BC!
+if (!class_exists('HTML_FlexyFramework2_Page')) {
+    class HTML_FlexyFramework_Page extends HTML_FlexyFramework2_Page {}
+    
+}
+    
+ 
+ 
 require_once 'Pman/Core/AssetTrait.php';
  
-class Pman extends HTML_FlexyFramework_Page 
+class Pman extends HTML_FlexyFramework2_Page 
 {
     use Pman_Core_AssetTrait;
     //outputJavascriptDir()

@@ -85,7 +85,7 @@ class Pman extends HTML_FlexyFramework2_Page
         }
         $this->_hasInit = true;
          // move away from doing this ... you can access bootLoader.XXXXXX in the master template..
-        $boot = HTML_FlexyFramework::get();
+        $boot = HTML_FlexyFramework2::get();
         // echo'<PRE>';print_R($boot);exit;
         $this->appName= $boot->appName;
         $this->appNameShort= $boot->appNameShort;

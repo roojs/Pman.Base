@@ -32,7 +32,7 @@
 
  // BC!
 if (!class_exists('HTML_FlexyFramework2_Page')) {
-    class HTML_FlexyFramework_Page extends HTML_FlexyFramework2_Page {}
+    class HTML_FlexyFramework2_Page extends HTML_FlexyFramework_Page {}
     
 }
     

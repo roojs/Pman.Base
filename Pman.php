@@ -31,8 +31,9 @@
  */
 
  // BC!
-if (!class_exists('HTML_FlexyFramework2_Page')) {
+if (!class_exists('HTML_FlexyFramework2')) {
     class HTML_FlexyFramework2_Page extends HTML_FlexyFramework_Page {}
+    class HTML_FlexyFramework2 extends HTML_FlexyFramework {}
     
 }
     
@@ -159,7 +160,7 @@ class Pman extends HTML_FlexyFramework2_Page
          
         $au = $this->getAuthUser();
         if ($au) {
-            $ff= HTML_FlexyFramework::get();
+            $ff= HTML_FlexyFramework2::get();
            
             if (!empty($ff->Pman['auth_comptype']) && $au->id > 0 &&
                 ( !$au->company_id || ($ff->Pman['auth_comptype'] != $au->company()->comptype))) {

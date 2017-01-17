@@ -185,7 +185,7 @@ class Pman extends HTML_FlexyFramework2_Page
          //var_dump($this->isDev);
         // force regeneration on load for development enviroments..
         
-        HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev);
+        HTML_FlexyFramework2::get()->generateDataobjectsCache($this->isDev);
         
         //header('Content-type: application/xhtml+xml; charset=utf-8');
         
@@ -215,7 +215,7 @@ class Pman extends HTML_FlexyFramework2_Page
     function loadOwnerCompany()
     {
         // only applies if authtable is person..
-        $ff = HTML_FlexyFramework::get();
+        $ff = HTML_FlexyFramework2::get();
         if (!empty($ff->Pman['authTable']) && !in_array($ff->Pman['authTable'] , [ 'core_person', 'Person' ])) {
             return false;
         }
@@ -241,7 +241,7 @@ class Pman extends HTML_FlexyFramework2_Page
         if (!empty($this->authUser)) {
             return $this->authUser;
         }
-         $ff = HTML_FlexyFramework::get();
+         $ff = HTML_FlexyFramework2::get();
         $tbl = empty($ff->Pman['authTable']) ? 'core_person' : $ff->Pman['authTable'];
         
         $u = DB_DataObject::factory( $tbl );
@@ -275,7 +275,7 @@ class Pman extends HTML_FlexyFramework2_Page
      */
     function modulesList()
     {
-        $boot = HTML_FlexyFramework::get();
+        $boot = HTML_FlexyFramework2::get();
         // echo'<PRE>';print_R($boot);exit;
          
          
@@ -354,7 +354,7 @@ class Pman extends HTML_FlexyFramework2_Page
     
     function tempName($ext)
     {
-        $x = tempnam(ini_get('session.save_path'), HTML_FlexyFramework::get()->appNameShort.'TMP');
+        $x = tempnam(ini_get('session.save_path'), HTML_FlexyFramework2::get()->appNameShort.'TMP');
         unlink($x);
         return $x .'.'. $ext;
     }
@@ -442,7 +442,7 @@ class Pman extends HTML_FlexyFramework2_Page
             $this->addEvent($type, false, $str);
         }
          
-        $cli = HTML_FlexyFramework::get()->cli;
+        $cli = HTML_FlexyFramework2::get()->cli;
         if ($cli) {
             echo "ERROR: " .$str . "\n";
             exit(1); // cli --- exit code to stop shell execution if necessary.
@@ -518,7 +518,7 @@ class Pman extends HTML_FlexyFramework2_Page
     }
     function jok($str)
     {
-        $cli = HTML_FlexyFramework::get()->cli;
+        $cli = HTML_FlexyFramework2::get()->cli;
         if ($cli) {
             echo "OK: " .$str . "\n";
             exit;
@@ -659,7 +659,7 @@ class Pman extends HTML_FlexyFramework2_Page
     function outputJavascriptIncludes()  
     {
         // BC support - currently 1 project still relies on this.. (MO portal) 
-        $o = HTML_FlexyFramework::get()->Pman_Core;
+        $o = HTML_FlexyFramework2::get()->Pman_Core;
         if (isset($o['packseed'])) {
             return $this->outputJavascriptIncludesBC();
         }
@@ -766,7 +766,7 @@ class Pman extends HTML_FlexyFramework2_Page
         }
         
         
-        $ff = HTML_FlexyFramework::get();
+        $ff = HTML_FlexyFramework2::get();
         
         $base = dirname($_SERVER['SCRIPT_FILENAME']);
         $dir =   $this->rootDir.'/Pman/'. $mod;
@@ -980,7 +980,7 @@ class Pman extends HTML_FlexyFramework2_Page
     
     function addEventOnce($act, $obj = false, $remarks = '') 
     {
-        if (!empty(HTML_FlexyFramework::get()->Pman['disable_events'])) {
+        if (!empty(HTML_FlexyFramework2::get()->Pman['disable_events'])) {
             return;
         }
         $e = DB_DataObject::factory('Events');
@@ -1003,7 +1003,7 @@ class Pman extends HTML_FlexyFramework2_Page
     function addEvent($act, $obj = false, $remarks = '') 
     {
         
-        if (!empty(HTML_FlexyFramework::get()->Pman['disable_events'])) {
+        if (!empty(HTML_FlexyFramework2::get()->Pman['disable_events'])) {
             return;
         }
         $au = $this->getAuthUser();

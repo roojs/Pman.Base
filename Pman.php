@@ -35,7 +35,7 @@
  
  
 require_once 'Pman/Core/AssetTrait.php';
- 
+
 class Pman extends HTML_FlexyFramework_Page 
 {
     use Pman_Core_AssetTrait;

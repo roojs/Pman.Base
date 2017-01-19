@@ -40,8 +40,7 @@ class Pman_Login extends Pman
      */
     function get() 
     {
-        PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
-
+        $this->initErrorHandling();
          
          //DB_DataObject::DebugLevel(1);
         if (!empty($_REQUEST['logout'])) {

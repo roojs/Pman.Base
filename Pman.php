@@ -916,31 +916,48 @@ class Pman extends HTML_FlexyFramework_Page
      * Error handling...
      *  PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
      */
+    function initErrorHandling()
+    {
+        if (!class_exists('HTML_FlexyFramework2')) {
+            // what about older code that still users PEAR?
+            PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
+        }
+        set_exception_handler(array($this,'onException'));
+        
+    }
+    
     
     static $permitError = false;
     
     function onPearError($err)
     {
+        return $this->onException($err);
+        
+    }
+    
+    
+    function onException($ex)
+    {
+        
         static $reported = false;
         if ($reported) {
             return;
         }
         
         if (Pman::$permitError) {
-             
             return;
-            
         }
         
         
         $reported = true;
-        $out = $err->toString();
+        $out = is_a($ex,'Exception') ? $err->getMessage() : $err->toString();
         
         
         //print_R($bt); exit;
         $ret = array();
         $n = 0;
-        foreach($err->backtrace as $b) {
+        $bt = is_a($ex,'Exception') ? $err->getTrace() : $ex->backtrace;
+        foreach( $bt as $b) {
             $ret[] = @$b['file'] . '(' . @$b['line'] . ')@' .   @$b['class'] . '::' . @$b['function'];
             if ($n > 20) {
                 break;
@@ -949,11 +966,11 @@ class Pman extends HTML_FlexyFramework_Page
         }
         //convert the huge backtrace into something that is readable..
         $out .= "\n" . implode("\n",  $ret);
-     
+        
+        // not sure why this is here... - perhaps doing a jerr() was actually caught by the UI, and hidden from the user..?
         print_R($out);exit;
         
         $this->jerr($out);
-        
         
         
     }

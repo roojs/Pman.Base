@@ -249,7 +249,7 @@ class Pman extends HTML_FlexyFramework_Page
     /**
      * hasPerm:
      * wrapper arround authuser->hasPerm
-     * @see Pman_Core_DataObjects_User::hasPerm
+     * @see Pman_Core_DB_DataObject::factory('')hasPerm
      *
      * @param {String} $name  The permission name (eg. Projects.List)
      * @param {String} $lvl   eg. (C)reate (E)dit (D)elete ... etc.

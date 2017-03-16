@@ -472,9 +472,7 @@ class Pman_Roo extends Pman
        
                         
                     }
-                    
-                    
-                    //fputcsv($fh, $titles);
+                     
                     $titles = false;
                 }
                 

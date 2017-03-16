@@ -454,11 +454,11 @@ class Pman_Roo extends Pman
                 if ($cols == '*') {  /// did we get cols sent to us?
                     $cols = array_keys($x);
                 }
-                if ($titles== '*') {
-                    $titles= array_keys($x);
-                }
+               
                 if ($titles !== false) {
-                    
+                    if ($titles== '*') {
+                        $titles= array_keys($x);
+                    }
                     foreach($cols as $i=>$col) {
                         $se_config['cols'][] = array(
                             'header'=> isset($titles[$i]) ? $titles[$i] : $col,

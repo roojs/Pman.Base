@@ -1477,8 +1477,10 @@ class Pman_Roo extends Pman
                     // subjoined columns = check the values.
                     // note this is not typesafe for anything other than mysql..
                     
-                    if (isset($this->colsJname[$key])) {
-                        var_dump($this->colsJname[$key]);
+                    
+                    
+                    if (!empty($this->colsJname[$key])) {
+                        print_r($this);
                         
                         $quote = false;
                         if (!is_numeric($val) || !is_long($val)) {

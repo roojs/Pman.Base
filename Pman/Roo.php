@@ -1491,6 +1491,7 @@ class Pman_Roo extends Pman
                                 $tbl->setFrom($set);
                            //     print_R($tbl);
                                 var_dump($tbl->{$tc[1]});
+                                var_dump($set);
                                 var_dump($val);
                                 if ($tbl->{$tc[1]} !== $val) {
                                     continue;

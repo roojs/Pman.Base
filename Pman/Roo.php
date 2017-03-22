@@ -1482,7 +1482,7 @@ class Pman_Roo extends Pman
                     if (isset($this->colsJname[$key])) {
                         
                         if (isset($this->cols[$key])) {
-                            //$tbl = DB_DataObject::factory($this->cols[$key])
+                            $tbl = DB_DataObject::factory(array_shift(explode('.', $this->cols[$key]));
                             
                         }
                         

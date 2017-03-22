@@ -1479,7 +1479,13 @@ class Pman_Roo extends Pman
                     
                     
                     
-                    if (!empty($this->colsJname[$key])) {
+                    if (isset($this->colsJname[$key])) {
+                        
+                        if (isset($this->cols[$key])) {
+                            //$tbl = DB_DataObject::factory($this->cols[$key])
+                            
+                        }
+                        
                         print_r($this);
                         
                         $quote = false;

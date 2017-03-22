@@ -1489,7 +1489,7 @@ class Pman_Roo extends Pman
                                 $set = array();
                                 $set[$tc[1]] = $val;
                                 $tbl->setFrom($set);
-                                print_R($tbl);
+                           //     print_R($tbl);
                                 if ($tbl->{$tc[1]} !== $val) {
                                     continue;
                                 }

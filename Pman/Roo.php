@@ -1483,8 +1483,9 @@ class Pman_Roo extends Pman
                     
                     if (isset($this->colsJname[$key]) ) {
                         
+                        // the aobve rule for !strlen non-joined cols should apply to joined ones.
                         if (!strlen($val)) {
-                                    continue;
+                            continue;
             
                         }
                         

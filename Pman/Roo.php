@@ -1489,7 +1489,7 @@ class Pman_Roo extends Pman
                                 $set = array();
                                 $set[$tc[1]] = $val;
                                 $tbl->setFrom($set);
-                                if (!isset($tbl->{$tc[1]})) {
+                                if ($tbl->{$tc[1]} === $val) {
                                     continue;
                                 }
                             }

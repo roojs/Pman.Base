@@ -1478,6 +1478,8 @@ class Pman_Roo extends Pman
                     // note this is not typesafe for anything other than mysql..
                     
                     if (isset($this->colsJname[$key])) {
+                        var_dump($this->colsJname[$key]);
+                        
                         $quote = false;
                         if (!is_numeric($val) || !is_long($val)) {
                             $quote = true;

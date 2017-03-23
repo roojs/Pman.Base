@@ -1477,7 +1477,14 @@ class Pman_Roo extends Pman
                     // subjoined columns = check the values.
                     // note this is not typesafe for anything other than mysql..
                     
-                    if (isset($this->colsJname[$key]) && strlen($val)) {
+                    if (isset($this->colsJname[$key])) {
+                        
+                        // the aobve rule for !strlen non-joined cols should apply to joined ones.
+                        if (!strlen($val)) {
+                            continue;
+                        }
+                        
+                        
                         $quote = false;
                         if (!is_numeric($val) || !is_long($val)) {
                             $quote = true;

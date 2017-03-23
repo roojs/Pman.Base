@@ -1470,8 +1470,6 @@ class Pman_Roo extends Pman
                 
                 
                 default:
-                    
-                    
                     if (strlen($val) && $key[0] != '_') {
                         $q_filtered[$key] = $val;
                     }
@@ -1479,18 +1477,7 @@ class Pman_Roo extends Pman
                     // subjoined columns = check the values.
                     // note this is not typesafe for anything other than mysql..
                     
-                    
-                    
-                    if (isset($this->colsJname[$key]) ) {
-                        
-                        // the aobve rule for !strlen non-joined cols should apply to joined ones.
-                        if (!strlen($val)) {
-                            continue;
-            
-                        }
-                        
-                        
-                        
+                    if (isset($this->colsJname[$key])) {
                         $quote = false;
                         if (!is_numeric($val) || !is_long($val)) {
                             $quote = true;
@@ -1504,6 +1491,8 @@ class Pman_Roo extends Pman
             }
         }
         if (!empty($q_filtered)) {
+            //var_dump($q_filtered);
+            
             
             
             $x->setFrom($q_filtered);

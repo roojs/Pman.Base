@@ -975,7 +975,7 @@ class Pman extends HTML_FlexyFramework_Page
             print_R($out);exit;
         }
         // not sure why this is here... - perhaps doing a jerr() was actually caught by the UI, and hidden from the user..?
-        $this->jerr("An error Occured, please contact the website owner");
+        $this->jerror(false,"An error Occured, please contact the website owner");
         
         //$this->jerr($out);
         

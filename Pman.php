@@ -968,11 +968,14 @@ class Pman extends HTML_FlexyFramework_Page
         $out .= "\n" . implode("\n",  $ret);
         
         $this->addEvent("EXCEPTION", false, $out);
-
-        // not sure why this is here... - perhaps doing a jerr() was actually caught by the UI, and hidden from the user..?
-        print_R($out);exit;
         
-        $this->jerr($out);
+        if ($this->permitErrorDisplay) {
+            print_R($out);exit;
+        }
+        // not sure why this is here... - perhaps doing a jerr() was actually caught by the UI, and hidden from the user..?
+        $this->jerr("An error Occured, please contact the website owner");
+        
+        //$this->jerr($out);
         
         
     }

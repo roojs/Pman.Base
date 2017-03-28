@@ -928,7 +928,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     
     static $permitError = false;
-    var $permitErrorDisplay = true;
+    var $showErrorToUser = true;
     
     function onPearError($err)
     {
@@ -970,7 +970,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         $this->addEvent("EXCEPTION", false, $out);
         
-        if ($this->permitErrorDisplay) {
+        if ($this->showErrorToUser) {
             print_R($out);exit;
         }
         // not sure why this is here... - perhaps doing a jerr() was actually caught by the UI, and hidden from the user..?

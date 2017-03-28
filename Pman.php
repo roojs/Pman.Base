@@ -927,7 +927,8 @@ class Pman extends HTML_FlexyFramework_Page
     }
     
     
-    static $permitError = false;
+    static $permitError = false; // static why?
+    
     var $showErrorToUser = true;
     
     function onPearError($err)

@@ -215,19 +215,7 @@ class Pman_Roo extends Pman
        
         if (isset($_REQUEST['_delete'])) {
             $this->jerr("DELETE by GET has been removed - update the code to use POST");
-            /*
-            
-            $keys = $x->keys();
-            if (empty($keys) ) {
-                $this->jerr('no key');
-            }
-            
-            $this->key = $keys[0];
-            
-            
-            // do we really delete stuff!?!?!?
-            return $this->delete($x,$_REQUEST);
-            */
+           
         } 
         
         

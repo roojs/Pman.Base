@@ -53,6 +53,7 @@ class Pman_Roo extends Pman
     
     var $transObj = false ; // the transaction BEGIN / ROLLBACK / COMMIT Dataobject.
     
+    var $max_limit = 10000;
     
     var $debugEnabled = true; // disable this for public versions of this code.
     

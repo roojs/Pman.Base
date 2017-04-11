@@ -240,7 +240,8 @@ class Pman extends HTML_FlexyFramework_Page
         $tbl = empty($ff->Pman['authTable']) ? 'core_person' : $ff->Pman['authTable'];
         
         $u = DB_DataObject::factory( $tbl );
-        if (!$u->isAuth()) {
+        
+        if (is_a('PEAR_Error', $u) || !$u->isAuth()) {
             return false;
         }
         $this->authUser =$u->getAuthUser();

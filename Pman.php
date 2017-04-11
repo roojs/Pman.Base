@@ -241,7 +241,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         $u = DB_DataObject::factory( $tbl );
         
-        if (is_a('PEAR_Error', $u) || !$u->isAuth()) {
+        if (is_a($u,'PEAR_Error') || !$u->isAuth()) {
             return false;
         }
         $this->authUser =$u->getAuthUser();

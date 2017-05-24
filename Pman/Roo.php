@@ -672,7 +672,7 @@ class Pman_Roo extends Pman
         if (!empty($_REQUEST[$this->key])) {
             // it's a create..
             if (!$x->get($this->key, $_REQUEST[$this->key]))  {
-                $this->jerr("Invalid request (id not set?)");
+                $this->jerr("Invalid request (id not set to valid id)");
             }
             $this->jok($this->update($x, $_REQUEST));
         } else {

@@ -1004,7 +1004,7 @@ class Pman_Roo extends Pman
 	            $x->modified_by != $this->authUser->id 	
                 )
             {
-                $p = DB_DataObject::factory('Person');
+                $p = DB_DataObject::factory('core_person');
                 $p->get($x->modified_by);
 		 $this->jerr($p->name . " saved the record since you started editing,\nDo you really want to update it?", array('needs_confirm' => true)); 
                 

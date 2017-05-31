@@ -1294,8 +1294,6 @@ class Pman_Roo extends Pman
             'distinct' => $distinct
         ));
         
-      
-        
         $this->countWhat = $ret['count'];
         $this->cols = $ret['cols'];
         $this->colsJname = $ret['join_names'];

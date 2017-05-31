@@ -1288,6 +1288,7 @@ class Pman_Roo extends Pman
           
         $excludecolumns[] = 'passwd'; // we never expose passwords
        
+        print_R($do);exit;
         $ret = $do->autoJoin(array(
             'include' => $onlycolumns,
             'exclude' => $excludecolumns,

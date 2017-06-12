@@ -407,7 +407,6 @@ class Pman_Roo extends Pman
     
     function checkPerm($obj, $lvl, $req= null)
     {
-        print_r($obj);exit;
         if (!method_exists($obj, 'checkPerm')) {
             return true;
         }

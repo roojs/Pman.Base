@@ -663,8 +663,18 @@ class Pman extends HTML_FlexyFramework_Page
         
         $mods = $this->modulesList();
         
+        $is_bootstrap = in_array('BAdmin', $mods);
+        
         foreach($mods as $mod) {
             // add the css file..
+            
+            if ($is_bootstrap) {
+                if (!file_exists($this->rootDir."/Pman/$mod/is_bootstrap")) {
+                    echo '<!-- missing '. $this->rootDir."/Pman/$mod/is_bootstrap  - skipping -->";
+                    continue;
+                }
+                
+            }
         
             $this->outputJavascriptDir("Pman/$mod/widgets", "*.js");
             $this->outputJavascriptDir("Pman/$mod", "*.js");

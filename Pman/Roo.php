@@ -191,12 +191,7 @@ class Pman_Roo extends Pman
         }
         
         $this->checkDebug();
-        
-        if (class_exists('PEAR')) {
-            PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
-        } else {
-           set_exception_handler( array($this, 'onPearError'));
-        }
+        $this->initErrorHandling();
    
         $tab = array_shift(explode('/', $tab));
         $x = $this->dataObject($tab);

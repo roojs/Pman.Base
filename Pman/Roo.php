@@ -724,7 +724,7 @@ class Pman_Roo extends Pman
         
         if ($sorted === false) {
             
-            $cols = $x->table();
+            $cols = $x->tableColumns();
             $excols = array_keys($this->cols);
             
             if (isset($x->_extra_cols)) {
@@ -764,7 +764,7 @@ class Pman_Roo extends Pman
         }
         $sort_str = array();
         
-        $cols = $x->table();
+        $cols = $x->tableColumns();
         
         //print_r($this->cols);exit;
         // this-><cols contains  colname => aliased name...
@@ -882,7 +882,7 @@ class Pman_Roo extends Pman
         if ( $with_perm_check &&  !$this->checkPerm($x,'A', $req))  {
             $this->jerr("PERMISSION DENIED (i)");
         }
-        $cols = $x->table();
+        $cols = $x->tableColumns();
      
         if (isset($cols['created'])) {
             $x->created = date('Y-m-d H:i:s');
@@ -1052,7 +1052,7 @@ class Pman_Roo extends Pman
         //echo '<PRE>';print_r($old);print_r($x);exit;
         //print_r($old);
         
-        $cols = $x->table();
+        $cols = $x->tableColumns();
         //print_r($cols);
         if (isset($cols['modified'])) {
             $x->modified = date('Y-m-d H:i:s');

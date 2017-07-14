@@ -616,10 +616,8 @@ class Pman_Roo extends Pman
         //if (!$this->hasPerm("Core.All", 'E'))  {
         //        $this->jerr("PERMISSION DENIED (e)");
         //}
+        $this->initErrorHandling();
         
-        
-        PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array($this, 'onPearError'));
-     
         // DB_DataObject::debugLevel(1);
         $this->checkDebug();
         

@@ -1316,15 +1316,24 @@ class Pman_Roo extends Pman
      
         
         
-        
-        //echo '<PRE>';print_r($this->cols); exit;
-        $options = &PEAR::getStaticProperty('DB_DataObject','options');
-        $reader = $options["ini_{$x->_database}"] .'.reader';
-        if (!file_exists( $reader )) {
-            return;
+        if (class_exists('PDO_DataObject')) {
+            $options = PDO_DataObject::config();
+            if (!file_exists($options["schema_location"] . '.reader')) {
+                return;
+            }
+           
+            $rdata = unserialize(file_get_contents($options["schema_location"] . '.reader'));
+          
+        } else {
+            //echo '<PRE>';print_r($this->cols); exit;
+            $options = &PEAR::getStaticProperty('DB_DataObject','options');
+            $reader = $options["ini_{$x->_database}"] .'.reader';
+            if (!file_exists( $reader )) {
+                return;
+            }
+            
+            $rdata = unserialize(file_get_contents($reader));
         }
-        
-        $rdata = unserialize(file_get_contents($reader));
         
         //echo '<PRE>';print_r($this->cols);exit;
         //echo '<PRE>';print_r($rdata);exit;

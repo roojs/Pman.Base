@@ -1545,7 +1545,7 @@ class Pman_Roo extends Pman
         
         $x = DB_DataObject::factory($tab);
         
-        if (!is_a($x, 'DB_DataObject')) {
+        if (!is_a($x, 'DB_DataObject') && !is_a($x, 'PDO_DataObject')) {
             $this->jerr('invalid url - no dataobject');
         }
     

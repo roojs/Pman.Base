@@ -204,6 +204,7 @@ class Pman extends HTML_FlexyFramework_Page
     /**
      * loadOwnerCompany:
      * finds the compay with comptype=='OWNER'
+     * ?? what about comptype_id-name ?????
      *
      * @return {Pman_Core_DataObjects_Companies} the owner company
      */

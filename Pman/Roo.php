@@ -721,7 +721,7 @@ class Pman_Roo extends Pman
         }
         
         if ($sorted === false) {
-            
+            print_R($sort);exit;
             $cols = $x->tableColumns();
             $excols = array_keys($this->cols);
             

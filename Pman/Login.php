@@ -38,7 +38,7 @@ class Pman_Login extends Pman
      * 
      * 
      */
-    function get() 
+    function get($v, $opts=array()) 
     {
         $this->initErrorHandling();
          
@@ -211,7 +211,7 @@ class Pman_Login extends Pman
     
     
     var $domObj = false;
-    function post()
+    function post($v)
     {
         
         //DB_DataObject::debugLevel(1);

@@ -164,7 +164,7 @@ class Pman_Roo extends Pman
      *
      
      */
-    function get($tab)
+    function get($tab, $opts = Array())
     {
         
          //  $this->jerr("Not authenticated", array('authFailure' => true));

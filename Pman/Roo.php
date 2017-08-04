@@ -368,9 +368,16 @@ class Pman_Roo extends Pman
     {
         $req =  $req === false  ? $_REQUEST : $req;
         
-        if (isset($req['_debug']) 
-                && 
-                $this->authUser
+        
+        
+        if (empty($req['_debug'])) {
+            return false;
+        }
+        if (!empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] == 'localhost') {
+            return true;
+        }
+        
+        return  $this->authUser
                 &&
                 (
                     (

@@ -232,7 +232,7 @@ class Pman_Roo extends Pman
             if (in_array($this->authUser->id, $bits) && $this->authUser->active) {
                 $this->jerr("you can not disable yourself");
             }
-            $x->query('UPDATE Person SET active = !active WHERE id IN (' .implode(',', $bits).')');
+            $x->query('UPDATE core_person SET active = !active WHERE id IN (' .implode(',', $bits).')');
             $this->addEvent("USERTOGGLE", false, implode(',', $bits));
             $this->jok("Updated");
             

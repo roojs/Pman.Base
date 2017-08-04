@@ -397,8 +397,14 @@ class Pman_Roo extends Pman
     
     function checkDebugPost()
     {
-        return (!empty($_GET['_post']) || !empty($_GET['_debug_post'])) && 
-                    $this->authUser && 
+        if (empty($_GET['_post']) && empty($_GET['_debug_post'])) {
+            return false;
+        }
+        // localhost can do anything...
+        if (!empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] == 'localhost') {
+            return true;
+        }
+        return $this->authUser && 
                     method_exists($this->authUser,'groups') &&
                     in_array('Administrators', $this->authUser->groups('name')); 
         

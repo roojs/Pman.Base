@@ -944,8 +944,6 @@ class Pman_Roo extends Pman
             $ev->audit($x);
         }
         
-        print_R($_FILES);exit;
-        
         // note setFrom might handle this before hand...!??!
         if (!empty($_FILES) && method_exists($x, 'onUpload')) {
             $x->onUpload($this, $_REQUEST);

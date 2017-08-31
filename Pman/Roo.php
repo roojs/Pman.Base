@@ -880,8 +880,6 @@ class Pman_Roo extends Pman
     
     function insert($x, $req, $with_perm_check = true)
     {
-        print_R($_FILES);exit;
-        
         if (method_exists($x, 'setFromRoo')) {
             $res = $x->setFromRoo($req, $this);
             if (is_string($res)) {
@@ -906,8 +904,7 @@ class Pman_Roo extends Pman
             $x->created_by = $this->authUser->id;
         }
         
-     
-         if (isset($cols['modified'])) {
+        if (isset($cols['modified'])) {
             $x->modified = date('Y-m-d H:i:s');
         }
         if (isset($cols['modified_dt'])) {
@@ -927,11 +924,9 @@ class Pman_Roo extends Pman
             $x->updated_by = $this->authUser->id;
         }
         
-     
         if (method_exists($x, 'beforeInsert')) {
             $x->beforeInsert($_REQUEST, $this);
         }
-        
         
         $res = $x->insert();
         if ($res === false) {

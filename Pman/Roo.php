@@ -928,6 +928,8 @@ class Pman_Roo extends Pman
             $x->beforeInsert($_REQUEST, $this);
         }
         
+        print_R($_FILES);exit;
+        
         $res = $x->insert();
         if ($res === false) {
             $this->jerr($x->_lastError->toString());

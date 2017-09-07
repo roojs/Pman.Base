@@ -59,10 +59,9 @@ class Pman_Roo extends Pman
     
     function getAuth()
     {
-        print_R('in??');exit;
         parent::getAuth(); // load company!
         $au = $this->getAuthUser();
-       
+        pritn_R($au);exit;
         if (!$au) {  
             $this->jerr("Not authenticated", array('authFailure' => true));
         }

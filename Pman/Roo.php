@@ -59,6 +59,7 @@ class Pman_Roo extends Pman
     
     function getAuth()
     {
+        print_R('in??');exit;
         parent::getAuth(); // load company!
         $au = $this->getAuthUser();
        

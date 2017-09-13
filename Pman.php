@@ -94,6 +94,8 @@ class Pman extends HTML_FlexyFramework_Page
 //        echo $this->arrayToJsInclude($files);        
         $this->isDev = empty($boot->Pman['isDev']) ? false : $boot->Pman['isDev'];
         
+        $this->css_path = empty($boot->Pman['css_path']) ? '' : $boot->Pman['css_path'];
+        
         $this->appDisable = $boot->disable;
         $this->appDisabled = explode(',', $boot->disable);
         $this->version = $boot->version; 

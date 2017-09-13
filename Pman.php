@@ -60,6 +60,8 @@ class Pman extends HTML_FlexyFramework_Page
     var $disable_jstemplate = false; /// disable inclusion of jstemplate code..
     var $company = false;
     
+    var $css_path = ''; // can inject a specific path into the base HTML page.
+    
     /**
      * ------------- Standard getAuth/get/post methods of framework.
      * 

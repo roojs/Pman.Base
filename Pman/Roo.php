@@ -633,7 +633,7 @@ class Pman_Roo extends Pman
         
         // DB_DataObject::debugLevel(1);
         $this->checkDebug();
-        print_r($_REQUEST);exit;
+        
         if (!empty($_REQUEST['_get'])) {
             return $this->get($tab);
         }
@@ -655,7 +655,7 @@ class Pman_Roo extends Pman
         
           // delete should be here...
         if (isset($_REQUEST['_delete'])) {
-            print_R('run???');exit;
+            print_r($_REQUEST['_delete']);
             // do we really delete stuff!?!?!?
             return $this->delete($x,$_REQUEST);
         } 

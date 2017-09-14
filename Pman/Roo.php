@@ -633,7 +633,7 @@ class Pman_Roo extends Pman
         
         // DB_DataObject::debugLevel(1);
         $this->checkDebug();
-        
+        print_r($_REQUEST);exit;
         if (!empty($_REQUEST['_get'])) {
             return $this->get($tab);
         }

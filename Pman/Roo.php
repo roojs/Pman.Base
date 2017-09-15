@@ -1118,7 +1118,7 @@ class Pman_Roo extends Pman
     
     function delete($x, $req)
     {
-        print_R($x);exit;
+        print_R($req);exit;
         // do we really delete stuff!?!?!?
         if (empty($req['_delete'])) {
             $this->jerr("Delete Requested with no value");

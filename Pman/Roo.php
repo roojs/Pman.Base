@@ -1127,7 +1127,8 @@ class Pman_Roo extends Pman
         
         $affects  = array();
         
-        $all_links = $GLOBALS['_DB_DATAOBJECT']['LINKS'][$x->_database];
+        $all_links = method_exists($x, 'databaseLinks') ? $x->databaseLinks() : $GLOBALS['_DB_DATAOBJECT']['LINKS'][$x->_database];
+        
         foreach($all_links as $tbl => $links) {
             foreach($links as $col => $totbl_col) {
                 $to = explode(':', $totbl_col);

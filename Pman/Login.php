@@ -90,7 +90,7 @@ class Pman_Login extends Pman
             session_regenerate_id(true);
             session_commit();
             
-            $this->jok("Logged out - user".session_id());
+            $this->jok("Logged out - user -".session_id());
         }
         // log it..
         

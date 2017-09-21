@@ -77,7 +77,7 @@ class Pman_Login extends Pman
     
     function logout()
     {
- 
+        $ff = HTML_FlexyFramework2::get();
         //DB_DAtaObject::debugLevel(1);
         $u = $this->getAuthUser();
         //print_r($u);
@@ -90,10 +90,13 @@ class Pman_Login extends Pman
             $u->logout();
             session_regenerate_id(true);
             session_commit();
-            
-            
+                    if ( && 
+
+            if(!!empty($ff->Pman['local_autoauth']) && !empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST' == 'localhost')) {
+                $this->jerr("you are using local autoauth!?");                
+            }
             //echo '<PRE>';print_R($_SESSION);
-            $this->jok("Logged out - user -".session_id());
+            $this->jok("Logged out - user ");
         }
         // log it..
         

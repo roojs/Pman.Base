@@ -85,8 +85,10 @@ class Pman_Login extends Pman
             $this->addEvent('LOGOUT');
             $e = DB_DataObject::factory('Events');
           
-            session_regenerate_id(true);
+            
             $u->logout();
+            session_regenerate_id(true);
+            session_commit();
         }
         // log it..
         

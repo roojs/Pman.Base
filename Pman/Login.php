@@ -89,10 +89,9 @@ class Pman_Login extends Pman
             
             $u->logout();
             session_regenerate_id(true);
-            session_commit();
-                    if ( && 
+            session_commit(); 
 
-            if(!!empty($ff->Pman['local_autoauth']) && !empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST' == 'localhost')) {
+            if(!empty($ff->Pman['local_autoauth']) && !empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] == 'localhost') {
                 $this->jerr("you are using local autoauth!?");                
             }
             //echo '<PRE>';print_R($_SESSION);

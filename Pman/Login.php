@@ -396,16 +396,17 @@ class Pman_Login extends Pman
         $uu->update($u);
         $this->jok("done");
         
-        
     }
+    
     function changePassword($r)
     {
+        
         $au = $this->getAuthUser();
         if ($au) {
             $uu = clone($au);
             $au->setPassword($r['passwd1']);
             $au->update($uu);
-            $this->addEvent("CHANGEPASS", $u);
+            $this->addEvent("CHANGEPASS", $au);
             $this->jok($au);
         }
         // not logged in -> need to validate 

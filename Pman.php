@@ -683,6 +683,7 @@ class Pman extends HTML_FlexyFramework_Page
         
             $this->outputJavascriptDir("Pman/$mod/widgets", "*.js");
             $this->outputJavascriptDir("Pman/$mod", "*.js");
+            print_R($mod);exit;
             
         }
         

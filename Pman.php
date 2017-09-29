@@ -669,7 +669,7 @@ class Pman extends HTML_FlexyFramework_Page
         $mods = $this->modulesList();
         
         $is_bootstrap = in_array('BAdmin', $mods);
-        
+        print_R($mods);exit;
         foreach($mods as $mod) {
             // add the css file..
             
@@ -683,7 +683,6 @@ class Pman extends HTML_FlexyFramework_Page
         
             $this->outputJavascriptDir("Pman/$mod/widgets", "*.js");
             $this->outputJavascriptDir("Pman/$mod", "*.js");
-            print_R($mod);exit;
             
         }
         

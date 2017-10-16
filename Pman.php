@@ -238,6 +238,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     function getAuthUser()
     {
+        print_R('run??');exit;
         if (!empty($this->authUser)) {
             return $this->authUser;
         }

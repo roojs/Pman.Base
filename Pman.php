@@ -1042,7 +1042,7 @@ class Pman extends HTML_FlexyFramework_Page
             return;
         }
         $au = $this->getAuthUser();
-       
+        print_R($au);exit;
         $e = DB_DataObject::factory('Events');
         $e->init($act,$obj,$remarks); 
          

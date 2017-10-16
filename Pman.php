@@ -238,7 +238,6 @@ class Pman extends HTML_FlexyFramework_Page
     
     function getAuthUser()
     {
-        print_R('run????');exit;
         if (!empty($this->authUser)) {
             return $this->authUser;
         }
@@ -1042,9 +1041,8 @@ class Pman extends HTML_FlexyFramework_Page
         if (!empty(HTML_FlexyFramework::get()->Pman['disable_events'])) {
             return;
         }
-        
         $au = $this->getAuthUser();
-        print_R($au);exit;
+       
         $e = DB_DataObject::factory('Events');
         $e->init($act,$obj,$remarks); 
          

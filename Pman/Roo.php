@@ -1174,7 +1174,7 @@ class Pman_Roo extends Pman
                 $ka = explode('.', $k);
                 
                 $chk = DB_DataObject::factory($ka[0]);
-                if (!is_a($chk,'DB_DataObject')) {
+                if (!is_a($chk,'DB_DataObject') && !is_a($chk,'PDO_DataObject'))  {
                     $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);
                 }
                // print_r(array($chk->tablename() , $ka[1] ,  $xx->tablename() , $this->key ));

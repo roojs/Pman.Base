@@ -1210,7 +1210,7 @@ class Pman_Roo extends Pman
                 foreach($affects as $k=> $true) {
                     $ka = explode('.', $k);
                     $chk = DB_DataObject::factory($ka[0]);
-                    if (!is_a($chk,'DB_DataObject')) {
+                    if (!is_a($chk,'DB_DataObject') && !is_a($chk,'PDO_DataObject'))  {
                         $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);
                     }
                     $chk->{$ka[1]} =  $xx->{$this->key};

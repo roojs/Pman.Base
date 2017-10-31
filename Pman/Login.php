@@ -77,7 +77,7 @@ class Pman_Login extends Pman
     
     function logout()
     {
-        $ff = HTML_FlexyFramework2::get();
+        $ff = class_exists('HTML_FlexyFramework2') ?  HTML_FlexyFramework2::get()  :  HTML_FlexyFramework::get();
         //DB_DAtaObject::debugLevel(1);
         $u = $this->getAuthUser();
         //print_r($u);

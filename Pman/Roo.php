@@ -819,7 +819,7 @@ class Pman_Roo extends Pman
     function selectSingle($x, $id, $req=false)
     {
          
-        print_r('run select single');exit;
+        
         $_columns = !empty($req['_columns']) ? explode(',', $req['_columns']) : false;
 
         //var_dump(array(!is_array($id) , empty($id)));

@@ -1295,6 +1295,7 @@ class Pman_Roo extends Pman
         $excludecolumns = !empty($cfg['exclude']) ? $cfg['exclude'] : array();
           
         $excludecolumns[] = 'passwd'; // we never expose passwords
+        $excludecolumns[] = 'oath_key';
        
         $ret = $do->autoJoin(array(
             'include' => $onlycolumns,

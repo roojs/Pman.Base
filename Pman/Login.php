@@ -303,24 +303,23 @@ class Pman_Login extends Pman
         
         // note we trim \x10 -- line break - as it was injected the front end
         // may have an old bug on safari/chrome that added that character in certian wierd scenarios..
-        if ($u->checkPassword(trim($_REQUEST['password'],"\x10"))) {
-            $u->login();
-            // we might need this later..
-            $this->addEvent("LOGIN", false, session_id());
-            if (!empty($_REQUEST['lang'])) {
-                $u->lang($_REQUEST['lang']);
-            }
-             // log it..
-            
-            $this->sendAuthUserDetails();
+        if (!$u->checkPassword(trim($_REQUEST['password'],"\x10"))) {
+            $this->jerror('LOGIN-BAD', 'You typed the wrong Username or Password  (2)'); // - " . htmlspecialchars(print_r($_POST,true))."'");
             exit;
-
-            //exit;
         }
         
-         
-        $this->jerror('LOGIN-BAD', 'You typed the wrong Username or Password  (2)'); // - " . htmlspecialchars(print_r($_POST,true))."'");
+        $u->login();
+        // we might need this later..
+        $this->addEvent("LOGIN", false, session_id());
+        if (!empty($_REQUEST['lang'])) {
+            $u->lang($_REQUEST['lang']);
+        }
+         // log it..
+
+        $this->sendAuthUserDetails();
         exit;
+         
+        
     }
     
     function passwordRequest($n) 

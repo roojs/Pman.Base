@@ -287,6 +287,8 @@ class Pman_Login extends Pman
             $this->jerror('LOGIN-BAD','Account disabled');
         }
         
+        print_R($u->oath_key);exit;
+        
         // check if config allows non-owner passwords.
         // auth_company = "OWNER" // auth_company = "CLIENT" or blank for all?
         // perhaps it should support arrays..

@@ -287,7 +287,9 @@ class Pman_Login extends Pman
             $this->jerror('LOGIN-BAD','Account disabled');
         }
         
-        print_R($u->oath_key);exit;
+        if(!empty($u->oath_key) && empty($_REQUEST['oath_password'])){
+            $this->jerror('LOGIN-BAD','Your account require Two-Factor Authentication');
+        }
         
         // check if config allows non-owner passwords.
         // auth_company = "OWNER" // auth_company = "CLIENT" or blank for all?

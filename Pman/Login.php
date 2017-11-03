@@ -308,6 +308,11 @@ class Pman_Login extends Pman
             exit;
         }
         
+        if(!empty($u->oath_key) && !$u->checkTwoFactorAuthentication(trim($_REQUEST['oath_password'],"\x10"))){
+            $this->jerror('LOGIN-BAD', 'You typed the wrong Username or Password  (3)');
+            exit;
+        }
+        
         $u->login();
         // we might need this later..
         $this->addEvent("LOGIN", false, session_id());

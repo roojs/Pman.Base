@@ -841,9 +841,10 @@ class Pman_Roo extends Pman
                     'columns' => $_columns,
                      
             ));
-        if ($req !== false) { 
-            $this->setFilters($x, $req);
-        }
+        
+        
+        $this->setFilters($x, $req !== false ? array() : $req, $this);
+    
         
         // DB_DataObject::DebugLevel(1);
         if (is_array($id)) {

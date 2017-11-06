@@ -844,6 +844,7 @@ class Pman_Roo extends Pman
         if ($req !== false) { 
             $this->setFilters($x, $req);
         } else {
+            // always call apply filters even after update/insert...
             $x->applyFilters(array(), $this->authUser, $this);
         }
         

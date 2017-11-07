@@ -843,8 +843,9 @@ class Pman_Roo extends Pman
             ));
         if ($req !== false) { 
             $this->setFilters($x, $req);
-        } else {
+        } else if (method_exists($x, 'applyFilters')) {
             // always call apply filters even after update/insert...
+            // however arguments are not passed.
             $x->applyFilters(array(), $this->authUser, $this);
         }
         

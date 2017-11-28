@@ -1154,9 +1154,11 @@ class Pman_Roo extends Pman
         
         $bits = array_map($clean, explode(',', $req['_delete']));
         
-        print_r($bits);exit;
+       // print_r($bits);exit;
          
         // let's assume it has a key!!!
+        
+        print_r($this->key);exit;
         
         $x->whereAdd($this->key .'  IN ('. implode(',', $bits) .')');
         if (!$x->find()) {

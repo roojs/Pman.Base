@@ -23,14 +23,14 @@ require_once 'Pman.php';
 
 class Pman_Login extends Pman
 { 
-    
     var $masterTemplate = 'login.html';
+    
+    var $ip_management = false;
     
     function getAuth() // everyone allowed in here..
     {
         parent::getAuth(); // load company..
         return true;
-        
     }
     /**
      * Accepts:
@@ -220,8 +220,8 @@ class Pman_Login extends Pman
         $this->jok('OK');
     }
     
-    
     var $domObj = false;
+    
     function post($v)
     {
         

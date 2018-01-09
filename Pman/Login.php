@@ -473,7 +473,9 @@ class Pman_Login extends Pman
         if(!$core_ip_access->count()){
             
             $core_ip_access->setFrom(array(
-                'ip' => $
+                'ip' => $ip,
+                'created_dt' => $core_ip_access->sqlValue("NOW()"),
+                
             ));
             
             return true;

@@ -33,8 +33,6 @@ class Pman_Login extends Pman
         
         $ff = HTML_FlexyFramework::get();
         
-        print_R($ff);exit;
-        
         return true;
     }
     /**
@@ -45,7 +43,6 @@ class Pman_Login extends Pman
      */
     function get($v, $opts=array()) 
     {
-        print_R('run??');exit;
         $this->initErrorHandling();
          
          //DB_DataObject::DebugLevel(1);

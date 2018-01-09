@@ -471,14 +471,16 @@ class Pman_Login extends Pman
         $core_ip_access = DB_DataObject::factory('core_ip_access');
         
         if(!$core_ip_access->count()){
+        
+            $core_ip_access = DB_DataObject::factory('core_ip_access');
             
             $core_ip_access->setFrom(array(
                 'ip' => $ip,
                 'created_dt' => $core_ip_access->sqlValue("NOW()"),
-                
+                'status' => 1
             ));
             
-            return true;
+            $core_ip_access->insert();
         }
         
         $core_ip_access->setFrom(array(

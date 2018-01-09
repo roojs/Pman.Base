@@ -30,6 +30,11 @@ class Pman_Login extends Pman
     function getAuth() // everyone allowed in here..
     {
         parent::getAuth(); // load company..
+        
+        $ff = HTML_FlexyFramework_Page->get();
+        
+        print_R($ff);exit;
+        
         return true;
     }
     /**

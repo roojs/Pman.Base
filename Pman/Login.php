@@ -456,6 +456,12 @@ class Pman_Login extends Pman
         $this->jok($u);
     }
     
+    function ip_lookup()
+    {
+        if(empty($this->ip_management)){
+            return;
+        }
+    }
     
     
 }

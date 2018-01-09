@@ -461,7 +461,7 @@ class Pman_Login extends Pman
         if(empty($this->ip_management)){
             return true;
         }
-        $this->jerr('BAD-IP-ADDRESS');
+        
         $ip = $this->ip_lookup();
         
         if(empty($ip)){
@@ -495,20 +495,18 @@ class Pman_Login extends Pman
             
             $core_ip_access->insert();
             
-            $this->jok('NEW');
+            $this->jerr('NEW');
         }
         
         if(empty($core_ip_access->status)){
-            $this->jok('PENDING');
+            $this->jerr('PENDING');
         }
         
         if($core_ip_access->status == -1){
-            $this->jok('BLOCKED');
+            $this->jerr('BLOCKED');
         }
         
-        $this->jok('APPROVED');
-        
-        
+        return true;
     }
     
     function ip_lookup()

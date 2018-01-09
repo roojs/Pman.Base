@@ -470,7 +470,7 @@ class Pman_Login extends Pman
         
         $core_ip_access = DB_DataObject::factory('core_ip_access');
         
-        if(!DB_DataObject::factory('core_ip_access')->count()){
+        if(!DB_DataObject::factory('core_ip_access')->count()){ // first ip we always mark it as approved..
             
             $core_ip_access = DB_DataObject::factory('core_ip_access');
             
@@ -485,9 +485,10 @@ class Pman_Login extends Pman
         
         $core_ip_access = DB_DataObject::factory('core_ip_access');
         
-        $core_ip_access->setFrom(array(
-            'ip' => $ip
-        ));
+        if(!$core_ip_access->get('ip', $ip)){
+            
+        }
+        
         
     }
     

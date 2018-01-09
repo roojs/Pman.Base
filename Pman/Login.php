@@ -47,8 +47,6 @@ class Pman_Login extends Pman
     {
         $this->initErrorHandling();
         
-        $this->ip_validate();
-        
          //DB_DataObject::DebugLevel(1);
         if (!empty($_REQUEST['logout'])) {
            return $this->logout();
@@ -503,7 +501,7 @@ class Pman_Login extends Pman
         }
         
         if($core_ip_access->status == -1){
-            $this->jok('BLOCK');
+            $this->jok('BLOCKED');
         }
         
         $this->jok('APPROVED');

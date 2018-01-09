@@ -459,12 +459,28 @@ class Pman_Login extends Pman
     function ip_validate()
     {
         if(empty($this->ip_management)){
-            return;
+            return true;
+        }
+        
+        $ip = $this->ip_lookup();
+        
+        if(empty($ip)){
+            return false;
         }
         
         $core_ip_access = DB_DataObject::factory('core_ip_access');
-        $core_ip_access->setFrom(array(
+        
+        if(!$core_ip_access->count()){
             
+            $core_ip_access->setFrom(array(
+                'ip' => $
+            ));
+            
+            return true;
+        }
+        
+        $core_ip_access->setFrom(array(
+            'i'
         ));
         
     }

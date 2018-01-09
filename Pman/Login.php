@@ -470,8 +470,8 @@ class Pman_Login extends Pman
         
         $core_ip_access = DB_DataObject::factory('core_ip_access');
         
-        if(!$core_ip_access->count()){
-        
+        if(!DB_DataObject::factory('core_ip_access')->count()){
+            
             $core_ip_access = DB_DataObject::factory('core_ip_access');
             
             $core_ip_access->setFrom(array(
@@ -482,6 +482,8 @@ class Pman_Login extends Pman
             
             $core_ip_access->insert();
         }
+        
+        $core_ip_access = DB_DataObject::factory('core_ip_access');
         
         $core_ip_access->setFrom(array(
             'i'

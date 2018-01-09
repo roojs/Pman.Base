@@ -47,7 +47,7 @@ class Pman_Login extends Pman
     {
         $this->initErrorHandling();
         
-        $this->is_valid_ip();
+        $this->ip_validate();
         
          //DB_DataObject::DebugLevel(1);
         if (!empty($_REQUEST['logout'])) {
@@ -456,7 +456,7 @@ class Pman_Login extends Pman
         $this->jok($u);
     }
     
-    function is_valid_ip()
+    function ip_validate()
     {
         if(empty($this->ip_management)){
             return;
@@ -469,7 +469,10 @@ class Pman_Login extends Pman
         
     }
     
-    function 
+    function ip_lookup()
+    {
+        
+    }
     
     
 }

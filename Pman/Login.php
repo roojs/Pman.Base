@@ -461,7 +461,7 @@ class Pman_Login extends Pman
         if(empty($this->ip_management)){
             return true;
         }
-        
+        $this->jerr('BAD-IP-ADDRESS');
         $ip = $this->ip_lookup();
         
         if(empty($ip)){

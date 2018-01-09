@@ -45,6 +45,7 @@ class Pman_Login extends Pman
      */
     function get($v, $opts=array()) 
     {
+        $this->jok($this->ip_management);
         $this->initErrorHandling();
          
          //DB_DataObject::DebugLevel(1);

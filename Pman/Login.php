@@ -31,8 +31,9 @@ class Pman_Login extends Pman
     {
         parent::getAuth(); // load company..
         
-        $ff = HTML_FlexyFramework::get()->Pman;
+        $ff = HTML_FlexyFramework::get();
         
+        $this->ip_management = (empty($ff->Pman['ip_management'])) ? false : true;
         
         return true;
     }

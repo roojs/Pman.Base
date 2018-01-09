@@ -31,7 +31,7 @@ class Pman_Login extends Pman
     {
         parent::getAuth(); // load company..
         
-        $ff = HTML_FlexyFramework_Page->get();
+        $ff = HTML_FlexyFramework::get();
         
         print_R($ff);exit;
         

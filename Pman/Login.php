@@ -486,7 +486,7 @@ class Pman_Login extends Pman
         $core_ip_access = DB_DataObject::factory('core_ip_access');
         
         $core_ip_access->setFrom(array(
-            'i'
+            'ip' => $ip
         ));
         
     }

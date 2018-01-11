@@ -459,13 +459,10 @@ class Pman_Login extends Pman
     function ip_validate()
     {
         if(empty($this->ip_management)){
-            print_R('empty??');exit;
             return;
         }
         
         $ip = $this->ip_lookup();
-        
-        print_R($ip);exit;
         
         if(empty($ip)){
             $this->jerr('BAD-IP-ADDRESS');

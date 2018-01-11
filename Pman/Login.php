@@ -468,7 +468,7 @@ class Pman_Login extends Pman
             $this->jerr('BAD-IP-ADDRESS', array('ip' => $ip));
         }
         
-        $this->jerr('NEW-IP-ADDRESS', array('ip' => $ip));
+        $this->jerr('BLOCKED-IP-ADDRESS', array('ip' => $ip));
         
         $core_ip_access = DB_DataObject::factory('core_ip_access');
         

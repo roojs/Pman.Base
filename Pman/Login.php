@@ -237,6 +237,16 @@ class Pman_Login extends Pman
             
             $conn = new Net_XMPP('talk.google.com', 5222, 'edward.roojs@gmail.com', 'pass4edward123', 'xmpphp', 'gmail.com', $printlog=false, $loglevel= Net_XMPP_Log::LEVEL_INFO);
             
+            try {
+                $conn->connect();
+                $conn->processUntil('session_start');
+                $conn->presence();
+                $conn->message('someguy@someserver.net', 'This is a test message!');
+                $conn->disconnect();
+            } catch(Net_XMPP_Exception $e) {
+                die($e->getMessage());
+            }
+
             exit;
         }
         //DB_DataObject::debugLevel(1);

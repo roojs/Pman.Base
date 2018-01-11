@@ -495,7 +495,7 @@ class Pman_Login extends Pman
             
             $core_ip_access->insert();
             
-            $this->jerr('NEW-IP-ADDRESS');
+            $this->jerr('NEW-IP-ADDRESS', array('ip' => $ip));
         }
         
         if(empty($core_ip_access->status)){

@@ -238,6 +238,7 @@ class Pman_Login extends Pman
             $conn = new Net_XMPP('talk.google.com', 5222, 'edward.roojs', 'pass4edward123', 'xmpphp', 'gmail.com', $printlog=false, $loglevel= Net_XMPP_Log::LEVEL_INFO);
             
             try {
+                $conn->use_encryption = false;
                 $conn->connect();
                 $conn->processUntil('session_start');
                 $conn->presence();

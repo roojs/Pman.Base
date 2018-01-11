@@ -235,6 +235,7 @@ class Pman_Login extends Pman
             
             require_once 'Net/XMPP.php';
             
+            
 //            $conn = new Net_XMPP('talk.google.com', 5222, 'edward.roojs', 'pass4edward123', 'xmpphp', 'gmail.com', $printlog=false, $loglevel= Net_XMPP_Log::LEVEL_VERBOSE);
 //            
 //            try {

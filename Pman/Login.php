@@ -235,21 +235,21 @@ class Pman_Login extends Pman
             
             require_once 'Net/XMPP.php';
             
-            $conn = new Net_XMPP('talk.google.com', 5222, 'edward.roojs', 'pass4edward123', 'xmpphp', 'gmail.com', $printlog=false, $loglevel= Net_XMPP_Log::LEVEL_VERBOSE);
-            
-            try {
-//                $conn->useEncryption(false);
-                $conn->connect();
-                $conn->processUntil('session_start');
-                $conn->presence();
-                $conn->message('ming19850710@gmail.com', 'This is a test message!');
-                $conn->disconnect();
-                print_r('done?');
-            } catch(Net_XMPP_Exception $e) {
-                die($e->getMessage());
-            }
-
-            exit;
+//            $conn = new Net_XMPP('talk.google.com', 5222, 'edward.roojs', 'pass4edward123', 'xmpphp', 'gmail.com', $printlog=false, $loglevel= Net_XMPP_Log::LEVEL_VERBOSE);
+//            
+//            try {
+////                $conn->useEncryption(false);
+//                $conn->connect();
+//                $conn->processUntil('session_start');
+//                $conn->presence();
+//                $conn->message('ming19850710@gmail.com', 'This is a test message!');
+//                $conn->disconnect();
+//                print_r('done?');
+//            } catch(Net_XMPP_Exception $e) {
+//                die($e->getMessage());
+//            }
+//
+//            exit;
         }
         //DB_DataObject::debugLevel(1);
         if (!empty($_REQUEST['getAuthUser'])) {

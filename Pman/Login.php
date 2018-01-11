@@ -459,7 +459,7 @@ class Pman_Login extends Pman
     function ip_validate()
     {
         if(empty($this->ip_management)){
-            return true;
+            return;
         }
         
         $ip = $this->ip_lookup();

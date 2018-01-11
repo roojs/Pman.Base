@@ -511,6 +511,7 @@ class Pman_Login extends Pman
     
     function ip_lookup()
     {
+        echo $_SERVER['REMOTE_ADDR']; exit;
         if (!empty($_SERVER['HTTP_CLIENT_IP'])){
             return $_SERVER['HTTP_CLIENT_IP'];
         }

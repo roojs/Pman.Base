@@ -499,11 +499,11 @@ class Pman_Login extends Pman
         }
         
         if(empty($core_ip_access->status)){
-            $this->jerr('PENDING-IP-ADDRESS');
+            $this->jerr('PENDING-IP-ADDRESS', array('ip' => $ip));
         }
         
         if($core_ip_access->status == -1){
-            $this->jerr('BLOCKED-IP-ADDRESS');
+            $this->jerr('BLOCKED-IP-ADDRESS', array('ip' => $ip));
         }
         
         return true;

@@ -465,7 +465,7 @@ class Pman_Login extends Pman
         $ip = $this->ip_lookup();
         
         if(empty($ip)){
-            $this->jerr('BAD-IP-ADDRESS');
+            $this->jerr('BAD-IP-ADDRESS', array('ip' => $ip));
         }
         
         $core_ip_access = DB_DataObject::factory('core_ip_access');

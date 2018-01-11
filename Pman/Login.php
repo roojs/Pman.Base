@@ -232,7 +232,9 @@ class Pman_Login extends Pman
     function post($v)
     {
         if($this->ip_management){
-            print_R('ip management');
+            
+            require_once 'Net/XMPP.php';
+            
             exit;
         }
         //DB_DataObject::debugLevel(1);

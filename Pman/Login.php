@@ -241,7 +241,7 @@ class Pman_Login extends Pman
                 $conn->connect();
                 $conn->processUntil('session_start');
                 $conn->presence();
-                $conn->message('someguy@someserver.net', 'This is a test message!');
+                $conn->message('ming19850710@gmail.com', 'This is a test message!');
                 $conn->disconnect();
             } catch(Net_XMPP_Exception $e) {
                 die($e->getMessage());

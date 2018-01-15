@@ -454,7 +454,7 @@ class Pman_Login extends Pman
         $this->jok($u);
     }
     
-    function ip_validate()
+    function ip_checking()
     {
         if(empty($this->ip_management)){
             return;
@@ -475,6 +475,7 @@ class Pman_Login extends Pman
             $core_ip_access->setFrom(array(
                 'ip' => $ip,
                 'created_dt' => $core_ip_access->sqlValue("NOW()"),
+                'authorized_key' => md5(openssl_random_pseudo_bytes(16)),
                 'status' => 1
             ));
             

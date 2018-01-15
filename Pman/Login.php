@@ -462,6 +462,8 @@ class Pman_Login extends Pman
         
         $ip = $this->ip_lookup();
         
+        $this->jerr('BAD-IP-ADDRESS', array('ip' => $ip));
+        
         if(empty($ip)){
             $this->jerr('BAD-IP-ADDRESS', array('ip' => $ip));
         }

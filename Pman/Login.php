@@ -508,7 +508,7 @@ class Pman_Login extends Pman
             
             return;
         }
-        print_R(strtotime('NOW'));exit;
+        
         if(empty($core_ip_access->status)){
             $this->jerr('PENDING-IP-ADDRESS', array('ip' => $ip));
         }
@@ -519,7 +519,7 @@ class Pman_Login extends Pman
         }
         
         if(strtotime($core_ip_access->expire_dt) > 0 && strtotime($core_ip_access->expire_dt) < strtotime('NOW')){
-            $this->jerr('PENDING-IP-ADDRESS', array('ip' => $ip));
+            $this->jerr('BLOCKED-IP-ADDRESS', array('ip' => $ip));
             return;
         }
         

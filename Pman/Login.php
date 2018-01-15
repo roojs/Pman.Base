@@ -257,7 +257,7 @@ class Pman_Login extends Pman
         
        
         $u = DB_DataObject::factory($tbl);
-        
+        $this->jerror('LOGIN-RATE', "Login failures are rate limited - please try later");
         // ratelimit
         if (!empty($_SERVER['REMOTE_ADDR'])) {
             //DB_DataObject::DebugLevel(1);

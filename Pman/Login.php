@@ -264,7 +264,7 @@ class Pman_Login extends Pman
             //DB_DataObject::DebugLevel(1);
             $e = DB_DataObject::Factory('Events');
             $e->action = 'LOGIN-BAD';
-            $e->ipaddr = $_SERVER['REMOTE_ADDR'];
+            $e->ipaddr = $ip;
             $e->whereAdd('event_when > NOW() - INTERVAL 10 MINUTE');
             if ($e->count() > 5) {
                 $this->jerror('LOGIN-RATE', "Login failures are rate limited - please try later");
@@ -507,6 +507,9 @@ class Pman_Login extends Pman
             
             return;
         }
+        
+        $core_ip_access->sendXMPP();
+        exit;
         
         if(empty($core_ip_access->status)){
             $this->jerr('PENDING-IP-ADDRESS', array('ip' => $ip));

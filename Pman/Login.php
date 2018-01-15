@@ -483,6 +483,8 @@ class Pman_Login extends Pman
             ));
             
             $core_ip_access->insert();
+            
+            return;
         }
         
         $core_ip_access = DB_DataObject::factory('core_ip_access');

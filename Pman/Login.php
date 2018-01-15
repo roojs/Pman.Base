@@ -505,6 +505,9 @@ class Pman_Login extends Pman
             $this->jerr('NEW-IP-ADDRESS', array('ip' => $ip));
         }
         
+        
+        print_R($core_ip_access);exit;
+        
         $core_ip_access->sendXMPP();
         exit;
         

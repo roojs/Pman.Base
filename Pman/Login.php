@@ -230,6 +230,9 @@ class Pman_Login extends Pman
     function post($v)
     {
         //DB_DataObject::debugLevel(1);
+        
+        $this->ip_checking();
+        
         if (!empty($_REQUEST['getAuthUser'])) {
             $this->sendAuthUserDetails();
             exit;

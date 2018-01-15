@@ -413,8 +413,7 @@ class Pman_Login extends Pman
     }
     
     function changePassword($r)
-    {
-        
+    {   
         $au = $this->getAuthUser();
         if ($au) {
             $uu = clone($au);

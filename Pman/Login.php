@@ -488,6 +488,7 @@ class Pman_Login extends Pman
             $core_ip_access->setFrom(array(
                 'ip' => $ip,
                 'created_dt' => $core_ip_access->sqlValue("NOW()"),
+                'authorized_key' => md5(openssl_random_pseudo_bytes(16)),
                 'status' => 0
             ));
             

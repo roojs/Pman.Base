@@ -47,7 +47,7 @@ class Pman_Login extends Pman
     {
         $this->initErrorHandling();
         
-        $this->ip_validate();
+        $this->ip_checking();
         
          //DB_DataObject::DebugLevel(1);
         if (!empty($_REQUEST['logout'])) {

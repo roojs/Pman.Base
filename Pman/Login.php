@@ -262,7 +262,7 @@ class Pman_Login extends Pman
         if (!empty($_SERVER['REMOTE_ADDR'])) {
             //DB_DataObject::DebugLevel(1);
             $e = DB_DataObject::Factory('Events');
-            $e->action = 'LOGIN-BAD';
+            $e->action = 'LOGIN-BAD-REMOTE-ADDR';
             $e->ipaddr = $_SERVER['REMOTE_ADDR'];
             $e->whereAdd('event_when > NOW() - INTERVAL 10 MINUTE');
             if ($e->count() > 5) {

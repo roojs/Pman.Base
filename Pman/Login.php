@@ -507,6 +507,7 @@ class Pman_Login extends Pman
             $this->jerr('NEW-IP-ADDRESS', array('ip' => $ip));
         }
         
+        print_R(strtotime($core_ip_access->expire_dt));exit;
         
         print_R($core_ip_access);exit;
         

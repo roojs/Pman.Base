@@ -260,7 +260,7 @@ class Pman_Login extends Pman
         
         $ip = $this->ip_lookup();
         // ratelimit
-        if (!empty($_SERVER['REMOTE_ADDR'])) {
+        if (!empty($ip)) {
             //DB_DataObject::DebugLevel(1);
             $e = DB_DataObject::Factory('Events');
             $e->action = 'LOGIN-BAD';

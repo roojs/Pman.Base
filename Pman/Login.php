@@ -508,7 +508,7 @@ class Pman_Login extends Pman
             
             return;
         }
-        
+        print_R(strtotime('NOW'));exit;
         if(empty($core_ip_access->status)){
             $this->jerr('PENDING-IP-ADDRESS', array('ip' => $ip));
         }

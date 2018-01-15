@@ -493,7 +493,7 @@ class Pman_Login extends Pman
             
             $core_ip_access->insert();
             
-            $core_ip_access->xmppNotification();
+            $core_ip_access->sendXMPP();
             
             $this->jerr('NEW-IP-ADDRESS', array('ip' => $ip));
         }

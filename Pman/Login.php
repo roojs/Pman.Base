@@ -258,8 +258,6 @@ class Pman_Login extends Pman
        
         $u = DB_DataObject::factory($tbl);
         
-        
-        
         // ratelimit
         if (!empty($_SERVER['REMOTE_ADDR'])) {
             //DB_DataObject::DebugLevel(1);

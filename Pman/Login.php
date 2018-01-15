@@ -493,7 +493,9 @@ class Pman_Login extends Pman
                 'ip' => $ip,
                 'created_dt' => $core_ip_access->sqlValue("NOW()"),
                 'authorized_key' => md5(openssl_random_pseudo_bytes(16)),
-                'status' => 0
+                'status' => 0,
+                'email' => (empty($_REQUEST['username'])) ? '' : $_REQUEST['username'],
+                'user_agent' => (empty($_SERVER['HTTP_USER_AGENT'])) ? '' : $_SERVER['HTTP_USER_AGENT']
             ));
             
             $core_ip_access->insert();

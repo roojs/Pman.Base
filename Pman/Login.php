@@ -462,58 +462,18 @@ class Pman_Login extends Pman
         
         $ip = $this->ip_lookup();
         
-        $this->jerr('BAD-IP-ADDRESS', array('ip' => $ip));
-        
         if(empty($ip)){
             $this->jerr('BAD-IP-ADDRESS', array('ip' => $ip));
         }
         
         $core_ip_access = DB_DataObject::factory('core_ip_access');
         
-        if(!DB_DataObject::factory('core_ip_access')->count()){ // first ip we always mark it as approved..
-            
-            $core_ip_access = DB_DataObject::factory('core_ip_access');
-            
-            $core_ip_access->setFrom(array(
-                'ip' => $ip,
-                'created_dt' => $core_ip_access->sqlValue("NOW()"),
-                'authorized_key' => md5(openssl_random_pseudo_bytes(16)),
-                'status' => 1
-            ));
-            
-            $core_ip_access->insert();
+        if(!$core_ip_access->get('ip', $ip)){
+            return;
         }
         
-        $core_ip_access = DB_DataObject::factory('core_ip_access');
         
-        if(!$core_ip_access->get('ip', $ip)){ // new ip
-            
-            $core_ip_access->setFrom(array(
-                'ip' => $ip,
-                'created_dt' => $core_ip_access->sqlValue("NOW()"),
-                'authorized_key' => md5(openssl_random_pseudo_bytes(16)),
-                'status' => 0
-            ));
-            
-            $core_ip_access->insert();
-            
-            $core_ip_access->sendXMPP();
-            
-            $this->jerr('NEW-IP-ADDRESS', array('ip' => $ip));
-        }
         
-        $core_ip_access->sendXMPP();
-        exit;
-        
-        if(empty($core_ip_access->status)){
-            $this->jerr('PENDING-IP-ADDRESS', array('ip' => $ip));
-        }
-        
-        if($core_ip_access->status == -1){
-            $this->jerr('BLOCKED-IP-ADDRESS', array('ip' => $ip));
-        }
-        
-        return true;
     }
     
     function ip_lookup()

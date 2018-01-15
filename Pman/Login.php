@@ -235,6 +235,19 @@ class Pman_Login extends Pman
             
             require_once 'Net/XMPP.php';
             
+            $conn = new XMPPHP_XMPP('talk.google.com', 5222, 'edward.roojs', 'pass4edward123', 'xmpphp', 'gmail.com', $printlog=false, $loglevel=XMPPHP_Log::LEVEL_VERBOSE);
+            
+            try {
+                $conn->connect();
+                $conn->processUntil('session_start');
+                $conn->presence();
+                $conn->message('ming19850710@gmail.com', 'This is a test message!');
+                $conn->disconnect();
+                print_R('don???');exit;
+            } catch(XMPPHP_Exception $e) {
+                die($e->getMessage());
+            }
+
             exit;
         }
         //DB_DataObject::debugLevel(1);

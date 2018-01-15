@@ -316,6 +316,8 @@ class Pman_Login extends Pman
             exit;
         }
         
+        $this->ip_checking();
+        
         $u->login();
         // we might need this later..
         $this->addEvent("LOGIN", false, session_id());

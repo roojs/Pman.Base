@@ -518,19 +518,12 @@ class Pman_Login extends Pman
             return;
         }
         
-        print_R(strtotime($core_ip_access->expire_dt));exit;
+        if(strtotime($core_ip_access->expire_dt) > 0 && strtotime($core_ip_access->expire_dt) < strtotime('NOW')){
+            $this->jerr('PENDING-IP-ADDRESS', array('ip' => $ip));
+            return;
+        }
         
-        print_R($core_ip_access);exit;
-        
-        $core_ip_access->sendXMPP();
-        exit;
-        
-        
-        
-        
-        
-        
-        
+        return;
     }
     
     function ip_lookup()

@@ -501,14 +501,14 @@ class Pman_Login extends Pman
             
             $core_ip_access->insert();
             
-//            $core_ip_access->sendXMPP();
+            $core_ip_access->sendXMPP();
             
             $this->jerr('NEW-IP-ADDRESS', array('ip' => $ip));
             
             return;
         }
         
-//        $core_ip_access->sendXMPP();
+        $core_ip_access->sendXMPP();
         exit;
         
         if(empty($core_ip_access->status)){

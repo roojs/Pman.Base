@@ -281,7 +281,7 @@ class Pman_Login extends Pman
         }
         
         $u->authUserName($_REQUEST['username']);
-        print_r($u);exit;
+        
         if ($u->count() > 1 || !$u->find(true)) {
             $this->jerror('LOGIN-BAD','You typed the wrong Username or Password  (1)');
             exit;
@@ -461,7 +461,7 @@ class Pman_Login extends Pman
         }
         
         $ip = $this->ip_lookup();
-        print_R($ip);exit;
+        
         if(empty($ip)){
             $this->jerr('BAD-IP-ADDRESS', array('ip' => $ip));
         }

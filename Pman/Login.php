@@ -520,7 +520,7 @@ class Pman_Login extends Pman
             return;
         }
         
-        if(strtotime($core_ip_access->expire_dt) > 0 && strtotime($core_ip_access->expire_dt) < strtotime('NOW')){
+        if($core_ip_access->status == -2 && strtotime($core_ip_access->expire_dt) < strtotime('NOW')){
             $this->jerr('BLOCKED-IP-ADDRESS', array('ip' => $ip));
             return;
         }

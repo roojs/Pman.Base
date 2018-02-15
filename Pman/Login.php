@@ -523,7 +523,6 @@ class Pman_Login extends Pman
         }
         
         return;
-        
     }
     
     function ip_lookup()

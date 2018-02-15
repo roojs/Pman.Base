@@ -508,9 +508,6 @@ class Pman_Login extends Pman
             return;
         }
         
-        $core_ip_access->sendXMPP();
-        exit;
-        
         if(empty($core_ip_access->status)){
             $this->jerr('PENDING-IP-ADDRESS', array('ip' => $ip));
         }

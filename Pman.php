@@ -104,6 +104,7 @@ class Pman extends HTML_FlexyFramework_Page
             ($_SERVER['SERVER_ADDR'] == '127.0.0.1') &&
             ($_SERVER['REMOTE_ADDR'] == '127.0.0.1') 
         ) {
+            print_r('here???');
             $this->isDev = true;
         }
         

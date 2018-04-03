@@ -231,8 +231,6 @@ class Pman_Login extends Pman
     {
         //DB_DataObject::debugLevel(1);
         
-        print_r($_REQUEST);exit;
-        
         if (!empty($_REQUEST['getAuthUser'])) {
             $this->sendAuthUserDetails();
             exit;

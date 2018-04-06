@@ -301,8 +301,6 @@ class Pman_Login extends Pman
         $ff= HTML_FlexyFramework::get();
         if (!empty($ff->Pman['auth_comptype']) && $ff->Pman['auth_comptype'] != $u->company()->comptype) {
             //print_r($u->company());
-            $test = $u->company()->comptype;
-            print_r($test);exit;
             $this->jerror('LOGIN-BADUSER', "Login not permited to outside companies"); // serious failure
         }
         

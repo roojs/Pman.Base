@@ -302,7 +302,7 @@ class Pman_Login extends Pman
         if (!empty($ff->Pman['auth_comptype']) && $ff->Pman['auth_comptype'] != $u->company()->comptype) {
             //print_r($u->company());
             
-            print_r($ff->Pman);exit;
+            print_r($u->company()->comptype);exit;
             $this->jerror('LOGIN-BADUSER', "Login not permited to outside companies"); // serious failure
         }
         

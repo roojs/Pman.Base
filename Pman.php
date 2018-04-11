@@ -1046,7 +1046,7 @@ class Pman extends HTML_FlexyFramework_Page
         $e = DB_DataObject::factory('Events');
         $e->init($act,$obj,$remarks); 
          
-        $e->event_when = date('Y-m-d H:i:s');
+        $e->event_when = $e->sqlValue('NOW()');
         
         $eid = $e->insert();
         
@@ -1071,7 +1071,7 @@ class Pman extends HTML_FlexyFramework_Page
         $e = DB_DataObject::factory('Events');
         $e->init($act,$obj,$remarks); 
          
-        $e->event_when = date('Y-m-d H:i:s');
+        $e->event_when = $e->sqlValue('NOW()');
         $wa = DB_DataObject::factory('core_watch');
         if (method_exists($wa,'notifyEvent')) {
             $wa->notifyEvent($e); // trigger any actions..

@@ -172,7 +172,6 @@ class Pman_Login extends Pman
             
     }
 
-    
     function switchUser($id)
     {
         $tbl = empty($ff->Pman['authTable']) ? 'core_person' : $ff->Pman['authTable'];
@@ -183,13 +182,11 @@ class Pman_Login extends Pman
         
         $au = $u->getAuthUser();
         
-        
         // first check they have perms to do this..
         if (!$au|| ($au->company()->comptype != 'OWNER') || !$this->hasPerm('Core.Person', 'E')) {
             $this->jerr("User switching not permitted");
         }
-        
-        
+                
         $u = DB_DataObject::factory($tbl);
         $u->get($id);
         if (!$u->active()) {
@@ -197,7 +194,7 @@ class Pman_Login extends Pman
         }
         $u->login();
             // we might need this later..
-        $this->addEvent("SWITCH USER", false, $au->name . ' TO ' . $u->name);
+        $this->addEvent("SWITCH-USER", false, $au->name . ' TO ' . $u->name);
         $this->jok("SWITCH");
         
     }

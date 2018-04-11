@@ -73,7 +73,6 @@ class Pman extends HTML_FlexyFramework_Page
         $this->loadOwnerCompany();
         
         return true;
-        
     }
     
     function init() 

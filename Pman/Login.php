@@ -23,14 +23,19 @@ require_once 'Pman.php';
 
 class Pman_Login extends Pman
 { 
-    
     var $masterTemplate = 'login.html';
+    
+    var $ip_management = false;
     
     function getAuth() // everyone allowed in here..
     {
         parent::getAuth(); // load company..
-        return true;
         
+        $ff = HTML_FlexyFramework::get();
+        
+        $this->ip_management = (empty($ff->Pman['ip_management'])) ? false : true;
+        
+        return true;
     }
     /**
      * Accepts:
@@ -41,7 +46,7 @@ class Pman_Login extends Pman
     function get($v, $opts=array()) 
     {
         $this->initErrorHandling();
-         
+        
          //DB_DataObject::DebugLevel(1);
         if (!empty($_REQUEST['logout'])) {
            return $this->logout();
@@ -217,12 +222,12 @@ class Pman_Login extends Pman
         $this->jok('OK');
     }
     
-    
     var $domObj = false;
+    
     function post($v)
     {
-        
         //DB_DataObject::debugLevel(1);
+        
         if (!empty($_REQUEST['getAuthUser'])) {
             $this->sendAuthUserDetails();
             exit;
@@ -250,14 +255,13 @@ class Pman_Login extends Pman
        
         $u = DB_DataObject::factory($tbl);
         
-        
-        
+        $ip = $this->ip_lookup();
         // ratelimit
-        if (!empty($_SERVER['REMOTE_ADDR'])) {
+        if (!empty($ip)) {
             //DB_DataObject::DebugLevel(1);
             $e = DB_DataObject::Factory('Events');
             $e->action = 'LOGIN-BAD';
-            $e->ipaddr = $_SERVER['REMOTE_ADDR'];
+            $e->ipaddr = $ip;
             $e->whereAdd('event_when > NOW() - INTERVAL 10 MINUTE');
             if ($e->count() > 5) {
                 $this->jerror('LOGIN-RATE', "Login failures are rate limited - please try later");
@@ -309,6 +313,8 @@ class Pman_Login extends Pman
             $this->jerror('LOGIN-BAD', 'You typed the wrong Username or Password  (3)');
             exit;
         }
+        
+        $this->ip_checking();
         
         $u->login();
         // we might need this later..
@@ -404,8 +410,7 @@ class Pman_Login extends Pman
     }
     
     function changePassword($r)
-    {
-        
+    {   
         $au = $this->getAuthUser();
         if ($au) {
             $uu = clone($au);
@@ -446,6 +451,90 @@ class Pman_Login extends Pman
         $this->jok($u);
     }
     
+    function ip_checking()
+    {
+        if(empty($this->ip_management)){
+            return;
+        }
+        
+        $ip = $this->ip_lookup();
+        
+        if(empty($ip)){
+            $this->jerr('BAD-IP-ADDRESS', array('ip' => $ip));
+        }
+        
+        $core_ip_access = DB_DataObject::factory('core_ip_access');
+        
+        if(!DB_DataObject::factory('core_ip_access')->count()){ // first ip we always mark it as approved..
+            
+            $core_ip_access = DB_DataObject::factory('core_ip_access');
+            
+            $core_ip_access->setFrom(array(
+                'ip' => $ip,
+                'created_dt' => $core_ip_access->sqlValue("NOW()"),
+                'authorized_key' => md5(openssl_random_pseudo_bytes(16)),
+                'status' => 1,
+                'email' => (empty($_REQUEST['username'])) ? '' : $_REQUEST['username'],
+                'user_agent' => (empty($_SERVER['HTTP_USER_AGENT'])) ? '' : $_SERVER['HTTP_USER_AGENT']
+            ));
+            
+            $core_ip_access->insert();
+            
+            return;
+        }
+        
+        $core_ip_access = DB_DataObject::factory('core_ip_access');
+        
+        if(!$core_ip_access->get('ip', $ip)){ // new ip
+            
+            $core_ip_access->setFrom(array(
+                'ip' => $ip,
+                'created_dt' => $core_ip_access->sqlValue("NOW()"),
+                'authorized_key' => md5(openssl_random_pseudo_bytes(16)),
+                'status' => 0,
+                'email' => (empty($_REQUEST['username'])) ? '' : $_REQUEST['username'],
+                'user_agent' => (empty($_SERVER['HTTP_USER_AGENT'])) ? '' : $_SERVER['HTTP_USER_AGENT']
+            ));
+            
+            $core_ip_access->insert();
+            
+            $core_ip_access->sendXMPP();
+            
+            $this->jerr('NEW-IP-ADDRESS', array('ip' => $ip));
+            
+            return;
+        }
+        
+        if(empty($core_ip_access->status)){
+            $this->jerr('PENDING-IP-ADDRESS', array('ip' => $ip));
+        }
+        
+        if($core_ip_access->status == -1){
+            $this->jerr('BLOCKED-IP-ADDRESS', array('ip' => $ip));
+            return;
+        }
+        
+        if($core_ip_access->status == -2 && strtotime($core_ip_access->expire_dt) < strtotime('NOW')){
+            $this->jerr('BLOCKED-IP-ADDRESS', array('ip' => $ip));
+            return;
+        }
+        
+        return;
+    }
+    
+    function ip_lookup()
+    {
+
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])){
+            return $_SERVER['HTTP_CLIENT_IP'];
+        }
+        
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            return $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        
+        return $_SERVER['REMOTE_ADDR'];
+    }
     
     
 }

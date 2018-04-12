@@ -803,9 +803,7 @@ class Pman extends HTML_FlexyFramework_Page
         $basedir = $compile ? $ff->Pman['public_cache_dir'] : false;
         $baseurl = $compile ? $ff->Pman['public_cache_url'] : false;
         
-        if (!empty($_REQUEST['_isDev']) && $_SERVER['HTTP_HOST'] == 'localhost') {
-            $compile = false;
-        }
+       
         
         
         $lsort = create_function('$a,$b','return strlen($a) > strlen($b) ? 1 : -1;');

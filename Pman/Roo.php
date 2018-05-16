@@ -94,7 +94,7 @@ class Pman_Roo extends Pman
      * Search SELECT
      *    COLUMNS to fetch
      *      _columns=a,b,c,d     comma seperated list of columns.
-     *      _columns_exclude=a,b,c,d   comma seperated list of columns.
+     *      _exclude_columns=a,b,c,d   comma seperated list of columns.
      *      _distinct=name        a distinct column lookup. you also have to use _columns with this.
      *
      *    WHERE (searches)
@@ -173,7 +173,7 @@ class Pman_Roo extends Pman
         
         $this->init(); // from pman.
         //DB_DataObject::debuglevel(1);
-        HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev);
+        HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev && !empty($_REQUEST['isDev']));
         
    
         

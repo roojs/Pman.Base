@@ -59,6 +59,11 @@ class Pman_Login extends Pman
             exit;
         }
         
+        if(!empty($_REQUEST['check_owner_company'])) {
+            
+            exit;
+        }
+        
         // might be an idea to disable this?!?
         if (!empty($_REQUEST['username'])) {
             $this->post();

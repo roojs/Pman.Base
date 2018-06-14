@@ -60,7 +60,7 @@ class Pman_Login extends Pman
         }
         
         if(!empty($_REQUEST['check_owner_company'])) {
-            
+            return $this->getOwnerCompany();
             exit;
         }
         

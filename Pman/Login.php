@@ -73,7 +73,6 @@ class Pman_Login extends Pman
             $this->switchPublicUser($_REQUEST['loginPublic']);
         }
         
-        
         $this->jerr("INVALID REQUEST");
         exit;
     }

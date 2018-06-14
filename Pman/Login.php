@@ -62,7 +62,7 @@ class Pman_Login extends Pman
         if(!empty($_REQUEST['check_owner_company'])) {
             $core_company = DB_DataObject::factory('core_company');
             $core_company->comptype = 'OWNER';
-            $this->jdata($core_company->count());
+            $this->jok($core_company->count());
         }
         
         // might be an idea to disable this?!?

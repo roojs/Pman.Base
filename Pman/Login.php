@@ -538,13 +538,5 @@ class Pman_Login extends Pman
         
         return $_SERVER['REMOTE_ADDR'];
     }
-    
-    function getOwnerCompany()
-    {
-        $core_company = DB_DataObject::factory('core_company');
-        $core_company->comptype = 'OWNER';
-        return $core_company->count();
-    }
-    
 }
 

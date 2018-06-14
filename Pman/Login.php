@@ -60,8 +60,9 @@ class Pman_Login extends Pman
         }
         
         if(!empty($_REQUEST['check_owner_company'])) {
-            return $this->getOwnerCompany();
-            exit;
+            $core_company = DB_DataObject::factory('core_company');
+            $core_company->comptype = 'OWNER';
+            return $core_company->count();
         }
         
         // might be an idea to disable this?!?

@@ -57,7 +57,6 @@ class Pman_Login extends Pman
             //DB_Dataobject::debugLevel(5);
             $this->sendAuthUserDetails();
             exit;
-           
         }
         
         // might be an idea to disable this?!?

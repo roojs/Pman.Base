@@ -183,7 +183,7 @@ class Pman extends HTML_FlexyFramework_Page
          //var_dump($this->isDev);
         // force regeneration on load for development enviroments..
         
-        HTML_FlexyFramework::get()->generateDataobjectsCache(!empty($_REQUEST['isDev']) && $this->isDev);
+        HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev && !empty($_REQUEST['isDev']));
         
         //header('Content-type: application/xhtml+xml; charset=utf-8');
         
@@ -958,8 +958,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     function onException($ex)
     {
-        
-        static $reported = false;
+         static $reported = false;
         if ($reported) {
             return;
         }

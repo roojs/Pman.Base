@@ -1150,9 +1150,9 @@ class Pman_Roo extends Pman
        // DB_Dataobject::debugLevel(1);
        
         
-        $clean = create_function('$v', 'return (int)$v;');
         
-        $bits = array_map($clean, explode(',', $req['_delete']));
+        
+        $bits = array_map(function($v) { return (int)$v; } , explode(',', $req['_delete']));
         
         // let's assume it has a key!!!
         

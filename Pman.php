@@ -75,8 +75,9 @@ class Pman extends HTML_FlexyFramework_Page
         return true;
     }
     
-    function init($base) 
+    function init($base = false) 
     {
+        
         if (isset($this->_hasInit)) {
             return;
         }

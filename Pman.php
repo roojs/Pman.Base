@@ -959,7 +959,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     function onException($ex)
     {
-         static $reported = false;
+        static $reported = false;
         if ($reported) {
             return;
         }
@@ -968,7 +968,7 @@ class Pman extends HTML_FlexyFramework_Page
             return;
         }
         
-        
+        var_dump($ex); die;
         $reported = true;
         $out = is_a($ex,'Exception') ? $ex->getMessage() : $ex->toString();
         

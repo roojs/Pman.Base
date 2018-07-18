@@ -568,7 +568,6 @@ class Pman extends HTML_FlexyFramework_Page
             //$total = count($ar);
             if ($ar instanceof \Countable || is_array($ar)) {
                 $total = count($ar);
-            
             }
         }
         

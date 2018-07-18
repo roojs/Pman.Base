@@ -567,6 +567,7 @@ class Pman extends HTML_FlexyFramework_Page
         if ($total == false) {
             $total = count($ar);
         }
+        print_r($ar);
         $extra=  $extra ? $extra : array();
         require_once 'Services/JSON.php';
         $json = new Services_JSON();

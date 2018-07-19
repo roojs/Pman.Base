@@ -565,10 +565,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
         // should do mobile checking???
         if ($total == false) {
-            //$total = count($ar);
-            if ($ar instanceof \Countable || is_array($ar)) {
-                $total = count($ar);
-            }
+            $total = is_array($ar) ? count($ar) : 1;
         }
         
         $extra=  $extra ? $extra : array();

@@ -565,7 +565,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
         // should do mobile checking???
         if ($total == false) {
-            $total =  count($ar) ;
+            $total = count($ar) ;
         }
         $extra=  $extra ? $extra : array();
         require_once 'Services/JSON.php';

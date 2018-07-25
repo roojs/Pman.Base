@@ -564,6 +564,7 @@ class Pman extends HTML_FlexyFramework_Page
     function jdata($ar,$total=false, $extra=array(), $cachekey = false)
     {
         // should do mobile checking???
+        var_dump($ar); 
         if ($total == false) {
             $total = count($ar);
         }

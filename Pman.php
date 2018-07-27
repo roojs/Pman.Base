@@ -101,7 +101,7 @@ class Pman extends HTML_FlexyFramework_Page
         $this->version = $boot->version; 
         $this->uiConfig = empty($boot->Pman['uiConfig']) ? false : $boot->Pman['uiConfig']; 
         
-        if (!empty($ff->Pman['local_autoauth']) && 
+        if (!empty($boot->Pman['local_autoauth']) && 
             ($_SERVER['SERVER_ADDR'] == '127.0.0.1') &&
             ($_SERVER['REMOTE_ADDR'] == '127.0.0.1') 
         ) {
@@ -113,7 +113,7 @@ class Pman extends HTML_FlexyFramework_Page
             ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')  &&
             !empty($_REQUEST['isDev'])
         ) {
-            $ff->Pman['isDev'] = true;
+            $boot->Pman['isDev'] = true;
             $this->isDev = true;
         }
         

@@ -108,6 +108,13 @@ class Pman extends HTML_FlexyFramework_Page
             $this->isDev = true;
         }
         
+        if ($_SERVER['SERVER_ADDR'] == '127.0.0.1') &&
+            ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')  &&
+            !empty($_REQUEST['isDev'])
+        ) {
+            $this->isDev = true;
+        }
+        
         // if a file Pman_{module}_Pman exists.. and it has an init function... - call that..
         
         //var_dump($this->appModules);

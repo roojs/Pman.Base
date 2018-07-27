@@ -108,10 +108,12 @@ class Pman extends HTML_FlexyFramework_Page
             $this->isDev = true;
         }
         
-        if ($_SERVER['SERVER_ADDR'] == '127.0.0.1') &&
+        if (
+            ($_SERVER['SERVER_ADDR'] == '127.0.0.1') &&
             ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')  &&
             !empty($_REQUEST['isDev'])
         ) {
+            $ff->Pman['isDev'] = true;
             $this->isDev = true;
         }
         

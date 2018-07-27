@@ -1239,7 +1239,6 @@ class Pman_Roo extends Pman
                 if (method_exists($chk, 'toEventString')) {
                     $desc .=  ' : ' . $o[0]->toEventString();
                 }
-                echo "zzzzz";
                 $this->jerr("Delete Dependant records ($match_total  found),  " .
                              "first is ( $desc )");
           

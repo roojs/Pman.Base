@@ -1230,7 +1230,7 @@ class Pman_Roo extends Pman
             //
             
             //var_dump($match_ar); 
-            var_dump($match_ar[0]); 
+            echo $match_ar[0]->user_id; 
             if (!empty($match_ar)) {
                 $chk = $match_ar[0];
                 $chk->limit(1);

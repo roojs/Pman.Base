@@ -1156,7 +1156,7 @@ class Pman_Roo extends Pman
         
         // let's assume it has a key!!!
         
-        $x->whereAdd($this->key .'  IN ('. implode(',', $bits) .')');
+        $x->whereAdd($this->key .'  IN ('. implode(',', $bits) .')');var_dump($x); 
         if (!$x->find()) {
             $this->jerr("Nothing found to delete");
         }

@@ -1229,7 +1229,7 @@ class Pman_Roo extends Pman
             
             //
 
-            if (!empty($match_ar) && $match_ar[0]->inAdmin != false) {
+            if (!empty($match_ar)) {
                 $chk = $match_ar[0];
                 $chk->limit(1);
                 $o = $chk->fetchAll();

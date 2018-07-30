@@ -1230,7 +1230,7 @@ class Pman_Roo extends Pman
             //
             
             //var_dump($match_ar); 
-            echo "is admin: ".$match_ar[0]->inAdmin;
+            var_dump($match_ar[0]); 
             if (!empty($match_ar)) {
                 $chk = $match_ar[0];
                 $chk->limit(1);

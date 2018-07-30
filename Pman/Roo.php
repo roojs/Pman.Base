@@ -1149,7 +1149,7 @@ class Pman_Roo extends Pman
        // echo '<PRE>';print_r($affects);exit;
        // DB_Dataobject::debugLevel(1);
        
-        
+        var_dump($affects);
         
         
         $bits = array_map(function($v) { return (int)$v; } , explode(',', $req['_delete']));
@@ -1195,7 +1195,7 @@ class Pman_Roo extends Pman
                     continue;
                 }          
             }
-            var_dump($xx);
+   
             $has_beforeDelete = method_exists($xx, 'beforeDelete');
             // before delte = allows us to trash dependancies if needed..
             $match_total = 0;

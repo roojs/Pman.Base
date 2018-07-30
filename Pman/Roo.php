@@ -1194,7 +1194,7 @@ class Pman_Roo extends Pman
                     continue;
                 }          
             }
-   
+            var_dump($match_ar);
             $has_beforeDelete = method_exists($xx, 'beforeDelete');
             // before delte = allows us to trash dependancies if needed..
             $match_total = 0;

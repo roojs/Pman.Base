@@ -1201,7 +1201,6 @@ class Pman_Roo extends Pman
             $match_total = 0;
             
             if ( $has_beforeDelete ) {
-                var_dump($xx);
                 if ($xx->beforeDelete($match_ar, $this) === false) {
                     $errs[] = "Delete failed ({$xx->id})\n".
                         (isset($xx->err) ? $xx->err : '');

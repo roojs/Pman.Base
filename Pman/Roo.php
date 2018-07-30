@@ -1228,8 +1228,8 @@ class Pman_Roo extends Pman
             }
             
             //
-
-            if (!empty($match_ar) && $match_ar[0]->isAdmin == false) {
+            var_dump($match_ar[0]); 
+            if (!empty($match_ar) && $match_ar[0]->isAdmin != false) {
                 $chk = $match_ar[0];
                 $chk->limit(1);
                 $o = $chk->fetchAll();

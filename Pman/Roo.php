@@ -1216,6 +1216,7 @@ class Pman_Roo extends Pman
                         $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);
                     }
                     $chk->{$ka[1]} =  $xx->{$this->key};
+                    var_dump($chk);
                     $matches = $chk->count();
                     $match_total += $matches;
                     if ($matches) {

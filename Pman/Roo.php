@@ -1149,7 +1149,7 @@ class Pman_Roo extends Pman
        // echo '<PRE>';print_r($affects);exit;
        // DB_Dataobject::debugLevel(1);
        
-
+        
         
         
         $bits = array_map(function($v) { return (int)$v; } , explode(',', $req['_delete']));
@@ -1174,6 +1174,7 @@ class Pman_Roo extends Pman
             $match_ar = array();
             foreach($affects as $k=> $true) {
                 $ka = explode('.', $k);
+                
                 $chk = DB_DataObject::factory($ka[0]);
                 if (!is_a($chk,'DB_DataObject') && !is_a($chk,'PDO_DataObject'))  {
                     $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);
@@ -1194,11 +1195,11 @@ class Pman_Roo extends Pman
                     continue;
                 }          
             }
-         
+            
             $has_beforeDelete = method_exists($xx, 'beforeDelete');
             // before delte = allows us to trash dependancies if needed..
             $match_total = 0;
-        
+            
             if ( $has_beforeDelete ) {
                 if ($xx->beforeDelete($match_ar, $this) === false) {
                     $errs[] = "Delete failed ({$xx->id})\n".
@@ -1214,7 +1215,7 @@ class Pman_Roo extends Pman
                     if (!is_a($chk,'DB_DataObject') && !is_a($chk,'PDO_DataObject'))  {
                         $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);
                     }
-                    $chk->{$ka[1]} =  $xx->{$this->key};                   
+                    $chk->{$ka[1]} =  $xx->{$this->key};
                     $matches = $chk->count();
                     $match_total += $matches;
                     if ($matches) {
@@ -1226,8 +1227,6 @@ class Pman_Roo extends Pman
                 
             }
             
-            //
-
             if (!empty($match_ar)) {
                 $chk = $match_ar[0];
                 $chk->limit(1);

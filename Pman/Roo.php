@@ -1215,11 +1215,11 @@ class Pman_Roo extends Pman
                     if (!is_a($chk,'DB_DataObject') && !is_a($chk,'PDO_DataObject'))  {
                         $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);
                     }
-                    $chk->{$ka[1]} =  $xx->{$this->key};
-                    var_dump($chk);
+                    $chk->{$ka[1]} =  $xx->{$this->key};                   
                     $matches = $chk->count();
                     $match_total += $matches;
                     if ($matches) {
+                        var_dump($matches);
                         $chk->_match_key = $ka[1];
                         $match_ar[] = clone($chk);
                         continue;

@@ -1190,7 +1190,7 @@ class Pman_Roo extends Pman
                 }
                 
                 if ($matches) {
-                    $chk->_match_key = $ka[1];var_dump($chk);
+                    $chk->_match_key = $ka[1];
                     $match_ar[] = clone($chk);
                     continue;
                 }          

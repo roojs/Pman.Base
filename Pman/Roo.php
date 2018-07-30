@@ -1174,7 +1174,6 @@ class Pman_Roo extends Pman
             $match_ar = array();
             foreach($affects as $k=> $true) {
                 $ka = explode('.', $k);
-                var_dump($ka);
                 $chk = DB_DataObject::factory($ka[0]);
                 if (!is_a($chk,'DB_DataObject') && !is_a($chk,'PDO_DataObject'))  {
                     $this->jerr('Unable to load referenced table, check the links config: ' .$ka[0]);

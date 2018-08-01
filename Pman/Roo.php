@@ -166,7 +166,7 @@ class Pman_Roo extends Pman
      */
     function get($tab, $opts = Array())
     {
-        
+        var_dump($tab); 
          //  $this->jerr("Not authenticated", array('authFailure' => true));
        //echo '<PRE>';print_R($_GET);
       //DB_DataObject::debuglevel(1);

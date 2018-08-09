@@ -670,8 +670,7 @@ class Pman_Roo extends Pman
             $ar = $x->fetchAll();
             
             foreach($ar as $x) {
-                $this->update($x, $_REQUEST);
-                
+                $this->update($x, $_REQUEST);  
             }
             // all done..
             $this->jok("UPDATED");

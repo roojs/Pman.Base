@@ -1132,7 +1132,7 @@ class Pman_Roo extends Pman
         $affects  = array();
         
         $all_links = $x->databaseLinks();
-        var_dump($all_links);        
+             
         foreach($all_links as $tbl => $links) {
             foreach($links as $col => $totbl_col) {
                 $to = explode(':', $totbl_col);
@@ -1149,7 +1149,7 @@ class Pman_Roo extends Pman
        // DB_Dataobject::debugLevel(1);
        
         
-        
+        var_dump($affects);
         
         $bits = array_map(function($v) { return (int)$v; } , explode(',', $req['_delete']));
         

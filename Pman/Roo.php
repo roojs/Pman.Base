@@ -1132,7 +1132,7 @@ class Pman_Roo extends Pman
         $affects  = array();
         
         $all_links = $x->databaseLinks();
-             
+        
         foreach($all_links as $tbl => $links) {
             foreach($links as $col => $totbl_col) {
                 $to = explode(':', $totbl_col);
@@ -1147,6 +1147,9 @@ class Pman_Roo extends Pman
 
        // echo '<PRE>';print_r($affects);exit;
        // DB_Dataobject::debugLevel(1);
+       
+        
+        
         
         $bits = array_map(function($v) { return (int)$v; } , explode(',', $req['_delete']));
         
@@ -1189,14 +1192,13 @@ class Pman_Roo extends Pman
                     $chk->_match_key = $ka[1];
                     $match_ar[] = clone($chk);
                     continue;
-                }  
- 
+                }          
             }
             
             $has_beforeDelete = method_exists($xx, 'beforeDelete');
             // before delte = allows us to trash dependancies if needed..
             $match_total = 0;
-
+            
             if ( $has_beforeDelete ) {
                 if ($xx->beforeDelete($match_ar, $this) === false) {
                     $errs[] = "Delete failed ({$xx->id})\n".
@@ -1206,7 +1208,6 @@ class Pman_Roo extends Pman
                 // refetch affects..
                 
                 $match_ar = array();
-           
                 foreach($affects as $k=> $true) {
                     $ka = explode('.', $k);
                     $chk = DB_DataObject::factory($ka[0]);

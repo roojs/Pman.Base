@@ -450,11 +450,12 @@ class Pman extends HTML_FlexyFramework_Page
     {
         if ($type !== false) {
             
-            $this->addEvent($type, false, $str);
-            
             if(!empty($errors)){
                 DB_DataObject::factory('Events')->writeEventLogExtra($errors);
             }
+            
+            $this->addEvent($type, false, $str);
+            
         }
          
         $cli = HTML_FlexyFramework::get()->cli;

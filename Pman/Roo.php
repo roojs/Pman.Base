@@ -1205,7 +1205,7 @@ class Pman_Roo extends Pman
                 }
                 // refetch affects..
                 
-                $match_ar = array();
+                $match_ar = array();var_dump($affects);
                 foreach($affects as $k=> $true) {
                     $ka = explode('.', $k);
                     $chk = DB_DataObject::factory($ka[0]);

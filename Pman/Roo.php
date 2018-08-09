@@ -1192,7 +1192,8 @@ class Pman_Roo extends Pman
                     $chk->_match_key = $ka[1];
                     $match_ar[] = clone($chk);
                     continue;
-                }          
+                }  
+                var_dump($matches);
             }
             
             $has_beforeDelete = method_exists($xx, 'beforeDelete');

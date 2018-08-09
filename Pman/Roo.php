@@ -1196,7 +1196,7 @@ class Pman_Roo extends Pman
             $has_beforeDelete = method_exists($xx, 'beforeDelete');
             // before delte = allows us to trash dependancies if needed..
             $match_total = 0;
-            var_dump($has_beforeDelete); exit;
+
             if ( $has_beforeDelete ) {
                 if ($xx->beforeDelete($match_ar, $this) === false) {
                     $errs[] = "Delete failed ({$xx->id})\n".

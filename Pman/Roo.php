@@ -1147,9 +1147,6 @@ class Pman_Roo extends Pman
 
        // echo '<PRE>';print_r($affects);exit;
        // DB_Dataobject::debugLevel(1);
-       
-        
-        var_dump($affects);
         
         $bits = array_map(function($v) { return (int)$v; } , explode(',', $req['_delete']));
         

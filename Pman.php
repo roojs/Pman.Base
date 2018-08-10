@@ -987,7 +987,7 @@ class Pman extends HTML_FlexyFramework_Page
         $reported = true;
         $out = is_a($ex,'Exception') ? $ex->getMessage() : $ex->toString();
         
-        print_r($out); exit;
+        //print_r($out); exit;
         //print_R($bt); exit;
         $ret = array();
         $n = 0;

@@ -109,9 +109,14 @@ class Pman extends HTML_FlexyFramework_Page
         }
         
         if (
-            ($_SERVER['SERVER_ADDR'] == '127.0.0.1') &&
-            ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')  &&
             !empty($_REQUEST['isDev'])
+            &&
+            (
+                (($_SERVER['SERVER_ADDR'] == '127.0.0.1') && ($_SERVER['REMOTE_ADDR'] == '127.0.0.1'))
+                ||
+                (($_SERVER['SERVER_ADDR'] == '::1') && ($_SERVER['REMOTE_ADDR'] == '::1'))
+            )
+            
         ) {
             $boot->Pman['isDev'] = true;
             $this->isDev = true;
@@ -985,6 +990,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         
         $reported = true;
+        //var_dump($ex);
         $out = is_a($ex,'Exception') ? $ex->getMessage() : $ex->toString();
         
         

@@ -990,7 +990,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         
         $reported = true;
-        //var_dump($ex);
+        var_dump($ex);
         $out = is_a($ex,'Exception') ? $ex->getMessage() : $ex->toString();
         
         

@@ -689,7 +689,7 @@ class Pman_Roo extends Pman
             if (empty($_POST)) {
                 $this->jerr("No data recieved for inserting");
             }
-            echo "here of insert"; exit;
+
             $this->jok($this->insert($x, $_REQUEST));
             
         }

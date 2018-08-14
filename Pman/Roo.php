@@ -192,8 +192,8 @@ class Pman_Roo extends Pman
         $this->checkDebug();
         $this->initErrorHandling();
    
-        $tt = explode('/', $tab);print_r($tt); exit;
-        $tab = array_shift($tt);
+        $tt = explode('/', $tab);
+        $tab = array_shift($tt);print_r($tab); exit;
         $x = $this->dataObject($tab);
 
         $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;

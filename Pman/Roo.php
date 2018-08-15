@@ -51,8 +51,7 @@ class Pman_Roo extends Pman
     
     var $key; // used by update currenly to store primary key.
     
-    var $transObj = false ; // the transaction BEGIN / ROLLBACK / COMMIT Dataobject.
-    
+     
     var $max_limit = 10000;
     
     var $debugEnabled = true; // disable this for public versions of this code.
@@ -1560,33 +1559,7 @@ class Pman_Roo extends Pman
         
     }
     
-     
-    // our handlers to commit / rollback.
-    
       
-    
-    function jok($str)
-    {
-        // note that commit will only work if an insert/update was done,
-        // so some stored proc calls may not have flagged this.
-        
-        if ($this->transObj ) {
-            $this->transObj->query( connection_aborted() ? 'ROLLBACK' :  'COMMIT');
-        }
-        return parent::jok($str);
-    }
-    
-    
-    function jerr($str, $errors=array(), $content_type = false)
-    {
-        // standard error reporting..
-        if ($this->transObj) {
-            $this->transObj->query('ROLLBACK');
-        }
-        return parent::jerr($str,$errors,$content_type);
-    
-    }
-    
     
     
     

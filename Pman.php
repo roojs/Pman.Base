@@ -62,6 +62,8 @@ class Pman extends HTML_FlexyFramework_Page
     
     var $css_path = ''; // can inject a specific path into the base HTML page.
     
+    
+    var $transObj = false; // used to rollback or commit in JOK/JERR
     /**
      * ------------- Standard getAuth/get/post methods of framework.
      * 

@@ -453,6 +453,10 @@ class Pman extends HTML_FlexyFramework_Page
     
     function jerror($type, $str, $errors=array(), $content_type = false) // standard error reporting..
     {
+        if ($this->transObj) {
+            $this->transObj->query('ROLLBACK');
+        }
+        
         if ($type !== false) {
             
             if(!empty($errors)){

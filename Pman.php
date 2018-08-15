@@ -998,6 +998,9 @@ class Pman extends HTML_FlexyFramework_Page
         $ret = array();
         $n = 0;
         $bt = is_a($ex,'Exception')|| is_a($ex, 'Error')  ? $ex->getTrace() : $ex->backtrace;
+        if (is_a($ex,'Exception')|| is_a($ex, 'Error') ) {
+            $ret[] = $ex->getFile() . '('. $ex->getLine() . ')';
+        }
         foreach( $bt as $b) {
             $ret[] = @$b['file'] . '(' . @$b['line'] . ')@' .   @$b['class'] . '::' . @$b['function'];
             if ($n > 20) {

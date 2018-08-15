@@ -539,6 +539,10 @@ class Pman extends HTML_FlexyFramework_Page
     }
     function jok($str)
     {
+        if ($this->transObj ) {
+            $this->transObj->query( connection_aborted() ? 'ROLLBACK' :  'COMMIT');
+        }
+        
         $cli = HTML_FlexyFramework::get()->cli;
         if ($cli) {
             echo "OK: " .$str . "\n";

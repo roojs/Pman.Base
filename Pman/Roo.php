@@ -931,7 +931,7 @@ class Pman_Roo extends Pman
         }
         
         $res = $x->insert();
-        var_dump($res); exit;
+        //var_dump($res); exit;
         if ($res === false) {
             $this->jerr($x->_lastError->toString());
         }

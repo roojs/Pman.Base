@@ -640,7 +640,7 @@ class Pman_Roo extends Pman
         $this->init(); // for pman.
          
         $x = $this->dataObject($tab);
-        
+
         $this->transObj = clone($x);
         
         $this->transObj->query('BEGIN');
@@ -657,7 +657,7 @@ class Pman_Roo extends Pman
             // do we really delete stuff!?!?!?
             return $this->delete($x,$_REQUEST);
         } 
-         
+        
         
         $old = false;
         
@@ -677,7 +677,7 @@ class Pman_Roo extends Pman
             
         }
          
-        if (!empty($_REQUEST[$this->key])) {
+        if (!empty($_REQUEST[$this->key])) { 
             // it's a create..
             if (!$x->get($this->key, $_REQUEST[$this->key]))  {
                 $this->jerr("Invalid request (id does not point to  a record.)");
@@ -931,7 +931,7 @@ class Pman_Roo extends Pman
         }
         
         $res = $x->insert();
-        var_dump($res); exit;
+ 
         if ($res === false) {
             $this->jerr($x->_lastError->toString());
         }

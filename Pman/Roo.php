@@ -194,7 +194,7 @@ class Pman_Roo extends Pman
         $tt = explode('/', $tab);
         $tab = array_shift($tt);
         $x = $this->dataObject($tab);
-        
+        var_dump($x); exit;
         $_columns = !empty($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
         
         if (isset( $_REQUEST['lookup'] ) && is_array($_REQUEST['lookup'] )) { // single fetch based on key/value pairs

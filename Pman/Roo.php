@@ -299,7 +299,7 @@ class Pman_Roo extends Pman
             $total+=1;
         }
          
-        $rooar = method_exists($x, 'toRooArray');
+        $rooar = method_exists($x, 'toRooArray');var_dump($rooar); exit;
         $_columnsf = $_columns  ? array_flip($_columns) : false;
         while ($x->fetch()) {
             //print_R($x);exit;

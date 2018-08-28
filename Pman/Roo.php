@@ -190,7 +190,7 @@ class Pman_Roo extends Pman
         
         $this->checkDebug();
         $this->initErrorHandling();
-   
+        DB_DAtaObject::debuglevel(1);
         $tt = explode('/', $tab);
         $tab = array_shift($tt);
         $x = $this->dataObject($tab);
@@ -309,7 +309,7 @@ class Pman_Roo extends Pman
             }
             $ret[] =  !$_columns ? $add : array_intersect_key($add, $_columnsf);
         }
-        var_dump($ret); exit;
+        
         if ($fake_limit) {
             $ret = array_slice($ret,
                    empty($_REQUEST['start']) ? 0 : (int)$_REQUEST['start'],

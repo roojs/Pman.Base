@@ -190,7 +190,7 @@ class Pman_Roo extends Pman
         
         $this->checkDebug();
         $this->initErrorHandling();
-        DB_DAtaObject::debuglevel(1);
+        
         $tt = explode('/', $tab);
         $tab = array_shift($tt);
         $x = $this->dataObject($tab);

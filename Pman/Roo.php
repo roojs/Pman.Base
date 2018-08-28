@@ -299,7 +299,7 @@ class Pman_Roo extends Pman
             $total+=1;
         }
          
-        $rooar = method_exists($x, 'toRooArray');var_dump($rooar); exit;
+        $rooar = method_exists($x, 'toRooArray');
         $_columnsf = $_columns  ? array_flip($_columns) : false;
         while ($x->fetch()) {
             //print_R($x);exit;
@@ -309,7 +309,7 @@ class Pman_Roo extends Pman
             }
             $ret[] =  !$_columns ? $add : array_intersect_key($add, $_columnsf);
         }
-        
+        var_dump($ret); exit;
         if ($fake_limit) {
             $ret = array_slice($ret,
                    empty($_REQUEST['start']) ? 0 : (int)$_REQUEST['start'],

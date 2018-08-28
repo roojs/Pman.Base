@@ -170,7 +170,7 @@ class Pman_Roo extends Pman
       //DB_DataObject::debuglevel(1);
         
         $this->init(); // from pman.
-        //DB_DataObject::debuglevel(1);
+        DB_DataObject::debuglevel(1);
         HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev && !empty($_REQUEST['isDev']));
         
    
@@ -662,7 +662,7 @@ class Pman_Roo extends Pman
         $old = false;
         
         // not sure if this is a good idea here...
-
+        
         if (!empty($_REQUEST['_ids'])) {
             $ids = explode(',',$_REQUEST['_ids']);
             $x->whereAddIn($this->key, $ids, 'int');
@@ -1063,7 +1063,7 @@ class Pman_Roo extends Pman
         //print_r($old);
         
         $cols = $x->tableColumns();
-        //print_r($cols);
+
         if (isset($cols['modified'])) {
             $x->modified = date('Y-m-d H:i:s');
         }

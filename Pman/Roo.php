@@ -670,7 +670,7 @@ class Pman_Roo extends Pman
             $x->whereAddIn($this->key, $ids, 'int');
             $ar = $x->fetchAll();
             
-            foreach($ar as $x) {echo "here"; exit;
+            foreach($ar as $x) {
                 $this->update($x, $_REQUEST);  
             }
             // all done..

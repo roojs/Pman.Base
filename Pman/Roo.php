@@ -664,7 +664,7 @@ class Pman_Roo extends Pman
         $old = false;
         
         // not sure if this is a good idea here...
-        var_dump($_REQUEST['_ids']);exit;
+        var_dump($_REQUEST);exit;
         if (!empty($_REQUEST['_ids'])) {
             $ids = explode(',',$_REQUEST['_ids']);
             $x->whereAddIn($this->key, $ids, 'int');

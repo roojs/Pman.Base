@@ -1120,11 +1120,13 @@ class Pman_Roo extends Pman
      */
     
     function delete($x, $req)
-    {
+    { 
         // do we really delete stuff!?!?!?
         if (empty($req['_delete'])) {
             $this->jerr("Delete Requested with no value");
         }
+        
+        
         // build a list of tables to queriy for dependant data..
         $map = $x->links();
         
@@ -1193,6 +1195,7 @@ class Pman_Roo extends Pman
                     continue;
                 }          
             }
+            
             
             $has_beforeDelete = method_exists($xx, 'beforeDelete');
             // before delte = allows us to trash dependancies if needed..

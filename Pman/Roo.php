@@ -659,6 +659,8 @@ class Pman_Roo extends Pman
         } 
         
         
+        
+        
         $old = false;
         
         // not sure if this is a good idea here...
@@ -1083,7 +1085,7 @@ class Pman_Roo extends Pman
         if (isset($cols['updated_by']) && $this->authUser) {
             $x->updated_by = $this->authUser->id;
         }
-        
+        echo "here";exit;
         if (method_exists($x, 'beforeUpdate')) {
             $x->beforeUpdate($old, $req, $this);
         }

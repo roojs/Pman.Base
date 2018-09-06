@@ -1385,7 +1385,7 @@ class Pman_Roo extends Pman
             } 
         }
         $q_filtered = array();
-        echo "here"; exit;
+        
         $keys = $x->keys();
         // var_dump($keys);exit;
         foreach($q as $key=>$val) {

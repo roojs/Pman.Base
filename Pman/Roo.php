@@ -1501,7 +1501,7 @@ class Pman_Roo extends Pman
                     
                     continue;
             }
-        }echo "here"; exit;
+        }
         if (!empty($q_filtered)) {
             //var_dump($q_filtered);
             

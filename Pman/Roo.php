@@ -1455,7 +1455,7 @@ class Pman_Roo extends Pman
                 
             }
             
-            echo $key; exit;
+                
             
             switch($key) {
                     

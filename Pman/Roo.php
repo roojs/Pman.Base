@@ -1394,7 +1394,7 @@ class Pman_Roo extends Pman
                
                 $x->$key  = $val;
             }
-            var_dump($x); exit;
+            
              // handles name[]=fred&name[]=brian => name in ('fred', 'brian').
             // value is an array..
             if (is_array($val) ) {

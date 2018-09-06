@@ -281,7 +281,7 @@ class Pman_Roo extends Pman
         $this->sessionState(0);
         $res = $x->find();
         $this->sessionState(1);
-        var_dump($res); exit;
+                
         if (false === $res) {
             $this->jerr($x->_lastError->toString());
             

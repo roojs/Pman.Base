@@ -1435,7 +1435,7 @@ class Pman_Roo extends Pman
                             ($x->tableName(). '.'.$key)),
                         $ar, $quote ? 'string' : 'int');
                 }
-                
+                //var_dump($x); exit;
                 continue;
             }
             

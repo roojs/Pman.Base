@@ -137,7 +137,7 @@ class Pman extends HTML_FlexyFramework_Page
      * // callModules('init', $base)
      * 
      */
-    function initModules($base)
+    function outputCSSIncludes($base)
     {
         foreach(explode(',',$this->appModules) as $m) {
             $cls = 'Pman_'. $m . '_Pman';
@@ -161,6 +161,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
         $this->init();
         if (empty($base)) {
+            // $this->callModules('init', $base);
             $this->initModules($base);
         }
         

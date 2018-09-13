@@ -137,6 +137,29 @@ class Pman extends HTML_FlexyFramework_Page
      * // callModules('init', $base)
      * 
      */
+     
+     function callModules($fn, $base) 
+     {
+         foreach(explode(',',$this->appModules) as $m) {
+             
+             $cls = 'Pman_'. $m . '_Pman';
+             
+             if (!file_exists($this->rootDir . '/'.str_replace('_','/', $cls). '.php')) {
+                 continue;
+             }
+             
+             require_once str_replace('_','/', $cls). '.php';
+             
+             $c = new $cls();
+             
+             if (method_exists($c, $fn)) {
+                 
+                 $c->{$fn}($this,$base);
+                 
+            }
+         }
+     }
+     
     function initModules($base)
     {
         foreach(explode(',',$this->appModules) as $m) {
@@ -161,7 +184,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
         $this->init();
         if (empty($base)) {
-            // $this->callModules()
+            // $this->callModules('init', $base);
             $this->initModules($base);
         }
         
@@ -740,15 +763,12 @@ class Pman extends HTML_FlexyFramework_Page
         
         $mods = $this->modulesList();
         
-        
         foreach($mods as $mod) {
             // add the css file..
             $this->outputCSSDir("Pman/$mod","*.css");
-            
-            
         }
-        //$this->callModules('outputCSSIncludes', false);
-         
+        
+        $this->callModules('outputCSSIncludes', false);
     }
     
     

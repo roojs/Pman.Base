@@ -133,8 +133,11 @@ class Pman extends HTML_FlexyFramework_Page
     }
     /*
      * module init is only loaded on main page call, and includes checks for configuration settings.
+     *
+     * // callModules('init', $base)
+     * 
      */
-    function initModules()
+    function initModules($base)
     {
         foreach(explode(',',$this->appModules) as $m) {
             $cls = 'Pman_'. $m . '_Pman';
@@ -147,7 +150,7 @@ class Pman extends HTML_FlexyFramework_Page
             require_once str_replace('_','/', $cls). '.php';
             $c = new $cls();
             if (method_exists($c,'init')) {
-                $c->init($this);
+                $c->init($this,$base);
             }
         }
     }
@@ -158,7 +161,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
         $this->init();
         if (empty($base)) {
-            $this->initModules();
+            $this->initModules($base);
         }
         
             //$this->allowSignup= empty($opts['allowSignup']) ? 0 : 1;
@@ -743,6 +746,7 @@ class Pman extends HTML_FlexyFramework_Page
             
             
         }
+        //$this->callModules('outputCSSIncludes', false);
          
     }
     

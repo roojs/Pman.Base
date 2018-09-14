@@ -87,11 +87,11 @@ class Pman extends HTML_FlexyFramework_Page
          // move away from doing this ... you can access bootLoader.XXXXXX in the master template..
         $boot = HTML_FlexyFramework::get();
         // echo'<PRE>';print_R($boot);exit;
-        $this->appName = $boot->appName;
-        $this->appNameShort= $boot->appNameShort;
+        $this->appName      = $boot->appName;
+        $this->appNameShort = $boot->appNameShort;
         
         
-        $this->appModules= $boot->enable;
+        $this->appModules   = $boot->enable;
         
 //        echo $this->arrayToJsInclude($files);        
         $this->isDev = empty($boot->Pman['isDev']) ? false : $boot->Pman['isDev'];

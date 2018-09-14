@@ -88,6 +88,7 @@ class Pman extends HTML_FlexyFramework_Page
         $boot = HTML_FlexyFramework::get();
         // echo'<PRE>';print_R($boot);exit;
         $this->appName      = $boot->appName;
+        var_dump($boot->appName);exit;
         $this->appNameShort = $boot->appNameShort;
         
         

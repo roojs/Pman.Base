@@ -159,26 +159,6 @@ class Pman extends HTML_FlexyFramework_Page
             }
          }
      }
-     
-    function initModules($base)
-    {
-        foreach(explode(',',$this->appModules) as $m) {
-            $cls = 'Pman_'. $m . '_Pman';
-            //echo $cls;
-            //echo $this->rootDir . '/'.str_replace('_','/', $cls). '.php';
-            
-            if (!file_exists($this->rootDir . '/'.str_replace('_','/', $cls). '.php')) {
-                continue;
-            }
-            require_once str_replace('_','/', $cls). '.php';
-            $c = new $cls();
-            if (method_exists($c,'init')) {
-                $c->init($this,$base);
-            }
-        }
-    }
-    
-    
     
     function get($base, $opts=array()) 
     {

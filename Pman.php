@@ -141,21 +141,14 @@ class Pman extends HTML_FlexyFramework_Page
      function callModules($fn, $base) 
      {
          foreach(explode(',',$this->appModules) as $m) {
-             
              $cls = 'Pman_'. $m . '_Pman';
-             
              if (!file_exists($this->rootDir . '/'.str_replace('_','/', $cls). '.php')) {
                  continue;
              }
-             
              require_once str_replace('_','/', $cls). '.php';
-             
              $c = new $cls();
-             
              if (method_exists($c, $fn)) {
-                 
                  $c->{$fn}($this,$base);
-                 
             }
          }
      }
@@ -164,8 +157,8 @@ class Pman extends HTML_FlexyFramework_Page
     {
         $this->init();
         if (empty($base)) {
-            // $this->callModules('init', $base);
-            $this->initModules($base);
+            $this->callModules('init', $base);
+            // $this->initModules($base);
         }
         
             //$this->allowSignup= empty($opts['allowSignup']) ? 0 : 1;

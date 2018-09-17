@@ -294,7 +294,7 @@ class Pman_Login extends Pman
         }
         
         if(!empty($u->oath_key) && empty($_REQUEST['oath_password'])){
-            $this->jerror('LOGIN-BAD','Your account require Two-Factor Authentication');
+            $this->jerror('LOGIN-BAD','Your account requires Two-Factor Authentication');
         }
         
         // check if config allows non-owner passwords.

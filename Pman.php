@@ -161,7 +161,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
         $this->init();
         if (empty($base)) {
-            $this->callModules('init', $base);
+            $this->callModules('init', $this, $base);
         }
         
             //$this->allowSignup= empty($opts['allowSignup']) ? 0 : 1;

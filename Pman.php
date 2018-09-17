@@ -151,6 +151,7 @@ class Pman extends HTML_FlexyFramework_Page
             require_once str_replace('_','/', $cls). '.php';
             $c = new $cls();
             if (method_exists($c, $fn)) {
+                print_r($args);
                 call_user_func_array(array($c,$fn),$args);
             }
          }

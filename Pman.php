@@ -143,7 +143,6 @@ class Pman extends HTML_FlexyFramework_Page
     function callModules($fn) 
     {
         $args = func_get_args();
-        array_shift($args);
         foreach(explode(',',$this->appModules) as $m) {
             $cls = 'Pman_'. $m . '_Pman';
             if (!file_exists($this->rootDir . '/'.str_replace('_','/', $cls). '.php')) {

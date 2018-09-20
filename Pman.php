@@ -740,12 +740,14 @@ class Pman extends HTML_FlexyFramework_Page
         
         $mods = $this->modulesList();
         
+        $this->callModules('outputCSSIncludes', $this);
+        
         foreach($mods as $mod) {
             // add the css file..
             $this->outputCSSDir("Pman/$mod","*.css");
         }
         
-        $this->callModules('outputCSSIncludes', $this);
+        
     }
     
     

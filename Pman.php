@@ -717,6 +717,7 @@ class Pman extends HTML_FlexyFramework_Page
             $this->outputJavascriptDir("Pman/$mod/widgets", "*.js");
             $this->outputJavascriptDir("Pman/$mod", "*.js");
             
+            
         }
         
         if (empty($this->disable_jstemplate)) {

@@ -704,16 +704,7 @@ class Pman extends HTML_FlexyFramework_Page
         $is_bootstrap = in_array('BAdmin', $mods);
         
         foreach($mods as $mod) {
-            
-            $cls = 'Pman_' . $mod . '_Pman';
-            
-            if (file_exists($this->rootDir . '/'.str_replace('_','/', $cls). '.php')) {
-                require_once str_replace('_','/', $cls). '.php';
-                $c = new $cls();
-                if (method_exists($c,'outputJavascriptIncludes')) {
-                    $c->outputOverlayStringJavascript();
-                }
-            }
+            // add the css file..
             
             if ($is_bootstrap) {
                 if (!file_exists($this->rootDir."/Pman/$mod/is_bootstrap")) {
@@ -725,7 +716,6 @@ class Pman extends HTML_FlexyFramework_Page
         
             $this->outputJavascriptDir("Pman/$mod/widgets", "*.js");
             $this->outputJavascriptDir("Pman/$mod", "*.js");
-            
             
         }
         

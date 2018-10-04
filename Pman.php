@@ -723,6 +723,8 @@ class Pman extends HTML_FlexyFramework_Page
         // and finally the JsTemplate...
             echo '<script type="text/javascript" src="'. $this->baseURL. '/Core/JsTemplate"></script>'."\n";
         }
+        
+        $this->callModules('outputJavascriptIncludes', $this);
          
     }
     

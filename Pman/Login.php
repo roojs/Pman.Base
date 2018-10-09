@@ -52,10 +52,6 @@ class Pman_Login extends Pman
            return $this->logout();
         }
         
-        if(!empty($_REQUEST['user_has_oath'])) {
-            $this->checkUserOath();
-        }
-        
         // general query...
         if (!empty($_REQUEST['getAuthUser'])) {
             //DB_Dataobject::debugLevel(5);
@@ -543,11 +539,6 @@ class Pman_Login extends Pman
         }
         
         return $_SERVER['REMOTE_ADDR'];
-    }
-    
-    function checkUserOath()
-    {
-        
     }
 }
 

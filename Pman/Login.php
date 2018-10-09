@@ -53,7 +53,7 @@ class Pman_Login extends Pman
         }
         
         if(!empty($_REQUEST['user_has_oath'])) {
-            return $this->checkUserOath();
+            $this->checkUserOath();
         }
         
         // general query...
@@ -543,6 +543,11 @@ class Pman_Login extends Pman
         }
         
         return $_SERVER['REMOTE_ADDR'];
+    }
+    
+    function checkUserOath()
+    {
+        
     }
 }
 

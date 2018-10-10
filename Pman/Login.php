@@ -131,9 +131,10 @@ class Pman_Login extends Pman
         $u = DB_DataObject::factory($tbl);
         $s = DB_DataObject::Factory('core_setting');
         if (!$u->isAuth()) {
-             
-            $this->jok(array('id' => 0, 'test' => 0)); // not logged in..
-            exit;
+            $this->jok(array(
+                'id' => 0,
+                 'disable_oath' => empty($s->lookup('core', 'two_factor_authentication')) ? 0 : 1
+             )); // not logged in..
         }
         //die("got here?");
         $au = $u->getAuthUser();

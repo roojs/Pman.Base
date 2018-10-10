@@ -135,6 +135,7 @@ class Pman_Login extends Pman
                 'id' => 0,
                  'disable_oath' => empty($s->lookup('core', 'two_factor_authentication')) ? 0 : 1
              )); // not logged in..
+             exit;
         }
         //die("got here?");
         $au = $u->getAuthUser();

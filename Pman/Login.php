@@ -129,6 +129,7 @@ class Pman_Login extends Pman
         $tbl = empty($ff->Pman['authTable']) ? 'core_person' : $ff->Pman['authTable'];
         
         $u = DB_DataObject::factory($tbl);
+        $s = DB_DataObject::Factory('core_setting');
         if (!$u->isAuth()) {
              
             $this->jok(array('id' => 0, 'test' => 0)); // not logged in..

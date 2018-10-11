@@ -130,10 +130,11 @@ class Pman_Login extends Pman
         
         $u = DB_DataObject::factory($tbl);
         $s = DB_DataObject::Factory('core_setting');
+        $oath_require = $s->lookup('core', 'two_factor_authentication_requirement');
         if (!$u->isAuth()) {
             $this->jok(array(
                 'id' => 0,
-                 'oath_require' => (bool) $s->lookup('core', 'two_factor_authentication_requirement') ? 1 : 0
+                'oath_require' => (bool)  ? 1 : 0
              )); // not logged in..
              exit;
         }

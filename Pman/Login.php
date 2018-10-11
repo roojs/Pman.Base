@@ -133,7 +133,7 @@ class Pman_Login extends Pman
         if (!$u->isAuth()) {
             $this->jok(array(
                 'id' => 0,
-                 'disable_oath' => (bool) $s->lookup('core', 'two_factor_authentication') ? 0 : 1
+                 'disable_oath' => (bool) $s->lookup('core', 'two_factor_authentication') ? 1 : 0
              )); // not logged in..
              exit;
         }

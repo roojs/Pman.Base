@@ -134,8 +134,8 @@ class Pman_Login extends Pman
         if (!$u->isAuth()) {
             $this->jok(array(
                 'id' => 0,
-                'oath_require' => (bool)  ? 1 : 0
-             )); // not logged in..
+                'oath_require' => empty($oath_require) || $oath_require == 1 ? 1 : 0
+             ));
              exit;
         }
         //die("got here?");

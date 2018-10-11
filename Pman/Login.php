@@ -135,10 +135,11 @@ class Pman_Login extends Pman
         if (!$u->isAuth()) {
             $this->jok(array(
                 'id' => 0,
-                'require_oath' => empty($oath_require) || $oath_require == 1 ? 1 : 0
+                'require_oath' => empty($oath_require) || $oath_require->val == 1 ? 1 : 0
              ));
              exit;
         }
+        
         //die("got here?");
         $au = $u->getAuthUser();
         

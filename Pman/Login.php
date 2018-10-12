@@ -328,9 +328,11 @@ class Pman_Login extends Pman
         
         if(
             !empty($u->oath_key) &&
-	    empty($_REQUEST['oath_password']) &&
-            !$u->checkTwoFactorAuthentication($_REQUEST['oath_password'])
-        ){
+	    (
+		empty($_REQUEST['oath_password']) ||
+		!$u->checkTwoFactorAuthentication($_REQUEST['oath_password'])
+	    )
+        ) {
             $this->jerror('LOGIN-BAD', 'You typed the wrong Username or Password  (3)');
             exit;
         }

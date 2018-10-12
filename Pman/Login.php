@@ -141,7 +141,7 @@ class Pman_Login extends Pman
         if (!$u->isAuth()) {
             $this->jok(array(
                 'id' => 0,
-                'require_oath' => $require_oath_val
+                'require_oath' => 0
             ));
             exit;
         }
@@ -327,7 +327,8 @@ class Pman_Login extends Pman
         }
         
         if(
-            !empty($u->oath_key) && 
+            !empty($u->oath_key) &&
+	    empty($_REQUEST['oath_password']) &&
             !$u->checkTwoFactorAuthentication($_REQUEST['oath_password'])
         ){
             $this->jerror('LOGIN-BAD', 'You typed the wrong Username or Password  (3)');

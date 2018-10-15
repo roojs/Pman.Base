@@ -64,7 +64,7 @@ class Pman_Roo extends Pman
         if (!$au) {  
             $this->jerr("Not authenticated", array('authFailure' => true));
         }
-         if (!$au->pid()   ) { // not set up yet..
+        if (!$au->pid()   ) { // not set up yet..
             $this->jerr("Not authenticated", array('authFailure' => true));
         }
         
@@ -73,7 +73,7 @@ class Pman_Roo extends Pman
         return true;
     }
     /**
-     * GET method   Roo/TABLENAME.php
+     * GET method   Roo/TABLENAME
      *
      * Generally for SELECT or Single SELECT
      *

@@ -64,7 +64,7 @@ class Pman_Roo extends Pman
         if (!$au) {  
             $this->jerr("Not authenticated", array('authFailure' => true));
         }
-        if (!method_exists($au,'pid')) { print_r($au); } 
+        print_r($au); 
         if (!$au->pid()   ) { // not set up yet..
             $this->jerr("Not authenticated", array('authFailure' => true));
         }

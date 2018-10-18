@@ -131,7 +131,7 @@ class Pman_Login extends Pman
         $u = DB_DataObject::factory($tbl);
         $s = DB_DataObject::factory('core_setting');
         $require_oath_val = 1;
-        $require_oath = $s->lookup('core', 'two_factor_authentication_requirement');
+        $require_oath = $s->lookup('core', 'two_factor_auth_required');
         if(!empty($require_oath)) {
             if($require_oath->val == 0) {
                 $require_oath_val = 0;
@@ -140,8 +140,7 @@ class Pman_Login extends Pman
         
         if (!$u->isAuth()) {
             $this->jok(array(
-                'id' => 0,
-                'require_oath' => 0
+                'id' => 0
             ));
             exit;
         }

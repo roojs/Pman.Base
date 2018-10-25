@@ -115,6 +115,7 @@ class Pman extends HTML_FlexyFramework_Page
         if (
             !empty($_REQUEST['isDev'])
             &&
+            !empty($_SERVER['SERVER_ADDR']) &&
             (
                 (($_SERVER['SERVER_ADDR'] == '127.0.0.1') && ($_SERVER['REMOTE_ADDR'] == '127.0.0.1'))
                 ||

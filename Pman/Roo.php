@@ -845,7 +845,7 @@ class Pman_Roo extends Pman
         } else if (method_exists($x, 'applyFilters')) {
             // always call apply filters even after update/insert...
             // however arguments are not passed.
-            $x->applyFilters(array(), $this->authUser, $this);
+            $x->applyFilters(array('_is_update_request' => true), $this->authUser, $this);
         }
         
         // DB_DataObject::DebugLevel(1);

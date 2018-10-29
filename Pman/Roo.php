@@ -32,7 +32,7 @@ require_once 'Pman.php';
  * - beforeInsert($request,$roo) - before insert - jerr() will stop insert..
  *
  *  AFTER
- * - onUpdate($old, $request,$roo) - after update // return value ignored
+ * - onUpdate($old, $request,$roo, $event) - after update // return value ignored
  * - onInsert($request,$roo, $event) - after insert
  * - onDelete($req, $roo) - after delete
  * - onUpload($roo)
@@ -1100,11 +1100,11 @@ class Pman_Roo extends Pman
         if ($res === false) {
             $this->jerr($x->_lastError->toString());
         }
-        
-        if (method_exists($x, 'onUpdate')) {
-            $x->onUpdate($old, $req, $this);
-        }
         $ev = $this->addEvent("EDIT", $x);
+
+        if (method_exists($x, 'onUpdate')) {
+            $x->onUpdate($old, $req, $this, $ev);
+        }
         if ($ev) { 
             $ev->audit($x, $old);
         }

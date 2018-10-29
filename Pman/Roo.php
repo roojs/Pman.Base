@@ -937,10 +937,11 @@ class Pman_Roo extends Pman
         if ($res === false) {
             $this->jerr($x->_lastError->toString());
         }
-        if (method_exists($x, 'onInsert')) {
-            $x->onInsert($_REQUEST, $this);
-        }
         $ev = $this->addEvent("ADD", $x);
+        if (method_exists($x, 'onInsert')) {
+            $x->onInsert($_REQUEST, $this, $ev);
+        }
+        
         if ($ev) { 
             $ev->audit($x);
         }

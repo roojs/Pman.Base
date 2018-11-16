@@ -246,7 +246,9 @@ class Pman extends HTML_FlexyFramework_Page
         if (!is_a($this->company, 'DB_DataObject')) { // non-core pman projects
             return false; 
         }
-        $this->company->get('comptype', 'OWNER');
+        $e = DB_DataObject::Factory('core_enum')->lookupObject('COMPTYPE', 'OWNER');
+
+        $this->company->get('comptype_id', $e->id);
         return $this->company;
     }
     

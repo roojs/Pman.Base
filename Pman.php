@@ -753,7 +753,7 @@ class Pman extends HTML_FlexyFramework_Page
         $mods = $this->modulesList();
         
         $this->callModules('applyCSSIncludes', $this);
-        
+        print_r($this->css_includes);
         
         $this->callModules('outputCSSIncludes', $this);
         

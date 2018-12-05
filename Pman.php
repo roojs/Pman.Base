@@ -737,7 +737,7 @@ class Pman extends HTML_FlexyFramework_Page
         $this->callModules('outputJavascriptIncludes', $this);
          
     }
-    
+    var $css_includes = array();
      /**
      * outputCSSIncludes:
      *

@@ -158,7 +158,7 @@ class Pman extends HTML_FlexyFramework_Page
                 call_user_func_array(array($c,$fn),$args);
             }
         }
-        return $args;
+        return;
      }
     
     function get($base, $opts=array()) 

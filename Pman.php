@@ -755,7 +755,7 @@ class Pman extends HTML_FlexyFramework_Page
         $this->callModules('applyCSSIncludes', $this);
         foreach($this->css_includes as $module => $ar) {
             if ($ar) {
-                $pg->assetArrayToHtml( $ar , 'css');
+                $this->assetArrayToHtml( $ar , 'css');
             }
         }
         

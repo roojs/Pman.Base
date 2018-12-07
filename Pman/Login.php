@@ -480,10 +480,8 @@ class Pman_Login extends Pman
 	    $u->setPassword($newpass);
 	}
         $u->update($uu);
-        
-        
-        $this->showNewPass = implode("/", array($id,$t,$key));
-        return false;
+        $u->login();
+        $this->jok("Password has been Updated");
     }
     
     

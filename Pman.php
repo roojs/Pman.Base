@@ -173,12 +173,13 @@ class Pman extends HTML_FlexyFramework_Page
       
         
         // should really be moved to Login...
-        
+        /*
         if ($bits[0] == 'PasswordReset') {
             $this->linkFail = $this->resetPassword(@$bits[1],@$bits[2],@$bits[3]);
             header('Content-type: text/html; charset=utf-8');
             return;
-        } 
+        }
+        */
          
         $au = $this->getAuthUser();
         if ($au) {

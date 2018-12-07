@@ -450,7 +450,7 @@ class Pman_Login extends Pman
     }
     
     
-    function resetPassword($id,$t, $key, $newpass =false)
+    function resetPassword($id,$t, $key, $newpass )
     {
         
         $au = $this->getAuthUser();

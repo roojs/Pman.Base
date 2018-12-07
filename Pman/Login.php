@@ -257,12 +257,19 @@ class Pman_Login extends Pman
             return $this->passwordRequest($_REQUEST['passwordRequest']);   
         }
         
+	if (!empty($_REQUEST['ResetPassword'])) {
+	    if (empty($_REQUEST['id']) || 
+		empty($_REQUEST['ts']) ||
+		empty($_REQUEST['key']) ||
+		empty($_REQUEST['key']) ||
+		
+	    $this->resetPassword()
+	}
 	
-	
-	
-        //if (!empty($_REQUEST['changePassword'])) {
-        //    return $this->changePassword($_REQUEST);
-        //}
+	// this is 'classic' change password...
+        if (!empty($_REQUEST['changePassword'])) {
+            return $this->changePassword($_REQUEST);
+        }
         
         // login attempt..
         

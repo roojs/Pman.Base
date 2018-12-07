@@ -494,26 +494,8 @@ class Pman_Login extends Pman
     function resetPassword($id,$t, $key, $newpass )
     {
         
-        $au = $this->getAuthUser();
-        if ($au) {
-            $this->jerr( "Already Logged in - no need to use Password Reset");
-        }
-        
-        $u = DB_DataObject::factory('core_person');
-        //$u->company_id = $this->company->id;
-        $u->active = 1;
-        if (!$u->get($id) || !strlen($u->passwd)) {
-            $this->jerr("Password reset link is not valid (id)");
-        }
-        
-        // validate key.. 
-        if ($key != $u->genPassKey($t)) {
-            $this->jerr("Password reset link is not valid ($key)");
-        }
+        $u = $this->verifyResetPassword($id,$t,$k);
 	
-	if ($t < strtotime("NOW - 1 DAY")) {
-            $this->jerr("Password reset link has expired");
-        }
 	
         $uu = clone($u);
         $u->no_reset_sent = 0;

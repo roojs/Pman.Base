@@ -282,6 +282,7 @@ class Pman_Login extends Pman
 	    }
 	    
 	    $this->verifyCheckSum($_REQUEST['id'], $_REQUEST['ts'], $_REQUEST['key']);
+	    $this->jok("Checksum is ok");
 	}
 	
 	// this is 'classic' change password...

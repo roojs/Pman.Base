@@ -196,7 +196,7 @@ class Pman extends HTML_FlexyFramework_Page
         }
         
         
-        if (strlen($base)) {
+        if (strlen($base) && $bits[0] != 'PasswordReset') {
             $this->jerror("BADURL","invalid url: $base");
         }
         // deliver template
@@ -394,35 +394,6 @@ class Pman extends HTML_FlexyFramework_Page
      */
     
     
-    function resetPassword($id,$t, $key)
-    {
-        
-        $au = $this->getAuthUser();
-        if ($au) {
-            return "Already Logged in - no need to use Password Reset";
-        }
-        
-        $u = DB_DataObject::factory('core_person');
-        //$u->company_id = $this->company->id;
-        $u->active = 1;
-        if (!$u->get($id) || !strlen($u->passwd)) {
-            return "invalid id";
-        }
-        
-        // validate key.. 
-        if ($key != $u->genPassKey($t)) {
-            return "invalid key";
-        }
-        $uu = clone($u);
-        $u->no_reset_sent = 0;
-        $u->update($uu);
-        
-        if ($t < strtotime("NOW - 1 DAY")) {
-            return "expired";
-        }
-        $this->showNewPass = implode("/", array($id,$t,$key));
-        return false;
-    }
     
     /**
      * jerrAuth: standard auth failure - with data that let's the UI know..

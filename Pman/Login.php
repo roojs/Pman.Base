@@ -417,7 +417,7 @@ class Pman_Login extends Pman
         $this->rcpts = $u->getEmailFrom();
         
 	
-	$mailer = $core_email->toMailer($this, false);
+	$mailer = $cm->toMailer($this, false);
 	if (is_a($mailer,'PEAR_Error') ) {
 	    $this->addEvent('SYSERR',false, $mailer->getMessage());
 	    $this->jerr($mailer->getMessage());

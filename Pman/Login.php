@@ -484,7 +484,7 @@ class Pman_Login extends Pman
 	if ($t < strtotime("NOW - 1 DAY")) {
             $this->jerr("Password reset link has expired");
         }
-	return true;
+	return $u;
 	
 	
 	

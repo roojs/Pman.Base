@@ -467,14 +467,14 @@ class Pman_Login extends Pman
         
         // validate key.. 
         if ($key != $u->genPassKey($t)) {
-            return "invalid key";
+            $this->jerr("Passwor reset key is not valid");
         }
         $uu = clone($u);
         $u->no_reset_sent = 0;
         $u->update($uu);
         
         if ($t < strtotime("NOW - 1 DAY")) {
-            return "expired";
+            $this->jerr("Password reset link has expired");
         }
         $this->showNewPass = implode("/", array($id,$t,$key));
         return false;

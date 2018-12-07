@@ -281,7 +281,7 @@ class Pman_Login extends Pman
 		$this->jerr("Invalid request to reset password");
 	    }
 	    
-	    $this->verifyCheckSum($_REQUEST['id'], $_REQUEST['ts'], $_REQUEST['key']);
+	    $this->verifyResetPassword($_REQUEST['id'], $_REQUEST['ts'], $_REQUEST['key']);
 	    $this->jok("Checksum is ok");
 	}
 	

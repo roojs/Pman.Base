@@ -488,43 +488,15 @@ class Pman_Login extends Pman
     function changePassword($r)
     {   
         $au = $this->getAuthUser();
-        if ($au) {
-            $uu = clone($au);
-            $au->setPassword($r['passwd1']);
-            $au->update($uu);
-            $this->addEvent("CHANGEPASS", $au);
-            $this->jok($au);
-        }
-        // not logged in -> need to validate 
-        if (empty($r['passwordReset'])) {
-            $this->jerr("invalid request");
-        }
-        // same code as reset pasword
-       
-        $bits = explode('/', $r['passwordReset']);
-        //print_R($bits);
-      
-        $res= $this->resetPassword(@$bits[0],@$bits[1],@$bits[2]);
-          
-        if ($res !== false) {
-            $this->jerr($res);
-        }
-        // key is correct.. let's change password...
-        
-        $u = DB_DataObject::factory('core_person');
-        
-        //$u->company_id = $this->company->id;
-        $u->whereAdd('LENGTH(passwd) > 1');
-        $u->active = 1;
-        if (!$u->get($bits[0])) {
-           $this->jerr("invalid id"); // should not happen!!!!
-        }
-        $uu = clone($u);
-        $u->setPassword($r['passwd1']);
-        $u->update($uu);
-        $u->login();
-        $this->addEvent("CHANGEPASS", $u);
-        $this->jok($u);
+        if (!$au) {
+	    $this->jerr("Password change attempted when not logged in");
+	}
+	$uu = clone($au);
+	$au->setPassword($r['passwd1']);
+	$au->update($uu);
+	$this->addEvent("CHANGEPASS", $au);
+	$this->jok($au);
+         
     }
     
     function ip_checking()

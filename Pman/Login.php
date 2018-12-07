@@ -419,14 +419,15 @@ class Pman_Login extends Pman
 	
 	$mailer = $core_email->toMailer($this, false);
 	if (is_a($mailer,'PEAR_Error') ) {
-	    $this->addEvent('SYSERR',false, $ret->getMessage());
+	    $this->addEvent('SYSERR',false, $mailer->getMessage());
 	    $this->jerr($mailer->getMessage());
 	}
         $sent = $mailer->send();
 	if (is_a($sent,'PEAR_Error') ) {
-	    $this->addEvent('SYSERR',false, $ret->getMessage());
+	    $this->addEvent('SYSERR',false, $sent->getMessage());
             $this->jerr($ret->getMessage());
         }
+	
         $this->addEvent('PASSREQ',$u, $u->email);
         $uu = clone($u);
         $uu->no_reset_sent++;

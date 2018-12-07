@@ -462,20 +462,26 @@ class Pman_Login extends Pman
         //$u->company_id = $this->company->id;
         $u->active = 1;
         if (!$u->get($id) || !strlen($u->passwd)) {
-            return "invalid id";
+            $this->jerr("Password reset link is not valid (id)");
         }
         
         // validate key.. 
         if ($key != $u->genPassKey($t)) {
-            $this->jerr("Passwor reset key is not valid");
+            $this->jerr("Password reset link is not valid ($key)");
         }
-        $uu = clone($u);
-        $u->no_reset_sent = 0;
-        $u->update($uu);
-        
-        if ($t < strtotime("NOW - 1 DAY")) {
+	
+	if ($t < strtotime("NOW - 1 DAY")) {
             $this->jerr("Password reset link has expired");
         }
+	
+        $uu = clone($u);
+        $u->no_reset_sent = 0;
+	if ($newpass != false) {
+	    $u->setPassword($newpass);
+	}
+        $u->update($uu);
+        
+        
         $this->showNewPass = implode("/", array($id,$t,$key));
         return false;
     }

@@ -416,11 +416,15 @@ class Pman_Login extends Pman
         $this->bcc = $bcc;
         $this->rcpts = $u->getEmailFrom();
         
-        $ret = $cm->send($this);
-        //$this->jerr(print_r($r->toData(),true));
-        
-        if (is_object($ret)) {
-            $this->addEvent('SYSERR',false, $ret->getMessage());
+	
+	$mailer = $core_email->toMailer($this, false);
+	if (is_a($mailer,'PEAR_Error') ) {
+	    $this->addEvent('SYSERR',false, $ret->getMessage());
+	    $this->jerr($mailer->getMessage());
+	}
+        $sent = $mailer->send();
+	if (is_a($sent,'PEAR_Error') ) {
+	    $this->addEvent('SYSERR',false, $ret->getMessage());
             $this->jerr($ret->getMessage());
         }
         $this->addEvent('PASSREQ',$u, $u->email);

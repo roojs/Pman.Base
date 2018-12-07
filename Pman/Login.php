@@ -254,9 +254,7 @@ class Pman_Login extends Pman
         }
         
         if (!empty($_REQUEST['passwordRequest'])) { //|| (strpos($_REQUEST['username'], '@') < 1)) {
-            
-            return $this->passwordRequest($_REQUEST['passwordRequest']);
-            
+            return $this->passwordRequest($_REQUEST['passwordRequest']);   
         }
         
         if (!empty($_REQUEST['changePassword'])) {

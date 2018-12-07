@@ -262,11 +262,13 @@ class Pman_Login extends Pman
 		empty($_REQUEST['ts']) ||
 		empty($_REQUEST['key']) ||
 		empty($_REQUEST['password1']) ||
-		empty($_REQUEST['password2'])
+		empty($_REQUEST['password2']) ||
+		($_REQUEST['password1'] != $_REQUEST['password2'])
 	    ) {
 		$this->jerr("Invalid request to reset password");
 	    }
-	    $this->resetPassword()
+	    
+	    $this->resetPassword($_REQUEST['id'], $_REQUEST['ts'], $_REQUEST['key'], $_REQUEST['password1'] );
 	}
 	
 	// this is 'classic' change password...

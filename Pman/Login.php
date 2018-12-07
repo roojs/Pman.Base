@@ -480,7 +480,7 @@ class Pman_Login extends Pman
         
         // validate key.. 
         if ($key != $u->genPassKey($t)) {
-            $this->jerr("Password reset link is not valid ($key)");
+            $this->jerr("Password reset link is not valid (key)");
         }
 	
 	if ($t < strtotime("NOW - 1 DAY")) {

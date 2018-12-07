@@ -436,6 +436,38 @@ class Pman_Login extends Pman
         
     }
     
+    
+    function resetPassword($id,$t, $key)
+    {
+        
+        $au = $this->getAuthUser();
+        if ($au) {
+            return "Already Logged in - no need to use Password Reset";
+        }
+        
+        $u = DB_DataObject::factory('core_person');
+        //$u->company_id = $this->company->id;
+        $u->active = 1;
+        if (!$u->get($id) || !strlen($u->passwd)) {
+            return "invalid id";
+        }
+        
+        // validate key.. 
+        if ($key != $u->genPassKey($t)) {
+            return "invalid key";
+        }
+        $uu = clone($u);
+        $u->no_reset_sent = 0;
+        $u->update($uu);
+        
+        if ($t < strtotime("NOW - 1 DAY")) {
+            return "expired";
+        }
+        $this->showNewPass = implode("/", array($id,$t,$key));
+        return false;
+    }
+    
+    
     function changePassword($r)
     {   
         $au = $this->getAuthUser();

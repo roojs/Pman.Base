@@ -496,7 +496,7 @@ class Pman_Login extends Pman
     function resetPassword($id,$t, $key, $newpass )
     {
         
-        $u = $this->verifyResetPassword($id,$t,$k);
+        $u = $this->verifyResetPassword($id,$t,$key);
 	
 	
         $uu = clone($u);

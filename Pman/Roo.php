@@ -511,7 +511,6 @@ class Pman_Roo extends Pman
             //echo "<PRE>"; print_r(array($_REQUEST['csvCols'], $x->toArray())); exit;
             $line = array();
             
-            
             if ($titles !== false) {
                 foreach($cols as $i=>$col) {
                     $se_config['cols'][] = array(

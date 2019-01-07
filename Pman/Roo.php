@@ -500,6 +500,11 @@ class Pman_Roo extends Pman
             if ($cols== '*') {
                 $cols= array_keys($x);
             }
+            
+            if(!is_array($titles)) {
+                
+            }
+            
             if ($titles !== false) {
                 foreach($cols as $i=>$col) {
                     $se_config['cols'][] = array(

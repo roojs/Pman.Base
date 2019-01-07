@@ -443,20 +443,6 @@ class Pman_Roo extends Pman
             'leave_open' => true
         );
         
-        if ($titles== '*') {
-            $titles= array_keys($x);
-        }
-        if ($cols== '*') {
-            $cols= array_keys($x);
-        }
-
-        if(!is_array($titles)) {
-            $titles = explode(',', $titles);
-        }
-        if(!is_array($cols)) {
-            $cols = explode(',', $cols);
-        }
-            
         
         $se = false;
         if (is_object($data)) {
@@ -474,7 +460,12 @@ class Pman_Roo extends Pman
                 }
                
                 if ($titles !== false) {
-                    
+                    if ($titles== '*') {
+                        $titles= array_keys($x);
+                    }
+                    if(!is_array($titles)) {
+                        $titles = explode(',', $titles);
+                    }
                     foreach($cols as $i=>$col) {
                         $se_config['cols'][] = array(
                             'header'=> isset($titles[$i]) ? $titles[$i] : $col,

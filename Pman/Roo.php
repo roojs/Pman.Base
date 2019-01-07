@@ -502,7 +502,23 @@ class Pman_Roo extends Pman
             //echo "<PRE>"; print_r(array($_REQUEST['csvCols'], $x->toArray())); exit;
             $line = array();
             
+            if ($cols== '*') {
+                $cols= array_keys($x);
+            }
+            
+            if(!is_array($cols)) {
+                $cols = explode(',', $cols);
+            }
+
             if ($titles !== false) {
+                if ($titles== '*') {
+                    $titles= array_keys($x);
+                }
+
+                if(!is_array($titles)) {
+                    $titles = explode(',', $titles);
+                }
+
                 foreach($cols as $i=>$col) {
                     $se_config['cols'][] = array(
                         'header'=> isset($titles[$i]) ? $titles[$i] : $col,
@@ -522,17 +538,15 @@ class Pman_Roo extends Pman
                 $titles = false;
             }
             
-            
-            
             $se->addLine($se_config['workbook'], $x);
         }
+        
         if(!$se){
             $this->jerr('no data found');
         }
+        
         $se->send($fn .'.xls');
         exit;
-    
-        
         
     }
     

@@ -502,8 +502,9 @@ class Pman_Roo extends Pman
             }
             
             if(!is_array($titles)) {
-                
+                $titles = explode(',', $titles);
             }
+            
             
             if ($titles !== false) {
                 foreach($cols as $i=>$col) {

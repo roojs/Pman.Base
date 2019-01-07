@@ -507,7 +507,7 @@ class Pman_Roo extends Pman
             if ($cols== '*') {
                 $cols= array_keys($x);
             }
-            
+            print_R($titles);exit;
             if(!is_array($titles)) {
                 $titles = explode(',', $titles);
             }

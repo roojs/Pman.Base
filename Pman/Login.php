@@ -452,7 +452,7 @@ class Pman_Login extends Pman
         $sent = $mailer->send();
 	if (is_a($sent,'PEAR_Error') ) {
 	    $this->addEvent('SYSERR',false, $sent->getMessage());
-            $this->jerr($ret->getMessage());
+            $this->jerr($sent->getMessage());
         }
 	
         $this->addEvent('PASSREQ',$u, $u->email);

@@ -406,9 +406,11 @@ class Pman_Login extends Pman
         // sort out sender.
         $cm = DB_DataObject::factory('core_email');
         if (!$cm->get('name', 'ADMIN_PASSWORD_RESET')) {
-            $this->jerr("no template ADMIN_PASSWORD_RESET exists - please run importer ");
-            
+            $this->jerr("no template  Admin password reset (ADMIN_PASSWORD_RESET) exists - please run importer ");
         }
+	if (!$cm->active) {
+	    $this->jerr("template for Admin password reset has been disabled");
+	}
         /*
         
         $g = DB_DAtaObject::factory('Groups');

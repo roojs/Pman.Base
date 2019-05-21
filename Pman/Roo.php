@@ -467,6 +467,10 @@ class Pman_Roo extends Pman
                         $titles = explode(',', $titles);
                     }
                     foreach($cols as $i=>$col) {
+                        if (method_exists($data, 'toSimpleExcelRow')) {
+                            
+                        }
+                        
                         $se_config['cols'][] = array(
                             'header'=> isset($titles[$i]) ? $titles[$i] : $col,
                             'dataIndex'=> $col,
@@ -475,10 +479,11 @@ class Pman_Roo extends Pman
                              //   'color' => 'yellow', // set color for the cell which is a header element
                               // 'fillBlank' => 'gray', // set 
                         );
-                         $se = new Pman_Core_SimpleExcel(array(), $se_config);
+                        
        
                         
                     }
+                    $se = new Pman_Core_SimpleExcel(array(), $se_config);
                      
                     $titles = false;
                 }

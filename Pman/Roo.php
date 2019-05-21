@@ -479,7 +479,7 @@ class Pman_Roo extends Pman
                         );
                         //die('here');
                         if (method_exists($data, 'toSimpleExcelColumn')) {
-                            $add = $data->toSimpleExcelColumn($col);
+                            $add = $data->toSimpleExcelColumn($add);
                         } 
                         
                         $se_config['cols'][] = $add;
@@ -538,7 +538,7 @@ class Pman_Roo extends Pman
                     );
                     //die('here');
                     if (method_exists($this->do, 'toSimpleExcelColumn')) {
-                        $add = $this->do->toSimpleExcelColumn($col);
+                        $add = $this->do->toSimpleExcelColumn($add);
                     } 
                     
                     $se_config['cols'][] = $add;

@@ -56,6 +56,8 @@ class Pman_Roo extends Pman
     
     var $debugEnabled = true; // disable this for public versions of this code.
     
+    var $do = false;
+    
     function getAuth()
     {
         parent::getAuth(); // load company!

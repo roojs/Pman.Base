@@ -477,7 +477,7 @@ class Pman_Roo extends Pman
                               // 'fillBlank' => 'gray', // set 
                         );
                         
-                        if (method_exists($data, 'toSimpleExcelCol')) {
+                        if (method_exists($data, 'toSimpleExcelColumn')) {
                             $add = $data->toSimpleExcelColumn($col);
                         } 
                         

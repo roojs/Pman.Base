@@ -337,8 +337,8 @@ class Pman_Roo extends Pman
             
             
             $this->toCsv($ret, $_REQUEST['csvCols'], $_REQUEST['csvTitles'],
-                        empty($_REQUEST['csvFilename']) ? '' : $_REQUEST['csvFilename']
-                         );
+                        empty($_REQUEST['csvFilename']) ? '' : $_REQUEST['csvFilename'],
+                        $x );
             
             
         

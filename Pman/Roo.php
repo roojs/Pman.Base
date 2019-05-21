@@ -506,8 +506,7 @@ class Pman_Roo extends Pman
             
         } 
         
-        print_R($data);exit;
-        foreach($data as $x) {
+         foreach($data as $x) {
             //echo "<PRE>"; print_r(array($_REQUEST['csvCols'], $x->toArray())); exit;
             $line = array();
             

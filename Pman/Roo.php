@@ -476,7 +476,7 @@ class Pman_Roo extends Pman
                              //   'color' => 'yellow', // set color for the cell which is a header element
                               // 'fillBlank' => 'gray', // set 
                         );
-                        
+                        die('here');
                         if (method_exists($data, 'toSimpleExcelColumn')) {
                             $add = $data->toSimpleExcelColumn($col);
                         } 

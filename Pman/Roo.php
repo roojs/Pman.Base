@@ -56,6 +56,8 @@ class Pman_Roo extends Pman
     
     var $debugEnabled = true; // disable this for public versions of this code.
     
+    var $do = false; // the dataobject being worked on..
+    
     function getAuth()
     {
         parent::getAuth(); // load company!
@@ -152,7 +154,8 @@ class Pman_Roo extends Pman
      *   toRooArray($request) : array
      *                      - called if singleArray is unavailable on single fetch.
      *                      - always tried for mutiple results.
-     *   toArray()          - the default method if none of the others are found. 
+     *   toArray()          - the default method if none of the others are found.
+     *   toSimpleExcelColumn($col) - see toCSV - this enables special columns to be created for exported data.
      *   
      *   autoJoin($request) 
      *                      - standard DataObject feature - causes all results to show all
@@ -336,8 +339,7 @@ class Pman_Roo extends Pman
             
             
             $this->toCsv($ret, $_REQUEST['csvCols'], $_REQUEST['csvTitles'],
-                        empty($_REQUEST['csvFilename']) ? '' : $_REQUEST['csvFilename']
-                         );
+                        empty($_REQUEST['csvFilename']) ? '' : $_REQUEST['csvFilename'] );
             
             
         
@@ -429,7 +431,7 @@ class Pman_Roo extends Pman
     
     function toCsv($data, $cols, $titles, $filename, $addDate = true)
     {
-          
+         // die('here');
         $this->sessionState(0); // turn off sessions  - no locking..
 
         require_once 'Pman/Core/SimpleExcel.php';
@@ -467,7 +469,7 @@ class Pman_Roo extends Pman
                         $titles = explode(',', $titles);
                     }
                     foreach($cols as $i=>$col) {
-                        $se_config['cols'][] = array(
+                        $add = array(
                             'header'=> isset($titles[$i]) ? $titles[$i] : $col,
                             'dataIndex'=> $col,
                             'width'=>  100,
@@ -475,10 +477,17 @@ class Pman_Roo extends Pman
                              //   'color' => 'yellow', // set color for the cell which is a header element
                               // 'fillBlank' => 'gray', // set 
                         );
-                         $se = new Pman_Core_SimpleExcel(array(), $se_config);
+                        //die('here');
+                        if (method_exists($data, 'toSimpleExcelColumn')) {
+                            $add = $data->toSimpleExcelColumn($add);
+                        } 
+                        
+                        $se_config['cols'][] = $add;
+                        
        
                         
                     }
+                    $se = new Pman_Core_SimpleExcel(array(), $se_config);
                      
                     $titles = false;
                 }
@@ -497,8 +506,7 @@ class Pman_Roo extends Pman
             
         } 
         
-        
-        foreach($data as $x) {
+         foreach($data as $x) {
             //echo "<PRE>"; print_r(array($_REQUEST['csvCols'], $x->toArray())); exit;
             $line = array();
             
@@ -520,7 +528,7 @@ class Pman_Roo extends Pman
                 }
 
                 foreach($cols as $i=>$col) {
-                    $se_config['cols'][] = array(
+                    $add = array(
                         'header'=> isset($titles[$i]) ? $titles[$i] : $col,
                         'dataIndex'=> $col,
                         'width'=>  100,
@@ -528,11 +536,18 @@ class Pman_Roo extends Pman
                          //   'color' => 'yellow', // set color for the cell which is a header element
                           // 'fillBlank' => 'gray', // set 
                     );
-                    $se = new Pman_Core_SimpleExcel(array(),$se_config);
+                    //die('here');
+                    if (method_exists($this->do, 'toSimpleExcelColumn')) {
+                        $add = $this->do->toSimpleExcelColumn($add);
+                    } 
+                    
+                    $se_config['cols'][] = $add;
+                    
    
                     
                 }
-                
+                $se = new Pman_Core_SimpleExcel(array(),$se_config);
+               
                 
                 //fputcsv($fh, $titles);
                 $titles = false;
@@ -1577,7 +1592,7 @@ class Pman_Roo extends Pman
         if (!is_a($x, 'DB_DataObject') && !is_a($x, 'PDO_DataObject')) {
             $this->jerr('invalid url - no dataobject');
         }
-    
+        $this->do = $x;
         return $x;
         
     }

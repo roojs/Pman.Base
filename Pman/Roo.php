@@ -476,7 +476,7 @@ class Pman_Roo extends Pman
                              //   'color' => 'yellow', // set color for the cell which is a header element
                               // 'fillBlank' => 'gray', // set 
                         );
-                        die('here');
+                        //die('here');
                         if (method_exists($data, 'toSimpleExcelColumn')) {
                             $add = $data->toSimpleExcelColumn($col);
                         } 
@@ -505,7 +505,7 @@ class Pman_Roo extends Pman
             
         } 
         
-        
+        print_R($data);exit;
         foreach($data as $x) {
             //echo "<PRE>"; print_r(array($_REQUEST['csvCols'], $x->toArray())); exit;
             $line = array();

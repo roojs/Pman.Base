@@ -152,7 +152,8 @@ class Pman_Roo extends Pman
      *   toRooArray($request) : array
      *                      - called if singleArray is unavailable on single fetch.
      *                      - always tried for mutiple results.
-     *   toArray()          - the default method if none of the others are found. 
+     *   toArray()          - the default method if none of the others are found.
+     *   toSimpleExcelColumn($col) - see toCSV - this enables special columns to be created for exported data.
      *   
      *   autoJoin($request) 
      *                      - standard DataObject feature - causes all results to show all

@@ -1586,7 +1586,7 @@ class Pman_Roo extends Pman
         if (!is_a($x, 'DB_DataObject') && !is_a($x, 'PDO_DataObject')) {
             $this->jerr('invalid url - no dataobject');
         }
-    
+        $this->do = $x;
         return $x;
         
     }

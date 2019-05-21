@@ -56,7 +56,7 @@ class Pman_Roo extends Pman
     
     var $debugEnabled = true; // disable this for public versions of this code.
     
-    var $do = false;
+    var $do = false; // the dataobject being worked on..
     
     function getAuth()
     {
@@ -339,8 +339,7 @@ class Pman_Roo extends Pman
             
             
             $this->toCsv($ret, $_REQUEST['csvCols'], $_REQUEST['csvTitles'],
-                        empty($_REQUEST['csvFilename']) ? '' : $_REQUEST['csvFilename'],
-                        $x );
+                        empty($_REQUEST['csvFilename']) ? '' : $_REQUEST['csvFilename'] );
             
             
         

@@ -430,7 +430,7 @@ class Pman_Roo extends Pman
     
     function toCsv($data, $cols, $titles, $filename, $addDate = true)
     {
-          
+          die('here');
         $this->sessionState(0); // turn off sessions  - no locking..
 
         require_once 'Pman/Core/SimpleExcel.php';

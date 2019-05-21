@@ -529,6 +529,26 @@ class Pman_Roo extends Pman
                 }
 
                 foreach($cols as $i=>$col) {
+                    $add = array(
+                        'header'=> isset($titles[$i]) ? $titles[$i] : $col,
+                        'dataIndex'=> $col,
+                        'width'=>  100,
+                       //     'renderer' => array($this, 'getThumb'),
+                         //   'color' => 'yellow', // set color for the cell which is a header element
+                          // 'fillBlank' => 'gray', // set 
+                    );
+                    //die('here');
+                    if (method_exists($this->do, 'toSimpleExcelColumn')) {
+                        $add = $this->do->toSimpleExcelColumn($col);
+                    } 
+                    
+                    $se_config['cols'][] = $add;
+                    
+   
+                    
+                }
+                
+                foreach($cols as $i=>$col) {
                     $se_config['cols'][] = array(
                         'header'=> isset($titles[$i]) ? $titles[$i] : $col,
                         'dataIndex'=> $col,

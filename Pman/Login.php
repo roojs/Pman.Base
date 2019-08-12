@@ -311,7 +311,9 @@ class Pman_Login extends Pman
             }
         }
         
-        //$u->active = 1;
+	// this was removed before - not quite sure why.
+	// when a duplicate login account is created, this stops the old one from interfering..
+        $u->active = 1;
         
         // empty username = not really a hacking attempt.
         

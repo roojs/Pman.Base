@@ -382,7 +382,7 @@ class Pman extends HTML_FlexyFramework_Page
     function tempName($ext, $deleteOnExit=false)
     {
         if ($deleteOnExit && self::$deleteOnExit === false) {
-            register_shutdown_function(array($this,'deleteOnExit'));
+            register_shutdown_function(array('Pman','deleteOnExit'));
             self::$deleteOnExit  = array();
         }
         $x = tempnam(ini_get('session.save_path'), HTML_FlexyFramework::get()->appNameShort.'TMP');
@@ -396,7 +396,7 @@ class Pman extends HTML_FlexyFramework_Page
     }
    
     static $deleteOnExit = false;
-    function deleteOnExit()
+    static function deleteOnExit()
     {
         foreach($self::$deleteOnExit as $fn) {
             unlink($fn);

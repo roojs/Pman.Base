@@ -381,7 +381,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     function tempName($ext, $deleteOnExit=false)
     {
-        if (self::$deleteOnExit === false) {
+        if ($deleteOnExit && self::$deleteOnExit === false) {
             register_shutdown_function(array($this,'deleteOnExit'));
             self::$deleteOnExit  = array();
         }

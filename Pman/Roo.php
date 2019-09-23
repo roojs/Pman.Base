@@ -444,7 +444,7 @@ class Pman_Roo extends Pman
             'cols' => array(),
             'leave_open' => true
         );
-        
+        var_dump($data);exit;
         
         $se = false;
         if (is_object($data)) {

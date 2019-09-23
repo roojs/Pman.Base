@@ -47,7 +47,7 @@ class Pman_Login extends Pman
     {
         $this->initErrorHandling();
         
-         //DB_DataObject::DebugLevel(1);
+         // DB_DataObject::DebugLevel(5);
         if (!empty($_REQUEST['logout'])) {
            return $this->logout();
         }

@@ -1499,7 +1499,7 @@ class Pman_Roo extends Pman
                         $x->whereAdd("(on_id = $oid  OR 
                                 on_id IN ( SELECT distinct(id) FROM Documents WHERE original = $o ) 
                             )");
-                        continue;
+                        continue 2;
                                 
                     }
                     $x->on_id = $val;
@@ -1517,7 +1517,7 @@ class Pman_Roo extends Pman
                         
                         // the aobve rule for !strlen non-joined cols should apply to joined ones.
                         if (!strlen($val)) {
-                            continue;
+                            continue 2;
                         }
                         
                         
@@ -1530,7 +1530,7 @@ class Pman_Roo extends Pman
                     }
                     
                     
-                    continue;
+                    continue 2;
             }
         }
         if (!empty($q_filtered)) {

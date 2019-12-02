@@ -1530,7 +1530,7 @@ class Pman_Roo extends Pman
                     }
                     
                     
-                    continue;
+                    continue 2;
             }
         }
         if (!empty($q_filtered)) {

@@ -400,7 +400,9 @@ class Pman extends HTML_FlexyFramework_Page
     {
         
         foreach(self::$deleteOnExit as $fn) {
-            unlink($fn);
+            if (file_exists($fn)) {
+                unlink($fn);
+            }
         }
     }
     

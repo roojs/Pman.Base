@@ -351,11 +351,23 @@ class Pman extends HTML_FlexyFramework_Page
     
      
     
-    
+    function jsencode($v, $header = false)
+    {
+        if ($header) {
+            header("Content-type: text/javascript");
+        }
+        if (function_exists("json_encode")) {
+            return json_encode($v);
+        }
+        require_once 'Services/JSON.php';
+        $js = new Services_JSON();
+        echo $js->encodeUnsafe($v);
+        
+        
+        
+    }
 
-    
-    
-    
+     
         
     /**
      * ---------------- Global Tools ---------------   
@@ -487,12 +499,7 @@ class Pman extends HTML_FlexyFramework_Page
             exit;
         } 
         
-        
-        
-        require_once 'Services/JSON.php';
-        $json = new Services_JSON();
-        
-        // log all errors!!!
+     // log all errors!!!
         
         $retHTML = isset($_SERVER['CONTENT_TYPE']) && 
                 preg_match('#multipart/form-data#i', $_SERVER['CONTENT_TYPE']);
@@ -509,14 +516,14 @@ class Pman extends HTML_FlexyFramework_Page
         if ($retHTML) {
             header('Content-type: text/html');
             echo "<HTML><HEAD></HEAD><BODY>";
-            echo  $json->encodeUnsafe(array(
+            echo  $this->jsencode(array(
                     'success'=> false, 
                     'errorMsg' => $str,
                     'message' => $str, // compate with exeption / loadexception.
 
                     'errors' => $errors ? $errors : true, // used by forms to flag errors.
                     'authFailure' => !empty($errors['authFailure']),
-                ));
+                ), false);
             echo "</BODY></HTML>";
             exit;
         }
@@ -534,14 +541,14 @@ class Pman extends HTML_FlexyFramework_Page
                 
         }
         
-        echo $json->encode(array(
+        echo $this->jsencode(array(
             'success'=> false, 
             'data'=> array(), 
             'errorMsg' => $str,
             'message' => $str, // compate with exeption / loadexception.
             'errors' => $errors ? $errors : true, // used by forms to flag errors.
             'authFailure' => !empty($errors['authFailure']),
-        ));
+        ),true);
         
         
         exit;
@@ -558,8 +565,6 @@ class Pman extends HTML_FlexyFramework_Page
             echo "OK: " .$str . "\n";
             exit;
         }
-        require_once 'Services/JSON.php';
-        $json = new Services_JSON();
         
         $retHTML = isset($_SERVER['CONTENT_TYPE']) && 
                 preg_match('#multipart/form-data#i', $_SERVER['CONTENT_TYPE']);
@@ -577,13 +582,13 @@ class Pman extends HTML_FlexyFramework_Page
             echo "<HTML><HEAD></HEAD><BODY>";
             // encode html characters so they can be read..
             echo  str_replace(array('<','>'), array('\u003c','\u003e'),
-                        $json->encodeUnsafe(array('success'=> true, 'data' => $str)));
+                        $this->jsencode(array('success'=> true, 'data' => $str), false));
             echo "</BODY></HTML>";
             exit;
         }
         
         
-        echo  $json->encode(array('success'=> true, 'data' => $str));
+        echo  $this->jsencode(array('success'=> true, 'data' => $str),true);
         
         exit;
         
@@ -602,8 +607,7 @@ class Pman extends HTML_FlexyFramework_Page
             $total = count($ar);
         }
         $extra=  $extra ? $extra : array();
-        require_once 'Services/JSON.php';
-        $json = new Services_JSON();
+        
         
         $retHTML = isset($_SERVER['CONTENT_TYPE']) && 
                 preg_match('#multipart/form-data#i', $_SERVER['CONTENT_TYPE']);
@@ -622,7 +626,7 @@ class Pman extends HTML_FlexyFramework_Page
             echo "<HTML><HEAD></HEAD><BODY>";
             // encode html characters so they can be read..
             echo  str_replace(array('<','>'), array('\u003c','\u003e'),
-                        $json->encodeUnsafe(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra));
+                        $this->jsencode(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra, false));
             echo "</BODY></HTML>";
             exit;
         }
@@ -647,7 +651,7 @@ class Pman extends HTML_FlexyFramework_Page
         }
         
       
-        $ret =  $json->encode(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra);  
+        $ret =  $this->jsencode(array('success' =>  true, 'total'=> $total, 'data' => $ar) + $extra,true);  
         
         if (!empty($cachekey)) {
             

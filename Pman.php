@@ -357,7 +357,10 @@ class Pman extends HTML_FlexyFramework_Page
             header("Content-type: text/javascript");
         }
         if (function_exists("json_encode")) {
-            return json_encode($v);
+            $ret=  json_encode($v);
+            if ($ret !== false) {
+                return $ret;
+            }
         }
         require_once 'Services/JSON.php';
         $js = new Services_JSON();
@@ -661,6 +664,7 @@ class Pman extends HTML_FlexyFramework_Page
             }
             file_put_contents($fn, $ret);
         }
+        
         echo $ret;
         exit;
     }

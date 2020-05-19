@@ -361,7 +361,7 @@ class Pman extends HTML_FlexyFramework_Page
         }
         require_once 'Services/JSON.php';
         $js = new Services_JSON();
-        echo $js->encodeUnsafe($v);
+        return $js->encodeUnsafe($v);
         
         
         

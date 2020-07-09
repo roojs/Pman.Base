@@ -410,8 +410,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     }
    
-    static $deleteOnExit = false;
-    static function deleteOnExit()
+     static function deleteOnExit()
     {
         
         foreach(self::$deleteOnExit as $fn) {

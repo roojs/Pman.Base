@@ -389,7 +389,7 @@ class Pman extends HTML_FlexyFramework_Page
         }
     }
     
-    
+    static $deleteOnExit = false;
     /**
      * generate a tempory file with an extension (dont forget to delete it)
      */

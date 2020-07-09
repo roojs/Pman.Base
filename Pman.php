@@ -394,17 +394,23 @@ class Pman extends HTML_FlexyFramework_Page
      * generate a tempory file with an extension (dont forget to delete it)
      */
     
-    function tempName($ext, $deleteOnExit=false)
+    function deleteOnExitAdd($name)
     {
-        if ($deleteOnExit && self::$deleteOnExit === false) {
+        if (self::$deleteOnExit === false) {
             register_shutdown_function(array('Pman','deleteOnExit'));
             self::$deleteOnExit  = array();
         }
+        self::$deleteOnExit[] = $name;
+    }
+    
+    function tempName($ext, $deleteOnExit=false)
+    {
+        
         $x = tempnam(ini_get('session.save_path'), HTML_FlexyFramework::get()->appNameShort.'TMP');
         unlink($x);
         $ret = $x .'.'. $ext;
         if ($deleteOnExit) {
-            self::$deleteOnExit[] = $ret;
+            $this->deleteOnExitAdd($ret);
         }
         return $ret;
     

@@ -635,7 +635,7 @@ class Pman_Roo extends Pman
      *                      - return false for fail and set DO->err;
      *                      
      *      beforeUpdate($old, $request,$roo)
-     *                      - after update - jerr() will stop insert..
+     *                      - before update - jerr() will stop insert..
      *      beforeInsert($request,$roo)
      *                      - before insert - jerr() will stop insert..
      *
@@ -969,6 +969,7 @@ class Pman_Roo extends Pman
         }
         $ev = $this->addEvent("ADD", $x);
         if (method_exists($x, 'onInsert')) {
+                    
             $x->onInsert($_REQUEST, $this, $ev);
         }
         

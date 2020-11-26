@@ -243,12 +243,11 @@ class Pman_Roo extends Pman
        
         // sets map and countWhat
         $this->loadMap($x, array(
-                    'columns' => $_columns,
-                    'distinct' => empty($_REQUEST['_distinct']) ? false:  $_REQUEST['_distinct'],
-                    'exclude' => empty($_REQUEST['_exclude_columns']) ? false:  explode(',', $_REQUEST['_exclude_columns'])
-            ));
-        
-        
+            'columns' => $_columns,
+            'distinct' => empty($_REQUEST['_distinct']) ? false:  $_REQUEST['_distinct'],
+            'exclude' => empty($_REQUEST['_exclude_columns']) ? false:  explode(',', $_REQUEST['_exclude_columns'])
+        ));
+         
         $this->setFilters($x,$_REQUEST);
         
         if (!$this->checkPerm($x,'S', $_REQUEST))  {
@@ -258,8 +257,13 @@ class Pman_Roo extends Pman
          //print_r($x);
         // build join if req.
           //DB_DataObject::debugLevel(1);
-       //   var_dump($this->countWhat);
-        $total = $x->count($this->countWhat);
+        // count with multiple joins and no conditions can be quite slow - so if there are no conditions - just remove the joins from the count.
+        $xx = clone($x);
+        if (empty($xx->_query['condition']) && !empty($xx->_join)) {
+            $xx->_join = '';
+        }
+       
+        $total = $xx->count($this->countWhat);
         // sorting..
       //   
         //var_dump($total);exit;

@@ -755,9 +755,11 @@ class Pman extends HTML_FlexyFramework_Page
        
         
         $mods = $this->modulesList();
-        
+        $is_bootstrap = in_array('BAdmin', $mods);
+
         $this->callModules('applyCSSIncludes', $this);
         foreach($this->css_includes as $module => $ar) {
+            
             if ($ar) {
                 $this->assetArrayToHtml( $ar , 'css');
             }
@@ -768,6 +770,10 @@ class Pman extends HTML_FlexyFramework_Page
         
         foreach($mods as $mod) {
             // add the css file..
+            if ($is_bootstrap  && !file_exists($this->rootDir."/Pman/$mod/is_bootstrap")) {
+                echo '<!-- missing '. $this->rootDir."/Pman/$mod/is_bootstrap  - skipping -->";
+                continue;
+            }
             $this->outputCSSDir("Pman/$mod","*.css");
         }
         

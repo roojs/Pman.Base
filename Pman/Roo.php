@@ -243,11 +243,12 @@ class Pman_Roo extends Pman
        
         // sets map and countWhat
         $this->loadMap($x, array(
-            'columns' => $_columns,
-            'distinct' => empty($_REQUEST['_distinct']) ? false:  $_REQUEST['_distinct'],
-            'exclude' => empty($_REQUEST['_exclude_columns']) ? false:  explode(',', $_REQUEST['_exclude_columns'])
+                'columns' => $_columns,
+                'distinct' => empty($_REQUEST['_distinct']) ? false:  $_REQUEST['_distinct'],
+                'exclude' => empty($_REQUEST['_exclude_columns']) ? false:  explode(',', $_REQUEST['_exclude_columns'])
         ));
-         
+        
+        
         $this->setFilters($x,$_REQUEST);
         
         if (!$this->checkPerm($x,'S', $_REQUEST))  {

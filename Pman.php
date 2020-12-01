@@ -870,9 +870,12 @@ class Pman extends HTML_FlexyFramework_Page
         
        
         
-        
-        $lsort = create_function('$a,$b','return strlen($a) > strlen($b) ? 1 : -1;');
-        usort($files, $lsort);
+        if (PHP_VERSION_ID < 70000 ) {
+            $lsort = create_function('$a,$b','return strlen($a) > strlen($b) ? 1 : -1;');
+            usort($files, $lsort);
+        } else {
+            usort($files, function($a,$b) { return strlen($a) > strlen($b) ? 1 : -1; });
+        }
         
         $smod = str_replace('/','.',$mod);
         

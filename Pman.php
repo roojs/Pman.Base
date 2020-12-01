@@ -41,7 +41,7 @@ class Pman extends HTML_FlexyFramework_Page
     use Pman_Core_AssetTrait;
     //outputJavascriptDir()
     //outputCssDir();
-    
+    var $isDev = false;
     var $appName= "";
     var $appLogo= "";
     var $appShortName= "";

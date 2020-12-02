@@ -260,8 +260,13 @@ class Pman_Roo extends Pman
           //DB_DataObject::debugLevel(1);
         // count with multiple joins and no conditions can be quite slow - so if there are no conditions - just remove the joins from the count.
         $xx = clone($x);
-        if (empty($xx->_query['condition']) && !empty($xx->_join)) {
+        $old_where = $x->whereAdd();
+        if (empty($old_where )) {
             $xx->_join = '';
+        } else {
+            $x->whereAdd($old_where);
+            $xx=clone($x);
+            
         }
        
         $total = $xx->count($this->countWhat);

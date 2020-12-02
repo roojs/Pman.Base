@@ -864,11 +864,22 @@ class Pman extends HTML_FlexyFramework_Page
         
         ksort($arfiles); // just sort by name so it's consistant for serialize..
         
+        // The original idea of this was to serve the files direct from a publicly available 'cache' directory.
+        // but that doesnt really make sense - as we can just serve it from the session directory where we stick
+        // cached data anyway.
+        
+        /*
         $compile  = empty($ff->Pman['public_cache_dir']) ? 0 : 1;
         $basedir = $compile ? $ff->Pman['public_cache_dir'] : false;
         $baseurl = $compile ? $ff->Pman['public_cache_url'] : false;
-        
+        */
        
+        $compile = 1;
+        $basedir = session_save_path().   '/translate-cache/';
+        if (!file_exists($basedir)) {
+            mkdir($basedir,0755);
+        }
+        $baseurl = $this->baseURL .  '/Admin/Translations';
         
         if (PHP_VERSION_ID < 70000 ) {
             $lsort = create_function('$a,$b','return strlen($a) > strlen($b) ? 1 : -1;');

@@ -775,6 +775,8 @@ class Pman extends HTML_FlexyFramework_Page
                 continue;
             }
             $this->outputCSSDir("Pman/$mod","*.css");
+            $this->outputSCSS($mod);
+            
         }
         
         

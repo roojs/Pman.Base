@@ -916,7 +916,6 @@ class Pman_Roo extends Pman
         if (method_exists($x, 'toRooArray')) {
             $this->jok($x->toRooArray($req));
         }
-        
         $this->jok($x->toArray());
         
         
@@ -924,6 +923,7 @@ class Pman_Roo extends Pman
     
     function insert($x, $req, $with_perm_check = true)
     {
+        
         if (method_exists($x, 'setFromRoo')) {
             $res = $x->setFromRoo($req, $this);
             if (is_string($res)) {
@@ -932,7 +932,7 @@ class Pman_Roo extends Pman
         } else {
             $x->setFrom($req);
         }
-        
+
         if ( $with_perm_check &&  !$this->checkPerm($x,'A', $req))  {
             $this->jerr("PERMISSION DENIED (i)");
         }
@@ -986,7 +986,7 @@ class Pman_Roo extends Pman
         if ($ev) { 
             $ev->audit($x);
         }
-        
+      
         // note setFrom might handle this before hand...!??!
         if (!empty($_FILES) && method_exists($x, 'onUpload')) {
             $x->onUpload($this, $_REQUEST);

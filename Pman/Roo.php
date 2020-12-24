@@ -769,12 +769,12 @@ class Pman_Roo extends Pman
                     $ms ? json_decode($ms) : false
             );
         }
+        
         if ($ms !== false) {
             return $this->multiSort($x);
         }
-        
+ 
         if ($sorted === false) {
-            
             $cols = $x->tableColumns();
             $excols = array_keys($this->cols);
             

@@ -280,7 +280,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     function getAuthUser()
     {
-        return staticGetAuthUser($this);
+        return self::staticGetAuthUser($this);
     }
     /**
      * hasPerm:
@@ -297,8 +297,7 @@ class Pman extends HTML_FlexyFramework_Page
         $au = $this->getAuthUser();
         return $au && $au->hasPerm($name,$lvl);
         
-    }
-   
+    }   
     /**
      * modulesList:  List the modules in the application
      *
@@ -1174,10 +1173,7 @@ class Pman extends HTML_FlexyFramework_Page
     // DEPRECITAED - use moduleslist
     function modules()  { return $this->modulesList();  }
     
-    // DEPRECIATED.. - use getAuthUser...
-    function staticGetAuthUser()  { $x = new Pman(); return $x->getAuthUser();  }
-     
-    
+   
     // DEPRICATED  USE Pman_Core_Mailer
     
     function emailTemplate($templateFile, $args)

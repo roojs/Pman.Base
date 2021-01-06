@@ -255,17 +255,9 @@ class Pman extends HTML_FlexyFramework_Page
     }
     
     
-    
-    /**
-     * getAuthUser: - get the authenticated user..
-     *
-     * @return {DB_DataObject} of type Pman[authTable] if authenticated.
-     */
-    
-    function getAuthUser()
-    {
-        if (!empty($this->authUser)) {
-            return $this->authUser;
+    static function staticGetAuthUser($t) {
+        if (!empty($t->authUser)) {
+            return $t->authUser;
         }
         $ff = HTML_FlexyFramework::get();
         $tbl = empty($ff->Pman['authTable']) ? 'core_person' : $ff->Pman['authTable'];
@@ -275,8 +267,20 @@ class Pman extends HTML_FlexyFramework_Page
         if (is_a($u,'PEAR_Error') || !$u->isAuth()) {
             return false;
         }
-        $this->authUser =$u->getAuthUser();
-        return $this->authUser ;
+        $t->authUser =$u->getAuthUser();
+        return $t->authUser ;
+        
+    }
+    
+    /**
+     * getAuthUser: - get the authenticated user..
+     *
+     * @return {DB_DataObject} of type Pman[authTable] if authenticated.
+     */
+    
+    function getAuthUser()
+    {
+        return staticGetAuthUser($this);
     }
     /**
      * hasPerm:

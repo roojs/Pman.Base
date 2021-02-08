@@ -234,7 +234,7 @@ class Pman_Login extends Pman
         if(!$u->loginPublic()){
             $this->jerr('Switch fail');
         }
-        
+         
         $this->jok('OK');
     }
     
@@ -251,6 +251,12 @@ class Pman_Login extends Pman
         
         if (!empty($_REQUEST['logout'])) {
            return $this->logout();
+        }
+         
+        if(!empty($_REQUEST['check_owner_company'])) {
+            $core_company = DB_DataObject::factory('core_company');
+            $core_company->comptype = 'OWNER';
+            $this->jok($core_company->count());
         }
         
         if (!empty($_REQUEST['passwordRequest'])) { //|| (strpos($_REQUEST['username'], '@') < 1)) {

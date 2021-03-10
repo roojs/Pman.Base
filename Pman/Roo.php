@@ -25,7 +25,7 @@ require_once 'Pman.php';
  *      ... call $roo->jerr() on failure...
  *
  *  BEFORE
- * - beforeDelete($dependants_array, $roo) Argument is an array of un-find/fetched dependant items.
+ * - beforeDelete($dependants_array, $roo, $request) Argument is an array of un-find/fetched dependant items.
  *                      - jerr() will stop insert.. (Prefered)
  *                      - return false for fail and set DO->err;
  * - beforeUpdate($old, $request,$roo) - after update - jerr() will stop insert..
@@ -1246,7 +1246,7 @@ class Pman_Roo extends Pman
             $match_total = 0;
             
             if ( $has_beforeDelete ) {
-                if ($xx->beforeDelete($match_ar, $this) === false) {
+                if ($xx->beforeDelete($match_ar, $this, $_REQUEST) === false) {
                     $errs[] = "Delete failed ({$xx->id})\n".
                         (isset($xx->err) ? $xx->err : '');
                     continue;

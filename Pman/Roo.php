@@ -13,7 +13,7 @@ require_once 'Pman.php';
  * 
  * - applySort($au, $sortcol, $direction, $array_of_columns, $multisort) -- does not support multisort at present..
  * - applyFilters($_REQUEST, $authUser, $roo) -- apply any query filters on data. and hide stuff not to be seen. (RETURN false to prevent default filters.)
- * - postListExtra($_REQUEST) : array(extra_name => data) - add extra column data on the results (like new messages etc.)
+ * - postListExtra($_REQUEST, $roo, $array_data) : array(extra_name => data) - add extra column data on the results (like new messages etc.)
  * - postListFilter($data, $authUser, $request) return $data - add extra data to an object
  * 
  * - toRooSingleArray($authUser, $request) // single fetch, add data..
@@ -36,9 +36,7 @@ require_once 'Pman.php';
  * - onInsert($request,$roo, $event) - after insert
  * - onDelete($req, $roo) - after delete
  * - onUpload($roo)
- * 
- 
- * 
+ *  
  * - toEventString (for logging - this is generically prefixed to all database operations.)
  */
 
@@ -142,7 +140,7 @@ class Pman_Roo extends Pman
      *   applyFilters($_REQUEST, $authUser, $roo)
      *                     -- apply any query filters on data. and hide stuff not to be seen.
      *                     -- can exit by calling $roo->jerr()
-     *   postListExtra($_REQUEST) : array(extra_name => data)
+     *   postListExtra($_REQUEST, $roo, $array_data) : array(extra_name => data)
      *                     - add extra column data on the results (like new messages etc.)
      *   postListFilter($data, $authUser, $request) return $data
      *                      - add extra data to an object
@@ -334,7 +332,7 @@ class Pman_Roo extends Pman
         
         $extra = false;
         if (method_exists($queryObj ,'postListExtra')) {
-            $extra = $queryObj->postListExtra($_REQUEST, $this);
+            $extra = $queryObj->postListExtra($_REQUEST, $this, $ret);
         }
         
         
@@ -354,12 +352,6 @@ class Pman_Roo extends Pman
             
         
         }
-        //die("DONE?");
-      
-        //if ($x->tableName() == 'Documents_Tracking') {
-        //    $ret = $this->replaceSubject(&$ret, 'doc_id_subject');
-       // }
-        
         
         
         if (!empty($_REQUEST['_requestMeta']) &&  count($ret)) {

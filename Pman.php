@@ -115,11 +115,17 @@ class Pman extends HTML_FlexyFramework_Page
         if (
             !empty($_REQUEST['isDev'])
             &&
-            !empty($_SERVER['SERVER_ADDR']) &&
             (
-                (($_SERVER['SERVER_ADDR'] == '127.0.0.1') && ($_SERVER['REMOTE_ADDR'] == '127.0.0.1'))
+                (
+                    !empty($_SERVER['SERVER_ADDR']) &&
+                    (
+                        (($_SERVER['SERVER_ADDR'] == '127.0.0.1') && ($_SERVER['REMOTE_ADDR'] == '127.0.0.1'))
+                        ||
+                        (($_SERVER['SERVER_ADDR'] == '::1') && ($_SERVER['REMOTE_ADDR'] == '::1'))
+                    )
+                )
                 ||
-                (($_SERVER['SERVER_ADDR'] == '::1') && ($_SERVER['REMOTE_ADDR'] == '::1'))
+                !empty($boot->Pman['enable_isdev_url'])
             )
             
         ) {

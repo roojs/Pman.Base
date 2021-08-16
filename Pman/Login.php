@@ -584,22 +584,22 @@ class Pman_Login extends Pman
             
             $core_ip_access->sendXMPP();
             
-            $this->jerr('NEW-IP-ADDRESS', array('ip' => $ip));
+            $this->jerror('NEW-IP-ADDRESS', "New IP Address = needs approving", array('ip' => $ip));
             
             return;
         }
         
         if(empty($core_ip_access->status)){
-            $this->jerr('PENDING-IP-ADDRESS', array('ip' => $ip));
+            $this->jerror('PENDING-IP-ADDRESS', "IP is still pending approval", array('ip' => $ip));
         }
         
         if($core_ip_access->status == -1){
-            $this->jerr('BLOCKED-IP-ADDRESS', array('ip' => $ip));
+            $this->jerror('BLOCKED-IP-ADDRESS', "Your IP is blocked", array('ip' => $ip));
             return;
         }
         
         if($core_ip_access->status == -2 && strtotime($core_ip_access->expire_dt) < strtotime('NOW')){
-            $this->jerr('BLOCKED-IP-ADDRESS', array('ip' => $ip));
+            $this->jerrpr('BLOCKED-IP-ADDRESS', "Your IP is blocked", array('ip' => $ip));
             return;
         }
         

@@ -560,7 +560,8 @@ class Pman extends HTML_FlexyFramework_Page
         
         echo $this->jsencode(array(
             'success'=> false, 
-            'data'=> array(), 
+            'data'=> array(),
+            'code' => $type,
             'errorMsg' => $str,
             'message' => $str, // compate with exeption / loadexception.
             'errors' => $errors ? $errors : true, // used by forms to flag errors.

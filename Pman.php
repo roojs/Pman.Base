@@ -31,8 +31,7 @@
  */
 
  
-    
- 
+     
  
 require_once 'Pman/Core/AssetTrait.php';
 
@@ -64,6 +63,13 @@ class Pman extends HTML_FlexyFramework_Page
     
     
     var $transObj = false; // used to rollback or commit in JOK/JERR
+    
+    // these are used somewhere - 
+    var $builderJs = false;//
+    var $serverName = false;
+    var $lang = false;
+    var $allowSignup = false;
+    
     /**
      * ------------- Standard getAuth/get/post methods of framework.
      * 

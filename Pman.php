@@ -128,6 +128,8 @@ class Pman extends HTML_FlexyFramework_Page
                         (($_SERVER['SERVER_ADDR'] == '127.0.0.1') && ($_SERVER['REMOTE_ADDR'] == '127.0.0.1'))
                         ||
                         (($_SERVER['SERVER_ADDR'] == '::1') && ($_SERVER['REMOTE_ADDR'] == '::1'))
+                        ||
+                        (preg_match('/^192\.168/', $_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == $_SERVER['HTTP_HOST'])
                     )
                 )
                 ||

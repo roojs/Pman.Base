@@ -1137,11 +1137,11 @@ class Pman_Roo extends Pman
 
         if (method_exists($x, 'onUpdate')) {
             $x->onUpdate($old, $req, $this, $ev);
+            die("aaaaa");
         }
         if ($ev) { 
             $ev->audit($x, $old);
         }
-        die("aaaaa");
         
         return $this->selectSingle(
             DB_DataObject::factory($x->tableName()),

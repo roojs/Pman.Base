@@ -1141,7 +1141,7 @@ class Pman_Roo extends Pman
         if ($ev) { 
             $ev->audit($x, $old);
         }
-        
+        die("aaaaa");
         
         return $this->selectSingle(
             DB_DataObject::factory($x->tableName()),

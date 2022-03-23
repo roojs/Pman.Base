@@ -141,9 +141,9 @@ class Pman_Roo extends Pman
      *                     -- apply any query filters on data. and hide stuff not to be seen.
      *                     -- can exit by calling $roo->jerr()
      *   postListExtra($_REQUEST, $roo, $array_data) : array(extra_name => data)
-     *                     - add extra column data on the results (like new messages etc.)
+     *                     - add extra column to the jdata return key/value info.
      *   postListFilter($data, $authUser, $request) return $data
-     *                      - add extra data to an object
+     *                      - modify the returned array of data (either add stuff to the data, or remove lines etc)
      * 
      *   
      *   toRooSingleArray($authUser, $request) : array

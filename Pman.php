@@ -53,7 +53,7 @@ class Pman extends HTML_FlexyFramework_Page
     var $appModules = '';
     var $appDisabled = array(); // array of disabled modules..
                     // (based on config option disable)
-    
+     
     var $authUser; // always contains the authenticated user..
     
     var $disable_jstemplate = false; /// disable inclusion of jstemplate code..
@@ -758,7 +758,7 @@ class Pman extends HTML_FlexyFramework_Page
         }
         
         $this->callModules('outputJavascriptIncludes', $this);
-         
+        return '';
     }
     var $css_includes = array();
      /**
@@ -797,7 +797,7 @@ class Pman extends HTML_FlexyFramework_Page
             $this->outputSCSS($mod);
             
         }
-        
+        return ''; // needs to return something as we output it..
         
     }
     
@@ -808,14 +808,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
+     
     
     // --- OLD CODE - in for BC on MO project.... - needs removing...
     
@@ -844,7 +837,7 @@ class Pman extends HTML_FlexyFramework_Page
         // and finally the JsTemplate...
             echo '<script type="text/javascript" src="'. $this->baseURL. '/Core/JsTemplate"></script>'."\n";
         }
-         
+        return '';
     }
     /**
      * Gather infor for javascript files..

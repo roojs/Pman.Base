@@ -269,7 +269,9 @@ class Pman_Roo extends Pman
             
         }
         
-        $total = $xx->count($this->countWhat);
+        if (!isset($_REQUEST['_no_count'])) {
+            $total = $xx->count($this->countWhat);
+        }
         // sorting..
       //   
         // var_dump($total);exit;
@@ -277,7 +279,7 @@ class Pman_Roo extends Pman
         
         $fake_limit = false;
         
-        if (!empty($_REQUEST['_distinct']) && $total < 400) {
+        if (!empty($_REQUEST['_distinct']) && !isset($_REQUEST['_no_count']) && $total < 400) {
             $fake_limit  = true;
         }
         

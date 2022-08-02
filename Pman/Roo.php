@@ -279,7 +279,7 @@ class Pman_Roo extends Pman
         
         $fake_limit = false;
         
-        if (!empty($_REQUEST['_distinct']) && !isset($_REQUEST['_no_count']) && $total < 400) {
+        if (!empty($_REQUEST['_distinct']) && isset($total) && $total < 400) {
             $fake_limit  = true;
         }
         
@@ -311,7 +311,9 @@ class Pman_Roo extends Pman
         
         if (!empty($_REQUEST['query']['add_blank'])) {
             $ret[] = array( 'id' => 0, 'name' => '----');
-            $total+=1;
+            if(isset($total)) {
+                $total+=1;
+            }
         }
          
         $rooar = method_exists($x, 'toRooArray');

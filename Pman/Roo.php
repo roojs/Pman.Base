@@ -86,7 +86,8 @@ class Pman_Roo extends Pman
      *                       multiple key/value can be used. eg. ontable+onid..
      *    _columns           what to return.
      * 
-     *    _no_count          
+     *    _no_count          skip the default count query.
+     *                       use number of records in the query result as the total
      *
      *    
      * JOINS:

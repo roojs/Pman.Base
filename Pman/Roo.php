@@ -879,6 +879,7 @@ class Pman_Roo extends Pman
             // however arguments are not passed.
             $x->applyFilters(array('_is_update_request' => true), $this->authUser, $this);
         }
+        var_dump("AAA");
         var_dump($id);
         // DB_DataObject::DebugLevel(1);
         if (is_array($id)) {

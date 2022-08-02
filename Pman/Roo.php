@@ -270,7 +270,7 @@ class Pman_Roo extends Pman
         $total = $xx->count($this->countWhat);
         // sorting..
       //   
-        //var_dump($total);exit;
+        var_dump($total);exit;
         $this->applySort($x);
         
         $fake_limit = false;

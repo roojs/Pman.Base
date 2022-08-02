@@ -87,7 +87,7 @@ class Pman_Roo extends Pman
      *    _columns           what to return.
      * 
      *    _no_count          skip the default count query.
-     *                       use number of records in the query result as the total
+     *                       use the number of records in the query result as the total
      *
      *    
      * JOINS:

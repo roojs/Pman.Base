@@ -269,6 +269,7 @@ class Pman_Roo extends Pman
             
         }
        
+        var_dump($this->countWhat); exit;
         $total = $xx->count($this->countWhat);
         // sorting..
       //   

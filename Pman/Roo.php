@@ -880,6 +880,7 @@ class Pman_Roo extends Pman
             $x->applyFilters(array('_is_update_request' => true), $this->authUser, $this);
         }
         
+        var_dump("AAA");
         // DB_DataObject::DebugLevel(1);
         if (is_array($id)) {
             // lookup...

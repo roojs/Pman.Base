@@ -85,6 +85,8 @@ class Pman_Roo extends Pman
      *    lookup[key]=value  single fetch based on a single key value lookup.
      *                       multiple key/value can be used. eg. ontable+onid..
      *    _columns           what to return.
+     * 
+     *    _no_count          
      *
      *    
      * JOINS:
@@ -270,7 +272,7 @@ class Pman_Roo extends Pman
         $total = $xx->count($this->countWhat);
         // sorting..
       //   
-        var_dump($total);exit;
+        // var_dump($total);exit;
         $this->applySort($x);
         
         $fake_limit = false;

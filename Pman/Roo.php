@@ -539,7 +539,7 @@ class Pman_Roo extends Pman
                           // 'fillBlank' => 'gray', // set 
                     );
                     //die('here');
-                    if (method_exists($this->do, 'toSimpleExcelColumn')) {
+                    if (!empty($this->do) && method_exists($this->do, 'toSimpleExcelColumn')) {
                         $add = $this->do->toSimpleExcelColumn($add);
                     } 
                     

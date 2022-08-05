@@ -85,6 +85,9 @@ class Pman_Roo extends Pman
      *    lookup[key]=value  single fetch based on a single key value lookup.
      *                       multiple key/value can be used. eg. ontable+onid..
      *    _columns           what to return.
+     * 
+     *    _no_count          skip the default count query.
+     *                       use the number of records in the query result as the total
      *
      *    
      * JOINS:
@@ -266,16 +269,18 @@ class Pman_Roo extends Pman
             $xx=clone($x);
             
         }
-       
-        $total = $xx->count($this->countWhat);
+        $total = false;
+        if (!isset($_REQUEST['_no_count'])) {
+            $total = $xx->count($this->countWhat);
+        }
         // sorting..
       //   
-        //var_dump($total);exit;
+        // var_dump($total);exit;
         $this->applySort($x);
         
         $fake_limit = false;
         
-        if (!empty($_REQUEST['_distinct']) && $total < 400) {
+        if (!empty($_REQUEST['_distinct']) && $total !== false && $total < 400) {
             $fake_limit  = true;
         }
         
@@ -307,7 +312,7 @@ class Pman_Roo extends Pman
         
         if (!empty($_REQUEST['query']['add_blank'])) {
             $ret[] = array( 'id' => 0, 'name' => '----');
-            $total+=1;
+            $total === false ? false : $total+1;
         }
          
         $rooar = method_exists($x, 'toRooArray');
@@ -364,7 +369,7 @@ class Pman_Roo extends Pman
         // this make take some time...
         $this->sessionState(0);
        // echo "<PRE>"; print_r($ret);
-        $this->jdata($ret, max(count($ret), $total), $extra );
+        $this->jdata($ret, max(count($ret), $total === false ? 0 : $total), $extra );
 
     
     }

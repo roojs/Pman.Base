@@ -343,7 +343,7 @@ class Pman_Roo extends Pman
         
         // filter results, and add any data that is needed...
         if (method_exists($x,'postListFilter')) {
-            $ret = $x->postListFilter($ret, $this->authUser, $_REQUEST);
+            $ret = $x->postListFilter($ret, $this->authUser, $_REQUEST, $roo);
         }
         
         

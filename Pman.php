@@ -605,7 +605,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         if ($retHTML) {
             header('Content-type: text/html');
-            echo "<HTML><HEAD></HEAD><BODY><";
+            echo "<HTML><HEAD></HEAD><BODY>";
             // encode html characters so they can be read..
             echo  str_replace(array('<','>'), array('\u003c','\u003e'),
                         $this->jsencode(array('success'=> true, 'data' => $str), false));

@@ -262,34 +262,34 @@ class Pman_Login extends Pman
         if (!empty($_REQUEST['passwordRequest'])) { //|| (strpos($_REQUEST['username'], '@') < 1)) {
             return $this->passwordRequest($_REQUEST['passwordRequest']);   
         }
-        
-	if (!empty($_REQUEST['ResetPassword'])) {
-	    if (empty($_REQUEST['id']) || 
-		empty($_REQUEST['ts']) ||
-		empty($_REQUEST['key']) ||
-		empty($_REQUEST['password1']) ||
-		empty($_REQUEST['password2']) ||
-		($_REQUEST['password1'] != $_REQUEST['password2'])
-	    ) {
-		$this->jerr("Invalid request to reset password");
-	    }
-	    
-	    $this->resetPassword($_REQUEST['id'], $_REQUEST['ts'], $_REQUEST['key'], $_REQUEST['password1'] );
-	}
-	
-	
-	if (!empty($_REQUEST['_verifyCheckSum'])) {
-	    if (empty($_REQUEST['id']) || 
-		empty($_REQUEST['ts']) ||
-		empty($_REQUEST['key'])
-		 
-	    ) {
-		$this->jerr("Invalid request to reset password");
-	    }
-	    
-	    $this->verifyResetPassword($_REQUEST['id'], $_REQUEST['ts'], $_REQUEST['key']);
-	    $this->jok("Checksum is ok");
-	}
+			
+		if (!empty($_REQUEST['ResetPassword'])) {
+			if (empty($_REQUEST['id']) || 
+			empty($_REQUEST['ts']) ||
+			empty($_REQUEST['key']) ||
+			empty($_REQUEST['password1']) ||
+			empty($_REQUEST['password2']) ||
+			($_REQUEST['password1'] != $_REQUEST['password2'])
+			) {
+			$this->jerr("Invalid request to reset password");
+			}
+			
+			$this->resetPassword($_REQUEST['id'], $_REQUEST['ts'], $_REQUEST['key'], $_REQUEST['password1'] );
+		}
+		
+		
+		if (!empty($_REQUEST['_verifyCheckSum'])) {
+			if (empty($_REQUEST['id']) || 
+			empty($_REQUEST['ts']) ||
+			empty($_REQUEST['key'])
+			 
+			) {
+			$this->jerr("Invalid request to reset password");
+			}
+			
+			$this->verifyResetPassword($_REQUEST['id'], $_REQUEST['ts'], $_REQUEST['key']);
+			$this->jok("Checksum is ok");
+		}
 	
 	// this is 'classic' change password...
         if (!empty($_REQUEST['changePassword'])) {
@@ -416,9 +416,9 @@ class Pman_Login extends Pman
         if (!$cm->get('name', 'ADMIN_PASSWORD_RESET')) {
             $this->jerr("no template  Admin password reset (ADMIN_PASSWORD_RESET) exists - please run importer ");
         }
-	if (!$cm->active) {
-	    $this->jerr("template for Admin password reset has been disabled");
-	}
+		if (!$cm->active) {
+			$this->jerr("template for Admin password reset has been disabled");
+		}
         /*
         
         $g = DB_DAtaObject::factory('Groups');
@@ -454,15 +454,15 @@ class Pman_Login extends Pman
         $this->rcpts = $u->getEmailFrom();
         
 	
-	$mailer = $cm->toMailer($this, false);
-	if (is_a($mailer,'PEAR_Error') ) {
-	    $this->addEvent('SYSERR',false, $mailer->getMessage());
-	    $this->jerr($mailer->getMessage());
-	}
+		$mailer = $cm->toMailer($this, false);
+		if (is_a($mailer,'PEAR_Error') ) {
+			$this->addEvent('SYSERR',false, $mailer->getMessage());
+			$this->jerr($mailer->getMessage());
+		}
         $sent = $mailer->send();
-	if (is_a($sent,'PEAR_Error') ) {
-	    $this->addEvent('SYSERR',false, $sent->getMessage());
-            $this->jerr($sent->getMessage());
+		if (is_a($sent,'PEAR_Error') ) {
+			$this->addEvent('SYSERR',false, $sent->getMessage());
+			$this->jerr($sent->getMessage());
         }
 	
         $this->addEvent('PASSREQ',$u, $u->email);
@@ -493,7 +493,7 @@ class Pman_Login extends Pman
             $this->jerr("Password reset link is not valid (key)");
         }
 	
-	if ($t < strtotime("NOW - 1 DAY")) {
+		if ($t < strtotime("NOW - 1 DAY")) {
             $this->jerr("Password reset link has expired");
         }
 	return $u;
@@ -511,11 +511,11 @@ class Pman_Login extends Pman
 	
         $uu = clone($u);
         $u->no_reset_sent = 0;
-	if ($newpass != false) {
-	    $u->setPassword($newpass);
-	}
+		if ($newpass != false) {
+			$u->setPassword($newpass);
+		}
         $u->update($uu);
-	$this->addEvent("CHANGEPASS", $u);
+		$this->addEvent("CHANGEPASS", $u);
 
         $this->jok("Password has been Updated");
     }
@@ -525,14 +525,14 @@ class Pman_Login extends Pman
     {   
         $au = $this->getAuthUser();
         if (!$au) {
-	    $this->jerr("Password change attempted when not logged in");
-	}
-	$uu = clone($au);
-	$au->setPassword($r['passwd1']);
-	$au->update($uu);
-	$this->addEvent("CHANGEPASS", $au);
-	$this->jok($au);
-         
+			$this->jerr("Password change attempted when not logged in");
+		}
+		$uu = clone($au);
+		$au->setPassword($r['passwd1']);
+		$au->update($uu);
+		$this->addEvent("CHANGEPASS", $au);
+		$this->jok($au);
+			 
     }
     
     function ip_checking()

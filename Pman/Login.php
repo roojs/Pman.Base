@@ -376,8 +376,17 @@ class Pman_Login extends Pman
         $u->login();
         // we might need this later..
         $this->addEvent("LOGIN", false, session_id());
+		
+		
+		
         if (!empty($_REQUEST['lang'])) {
-            $u->lang($_REQUEST['lang']);
+			
+			if (!empty($ff->languages['avail']) && !in_array($_REQUEST['lang'],$ff->languages['avail'])) {
+				// ignore.	
+			} else {
+			
+				$u->lang($_REQUEST['lang']);
+			}
         }
          // log it..
 

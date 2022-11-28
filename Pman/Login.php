@@ -475,8 +475,8 @@ class Pman_Login extends Pman
     
     function verifyResetPassword($id,$t, $key)
     {
-	$au = $this->getAuthUser();
-	print_R($au);
+		$au = $this->getAuthUser();
+		//print_R($au);
         if ($au) {
             $this->jerr( "Already Logged in - no need to use Password Reset");
         }

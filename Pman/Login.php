@@ -96,7 +96,7 @@ class Pman_Login extends Pman
         //print_r($u);
         if ($u) {
             
-            $this->addEvent('LOGOUT');
+            $this->addEvent($this->event_prefix . 'LOGOUT');
             $e = DB_DataObject::factory('Events');
           
             
@@ -218,7 +218,7 @@ class Pman_Login extends Pman
         }
         $u->login();
             // we might need this later..
-        $this->addEvent("SWITCH-USER", false, $au->name . ' TO ' . $u->name);
+        $this->addEvent($this->event_prefix . "SWITCH-USER", false, $au->name . ' TO ' . $u->name);
         $this->jok("SWITCH");
         
     }
@@ -477,7 +477,7 @@ class Pman_Login extends Pman
 			$this->jerr($sent->getMessage());
         }
 	
-        $this->addEvent('PASSREQ',$u, $u->email);
+        $this->addEvent($this->event_prefix . 'PASSREQ',$u, $u->email);
         $uu = clone($u);
         $uu->no_reset_sent++;
         $uu->update($u);
@@ -527,7 +527,7 @@ class Pman_Login extends Pman
 			$u->setPassword($newpass);
 		}
         $u->update($uu);
-		$this->addEvent("CHANGEPASS", $u);
+		$this->addEvent($this->event_prefix . "CHANGEPASS", $u);
 
         $this->jok("Password has been Updated");
     }
@@ -542,7 +542,7 @@ class Pman_Login extends Pman
 		$uu = clone($au);
 		$au->setPassword($r['passwd1']);
 		$au->update($uu);
-		$this->addEvent("CHANGEPASS", $au);
+		$this->addEvent($this->event_prefix . "CHANGEPASS", $au);
 		$this->jok($au);
 			 
     }

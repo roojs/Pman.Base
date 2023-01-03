@@ -931,7 +931,7 @@ class Pman_Roo extends Pman
         }
 
         if ( $with_perm_check &&  !$this->checkPerm($x,'A', $req))  {
-            $this->jerr("PERMISSION DENIED (i)");
+            $this->jerr("PERMISSION DENIED {$x->tableName()}:checkPerm(A)");
         }
         $cols = $x->tableColumns();
      

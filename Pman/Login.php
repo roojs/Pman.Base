@@ -26,6 +26,9 @@ class Pman_Login extends Pman
     var $masterTemplate = 'login.html';
     
     var $ip_management = false;
+	
+	var $event_prefix = '';
+	
     
     function getAuth() // everyone allowed in here..
     {
@@ -309,11 +312,11 @@ class Pman_Login extends Pman
         if (!empty($ip)) {
             //DB_DataObject::DebugLevel(1);
             $e = DB_DataObject::Factory('Events');
-            $e->action = 'LOGIN-BAD';
+            $e->action = $this->event_prefix . 'LOGIN-BAD';
             $e->ipaddr = $ip;
             $e->whereAdd('event_when > NOW() - INTERVAL 10 MINUTE');
             if ($e->count() > 5) {
-                $this->jerror('LOGIN-RATE', "Login failures are rate limited - please try later");
+                $this->jerror($this->event_prefix . 'LOGIN-RATE', "Login failures are rate limited - please try later");
             }
         }
         
@@ -324,23 +327,23 @@ class Pman_Login extends Pman
         // empty username = not really a hacking attempt.
         
         if (empty($_REQUEST['username'])) { //|| (strpos($_REQUEST['username'], '@') < 1)) {
-            $this->jerror('LOGIN-EMPTY', 'You typed the wrong Username or Password (0)');
+            $this->jerror($this->event_prefix . 'LOGIN-EMPTY', 'You typed the wrong Username or Password (0)');
             exit;
         }
         
         $u->authUserName($_REQUEST['username']);
         
         if ($u->count() > 1 || !$u->find(true)) {
-            $this->jerror('LOGIN-BAD','You typed the wrong Username or Password  (1)');
+            $this->jerror($this->event_prefix . 'LOGIN-BAD','You typed the wrong Username or Password  (1)');
             exit;
         }
         
         if (!$u->active()) { 
-            $this->jerror('LOGIN-BAD','Account disabled');
+            $this->jerror($this->event_prefix . 'LOGIN-BAD','Account disabled');
         }
         
         if(!empty($u->oath_key) && empty($_REQUEST['oath_password'])){
-            $this->jerror('LOGIN-2FA','Your account requires Two-Factor Authentication');
+            $this->jerror($this->event_prefix . 'LOGIN-2FA','Your account requires Two-Factor Authentication');
         }
         
         // check if config allows non-owner passwords.
@@ -349,14 +352,14 @@ class Pman_Login extends Pman
         $ff= HTML_FlexyFramework::get();
         if (!empty($ff->Pman['auth_comptype']) && $ff->Pman['auth_comptype'] != $u->company()->comptype) {
             //print_r($u->company());
-            $this->jerror('LOGIN-BADUSER', "Login not permited to outside companies"); // serious failure
+            $this->jerror($this->event_prefix . 'LOGIN-BADUSER', "Login not permited to outside companies"); // serious failure
         }
         
         
         // note we trim \x10 -- line break - as it was injected the front end
         // may have an old bug on safari/chrome that added that character in certian wierd scenarios..
         if (!$u->checkPassword(trim($_REQUEST['password'],"\x10"))) {
-            $this->jerror('LOGIN-BAD', 'You typed the wrong Username or Password  (2)'); // - " . htmlspecialchars(print_r($_POST,true))."'");
+            $this->jerror($this->event_prefix . 'LOGIN-BAD', 'You typed the wrong Username or Password  (2)'); // - " . htmlspecialchars(print_r($_POST,true))."'");
             exit;
         }
         
@@ -367,7 +370,7 @@ class Pman_Login extends Pman
 		!$u->checkTwoFactorAuthentication($_REQUEST['oath_password'])
 	    )
         ) {
-            $this->jerror('LOGIN-BAD', 'You typed the wrong Username or Password  (3)');
+            $this->jerror($this->event_prefix . 'LOGIN-BAD', 'You typed the wrong Username or Password  (3)');
             exit;
         }
         
@@ -375,7 +378,7 @@ class Pman_Login extends Pman
         
         $u->login();
         // we might need this later..
-        $this->addEvent("LOGIN", false, session_id());
+        $this->addEvent($this->event_prefix . "LOGIN", false, session_id());
 		
 		
 		

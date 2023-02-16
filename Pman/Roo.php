@@ -273,6 +273,9 @@ class Pman_Roo extends Pman
         if (!isset($_REQUEST['_no_count'])) {
             $total = $xx->count($this->countWhat);
         }
+        if (isset($xx->_real_total)) { // this is used when we subquery the search.
+            $total = $xx->_real_total;
+        }
         // sorting..
       //   
         // var_dump($total);exit;

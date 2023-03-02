@@ -81,7 +81,7 @@ class Pman_Login extends Pman
         if (!empty($_REQUEST['loginPublic'])) {
             $this->switchPublicUser($_REQUEST['loginPublic']);
         }
-        if (!empty($_SERVER['HTTP_USER_AGENT']) && preg_match('/^check_http.', $_SERVER['HTTP_USER_AGENT'])) {
+        if (!empty($_SERVER['HTTP_USER_AGENT']) && preg_match('/^check_http/', $_SERVER['HTTP_USER_AGENT'])) {
 			die("server is alive");
 		}
         $this->jerr("INVALID REQUEST");

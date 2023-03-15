@@ -754,11 +754,11 @@ class Pman_Roo extends Pman
     {
         
         // Db_DataObject::debugLevel(1);
-        $sort = empty($_REQUEST['sort']) ? $sort : $_REQUEST['sort'];
-        $dir = empty($_REQUEST['dir']) ? $dir : $_REQUEST['dir'];
+        $sort = empty($_REQUEST['sort']) || !is_string($_REQUEST['sort']) ? $sort : $_REQUEST['sort'];
+        $dir = empty($_REQUEST['dir']) || !is_string($_REQUEST['dir']) ? $dir : $_REQUEST['dir'];
         $dir = $dir == 'ASC' ? 'ASC' : 'DESC';
          
-        $ms = empty($_REQUEST['_multisort']) ? false : $_REQUEST['_multisort'];
+        $ms = empty($_REQUEST['_multisort']) || !is_string($_REQUEST['_multisort']) ? false : $_REQUEST['_multisort'];
         //var_Dump($ms);exit;
         $sorted = false;
         if (method_exists($x, 'applySort')) {

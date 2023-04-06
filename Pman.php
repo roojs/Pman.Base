@@ -69,7 +69,11 @@ class Pman extends HTML_FlexyFramework_Page
     var $serverName = false;
     var $lang = false;
     var $allowSignup = false;
-    
+    var $_hasInit;
+    var $appNameShort;
+    var $appDisable;
+    var $uiConfig;
+     
     /**
      * ------------- Standard getAuth/get/post methods of framework.
      * 

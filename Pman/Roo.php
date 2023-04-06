@@ -56,6 +56,11 @@ class Pman_Roo extends Pman
     
     var $do = false; // the dataobject being worked on..
     
+    
+    var $countWhat; // set in loadMap
+    var $colsJname;
+    var $old;
+    
     function getAuth()
     {
         parent::getAuth(); // load company!

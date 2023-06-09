@@ -110,7 +110,8 @@ class Pman extends HTML_FlexyFramework_Page
         
         $this->appDisable = $boot->disable;
         $this->appDisabled = explode(',', $boot->disable);
-        $this->version = $boot->version; 
+        $this->version = $boot->version;
+        $this->appVersion = $boot->version; 
         $this->uiConfig = empty($boot->Pman['uiConfig']) ? false : $boot->Pman['uiConfig']; 
         
         if (!empty($boot->Pman['local_autoauth']) &&
@@ -738,6 +739,13 @@ class Pman extends HTML_FlexyFramework_Page
         
         $mods = $this->modulesList();
         
+        // this puts the 'main one' at the end.
+        // as in theory we can override the stuff in the main project?
+        $core = array_shift($mods);
+        $fm = array_shift($mods);
+        array_unshift($mods,$core);
+        $mods[] = $fm;
+       // print_R($mods);exit;
         $is_bootstrap = in_array('BAdmin', $mods);
         
         foreach($mods as $mod) {
@@ -1057,7 +1065,7 @@ class Pman extends HTML_FlexyFramework_Page
     
     function onException($ex)
     {
-         static $reported = false;
+        static $reported = false;
         if ($reported) {
             return;
         }
@@ -1143,6 +1151,12 @@ class Pman extends HTML_FlexyFramework_Page
     {
         
         if (!empty(HTML_FlexyFramework::get()->Pman['disable_events'])) {
+            $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';
+            $de = ini_set('display_errors', 0);
+            trigger_error("$act {$str}{$remarks}" , E_USER_NOTICE);
+            ini_set('display_errors', $de );
+            
+            
             return;
         }
         $au = $this->getAuthUser();

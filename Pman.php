@@ -741,6 +741,8 @@ class Pman extends HTML_FlexyFramework_Page
         
         // this puts the 'main one' at the end.
         // as in theory we can override the stuff in the main project?
+        
+         
         $core = array_shift($mods);
         $fm = array_shift($mods);
         array_unshift($mods,$core);
@@ -753,7 +755,7 @@ class Pman extends HTML_FlexyFramework_Page
             
             if ($is_bootstrap) {
                 if (!file_exists($this->rootDir."/Pman/$mod/is_bootstrap")) {
-                    echo '<!-- missing '. $this->rootDir."/Pman/$mod/is_bootstrap  - skipping -->";
+                    echo '<!-- missing '. $this->rootDir."/Pman/$mod/is_bootstrap  - skipping -->\n";
                     continue;
                 }
                 

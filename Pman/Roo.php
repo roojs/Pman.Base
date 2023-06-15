@@ -181,13 +181,9 @@ class Pman_Roo extends Pman
         $this->init(); // from pman.
         //DB_DataObject::debuglevel(1);
         HTML_FlexyFramework::get()->generateDataobjectsCache($this->isDev && !empty($_REQUEST['isDev']));
-        
-   
-        
+         
         // debugging...
-        
-        
-        
+         
         if ( $this->checkDebugPost()) {
                     
             
@@ -204,7 +200,8 @@ class Pman_Roo extends Pman
         $tab = array_shift($tt);
         $x = $this->dataObject($tab);
         
-        $_columns = !empty($_REQUEST['_columns']) && is_string(['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
+        $_columns = !empty($_REQUEST['_columns']) && is_string($_REQUEST['_columns']) ? explode(',', $_REQUEST['_columns']) : false;
+         
         
         if (isset( $_REQUEST['lookup'] ) && is_array($_REQUEST['lookup'] )) { // single fetch based on key/value pairs
              $this->selectSingle($x, $_REQUEST['lookup'],$_REQUEST);
@@ -1335,8 +1332,7 @@ class Pman_Roo extends Pman
     
     function loadMap($do, $cfg =array()) //$onlycolumns=false, $distinct = false) 
     {
-       
-        //DB_DataObject::debugLevel(5);
+         //DB_DataObject::debugLevel(5);
         $onlycolumns    = !empty($cfg['columns']) ? $cfg['columns'] : false;
         $distinct       = !empty($cfg['distinct']) ? $cfg['distinct'] : false;
         $excludecolumns = !empty($cfg['exclude']) ? $cfg['exclude'] : array();

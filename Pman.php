@@ -505,9 +505,9 @@ class Pman extends HTML_FlexyFramework_Page
         if ($cli) {
             echo "ERROR: " .$str . "\n"; // print the error first, as DB might fail..
         }
-        $pman = HTML_FlexyFramework::get()->Pman;
+        $pman = HTML_FlexyFramework::get();
         
-        if ($type !== false && empty($pman['nodatabase'])) {
+        if ($type !== false && empty($pman->nodatabase)) {
             
             if(!empty($errors)){
                 DB_DataObject::factory('Events')->writeEventLogExtra($errors);

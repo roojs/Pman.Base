@@ -1146,7 +1146,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
         
         if (!empty(HTML_FlexyFramework::get()->Pman['disable_events'])
-        //  || !empty(HTML_FlexyFramework::get()->database_is_readonly)
+         || !empty(HTML_FlexyFramework::get()->database_is_readonly)
         ) {
             $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';
             $de = ini_set('display_errors', 0);

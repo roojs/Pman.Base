@@ -516,6 +516,9 @@ class Pman extends HTML_FlexyFramework_Page
             if(!empty($errors)){
                 DB_DataObject::factory('Events')->writeEventLogExtra($errors);
             }
+            if (!preg_match('/^(ERROR|NOTICE)/', $type )) {
+                $type = 'ERROR-' . $type;
+            }
             
             $this->addEvent($type, false, $str);
             
@@ -1181,12 +1184,14 @@ class Pman extends HTML_FlexyFramework_Page
         
         
         $e->onInsert(isset($_REQUEST) ? $_REQUEST : array() , $this);
-        
+        if (substr($act, 0, 5) !== 'ERROR') {
+            return $e;
+        }
         $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';
         $de = ini_set('display_errors', 0);
         trigger_error("{$act} [event_id={$e->id}] {$str} {$remarks}" , E_USER_NOTICE);
         ini_set('display_errors', $de );
-     
+        
         return $e;
         
     }

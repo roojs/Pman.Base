@@ -216,7 +216,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         
         if (strlen($base) && $bits[0] != 'PasswordReset') {
-            $this->jerror("BADURL","invalid url: $base");
+            $this->jerror("NOTICE-BADURL","invalid url: $base");
         }
         // deliver template
         if (isset($_GET['onloadTrack'])) {

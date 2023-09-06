@@ -1145,7 +1145,9 @@ class Pman extends HTML_FlexyFramework_Page
     function addEvent($act, $obj = false, $remarks = '') 
     {
         
-        if (!empty(HTML_FlexyFramework::get()->Pman['disable_events'])) {
+        if (!empty(HTML_FlexyFramework::get()->Pman['disable_events'])
+         || !empty(HTML_FlexyFramework::get()->database_is_readonly)
+        ) {
             $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';
             $de = ini_set('display_errors', 0);
             trigger_error("$act {$str}{$remarks}" , E_USER_NOTICE);

@@ -516,7 +516,9 @@ class Pman extends HTML_FlexyFramework_Page
             if(!empty($errors)){
                 DB_DataObject::factory('Events')->writeEventLogExtra($errors);
             }
-            if (!preg_match('/^(ERROR|NOTICE)/', $type )) {
+            // various codes that are acceptable.
+            // 
+            if (!preg_match('/^(ERROR|NOTICE|LOG)/', $type )) {
                 $type = 'ERROR-' . $type;
             }
             

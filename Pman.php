@@ -1161,12 +1161,14 @@ class Pman extends HTML_FlexyFramework_Page
          || !empty($ff->database_is_readonly)
          || substr($act, 0, 7) === 'NOTICE-'
         ) {
+             if (substr($act, 0, 5) !== 'ERROR') {
+               return false;
+            }
             $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';
             $de = ini_set('display_errors', 0);
             trigger_error("{$act} {$str} {$remarks}" , E_USER_NOTICE);
             ini_set('display_errors', $de );
-        
-              return false;
+            return false;
         }
         
         $au = $this->getAuthUser();

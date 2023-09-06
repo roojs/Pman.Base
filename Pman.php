@@ -507,7 +507,11 @@ class Pman extends HTML_FlexyFramework_Page
         }
         $pman = HTML_FlexyFramework::get();
         
-        if ($type !== false && empty($pman->nodatabase)) {
+       
+        
+
+        
+        if ($type !== false  &&  empty($pman->nodatabase)) {
             
             if(!empty($errors)){
                 DB_DataObject::factory('Events')->writeEventLogExtra($errors);
@@ -1145,17 +1149,21 @@ class Pman extends HTML_FlexyFramework_Page
     function addEvent($act, $obj = false, $remarks = '') 
     {
         
-        if (!empty(HTML_FlexyFramework::get()->Pman['disable_events'])
-         || !empty(HTML_FlexyFramework::get()->database_is_readonly)
+        $ff = HTML_FlexyFramework::get();
+        
+      
+        if (!empty($ff->Pman['disable_events'])
+         || !empty($ff->database_is_readonly)
+         || substr($act, 0, 7) === 'NOTICE-'
         ) {
             $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';
             $de = ini_set('display_errors', 0);
-            trigger_error("$act {$str}{$remarks}" , E_USER_NOTICE);
+            trigger_error("{$act} {$str} {$remarks}" , E_USER_NOTICE);
             ini_set('display_errors', $de );
-            
-            
-            return;
+        
+              return false;
         }
+        
         $au = $this->getAuthUser();
        
         $e = DB_DataObject::factory('Events');
@@ -1174,7 +1182,11 @@ class Pman extends HTML_FlexyFramework_Page
         
         $e->onInsert(isset($_REQUEST) ? $_REQUEST : array() , $this);
         
-       
+        $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';
+        $de = ini_set('display_errors', 0);
+        trigger_error("{$act} [event_id={$e->id}] {$str} {$remarks}" , E_USER_NOTICE);
+        ini_set('display_errors', $de );
+     
         return $e;
         
     }

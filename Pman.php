@@ -464,9 +464,9 @@ class Pman extends HTML_FlexyFramework_Page
         $au = $this->authUser;
         if ($au) {
             // is it an authfailure?
-            $this->jerr("Permission denied to view this resource", array('authFailure' => true));
+            $this->jerror("LOGIN-NOPERM", "Permission denied to view this resource", array('authFailure' => true));
         }
-        $this->jerr("Not authenticated", array('authFailure' => true));
+        $this->jerror("LOGIN-NOAUTH", "Not authenticated", array('authFailure' => true));
     }
      
      

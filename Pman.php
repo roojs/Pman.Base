@@ -1161,7 +1161,7 @@ class Pman extends HTML_FlexyFramework_Page
          || !empty($ff->database_is_readonly)
          || substr($act, 0, 7) === 'NOTICE-'
         ) {
-             if (substr($act, 0, 5) !== 'ERROR') {
+            if (!preg_match('/^(ERROR|EXCEPTION)/', $act)) {
                return false;
             }
             $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';
@@ -1188,7 +1188,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         
         $e->onInsert(isset($_REQUEST) ? $_REQUEST : array() , $this);
-        if (substr($act, 0, 5) !== 'ERROR') {
+        if (!preg_match('/^(ERROR|EXCEPTION)/', $act)) {
             return $e;
         }
         $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';

@@ -1204,7 +1204,7 @@ class Pman_Roo extends Pman
         
         $x->whereAdd($this->key .'  IN ('. implode(',', $bits) .')');
         if (!$x->find()) {
-            $this->jerr("Nothing found to delete");
+            $this->jerror("NOTICE-DELETE","Nothing found to delete");
         }
         $errs = array();
         while ($x->fetch()) {

@@ -929,7 +929,7 @@ class Pman_Roo extends Pman
          if (method_exists($x, 'setFromRoo')) {
             $res = $x->setFromRoo($req, $this);
             if (is_string($res)) {
-                $this->jerr($res);
+                $this->jerror("NOTICE-INSERT", $res);
             }
         } else {
             $x->setFrom($req);

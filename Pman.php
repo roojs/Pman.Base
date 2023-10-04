@@ -1101,6 +1101,11 @@ class Pman extends HTML_FlexyFramework_Page
         //convert the huge backtrace into something that is readable..
         $out .= "\n" . implode("\n",  $ret);
         
+        
+        $de = ini_set('display_errors', 0);
+        trigger_error($out , E_USER_NOTICE); // note this should enable backtracing the real erorr?
+        ini_set('display_errors', $de );
+        
         $this->addEvent("EXCEPTION", false, $out);
         
         if ($this->showErrorToUser) {

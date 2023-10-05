@@ -1081,7 +1081,10 @@ class Pman extends HTML_FlexyFramework_Page
         
         $reported = true;
         
-        $out = is_a($ex,'Exception') || is_a($ex, 'Error') ? $ex->getMessage() : $ex->toString();
+        $out = (is_a($ex,'Exception') || is_a($ex, 'Error') ? $ex->getMessage() : $ex->toString()) .
+            ' ' . $_SERVER['REQUEST_METHOD'] . ' ' .
+            (empty($_SERVER['REQUEST_URI'])	 ? 'No URL' : $_SERVER['REQUEST_URI']) .
+              ' ' .    (empty($POST) ? '' : file_get_contents('php://input')) ;
         
         
         //print_R($bt); exit;
@@ -1101,11 +1104,7 @@ class Pman extends HTML_FlexyFramework_Page
         //convert the huge backtrace into something that is readable..
         $out .= "\n" . implode("\n",  $ret);
         
-        
-        $de = ini_set('display_errors', 0);
-        trigger_error($out , E_USER_NOTICE); // note this should enable backtracing the real erorr?
-        ini_set('display_errors', $de );
-        
+           
         $this->addEvent("EXCEPTION", false, $out);
         
         if ($this->showErrorToUser) {

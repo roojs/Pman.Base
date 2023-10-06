@@ -613,7 +613,7 @@ class Pman_Login extends Pman
         }
         
         if($core_ip_access->status == -2 && strtotime($core_ip_access->expire_dt) < strtotime('NOW')){
-            $this->jerrpr('BLOCKED-IP-ADDRESS', "Your IP is blocked", array('ip' => $ip));
+            $this->jerror('BLOCKED-IP-ADDRESS', "Your IP is blocked", array('ip' => $ip));
             return;
         }
         

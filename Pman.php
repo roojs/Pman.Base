@@ -595,6 +595,10 @@ class Pman extends HTML_FlexyFramework_Page
         exit;
         
     }
+    function jnotice($type, $str, $errors=array(), $content_type = false)
+    {
+        return $this->jerror('NOTICE-' . $type, $str, $errors, $content_type);
+    }
     function jok($str)
     {
         if ($this->transObj ) {

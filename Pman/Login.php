@@ -29,6 +29,13 @@ class Pman_Login extends Pman
 	
 	var $event_suffix = '';
 	
+	// for forgot password email	
+	var $authFrom;
+	var $authKey;
+	var $person;
+	var $bcc;
+	var $rcpts;
+
     
     function getAuth() // everyone allowed in here..
     {

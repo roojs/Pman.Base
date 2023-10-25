@@ -29,6 +29,13 @@ class Pman_Login extends Pman
 	
 	var $event_suffix = '';
 	
+	// for forgot password email	
+	var $authFrom;
+	var $authKey;
+	var $person;
+	var $bcc;
+	var $rcpts;
+
     
     function getAuth() // everyone allowed in here..
     {
@@ -82,9 +89,9 @@ class Pman_Login extends Pman
             $this->switchPublicUser($_REQUEST['loginPublic']);
         }
         if (!empty($_SERVER['HTTP_USER_AGENT']) && preg_match('/^check_http/', $_SERVER['HTTP_USER_AGENT'])) {
-			die("server is alive = authFailure");
+			die("server is alive = authFailure"); // should really use heartbeat now..
 		}
-        $this->jerr("INVALID REQUEST");
+        $this->jerror("NOTICE-INVALID", "INVALID REQUEST");
         exit;
     }
     
@@ -613,7 +620,7 @@ class Pman_Login extends Pman
         }
         
         if($core_ip_access->status == -2 && strtotime($core_ip_access->expire_dt) < strtotime('NOW')){
-            $this->jerrpr('BLOCKED-IP-ADDRESS', "Your IP is blocked", array('ip' => $ip));
+            $this->jerror('BLOCKED-IP-ADDRESS', "Your IP is blocked", array('ip' => $ip));
             return;
         }
         

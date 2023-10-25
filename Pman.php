@@ -464,9 +464,9 @@ class Pman extends HTML_FlexyFramework_Page
         $au = $this->authUser;
         if ($au) {
             // is it an authfailure?
-            $this->jerr("Permission denied to view this resource", array('authFailure' => true));
+            $this->jerror("LOGIN-NOPERM", "Permission denied to view this resource", array('authFailure' => true));
         }
-        $this->jerr("Not authenticated", array('authFailure' => true));
+        $this->jerror("LOGIN-NOAUTH", "Not authenticated", array('authFailure' => true));
     }
      
      
@@ -1085,7 +1085,10 @@ class Pman extends HTML_FlexyFramework_Page
         
         $reported = true;
         
-        $out = is_a($ex,'Exception') || is_a($ex, 'Error') ? $ex->getMessage() : $ex->toString();
+        $out = (is_a($ex,'Exception') || is_a($ex, 'Error') ? $ex->getMessage() : $ex->toString()) .
+            ' ' . $_SERVER['REQUEST_METHOD'] . ' ' .
+            (empty($_SERVER['REQUEST_URI'])	 ? 'No URL' : $_SERVER['REQUEST_URI']) .
+              ' ' .    (empty($POST) ? '' : file_get_contents('php://input')) ;
         
         
         //print_R($bt); exit;
@@ -1105,6 +1108,7 @@ class Pman extends HTML_FlexyFramework_Page
         //convert the huge backtrace into something that is readable..
         $out .= "\n" . implode("\n",  $ret);
         
+           
         $this->addEvent("EXCEPTION", false, $out);
         
         if ($this->showErrorToUser) {
@@ -1165,7 +1169,7 @@ class Pman extends HTML_FlexyFramework_Page
          || !empty($ff->database_is_readonly)
          || substr($act, 0, 7) === 'NOTICE-'
         ) {
-             if (substr($act, 0, 5) !== 'ERROR') {
+            if (!preg_match('/^(ERROR|EXCEPTION)/', $act)) {
                return false;
             }
             $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';
@@ -1192,7 +1196,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         
         $e->onInsert(isset($_REQUEST) ? $_REQUEST : array() , $this);
-        if (substr($act, 0, 5) !== 'ERROR') {
+        if (!preg_match('/^(ERROR|EXCEPTION)/', $act)) {
             return $e;
         }
         $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';

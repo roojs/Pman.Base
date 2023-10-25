@@ -67,10 +67,10 @@ class Pman_Roo extends Pman
         $au = $this->getAuthUser();
        
         if (!$au) {  
-            $this->jerr("Not authenticated", array('authFailure' => true));
+            $this->jerror("LOGIN-NOAUTH", "Not authenticated", array('authFailure' => true));
         }
         if (!$au->pid()   ) { // not set up yet..
-            $this->jerr("Not authenticated", array('authFailure' => true));
+            $this->jerror("LOGIN-NOAUTH", "Not authenticated", array('authFailure' => true));
         }
         
         
@@ -255,7 +255,7 @@ class Pman_Roo extends Pman
         $this->setFilters($x,$_REQUEST);
         
         if (!$this->checkPerm($x,'S', $_REQUEST))  {
-            $this->jerr("PERMISSION DENIED (g)");
+            $this->jerror("NOTICE-NOPERM", "PERMISSION DENIED (g)");
         }
         
          //print_r($x);
@@ -929,7 +929,7 @@ class Pman_Roo extends Pman
          if (method_exists($x, 'setFromRoo')) {
             $res = $x->setFromRoo($req, $this);
             if (is_string($res)) {
-                $this->jerr($res);
+                $this->jerror("NOTICE-INSERT", $res);
             }
         } else {
             $x->setFrom($req);
@@ -1204,7 +1204,7 @@ class Pman_Roo extends Pman
         
         $x->whereAdd($this->key .'  IN ('. implode(',', $bits) .')');
         if (!$x->find()) {
-            $this->jerr("Nothing found to delete");
+            $this->jerror("NOTICE-DELETE","Nothing found to delete");
         }
         $errs = array();
         while ($x->fetch()) {
@@ -1283,7 +1283,7 @@ class Pman_Roo extends Pman
                 if (method_exists($chk, 'toEventString')) {
                     $desc .=  ' : ' . $o[0]->toEventString();
                 }
-                $this->jerr("Delete Dependant records ($match_total  found),  " .
+                $this->jerror("NOTICE-DELETE-DEP", "Delete Dependant records ($match_total  found),  " .
                              "first is ( $desc )");
           
             }

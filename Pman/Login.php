@@ -457,12 +457,12 @@ class Pman_Login extends Pman
         
         // bcc..
         $g = DB_DAtaObject::factory('core_group');
-        if (!$g->get('name', 'bcc-email')) {
-            $this->jerr("no group 'bcc-email' exists in the system");
+        if (!$cm->bcc_group_id || !$g->get($cm->bcc_group_id)) {
+            $this->jerr("BCC for ADMIN_PASSWORD_RESET email has not been set");
         }
         $bcc = $g->members('email');
         if (!count($bcc)) {
-            $this->jerr( "'bcc-email' group  does not have any members");
+            $this->jerr( "'BCC group for ADMIN_PASSWORD_RESET  does not have any members");
         }
         
         

@@ -49,8 +49,7 @@ class Pman_Roo extends Pman
         Pman_Core_RooPostTrait,
         Pman_Core_RooJsonOutputTrait;
     */
-    use Pman_Core_RooJsonOutputTrait;
-    /**
+     /**
      * if set to an array (when extending this, then you can restrict which tables are available
      */
     var $validTables = false; 

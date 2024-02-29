@@ -34,6 +34,8 @@
      
  
 require_once 'Pman/Core/AssetTrait.php';
+require_once 'Pman/Core/JsonOutputTrait.php';
+
 
 class Pman extends HTML_FlexyFramework_Page 
 {

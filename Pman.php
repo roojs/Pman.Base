@@ -557,8 +557,7 @@ class Pman extends HTML_FlexyFramework_Page
     {
         $cd = DB_DataObject::Factory('core_enum');
         $cd->query("show processlist");
-        $cd->find();
-        $locked = 0;
+         $locked = 0;
         while ($cd->fetch()) {
             if ($cd->State == 'Waiting for table metadata lock') {
                 $locked++;

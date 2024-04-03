@@ -548,9 +548,27 @@ class Pman extends HTML_FlexyFramework_Page
         
     }
     
+    /**
+     * while doing batch processes, the database sometimes get's locked up.
+     * if we are doing another batch process that can be avoided - we should just stop for a while..
+     */
     
-    
-    
+     function database_is_locked()
+    {
+        $cd = DB_DataObject::Factory('core_enum');
+        $cd->query("show processlist");
+        $cd->find();
+        $locked = 0;
+        while ($cd->fetch()) {
+            if ($cd->State == 'Waiting for table metadata lock') {
+                $locked++;
+            }
+            if ($locked>  10) {
+                return true;
+            }
+        }
+        return false;
+    }
     
     
     

@@ -987,6 +987,13 @@ class Pman_Roo extends Pman
             $this->jerr($x->_lastError->toString());
         }
         $ev = $this->addEvent("ADD", $x);
+        
+        if (isset($cols['updated_id'])) {
+            $old = clone($x);
+            $x->updated_id = $ev->id;
+            $x->update($old);
+        }
+        
         if (method_exists($x, 'onInsert')) {
                     
             $x->onInsert($_REQUEST, $this, $ev);
@@ -1000,6 +1007,7 @@ class Pman_Roo extends Pman
         if (!empty($_FILES) && method_exists($x, 'onUpload')) {
             $x->onUpload($this, $_REQUEST);
         }
+        
         
         return $this->selectSingle(
             DB_DataObject::factory($x->tableName()),
@@ -1151,14 +1159,19 @@ class Pman_Roo extends Pman
             $this->jerr($x->_lastError->toString());
         }
         $ev = $this->addEvent("EDIT", $x);
-
+        
+        if (isset($cols['updated_id'])) {
+            $old = clone($x);
+            $x->updated_id = $ev->id;
+            $x->update($old);
+        }
         if (method_exists($x, 'onUpdate')) {
             $x->onUpdate($old, $req, $this, $ev);
         }
         if ($ev) { 
             $ev->audit($x, $old);
         }
-        
+       
         
         return $this->selectSingle(
             DB_DataObject::factory($x->tableName()),

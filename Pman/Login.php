@@ -55,6 +55,7 @@ class Pman_Login extends Pman
      */
     function get($v, $opts=array()) 
     {
+        die('test');
         $this->initErrorHandling();
         
          // DB_DataObject::DebugLevel(5);

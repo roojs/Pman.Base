@@ -197,8 +197,8 @@ class Pman_Login extends Pman
         
                  
 //        
-       echo '<PRE>';print_r($aur);
-       exit;
+    //    echo '<PRE>';print_r($aur);
+    //    exit;
         $this->jok($aur);
         exit;
         

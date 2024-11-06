@@ -935,17 +935,18 @@ class Pman extends HTML_FlexyFramework_Page
         if (method_exists($wa,'notifyEvent')) {
             $wa->notifyEvent($e); // trigger any actions..
         }
-        
-        
+         
         $e->onInsert(isset($_REQUEST) ? $_REQUEST : array() , $this);
         if (!preg_match('/^(ERROR|EXCEPTION)/', $act)) {
             return $e;
         }
         $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';
         $de = ini_set('display_errors', 0);
+        ob_start();
         trigger_error("{$act} [event_id={$e->id}] {$str} {$remarks}" , E_USER_NOTICE);
+        ob_end_clean();
         ini_set('display_errors', $de );
-        
+         
         return $e;
         
     }

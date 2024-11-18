@@ -14,7 +14,7 @@ require_once 'Pman.php';
  * - applySort($au, $sortcol, $direction, $array_of_columns, $multisort) -- does not support multisort at present..
  * - applyFilters($_REQUEST, $authUser, $roo) -- apply any query filters on data. and hide stuff not to be seen. (RETURN false to prevent default filters.)
  * - postListExtra($_REQUEST, $roo, $array_data) : array(extra_name => data) - add extra column data on the results (like new messages etc.)
- * - postListFilter($data, $authUser, $request) return $data - add extra data to an object
+ * - postListFilter($data, $authUser, $request, $roo) return $data - add extra data to an object
  * 
  * - toRooSingleArray($authUser, $request) // single fetch, add data..
  * - toRooArray($request) /// toArray if you need to return different data.. for a list fetch.
@@ -157,7 +157,7 @@ class Pman_Roo extends Pman
      *                     -- can exit by calling $roo->jerr()
      *   postListExtra($_REQUEST, $roo, $array_data) : array(extra_name => data)
      *                     - add extra column to the jdata return key/value info.
-     *   postListFilter($data, $authUser, $request) return $data
+     *   postListFilter($data, $authUser, $request, $roo) return $data
      *                      - modify the returned array of data (either add stuff to the data, or remove lines etc)
      * 
      *   

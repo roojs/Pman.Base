@@ -761,6 +761,7 @@ class Pman_Roo extends Pman
      */
     function applySort($x, $sort = '', $dir ='')
     {
+        
         // Db_DataObject::debugLevel(1);
         $sort = empty($_REQUEST['sort']) || !is_string($_REQUEST['sort']) ? $sort : $_REQUEST['sort'];
         $dir = empty($_REQUEST['dir']) || !is_string($_REQUEST['dir']) ? $dir : $_REQUEST['dir'];
@@ -792,18 +793,14 @@ class Pman_Roo extends Pman
             }
             $sort_ar = explode(',', $sort);
             $sort_str = array();
+          
             foreach($sort_ar as $sort) {
-                 
+                
                 if (strlen($sort) && isset($cols[$sort]) ) {
                     $sort_str[] =  $x->tableName() .'.'.$sort . ' ' . $dir ;
                     
                 } else if (in_array($sort, $excols)) {
-                    if (isset($this->colsJname[$sort])) {
-                        // use the original name in the stort string
-                        $sort_str[] = $this->colsJname[$sort]. ' ' . $dir ;
-                    } else {
-                       $sort_str[] = $sort . ' ' . $dir ;
-                    }
+                    $sort_str[] = $sort . ' ' . $dir ;
                 }
             }
              

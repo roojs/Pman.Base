@@ -16,7 +16,7 @@ require_once 'Pman.php';
  * - postListExtra($_REQUEST, $roo, $array_data) : array(extra_name => data) - add extra column data on the results (like new messages etc.)
  * - postListFilter($data, $authUser, $request, $roo) return $data - add extra data to an object
  * 
- * - toRooSingleArray($authUser, $request) // single fetch, add data..
+ * - toRooSingleArray($authUser, $request, $roo) // single fetch, add data..
  * - toRooArray($request) /// toArray if you need to return different data.. for a list fetch.
  *
  * 
@@ -876,10 +876,10 @@ class Pman_Roo extends Pman
             
             
             if (method_exists($x, 'toRooSingleArray')) {
-                $this->jok($x->toRooSingleArray($this->authUser, $req));
+                $this->jok($x->toRooSingleArray($this->authUser, $req, $this)); // BC?
             }
             if (method_exists($x, 'toRooArray')) {
-                $this->jok($x->toRooArray($req));
+                $this->jok($x->toRooArray($req, $au, $this));
             }
             
             $this->jok($x->toArray());
@@ -921,7 +921,7 @@ class Pman_Roo extends Pman
         }
         // different symantics on all these calls??
         if (method_exists($x, 'toRooSingleArray')) {
-            $this->jok($x->toRooSingleArray($this->authUser, $req));
+            $this->jok($x->toRooSingleArray($this->authUser, $req,  $this));
         }
         if (method_exists($x, 'toRooArray')) {
             $this->jok($x->toRooArray($req));

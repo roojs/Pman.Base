@@ -150,7 +150,7 @@ class Pman_Login extends Pman
             }
         } 
         
-        if (!$u->isAuth()) {
+        if ($u->isAuth()) {
             $this->jok(array(
                 'id' => 0
             ));

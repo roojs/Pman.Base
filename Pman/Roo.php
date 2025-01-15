@@ -161,7 +161,7 @@ class Pman_Roo extends Pman
      *                      - modify the returned array of data (either add stuff to the data, or remove lines etc)
      * 
      *   
-     *   toRooSingleArray($authUser, $request) : array
+     *   toRooSingleArray($authUser, $request, $roo) : array
      *                       - called on single fetch only, add or maniuplate returned array data.
      *                       - is also called when _id=0 is used (for fetching a default set.)
      *   toRooArray($request) : array
@@ -628,7 +628,7 @@ class Pman_Roo extends Pman
      *                      - can we list the stuff
      *                      - return false to disallow...
    
-     *   toRooSingleArray($authUser, $request) : array
+     *   toRooSingleArray($authUser, $request, $roo) : array
      *                       - called on single fetch only, add or maniuplate returned array data.
      *   toRooArray($request) : array
      *                      - Called if toSingleArray does not exist.

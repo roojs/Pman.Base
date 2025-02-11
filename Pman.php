@@ -286,7 +286,8 @@ class Pman extends HTML_FlexyFramework_Page
     }
     
     
-    static function staticGetAuthUser($t) {
+    static function staticGetAuthUser($t)
+    {
         if (!empty($t->authUser)) {
             return $t->authUser;
         }

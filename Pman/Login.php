@@ -236,6 +236,12 @@ class Pman_Login extends Pman
     {
         $tbl = empty($ff->Pman['authTable']) ? 'core_person' : $ff->Pman['authTable'];
         
+		$u = DB_DataObject::factory($tbl);
+        if (!$u->isAuth()) {
+            $this->err("not logged in");
+        }
+        
+		
         $u = DB_DataObject::factory($tbl);
         $u->get($id);
         
@@ -359,7 +365,8 @@ class Pman_Login extends Pman
         // auth_company = "OWNER" // auth_company = "CLIENT" or blank for all?
         // perhaps it should support arrays..
         $ff= HTML_FlexyFramework::get();
-        if (!empty($ff->Pman['auth_comptype']) && $ff->Pman['auth_comptype'] != $u->company()->comptype) {
+		$ct = isset($ff->Pman['auth_comptype']) ? $ff->Pman['auth_comptype'] : 'OWNER';
+        if ($ct != $u->company()->comptype) {
             //print_r($u->company());
             $this->jerror('LOGIN-BADUSER'. $this->event_suffix, "Login not permited to outside companies"); // serious failure
         }

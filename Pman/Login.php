@@ -5,6 +5,8 @@ require_once 'Pman.php';
 class Pman_Login extends Pman {
 
 
+    // DONT USE THIS - it's all in pman/core/auth now.
+
     function get($base, $o= array())
     {
         require_once 'Pman/Core/Auth/State.php';

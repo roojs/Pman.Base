@@ -104,10 +104,10 @@ class Pman extends HTML_FlexyFramework_Page
         $au = $this->getAuthUser();
        
         if (!$au) {  
-            $this->jerror("LOGIN-NOAUTH", "Not authenticated", array('authFailure' => true));
+            $this->jnotice("LOGIN-NOAUTH", "Not authenticated", array('authFailure' => true));
         }
         if (!$au->pid()   ) { // not set up yet..
-            $this->jerror("LOGIN-NOAUTH", "Not authenticated", array('authFailure' => true));
+            $this->jnotice("LOGIN-NOAUTH", "Not authenticated", array('authFailure' => true));
         }
         
         

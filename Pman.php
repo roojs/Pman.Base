@@ -51,6 +51,7 @@ class Pman extends HTML_FlexyFramework_Page
         // jok()
         // jdata()
         // jdataCache()
+        // syslog()
     
     var $isDev = false;
     var $appName= "";
@@ -931,9 +932,8 @@ class Pman extends HTML_FlexyFramework_Page
                return false;
             }
             $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';
-            $de = ini_set('display_errors', 0);
-            trigger_error("{$act} {$str} {$remarks}" , E_USER_NOTICE);
-            ini_set('display_errors', $de );
+            $this->errorlog("{$act} {$str} {$remarks}");
+            
             return false;
         }
         
@@ -957,11 +957,11 @@ class Pman extends HTML_FlexyFramework_Page
             return $e;
         }
         $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';
-        $de = ini_set('display_errors', 0);
+        
         ob_start();
-        trigger_error("{$act} [event_id={$e->id}] {$str} {$remarks}" , E_USER_NOTICE);
+        $this->syslog("{$act} [event_id={$e->id}] {$str} {$remarks}");
         ob_end_clean();
-        ini_set('display_errors', $de );
+        
          
         return $e;
         

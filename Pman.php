@@ -958,10 +958,8 @@ class Pman extends HTML_FlexyFramework_Page
         }
         $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';
         
-        ob_start();
         $this->errorlog("{$act} [event_id={$e->id}] {$str} {$remarks}");
-        ob_end_clean();
-        
+                
          
         return $e;
         

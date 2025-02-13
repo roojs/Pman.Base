@@ -51,7 +51,7 @@ class Pman extends HTML_FlexyFramework_Page
         // jok()
         // jdata()
         // jdataCache()
-        // syslog()
+        // errorlog()
     
     var $isDev = false;
     var $appName= "";
@@ -959,7 +959,7 @@ class Pman extends HTML_FlexyFramework_Page
         $str = $obj !== false ? "{$obj->tableName()}:{$obj->id} " : '';
         
         ob_start();
-        $this->syslog("{$act} [event_id={$e->id}] {$str} {$remarks}");
+        $this->errorlog("{$act} [event_id={$e->id}] {$str} {$remarks}");
         ob_end_clean();
         
          

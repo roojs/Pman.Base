@@ -947,34 +947,26 @@ class Pman_Roo extends Pman
         }
         $cols = $x->tableColumns();
      
-        if (isset($cols['created'])) {
-            $x->created = date('Y-m-d H:i:s');
+        foreach(array(
+            'created',
+            'created_dt',
+            'modified',
+            'modified_dt',
+            'updated',
+            'updated_dt'
+        ) as $k) {
+            if (isset($cols[$k])) {
+               $x->{$k}= date('Y-m-d H:i:s');
+            }   
         }
-        if (isset($cols['created_dt'])) {
-            $x->created_dt = date('Y-m-d H:i:s');
-        }
-        if (isset($cols['created_by'])) {
-            $x->created_by = $this->authUser->id;
-        }
-        
-        if (isset($cols['modified'])) {
-            $x->modified = date('Y-m-d H:i:s');
-        }
-        if (isset($cols['modified_dt'])) {
-            $x->modified_dt = date('Y-m-d H:i:s');
-        }
-        if (isset($cols['modified_by'])) {
-            $x->modified_by = $this->authUser->id;
-        }
-        
-        if (isset($cols['updated'])) {
-            $x->updated = date('Y-m-d H:i:s');
-        }
-        if (isset($cols['updated_dt'])) {
-            $x->updated_dt = date('Y-m-d H:i:s');
-        }
-        if (isset($cols['updated_by'])) {
-            $x->updated_by = $this->authUser->id;
+        foreach(array(
+            'created_by',
+            'modified_by',
+            'updated_by' 
+        ) as $k) {
+            if (isset($cols[$k])) {
+               $x->{$k}=  $this->authUser->id;
+            }   
         }
         
         if (method_exists($x, 'beforeInsert')) {
@@ -994,8 +986,7 @@ class Pman_Roo extends Pman
             $x->update($old);
         }
         
-        if (method_exists($x, 'onInsert')) {
-                    
+        if (method_exists($x, 'onInsert')) {       
             $x->onInsert($_REQUEST, $this, $ev);
         }
         

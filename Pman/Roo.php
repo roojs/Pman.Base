@@ -936,14 +936,14 @@ class Pman_Roo extends Pman
          if (method_exists($x, 'setFromRoo')) {
             $res = $x->setFromRoo($req, $this);
             if (is_string($res)) {
-                $this->jerror("NOTICE-INSERT", $res);
+                $this->jnotice("INSERT", $res);
             }
         } else {
             $x->setFrom($req);
         }
 
         if ( $with_perm_check &&  !$this->checkPerm($x,'A', $req))  {
-            $this->jerr("PERMISSION DENIED {$x->tableName()}:checkPerm(A)");
+            $this->jnotice("PERM-DENY","PERMISSION DENIED {$x->tableName()}:checkPerm(A)");
         }
         $cols = $x->tableColumns();
      

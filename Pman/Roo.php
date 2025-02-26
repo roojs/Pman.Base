@@ -1091,12 +1091,7 @@ class Pman_Roo extends Pman
         // the object might want to check in their checkPerm - if locking is essential..
         $lock = $this->updateLock($x,$req);
          
-        
-        
-        
-       
          
-       
         $old = clone($x);
         $this->old = $x;
         // this lot is generic.. needs moving 
@@ -1108,34 +1103,31 @@ class Pman_Roo extends Pman
         } else {
             $x->setFrom($req);
         }
-      
-        
-        
-        //echo '<PRE>';print_r($old);print_r($x);exit;
-        //print_r($old);
         
         $cols = $x->tableColumns();
-
-        if (isset($cols['modified'])) {
-            $x->modified = date('Y-m-d H:i:s');
-        }
-        if (isset($cols['modified_dt'])) {
-            $x->modified_dt = date('Y-m-d H:i:s');
-        }
-        if (isset($cols['modified_by']) && $this->authUser) {
-            $x->modified_by = $this->authUser->id;
-        }
         
-        if (isset($cols['updated'])) {
-            $x->updated = date('Y-m-d H:i:s');
+        foreach(array(
+            'modified',
+            'modified_dt',
+            'updated',
+            'updated_dt'
+        ) as $k) {
+            if (isset($cols[$k])) {
+               $x->{$k}= date('Y-m-d H:i:s');
+            }   
         }
-        if (isset($cols['updated_dt'])) {
-            $x->updated_dt = date('Y-m-d H:i:s');
+        foreach(array(
+            
+            'modified_by',
+            'updated_by' 
+        ) as $k) {
+            if (isset($cols[$k])) {
+               $x->{$k}=  $this->authUser->id;
+            }   
         }
-        if (isset($cols['updated_by']) && $this->authUser) {
-            $x->updated_by = $this->authUser->id;
-        }
-        
+        //echo '<PRE>';print_r($old);print_r($x);exit;
+        //print_r($old);
+         
         if (method_exists($x, 'beforeUpdate')) {
             $x->beforeUpdate($old, $req, $this);
         }

@@ -887,9 +887,8 @@ class Pman_Roo extends Pman
        
         
         $this->loadMap($x, array(
-                    'columns' => $_columns,
-                     
-            ));
+                'columns' => $_columns,
+        ));
         if ($req !== false) { 
             $this->setFilters($x, $req);
         } else if (method_exists($x, 'applyFilters')) {
@@ -1090,6 +1089,16 @@ class Pman_Roo extends Pman
         // we are very trusing here.. that someone has not messed around with locks..
         // the object might want to check in their checkPerm - if locking is essential..
         $lock = $this->updateLock($x,$req);
+        
+        // thigns we never update
+        foreach(array(
+            'created',
+            'created_dt'
+        ) as $k) {
+            if (isset($req[$k])) {
+                unset($req[$k]);
+            }
+        }
          
          
         $old = clone($x);

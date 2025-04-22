@@ -297,7 +297,9 @@ class Pman_Roo extends Pman
         }
         
         if (!$fake_limit) {
- 
+            if (  in_array('Administrators', $this->authUser->groups('name'))) {
+                $this->max_limit = 100000; // lots more for admin
+            }
             $x->limit(
                 empty($_REQUEST['start']) ? 0 : (int)$_REQUEST['start'],
                 min(empty($_REQUEST['limit']) ? 25 : (int)$_REQUEST['limit'], $this->max_limit)

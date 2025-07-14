@@ -988,6 +988,12 @@ class Pman_Roo extends Pman
             $x->update($old);
         }
         
+        if (isset($cols['created_id'])) {
+            $old = clone($x);
+            $x->created_id = $ev->id;
+            $x->update($old);
+        }
+
         if (method_exists($x, 'onInsert')) {       
             $x->onInsert($_REQUEST, $this, $ev);
         }

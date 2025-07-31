@@ -99,7 +99,7 @@ class Pman extends HTML_FlexyFramework_Page
         
         return true;
     }
-    function authRequired() // return $this->AuthRequred() for 
+    function authRequired() // return $this->authRequred() for Login/Required
     {
          
         $au = $this->getAuthUser();

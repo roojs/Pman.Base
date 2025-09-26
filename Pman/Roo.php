@@ -1002,12 +1002,12 @@ class Pman_Roo extends Pman
         if (!empty($_REQUEST['FORM_UID'])) {
             $formUID = $_REQUEST['FORM_UID'];
             
-            // Initialize session array for form hashes if it doesn't exist
+            // Initialize session array for form uid if it doesn't exist
             if (!isset($_SESSION['form_uids'])) {
                 $_SESSION['form_uids'] = array();
             }
             
-            // Check if this form hash has already been processed
+            // Check if this form uid has already been processed
             if (in_array($formUID, $_SESSION['form_uids'])) {
                 $this->jerr("Duplicate form submission detected. This form has already been processed.");
             }

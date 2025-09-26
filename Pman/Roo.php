@@ -1013,11 +1013,11 @@ class Pman_Roo extends Pman
             }
             
             // Store the form hash in session to prevent future duplicates
-            $_SESSION['form_hashes'][$tab][] = $formHash;
+            $_SESSION['form_uids'][] = $formUID;
             
             // Clean up old form hashes (keep only last 100 to prevent session bloat)
-            if (count($_SESSION['form_hashes'][$tab]) > 100) {
-                $_SESSION['form_hashes'][$tab] = array_slice($_SESSION['form_hashes'][$tab], -100);
+            if (count($_SESSION['form_uids']) > 100) {
+                $_SESSION['form_uids'] = array_slice($_SESSION['form_uids'], -100);
             }
         }
         

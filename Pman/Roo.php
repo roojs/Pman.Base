@@ -700,6 +700,9 @@ class Pman_Roo extends Pman
             if (!isset($_SESSION['form_hashes'])) {
                 $_SESSION['form_hashes'] = array();
             }
+
+            var_dump($tab);
+            die('test');
             
             // Check if this form hash has already been processed
             if (in_array($formHash, $_SESSION['form_hashes'])) {

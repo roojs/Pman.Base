@@ -1024,9 +1024,6 @@ class Pman_Roo extends Pman
                 $_SESSION[get_class($this)]['form_uids'] = array_slice($_SESSION[get_class($this)]['form_uids'], -100);
             }
         }
-
-        var_dump($_SESSION);
-        die('test');
         
         if ($ev) { 
             $ev->audit($x);

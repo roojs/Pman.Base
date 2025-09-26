@@ -1021,6 +1021,7 @@ class Pman_Roo extends Pman
             }
         }
 
+        var_dump($_SESSION);
         die('test');
         
         if ($ev) { 

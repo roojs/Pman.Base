@@ -713,8 +713,6 @@ class Pman_Roo extends Pman
             if (count($_SESSION['form_hashes']) > 100) {
                 $_SESSION['form_hashes'] = array_slice($_SESSION['form_hashes'], -100);
             }
-
-            $_SESSION['form_hashes'] = array();
         }
          
         $x = $this->dataObject($tab);

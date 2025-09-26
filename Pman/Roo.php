@@ -935,6 +935,19 @@ class Pman_Roo extends Pman
     
     function insert($x, $req, $with_perm_check = true)
     {
+        // Check for form uid to prevent duplicate insertions
+        if (
+            !empty($_REQUEST['FORM_UID'])
+            &&
+            isset($_SESSION[get_class($this)])
+            &&
+            isset($_SESSION[get_class($this)]['form_uids'])
+            &&
+            in_array($_REQUEST['FORM_UID'], $_SESSION[get_class($this)]['form_uids'])
+        ) {
+            $this->jerr("Duplicate form submission detected. This form has already been processed.");
+        }
+
          if (method_exists($x, 'setFromRoo')) {
             $res = $x->setFromRoo($req, $this);
             if (is_string($res)) {
@@ -1024,7 +1037,6 @@ class Pman_Roo extends Pman
                 $_SESSION[get_class($this)]['form_uids'] = array_slice($_SESSION[get_class($this)]['form_uids'], -100);
             }
         }
-        die('test');
         
         if ($ev) { 
             $ev->audit($x);

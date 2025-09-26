@@ -1012,10 +1012,10 @@ class Pman_Roo extends Pman
                 $this->jerr("Duplicate form submission detected. This form has already been processed.");
             }
             
-            // Store the form hash in session to prevent future duplicates
+            // Store the form uid in session to prevent future duplicates
             $_SESSION['form_uids'][] = $formUID;
             
-            // Clean up old form hashes (keep only last 100 to prevent session bloat)
+            // Clean up old form uids (keep only last 100 to prevent session bloat)
             if (count($_SESSION['form_uids']) > 100) {
                 $_SESSION['form_uids'] = array_slice($_SESSION['form_uids'], -100);
             }

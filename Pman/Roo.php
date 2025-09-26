@@ -1001,24 +1001,28 @@ class Pman_Roo extends Pman
         // Check for form hash to prevent duplicate insertions
         if (!empty($_REQUEST['FORM_UID'])) {
             $formUID = $_REQUEST['FORM_UID'];
+
+            if(!isset($_SESSION[get_class($this)])) {
+                $_SESSION[get_class($this)] = array();
+            }
             
             // Initialize session array for form uid if it doesn't exist
             if (!isset($_SESSION[get_class($this)]['form_uids'])) {
-                $_SESSION['form_uids'] = array();
+                $_SESSION[get_class($this)]['form_uids'] = array();
             }
             
             // Check if this form uid has already been processed
-            if (in_array($formUID, $_SESSION['form_uids'])) {
+            if (in_array($formUID, $_SESSION[get_class($this)]['form_uids'])) {
                 $this->jerr("Duplicate form submission detected. This form has already been processed.");
-                $_SESSION['form_uids'] = array();
+                $_SESSION[get_class($this)]['form_uids'] = array();
             }
             
             // Store the form uid in session to prevent future duplicates
-            $_SESSION['form_uids'][] = $formUID;
+            $_SESSION[get_class($this)]['form_uids'][] = $formUID;
             
             // Clean up old form uids (keep only last 100 to prevent session bloat)
-            if (count($_SESSION['form_uids']) > 100) {
-                $_SESSION['form_uids'] = array_slice($_SESSION['form_uids'], -100);
+            if (count($_SESSION[get_class($this)]['form_uids']) > 100) {
+                $_SESSION[get_class($this)]['form_uids'] = array_slice($_SESSION[get_class($this)]['form_uids'], -100);
             }
         }
 

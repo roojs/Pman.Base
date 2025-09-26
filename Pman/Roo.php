@@ -691,6 +691,29 @@ class Pman_Roo extends Pman
         }
         
         $this->init(); // for pman.
+        
+        // Check for form hash to prevent duplicate submissions
+        if (!empty($_REQUEST['FORM_HASH'])) {
+            $formHash = $_REQUEST['FORM_HASH'];
+            
+            // Initialize session array for form hashes if it doesn't exist
+            if (!isset($_SESSION['form_hashes'])) {
+                $_SESSION['form_hashes'] = array();
+            }
+            
+            // Check if this form hash has already been processed
+            if (in_array($formHash, $_SESSION['form_hashes'])) {
+                $this->jerr("Duplicate form submission detected. This form has already been processed.");
+            }
+            
+            // Store the form hash in session to prevent future duplicates
+            $_SESSION['form_hashes'][] = $formHash;
+            
+            // Clean up old form hashes (keep only last 100 to prevent session bloat)
+            if (count($_SESSION['form_hashes']) > 100) {
+                $_SESSION['form_hashes'] = array_slice($_SESSION['form_hashes'], -100);
+            }
+        }
          
         $x = $this->dataObject($tab);
 

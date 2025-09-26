@@ -998,7 +998,7 @@ class Pman_Roo extends Pman
             $x->onInsert($_REQUEST, $this, $ev);
         }
 
-        // Check for form hash to prevent duplicate insertions
+        // Check for form uid to prevent duplicate insertions
         if (!empty($_REQUEST['FORM_UID'])) {
             $formUID = $_REQUEST['FORM_UID'];
 

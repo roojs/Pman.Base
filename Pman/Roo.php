@@ -945,6 +945,7 @@ class Pman_Roo extends Pman
             &&
             in_array($_REQUEST['FORM_UID'], $_SESSION[get_class($this)]['form_uids'])
         ) {
+            var_dump($_SESSION);
             $this->jerr("Duplicate form submission detected. This form has already been processed.");
         }
 

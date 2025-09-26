@@ -1019,8 +1019,6 @@ class Pman_Roo extends Pman
             if (count($_SESSION['form_uids']) > 100) {
                 $_SESSION['form_uids'] = array_slice($_SESSION['form_uids'], -100);
             }
-
-            var_dump($_SESSION);
         }
 
         die('test');

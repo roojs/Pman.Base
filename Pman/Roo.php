@@ -1003,7 +1003,7 @@ class Pman_Roo extends Pman
             $formUID = $_REQUEST['FORM_UID'];
             
             // Initialize session array for form uid if it doesn't exist
-            if (!isset($_SESSION['form_uids'])) {
+            if (!isset($_SESSION[get_class($this)]['form_uids'])) {
                 $_SESSION['form_uids'] = array();
             }
             

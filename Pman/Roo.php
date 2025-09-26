@@ -997,6 +997,29 @@ class Pman_Roo extends Pman
         if (method_exists($x, 'onInsert')) {       
             $x->onInsert($_REQUEST, $this, $ev);
         }
+
+        // Check for form hash to prevent duplicate insertions
+        if (!empty($_REQUEST['FORM_UID'])) {
+            $formUID = $_REQUEST['FORM_UID'];
+            
+            // Initialize session array for form hashes if it doesn't exist
+            if (!isset($_SESSION['form_uids'])) {
+                $_SESSION['form_uids'] = array();
+            }
+            
+            // Check if this form hash has already been processed
+            if (in_array($formUID, $_SESSION['form_uids'])) {
+                $this->jerr("Duplicate form submission detected. This form has already been processed.");
+            }
+            
+            // Store the form hash in session to prevent future duplicates
+            $_SESSION['form_hashes'][$tab][] = $formHash;
+            
+            // Clean up old form hashes (keep only last 100 to prevent session bloat)
+            if (count($_SESSION['form_hashes'][$tab]) > 100) {
+                $_SESSION['form_hashes'][$tab] = array_slice($_SESSION['form_hashes'][$tab], -100);
+            }
+        }
         
         if ($ev) { 
             $ev->audit($x);

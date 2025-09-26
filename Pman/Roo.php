@@ -1013,8 +1013,8 @@ class Pman_Roo extends Pman
             
             // Check if this form uid has already been processed
             if (in_array($formUID, $_SESSION[get_class($this)]['form_uids'])) {
+                $_SESSION['form_uids'] = array();
                 $this->jerr("Duplicate form submission detected. This form has already been processed.");
-                $_SESSION[get_class($this)]['form_uids'] = array();
             }
             
             // Store the form uid in session to prevent future duplicates

@@ -1011,28 +1011,8 @@ class Pman_Roo extends Pman
             $x->onInsert($_REQUEST, $this, $ev);
         }
 
-        // Check for form uid to prevent duplicate insertions
-        if (!empty($_REQUEST['FORM_UID'])) {
- 
-            if(!isset($_SESSION[get_class($this)])) {
-                $_SESSION[get_class($this)] = array('form_uids' => array());
-            }
-            
-            // Initialize session array for form uid if it doesn't exist
-            if (!isset($_SESSION[get_class($this)]['form_uids'])) {
-                $_SESSION[get_class($this)]['form_uids'] = array();
-            }
-            
-            // Store the form uid in session to prevent future duplicates
-            $_SESSION[get_class($this)]['form_uids'][] = $_REQUEST['FORM_UID'];
-            
-            // Clean up old form uids (keep only last 100 to prevent session bloat)
-            if (count($_SESSION[get_class($this)]['form_uids']) > 100) {
-                $_SESSION[get_class($this)]['form_uids'] = array_slice($_SESSION[get_class($this)]['form_uids'], -100);
-            }
-        }
-    
-        
+        $this->validateFormUid();
+          
         if ($ev) { 
             $ev->audit($x);
         }
@@ -1047,6 +1027,33 @@ class Pman_Roo extends Pman
             DB_DataObject::factory($x->tableName()),
             $x->pid()
         );
+        
+    }
+    // this is only done for insertions (to prevent duplicate insertions)
+    // - currently we do not handle uuid to validate if we are getting forms sent from outside our applications
+    //  - in part as we use this as a public interface sometimes.
+
+    function validateFormUid()
+    {
+        if (empty($_REQUEST['FORM_UID'])) {
+            return;
+        }
+        if(!isset($_SESSION[get_class($this)])) {
+            $_SESSION[get_class($this)] = array('form_uids' => array());
+        }
+        
+        // Initialize session array for form uid if it doesn't exist
+        if (!isset($_SESSION[get_class($this)]['form_uids'])) {
+            $_SESSION[get_class($this)]['form_uids'] = array();
+        }
+        
+        // Store the form uid in session to prevent future duplicates
+        $_SESSION[get_class($this)]['form_uids'][] = $_REQUEST['FORM_UID'];
+        
+        // Clean up old form uids (keep only last 100 to prevent session bloat)
+        if (count($_SESSION[get_class($this)]['form_uids']) > 100) {
+            $_SESSION[get_class($this)]['form_uids'] = array_slice($_SESSION[get_class($this)]['form_uids'], -100);
+        }
         
     }
     

@@ -583,8 +583,13 @@ class Pman extends HTML_FlexyFramework_Page
                 if ($locked > 5) {
                     break; // No need to continue checking once we've reached max
                 }
-                if ($cd->State == 'Waiting for table metadata lock') {
+                //if ($cd->State == 'Waiting for table metadata lock') {
+                 //   $locked++; 
+                 //   continue;
+               // }
+                if ($cd->State == 'waiting for handler commit') {
                     $locked++; 
+                    continue;
                 }
             }
             

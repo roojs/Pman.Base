@@ -570,20 +570,39 @@ class Pman extends HTML_FlexyFramework_Page
      * if we are doing another batch process that can be avoided - we should just stop for a while..
      */
     
-     function database_is_locked()
+    function database_is_locked()
     {
-        $cd = DB_DataObject::Factory('core_enum');
-        $cd->query("show processlist");
-         $locked = 0;
-        while ($cd->fetch()) {
-            if ($cd->State == 'Waiting for table metadata lock') {
-                $locked++;
+        // 5 goes to see if it's less that 5 locks
+        $retry_count = 0;
+        
+        while ($retry_count < 5) {
+            $cd = DB_DataObject::Factory('core_enum');
+            $cd->query("show processlist");
+            $locked = 0;
+            while ($cd->fetch()) {
+                if ($locked > 5) {
+                    break; // No need to continue checking once we've reached max
+                }
+                if ($cd->State == 'Waiting for table metadata lock') {
+                    $locked++; 
+                }
             }
-            if ($locked>  10) {
-                return true;
+            
+            // If locked count is 3 or less, database is not locked
+            if ($locked <= 5) {
+                return false;
+            }
+            
+            // Database is locked (more than 3 locks found)
+            $retry_count++;
+            if ($retry_count < 5) {
+                // Wait 1 second before retrying
+                sleep(1);
             }
         }
-        return false;
+        
+        // Should not reach here, but return true as fallback
+        return true;
     }
     
     

@@ -295,7 +295,7 @@ class Pman_Roo extends Pman
             //     return true;
             // });
             // $xx->_join = implode("\n", $xx->_join_parts);
-            $xx->autoJoin(array('exclude_count' => explode(',', $_REQUEST['_count_join_exclude']));
+            $xx->autoJoin(array('exclude_count' => explode(',', $_REQUEST['_count_join_exclude'])));
             $xx->_join .= isset($xx->_join_count) ? $xx->_join_count : '';
         }
 

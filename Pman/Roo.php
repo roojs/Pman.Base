@@ -281,9 +281,7 @@ class Pman_Roo extends Pman
 
         
         
-        if(!empty($_REQUEST['_count_join_exclude']) && implode('', $xx->_join_parts) == $xx->_join) {
-            $excludeTables = explode(',', $_REQUEST['_count_join_exclude']);
-            // $xx->_join_count (Extra join requried in count query)
+        if(!empty($_REQUEST['_count_join_exclude'])) {
             $xx->_join = '';
             // $xx->_join_parts = array_filter($xx->_join_parts, function($join) use ($excludeTables) {
             //     foreach($excludeTables as $excludeTable) {

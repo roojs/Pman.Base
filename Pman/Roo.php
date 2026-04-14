@@ -283,7 +283,7 @@ class Pman_Roo extends Pman
         
         if(!empty($_REQUEST['_count_join_excludee'])) {
             $xx->_join = '';
-            $xx->autoJoin(array('exclude_join' => explode(',', $_REQUEST['_count_join_exclude'])));
+            $xx->autoJoin(array('exclude' => explode(',', $_REQUEST['_count_join_exclude'])));
             // add extra join required in the count query if any
             $xx->_join .= isset($xx->_count_extra_join) ? $xx->_count_extra_join : '';
         }

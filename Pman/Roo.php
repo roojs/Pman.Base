@@ -278,6 +278,23 @@ class Pman_Roo extends Pman
             $xx=clone($x);
             
         }
+        
+        if(!empty($_REQUEST['_count_join_exclude']) && implode('', $xx->_join_parts) == $xx->_join) {
+            $excludeTables = explode(',', $_REQUEST['_count_join_exclude']);
+            $xx->_join = '';
+            $xx->_join_parts = array_filter($xx->_join_parts, function($join) use ($excludeTables) {
+                foreach($excludeTables as $excludeTable) {
+                    // ignore joins with the exclude table
+                    if(strpos($join, $excludeTable) !== false) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+            $xx->_join = implode("\n", $xx->_join_parts);
+        }
+
+        
         $total = false;
         if (!isset($_REQUEST['_no_count'])) {
             $total = $xx->count($this->countWhat);
@@ -1587,7 +1604,6 @@ class Pman_Roo extends Pman
                     
                     // subjoined columns = check the values.
                     // note this is not typesafe for anything other than mysql..
-                    
                     if (isset($this->colsJname[$key])) {
                         
                         // the aobve rule for !strlen non-joined cols should apply to joined ones.

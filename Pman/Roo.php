@@ -287,6 +287,8 @@ class Pman_Roo extends Pman
             // add extra join required in the count query if any
             $xx->_join .= isset($xx->_count_extra_join) ? $xx->_count_extra_join : '';
         }
+        var_dump($xx->_join);
+        die('test');
 
         
         $total = false;

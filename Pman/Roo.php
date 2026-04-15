@@ -278,7 +278,7 @@ class Pman_Roo extends Pman
             $xx=clone($x);
             
         }
-        
+
         if(!empty($_REQUEST['_count_join_exclude'])) {
             $xx->_join = '';
             $xx->autoJoin(array('exclude' => array_map(function($tab) { 
@@ -322,6 +322,7 @@ class Pman_Roo extends Pman
         
         $this->sessionState(0);
         $res = $x->find();
+        die('test');
         $this->sessionState(1);
                 
         if (false === $res) {

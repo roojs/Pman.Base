@@ -279,6 +279,7 @@ class Pman_Roo extends Pman
             
         }
 
+        var_dump($x->_join);
         if(!empty($_REQUEST['_count_join_exclude'])) {
             $xx->_join = '';
             $xx->autoJoin(array('exclude' => array_map(function($tab) { 
@@ -287,7 +288,6 @@ class Pman_Roo extends Pman
             // add extra join required in the count query if any
             $xx->_join .= isset($xx->_count_extra_join) ? $xx->_count_extra_join : '';
         }
-        var_dump($x->_join);
         var_dump($xx->_join);
         die('test');
 

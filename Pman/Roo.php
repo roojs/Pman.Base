@@ -300,8 +300,6 @@ class Pman_Roo extends Pman
       //   
         // var_dump($total);exit;
         $this->applySort($x);
-        var_dump($x->_join);
-        die('test');
         
         $fake_limit = false;
         

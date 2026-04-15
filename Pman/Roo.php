@@ -321,6 +321,8 @@ class Pman_Roo extends Pman
         //DB_DataObject::debuglevel(1);
         
         $this->sessionState(0);
+        var_dump($x->whereAdd());
+        die('test');
         $res = $x->find();
         $this->sessionState(1);
                 

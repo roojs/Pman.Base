@@ -280,6 +280,7 @@ class Pman_Roo extends Pman
         }
 
         var_dump($x->_join);
+        die('a');
         if(!empty($_REQUEST['_count_join_exclude'])) {
             $xx->_join = '';
             $xx->autoJoin(array('exclude' => array_map(function($tab) { 

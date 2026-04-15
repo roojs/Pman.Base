@@ -322,8 +322,6 @@ class Pman_Roo extends Pman
         
         $this->sessionState(0);
         $res = $x->find();
-        var_dump($x);
-        die('test');
         $this->sessionState(1);
                 
         if (false === $res) {

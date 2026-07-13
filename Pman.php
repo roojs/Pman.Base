@@ -709,7 +709,12 @@ class Pman extends HTML_FlexyFramework_Page
         
         $smod = str_replace('/','.',$mod);
         
-        $output = date('Y-m-d-H-i-s-', $maxtime). $smod .'-'.md5(serialize($arfiles)) .'.js';
+        $output = date('Y-m-d-H-i-s-', $maxtime). $smod .'-'.md5(serialize(
+            is_file(realpath($dir) . '/.git/refs/heads/master') ? 
+                array_merge($arfiles, array(
+                    '.git' => file_get_contents(realpath($dir) . '/.git/refs/heads/master'))
+                ) : $arfiles
+        )) .'.js';
         
         
         // why are translations done like this - we just build them on the fly frmo the database..

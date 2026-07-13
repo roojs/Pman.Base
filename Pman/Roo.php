@@ -63,6 +63,8 @@ class Pman_Roo extends Pman
     
     var $do = false; // the dataobject being worked on..
     
+    var $results; // BC: legacy PDF/SVG reports set this on the page object
+    
     
     var $countWhat; // set in loadMap
     var $colsJname;
